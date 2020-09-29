@@ -1,0 +1,71 @@
+name: Release
+on:
+  push:
+    tags:
+      - "v*"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Checkout Branch
+        run: git checkout ${{ github.ref }}
+      - name: Configure CI Git User
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email ithub-actions[bot]@users.noreply.github.com
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: "12"
+          registry-url: "https://registry.npmjs.org"
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node
+      - name: install
+        run: npm run bootstrap
+      - name: build and test
+        run: |
+          npm run build
+          npm run test
+        env:
+          CI: true
+      - name: Git Status
+        run: git status
+      - name: Publish Packages
+        run: |
+          npm run lerna:publish -- --yes
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          text: Released Packages
+          author_name:
+          fields: repo,message,author,ref,job,took # selectable (default: repo,message)
+        env:
+          GITHUB_TOKEN: ${{ github.token }} # optional
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_RELEASE_WEBHOOK }} # required
+        if: always() # Pick up events even if the job fails or is canceled.
+      - name: Trigger actionsflow-action Update
+        uses: actionsflow/axios@v1
+        with:
+          url: https://theowenyoung:${{secrets.REPO_TOKEN}}@api.github.com/repos/actionsflow/actionsflow-action/dispatches
+          method: POST
+          data: |
+            {
+              "event_type": "new_version_with_actionsflow"
+            }
+      - name: Trigger actionsflow-workflow-default Update
+        uses: actionsflow/axios@v1
+        with:
+          url: https://theowenyoung:${{secrets.REPO_TOKEN}}@api.github.com/repos/actionsflow/actionsflow-workflow-default/dispatches
+          method: POST
+          data: |
+            {
+              "event_type": "new_version_with_actionsflow"
+            }

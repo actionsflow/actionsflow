@@ -1,0 +1,28 @@
+name: A really complex example
+on:
+  poll:
+    url: https://jsonplaceholder.typicode.com/posts
+    config:
+      every: 0
+      limit: 2
+      filter:
+        userId:
+          $eq: 5
+      filterOutputs:
+        title: 1
+      format: |
+        item.title = item.title.substring(0,5)
+        return item;
+      skip: 1
+      sort:
+        id: -1
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          title: ${{ on.poll.outputs.title }}
+        run: |
+          echo "title: $title"

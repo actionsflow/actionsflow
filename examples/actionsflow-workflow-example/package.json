@@ -1,0 +1,32 @@
+{
+  "name": "actionsflow-workflow-example",
+  "private": true,
+  "description": "A simple workflow to get up and build quickly with Actionsflow",
+  "version": "1.0.0-alpha.0",
+  "author": "Owen Young <theowenyoung@gmail.com>",
+  "dependencies": {
+    "actionsflow": "^1.0.0-alpha.0"
+  },
+  "keywords": [
+    "actionsflow",
+    "workflow"
+  ],
+  "license": "0BSD",
+  "scripts": {
+    "build": "actionsflow build",
+    "start": "npm run build",
+    "clean": "rimraf ./dist ./.cache",
+    "act": "act -W ./dist/workflows --secret-file ./dist/.secrets -e ./dist/event.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/actionsflow/actionsflow"
+  },
+  "bugs": {
+    "url": "https://github.com/actionsflow/actionsflow/issues"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2"
+  }
+}

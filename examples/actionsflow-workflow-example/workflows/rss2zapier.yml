@@ -1,0 +1,13 @@
+on:
+  rss:
+    url: https://hnrss.org/newest?points=300
+jobs:
+  ifttt:
+    name: Make a Request to Zapier
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actionsflow/axios@v1
+        with:
+          url: https://hooks.zapier.com/hooks/catch/xxx
+          method: POST
+          body: '{ "name": "breeze",  "title": "${{on.rss.outputs.title}}" }'

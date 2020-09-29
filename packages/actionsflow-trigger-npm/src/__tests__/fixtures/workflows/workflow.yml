@@ -1,0 +1,13 @@
+on:
+  npm:
+    name: actionsflow
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          json: ${{toJSON(on.npm.outputs)}}
+        run: |
+          echo json: $json

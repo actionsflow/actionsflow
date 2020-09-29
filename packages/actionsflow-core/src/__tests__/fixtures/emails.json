@@ -1,0 +1,119 @@
+[
+  {
+    "attachments": [],
+    "text": "Hi, are you ok?\n",
+    "textAsHtml": "<p>Hi, are you ok?</p>",
+    "subject": "[hash] Subject Test",
+    "date": "2020-09-15T21:14:26.000Z",
+    "to": {
+      "value": [
+        {
+          "address": "theowenyoung@outlook.com",
+          "name": ""
+        }
+      ],
+      "html": "<span class=\"mp_address_group\"><a href=\"mailto:theowenyoung@outlook.com\" class=\"mp_address_email\">theowenyoung@outlook.com</a></span>",
+      "text": "theowenyoung@outlook.com"
+    },
+    "from": {
+      "value": [
+        {
+          "address": "test2@gmail.com",
+          "name": "Owen Young"
+        }
+      ],
+      "html": "<span class=\"mp_address_group\"><span class=\"mp_address_name\">Owen Young</span> &lt;<a href=\"mailto:theowenyoung@gmail.com\" class=\"mp_address_email\">theowenyoung@gmail.com</a>&gt;</span>",
+      "text": "Owen Young <theowenyoung@gmail.com>"
+    },
+    "cc": {
+      "value": [
+        {
+          "address": "test@owenyoung.com",
+          "name": ""
+        }
+      ],
+      "html": "<span class=\"mp_address_group\"><a href=\"mailto:test@owenyoung.com\" class=\"mp_address_email\">test@owenyoung.com</a></span>",
+      "text": "test@owenyoung.com"
+    },
+    "messageId": "<727BFDA4-90C0-4A79-93AB-408B38A85C4F@gmail.com>",
+    "html": false
+  },
+  {
+    "attachments": [],
+    "text": "Hi, are you ok?\n",
+    "textAsHtml": "<p>Hi, are you ok?</p>",
+    "subject": "[hash2] Subject Test",
+    "date": "2020-09-15T21:14:26.000Z",
+    "to": {
+      "value": [
+        {
+          "address": "theowenyoung@outlook.com",
+          "name": ""
+        }
+      ],
+      "html": "<span class=\"mp_address_group\"><a href=\"mailto:theowenyoung@outlook.com\" class=\"mp_address_email\">theowenyoung@outlook.com</a></span>",
+      "text": "theowenyoung@outlook.com"
+    },
+    "from": {
+      "value": [
+        {
+          "address": "test3@gmail.com",
+          "name": "Owen Young"
+        }
+      ],
+      "html": "<span class=\"mp_address_group\"><span class=\"mp_address_name\">Owen Young</span> &lt;<a href=\"mailto:theowenyoung@gmail.com\" class=\"mp_address_email\">theowenyoung@gmail.com</a>&gt;</span>",
+      "text": "Owen Young <theowenyoung@gmail.com>"
+    },
+    "cc": {
+      "value": [
+        {
+          "address": "test@owenyoung.com",
+          "name": ""
+        }
+      ],
+      "html": "<span class=\"mp_address_group\"><a href=\"mailto:test@owenyoung.com\" class=\"mp_address_email\">test@owenyoung.com</a></span>",
+      "text": "test@owenyoung.com"
+    },
+    "messageId": "<827BFDA4-90C0-4A79-93AB-408B38A85C4F@gmail.com>",
+    "html": false
+  },
+  {
+    "attachments": [],
+    "text": "Hi, are you ok?\n",
+    "textAsHtml": "<p>Hi, are you ok?</p>",
+    "subject": "[hash3] Subject Test",
+    "date": "2020-09-15T21:14:26.000Z",
+    "to": {
+      "value": [
+        {
+          "address": "theowenyoung@outlook.com",
+          "name": ""
+        }
+      ],
+      "html": "<span class=\"mp_address_group\"><a href=\"mailto:theowenyoung@outlook.com\" class=\"mp_address_email\">theowenyoung@outlook.com</a></span>",
+      "text": "theowenyoung@outlook.com"
+    },
+    "from": {
+      "value": [
+        {
+          "address": "test3@gmail.com",
+          "name": "Owen Young"
+        }
+      ],
+      "html": "<span class=\"mp_address_group\"><span class=\"mp_address_name\">Owen Young</span> &lt;<a href=\"mailto:theowenyoung@gmail.com\" class=\"mp_address_email\">theowenyoung@gmail.com</a>&gt;</span>",
+      "text": "Owen Young <theowenyoung@gmail.com>"
+    },
+    "cc": {
+      "value": [
+        {
+          "address": "test@owenyoung.com",
+          "name": ""
+        }
+      ],
+      "html": "<span class=\"mp_address_group\"><a href=\"mailto:test@owenyoung.com\" class=\"mp_address_email\">test@owenyoung.com</a></span>",
+      "text": "test@owenyoung.com"
+    },
+    "messageId": "<627BFDA4-90C0-4A79-93AB-408B38A85C4F@gmail.com>",
+    "html": false
+  }
+]

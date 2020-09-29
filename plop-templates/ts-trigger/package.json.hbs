@@ -1,0 +1,38 @@
+{
+  "name": "@actionsflow/trigger-{{snakeCase name}}",
+  "version": "0.1.0",
+  "description": "Actionsflow trigger {{name}}",
+  "keywords": [
+    "{{name}}",
+    "actionsflow",
+    "trigger"
+  ],
+  "author": "{{author}}",
+  "homepage": "https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-{{snakeCase name}}#readme",
+  "license": "MIT",
+  "main": "dist/src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/actionsflow/actionsflow.git",
+    "directory": "packages/actionsflow-trigger-{{snakeCase name}}"
+  },
+  "scripts": {
+    "start": "tsc -w -p tsconfig.production.json",
+    "build": "tsc -p tsconfig.production.json",
+    "clean": "rimraf ./dist",
+    "prepublishOnly": "npm run build"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/actionsflow/actionsflow/issues"
+  },
+  "dependencies": {
+    "actionsflow-core": "^0.1.39",
+    "tslib": "^2.0.1"
+  },
+  "devDependencies": {
+    "axios": "^0.20.0"
+  }
+}

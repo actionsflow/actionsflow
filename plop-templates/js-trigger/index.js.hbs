@@ -1,0 +1,16 @@
+module.exports = class {{pascalCase name}} {
+  constructor() {
+    this.webhooks = [
+      {
+        method: "post",
+        handler: (request) => {
+          let items = [];
+          if (request.body) {
+            items.push(request.body);
+          }
+          return items;
+        },
+      },
+    ];
+  }
+};

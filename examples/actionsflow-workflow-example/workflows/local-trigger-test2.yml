@@ -1,0 +1,12 @@
+on:
+  local_trigger_test2:
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          title: ${{ on.poll.outputs.title }}
+        run: |
+          echo "title: $title"

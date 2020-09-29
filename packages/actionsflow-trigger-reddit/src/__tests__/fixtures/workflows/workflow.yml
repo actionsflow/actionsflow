@@ -1,0 +1,11 @@
+on:
+  reddit:
+    url: https://reddit.com/r/news/
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        run: |
+          echo hello

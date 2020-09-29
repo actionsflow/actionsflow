@@ -1,0 +1,38 @@
+{
+  "name": "@actionsflow/trigger-npm",
+  "version": "1.0.0-alpha.0",
+  "description": "Actionsflow trigger npm",
+  "keywords": [
+    "npm",
+    "actionsflow",
+    "trigger"
+  ],
+  "author": "Owen Young &lt;theowenyoung@gmail.com&gt;",
+  "homepage": "https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-npm#readme",
+  "license": "MIT",
+  "main": "dist/src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/actionsflow/actionsflow.git",
+    "directory": "packages/actionsflow-trigger-npm"
+  },
+  "scripts": {
+    "start": "tsc -w -p tsconfig.production.json",
+    "build": "tsc -p tsconfig.production.json",
+    "clean": "rimraf ./dist",
+    "prepublishOnly": "npm run build"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/actionsflow/actionsflow/issues"
+  },
+  "dependencies": {
+    "actionsflow-core": "^1.0.0-alpha.0",
+    "tslib": "^2.0.1"
+  },
+  "devDependencies": {
+    "axios": "^0.20.0"
+  }
+}

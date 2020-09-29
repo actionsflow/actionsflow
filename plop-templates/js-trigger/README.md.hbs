@@ -1,0 +1,43 @@
+# `@actionsflow/trigger-{{snakeCase name}}`
+
+This is a [{{snakeCase name}}](https://{{snakeCase name}}.com/) trigger of [Actionsflow](https://github.com/actionsflow/actionsflow). Any new action in {{titleCase name}} will trigger the trigger.
+
+> This is an official trigger, you don't need to install it manually.
+
+[View trigger on Github](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-{{snakeCase name}})
+
+## Usage
+
+```yaml
+on:
+  {{snakeCase name}}:
+```
+
+## Options
+
+There is nothing can be specified. You can use [General Config for Actionsflow Trigger](https://actionsflow.github.io/docs/workflow/#ontriggerconfig) for more customization.
+
+## Outputs
+
+An outputs example:
+
+```json
+
+```
+
+You can use the outputs like this:
+
+```yaml
+on:
+  {{snakeCase name}}:
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          outputs: $\{{ toJSON(on.{{snakeCase name}}.outputs) }}
+        run: |
+          echo outputs: $outputs
+```

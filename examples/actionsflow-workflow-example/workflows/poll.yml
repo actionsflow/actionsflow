@@ -1,0 +1,17 @@
+on:
+  poll:
+    url: https://jsonplaceholder.typicode.com/posts
+    config:
+      limit: 5
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          title: ${{ on.poll.outputs.title }}
+          body: ${{ on.poll.outputs.body }}
+        run: |
+          echo "title: $title"
+          echo "body: $body"

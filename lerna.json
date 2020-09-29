@@ -1,0 +1,24 @@
+{
+  "packages": ["packages/*", "examples/actionsflow-workflow-example"],
+  "version": "independent",
+  "command": {
+    "create": {
+      "license": "MIT"
+    },
+    "publish": {
+      "allowBranch": ["main", "v*"],
+      "bump": "patch",
+      "conventionalCommits": true,
+      "message": "chore(release): 🤖 publish"
+    }
+  },
+  "npmClient": "npm",
+  "registry": "https://registry.npmjs.org/",
+  "ignoreChanges": [
+    "CHANGELOG.md",
+    "*.md",
+    "**/__tests__/**",
+    "**/__mocks__/**",
+    "**/__testfixtures__/**"
+  ]
+}

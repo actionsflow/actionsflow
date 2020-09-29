@@ -1,0 +1,12 @@
+on:
+  trello:
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          outputs: ${{ toJSON(on.trello.outputs)}}
+        run: |
+          echo outputs: $outputs

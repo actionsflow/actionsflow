@@ -1,0 +1,19 @@
+{
+  "exclude": ["__tests__"],
+  "compilerOptions": {
+    "module": "commonjs",
+    "lib": ["es2018", "dom"],
+    "importHelpers": true,
+    "declaration": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2018",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true
+  }
+}

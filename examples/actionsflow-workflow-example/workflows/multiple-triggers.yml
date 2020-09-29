@@ -1,0 +1,30 @@
+on:
+  poll:
+    url: https://jsonplaceholder.typicode.com/posts
+    config:
+      limit: 5
+  rss:
+    url: https://hnrss.org/newest?points=300
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs For Poll
+        if: on.poll.outcome === 'success'
+        env:
+          title: ${{ on.poll.outputs.title }}
+          body: ${{ on.poll.outputs.body }}
+        run: |
+          echo "title: $title"
+          echo "body: $body"
+      - name: Print Outputs For Rss
+        if: on.rss.outcome === 'success'
+        env:
+          title: ${{on.rss.outputs.title}}
+          contentSnippet: ${{on.rss.outputs.contentSnippet}}
+          link: ${{on.rss.outputs.link}}
+        run: |
+          echo title: $title
+          echo contentSnippet: $contentSnippet
+          echo link: $link

@@ -1,0 +1,13 @@
+on:
+  aws_sns:
+    token: 123456
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          id: ${{on.aws_sns.outputs.MessageId}}
+        run: |
+          echo id: $id

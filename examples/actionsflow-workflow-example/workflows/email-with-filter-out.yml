@@ -1,0 +1,19 @@
+on:
+  email:
+    imap:
+      host: outlook.office365.com
+      user: ${{secrets.EMAIL_USER}}
+      password: ${{secrets.EMAIL_PASSWORD}}
+    config:
+      filterOutputs:
+        subject: 1
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          subject: ${{(on.email.outputs.subject)}}
+        run: |
+          echo subject: $subject

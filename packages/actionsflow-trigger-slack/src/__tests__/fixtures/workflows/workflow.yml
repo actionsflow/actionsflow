@@ -1,0 +1,13 @@
+on:
+  slack:
+    token: 123456
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          id: ${{on.slack.outputs.id}}
+        run: |
+          echo id: $id

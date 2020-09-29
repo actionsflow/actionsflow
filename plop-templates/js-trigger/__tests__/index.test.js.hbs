@@ -1,0 +1,38 @@
+const path = require("path");
+const {{pascalCase name}} = require("../index");
+const {
+  getTriggerHelpers,
+  getContext,
+  getWorkflow,
+  formatRequest,
+} = require("actionsflow-core");
+
+test("{{snakeCase name}} with webhook", async () => {
+  const {{snakeCase name}} = new {{pascalCase name}}({
+    options: {},
+    helpers: getTriggerHelpers({
+      name: "{{snakeCase name}}",
+      workflowRelativePath: "workflow.yml",
+    }),
+    workflow: await getWorkflow({
+      path: path.resolve(__dirname, "fixtures/workflows/workflow.yml"),
+      cwd: path.resolve(__dirname, "fixtures"),
+      context: getContext(),
+    }),
+  });
+
+  const requestPayload = formatRequest({
+    path: "/",
+    body: {
+    },
+    method: "POST",
+    headers: {},
+  });
+  const request = {
+    ...requestPayload,
+    params: {},
+  };
+  const triggerResults = {{snakeCase name}}.webhooks[0].handler.bind({{snakeCase name}})(request);
+  expect(triggerResults.length).toBe(1);
+  expect(triggerResults[0].action.type).toBe("createCard");
+});

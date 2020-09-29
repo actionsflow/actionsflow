@@ -1,0 +1,17 @@
+**/dist/**
+**/__tests__/fixtures/
+*.min.js
+**/node_modules/**
+# cache-dirs
+**/.cache
+
+# fixtures
+**/__tests__/fixtures/**
+
+# coverage
+coverage
+
+.yarn
+package-lock.json
+*.hbs
+CHANGELOG.md

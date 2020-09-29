@@ -1,0 +1,78 @@
+{
+  "version": "1.0.0-alpha.0",
+  "license": "MIT",
+  "main": "dist/src/index.js",
+  "typings": "dist/src/index.d.ts",
+  "engines": {
+    "node": ">=10.4"
+  },
+  "bin": {
+    "actionsflow": "./cli.js"
+  },
+  "scripts": {
+    "start": "tsc -w -p tsconfig.production.json",
+    "build": "tsc -p tsconfig.production.json",
+    "clean": "rimraf ./dist",
+    "prepublishOnly": "npm run build"
+  },
+  "name": "actionsflow",
+  "description": "The best Zapier/IFTTT free alternative for developers to automate your workflows based on Github actions",
+  "keywords": [
+    "workflow",
+    "github",
+    "actions",
+    "trigger",
+    "automate",
+    "zapier"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/actionsflow/actionsflow",
+    "directory": "packages/actionsflow"
+  },
+  "bugs": {
+    "url": "https://github.com/actionsflow/actionsflow/issues"
+  },
+  "homepage": "https://actionsflow.github.io",
+  "author": "Owen Young",
+  "dependencies": {
+    "@actions/github": "^4.0.0",
+    "@actionsflow/trigger-aws_sns": "^1.0.0-alpha.0",
+    "@actionsflow/trigger-google_form": "^1.0.0-alpha.0",
+    "@actionsflow/trigger-npm": "^1.0.0-alpha.0",
+    "@actionsflow/trigger-reddit": "^1.0.0-alpha.0",
+    "@actionsflow/trigger-slack": "^1.0.0-alpha.0",
+    "@actionsflow/trigger-telegram_bot": "^1.0.0-alpha.0",
+    "@actionsflow/trigger-trello": "^1.0.0-alpha.0",
+    "@actionsflow/trigger-twitter": "^1.0.0-alpha.0",
+    "@actionsflow/trigger-typeform": "^1.0.0-alpha.0",
+    "@babel/polyfill": "^7.11.5",
+    "@octokit/core": "^3.1.2",
+    "@types/fs-extra": "^9.0.1",
+    "@types/imap-simple": "^4.2.3",
+    "@types/js-yaml": "^3.12.5",
+    "@types/lodash.clonedeep": "^4.5.6",
+    "@types/lodash.get": "^4.4.6",
+    "@types/mailparser": "^2.7.3",
+    "@types/semver": "^7.3.4",
+    "@types/update-notifier": "^4.1.1",
+    "@types/xml2js": "^0.4.5",
+    "actionsflow-core": "^1.0.0-alpha.0",
+    "del": "^5.1.0",
+    "dotenv": "^8.2.0",
+    "fs-extra": "^9.0.1",
+    "imap-simple": "^5.0.0",
+    "js-yaml": "^3.14.0",
+    "lodash": "^4.17.20",
+    "lodash.clonedeep": "^4.5.0",
+    "lodash.get": "^4.4.2",
+    "loglevel": "^1.6.8",
+    "mailparser": "^3.0.0",
+    "package-json": "^6.5.0",
+    "resolve-cwd": "^3.0.0",
+    "semver": "^7.3.2",
+    "update-notifier": "^4.1.0",
+    "yargs": "^15.4.1"
+  },
+  "gitHead": "5354ce92742b20e721fb899516bf376702872ed2"
+}

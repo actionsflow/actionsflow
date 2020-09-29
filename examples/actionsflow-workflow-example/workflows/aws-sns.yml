@@ -1,0 +1,12 @@
+on:
+  aws_sns:
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          Message: ${{ on.aws_sns.outputs.Message }}
+        run: |
+          echo Message: $Message

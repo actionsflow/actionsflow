@@ -1,0 +1,15 @@
+on:
+  telegram_bot:
+    token: ${{ secrets.TELEGRAM_BOT_TOKEN2 }}
+    config:
+      skipOnError: true
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          telegram_outputs: ${{ toJson(on.telegram_bot.outputs) }}
+        run: |
+          echo telegram: $telegram_outputs

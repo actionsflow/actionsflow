@@ -1,0 +1,16 @@
+name: Test Action
+on:
+  workflow_dispatch:
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Checkout Branch
+        run: git checkout main
+      - name: Configure CI Git User
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email ithub-actions[bot]@users.noreply.github.com

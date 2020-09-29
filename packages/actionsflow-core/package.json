@@ -1,0 +1,66 @@
+{
+  "version": "1.0.0-alpha.0",
+  "license": "MIT",
+  "main": "dist/src/index.js",
+  "typings": "dist/src/index.d.ts",
+  "engines": {
+    "node": ">=10.4"
+  },
+  "scripts": {
+    "start": "tsc -w -p tsconfig.production.json",
+    "build": "tsc -p tsconfig.production.json",
+    "clean": "rimraf ./dist",
+    "prepublishOnly": "npm run build"
+  },
+  "name": "actionsflow-core",
+  "description": "Actionsflow core lib",
+  "keywords": [
+    "workflow",
+    "github",
+    "actions",
+    "trigger",
+    "automate",
+    "zapier"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/actionsflow/actionsflow.git",
+    "directory": "packages/actionsflow-core"
+  },
+  "bugs": {
+    "url": "https://github.com/actionsflow/actionsflow/issues"
+  },
+  "homepage": "https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-core#readme",
+  "author": "Owen Young",
+  "dependencies": {
+    "@types/cache-manager": "^2.10.3",
+    "@types/fs-extra": "^9.0.1",
+    "@types/js-yaml": "^3.12.5",
+    "@types/lodash.has": "^4.5.6",
+    "@types/mime-types": "^2.1.0",
+    "@types/type-is": "^1.6.3",
+    "@types/xml2js": "^0.4.5",
+    "axios": "^0.20.0",
+    "cache-manager": "^3.3.0",
+    "cache-manager-fs-hash": "^0.0.9",
+    "chalk": "^4.1.0",
+    "fast-glob": "^3.2.4",
+    "file-type": "^15.0.1",
+    "fs-extra": "^9.0.1",
+    "js-yaml": "^3.14.0",
+    "lodash.has": "^4.5.2",
+    "loglevel": "^1.6.8",
+    "loglevel-plugin-prefix": "^0.8.4",
+    "map-obj": "^4.1.0",
+    "mime-types": "^2.1.27",
+    "mingo": "^3.0.6",
+    "multimatch": "^4.0.0",
+    "node-object-hash": "^2.0.0",
+    "path-to-regexp": "^6.1.0",
+    "resolve-cwd": "^3.0.0",
+    "rss-parser": "^3.9.0",
+    "string.prototype.matchall": "^4.0.2",
+    "tslib": "^2.0.1",
+    "type-is": "^1.6.18"
+  }
+}

@@ -1,0 +1,12 @@
+on:
+  google_form:
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          answer: ${{ toJSON(on.google_form.outputs.answers_map) }}
+        run: |
+          echo answer: $answer

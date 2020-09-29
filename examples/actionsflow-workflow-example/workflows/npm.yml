@@ -1,0 +1,13 @@
+on:
+  npm:
+    name: actionsflow
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          version: ${{ on.npm.outputs.version) }}
+        run: |
+          echo version: $version

@@ -1,0 +1,13 @@
+on:
+  webhook:
+jobs:
+  ifttt:
+    name: Make a Request to IFTTT
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actionsflow/ifttt-webhook-action@v1
+        with:
+          event: notice
+          key: ${{ secrets.IFTTT_KEY }}
+          value1: ${{toJson(on.webhook.outputs)}}
+          value2: ${{on.webhook.outputs.payload.key}}

@@ -1,0 +1,16 @@
+on:
+  webhook:
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          method: ${{ on.webhook.outputs.method }}
+          body: ${{ toJson(on.webhook.outputs.body) }}
+          headers: ${{ toJson(on.webhook.outputs.headers) }}
+        run: |
+          echo method: $method
+          echo headers $headers
+          echo body: $body

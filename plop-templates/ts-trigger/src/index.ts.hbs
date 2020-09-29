@@ -1,0 +1,24 @@
+import {
+  ITriggerClassType,
+  ITriggerContructorParams,
+  IHelpers,
+  AnyObject,
+  ITriggerOptions,
+} from "actionsflow-core";
+
+export default class {{pascalCase name}} implements ITriggerClassType {
+  options: ITriggerOptions = {};
+  helpers: IHelpers;
+  getItemKey(item: AnyObject): string {
+    if (item.id) return item.id as string;
+    return this.helpers.createContentDigest(item);
+  }
+  constructor({ helpers, options }: ITriggerContructorParams) {
+    this.options = options;
+    this.helpers = helpers;
+  }
+  async run(): Promise<AnyObject[]> {
+    const items: AnyObject[] = [];
+    return items;
+  }
+}

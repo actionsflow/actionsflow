@@ -1,0 +1,12 @@
+on:
+  slack:
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          slack_outputs: ${{ toJson(on.slack.outputs) }}
+        run: |
+          echo slack: $slack_outputs

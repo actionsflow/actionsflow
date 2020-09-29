@@ -1,0 +1,29 @@
+name: "Docs Site Build"
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dorny/paths-filter@v2.2.1
+        id: filter
+        with:
+          # inline YAML or path to separate file (e.g.: .github/filters.yaml)
+          filters: |
+            docs:
+              - '**/*.md'
+      # run only if 'docs' files were changed
+      - name: trigger docs site build
+        if: steps.filter.outputs.docs == 'true'
+        uses: actionsflow/axios@v1
+        with:
+          url: https://theowenyoung:${{secrets.REPO_TOKEN}}@api.github.com/repos/actionsflow/docs/dispatches
+          method: POST
+          data: |
+            {
+              "event_type": "redeploy"
+            }

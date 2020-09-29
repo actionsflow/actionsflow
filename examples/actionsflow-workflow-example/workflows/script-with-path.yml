@@ -1,0 +1,13 @@
+on:
+  script:
+    path: ./workflows/script.js
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          title: ${{on.script.outputs.title}}
+        run: |
+          echo title: $title

@@ -1,0 +1,29 @@
+{
+  "name": "@actionsflow/trigger-google_form",
+  "version": "1.0.0-alpha.0",
+  "description": "Actionsflow trigger google_form",
+  "keywords": [
+    "google_form",
+    "actionsflow",
+    "trigger"
+  ],
+  "author": "Owen Young <theowenyoung@gmail.com>",
+  "homepage": "https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-google_form#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/actionsflow/actionsflow.git",
+    "directory": "packages/actionsflow-trigger-google_form"
+  },
+  "scripts": {},
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/actionsflow/actionsflow/issues"
+  },
+  "devDependencies": {
+    "actionsflow-core": "^1.0.0-alpha.0"
+  }
+}
