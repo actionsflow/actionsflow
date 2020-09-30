@@ -14,12 +14,20 @@ export default class Poll implements ITriggerClassType {
   helpers: IHelpers;
   getItemKey(item: AnyObject): string {
     // TODO adapt every cases
+    let key = "";
     const deduplicationKey = this.options.deduplicationKey;
     if (deduplicationKey) {
-      return item[deduplicationKey as string] as string;
+      key = item[deduplicationKey as string] as string;
     }
-    if (item.id) return item.id as string;
-    if (item.key) return item.key as string;
+    if (item.id) {
+      key = item.id as string;
+    }
+    if (item.key) {
+      key = item.key as string;
+    }
+    if (key) {
+      return this.options.url + "__" + key;
+    }
     return this.helpers.createContentDigest(item);
   }
   constructor({ helpers, options }: ITriggerContructorParams) {

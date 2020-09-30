@@ -19,7 +19,10 @@ export default class Email implements ITriggerClassType {
   helpers: IHelpers;
   getItemKey(item: AnyObject): string {
     // TODO adapt every cases
-    if (item.messageId) return item.messageId as string;
+    if (item.messageId)
+      return ((this.options.imap as AnyObject).host +
+        "__" +
+        item.messageId) as string;
     if (item.id) return item.id as string;
     return this.helpers.createContentDigest(item);
   }

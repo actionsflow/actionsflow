@@ -93,9 +93,19 @@ export const getGeneralTriggerFinalOptions = (
     every: 0, // github actions every 5, here we can set 0,due to triggered by other event, like push
     shouldDeduplicate: event.type === "webhook" ? false : true,
     getItemKey: (item: AnyObject): string => {
-      if (item.id) return item.id as string;
-      if (item.key) return item.key as string;
-      if (item.guid) return item.guid as string;
+      let key = "";
+      if (item.id) {
+        key = item.id as string;
+      }
+      if (item.key) {
+        key = item.key as string;
+      }
+      if (item.guid) {
+        key = item.guid as string;
+      }
+      if (key) {
+        return createContentDigest(key);
+      }
       return createContentDigest(item);
     },
     skipFirst: false,
@@ -110,7 +120,13 @@ export const getGeneralTriggerFinalOptions = (
 
   if (options.shouldDeduplicate) {
     if (triggerInstance.getItemKey) {
-      options.getItemKey = triggerInstance.getItemKey.bind(triggerInstance);
+      options.getItemKey = (item: AnyObject) => {
+        let key = "";
+        if (triggerInstance.getItemKey) {
+          key = triggerInstance.getItemKey.call(triggerInstance, item);
+        }
+        return createContentDigest(key);
+      };
     }
   }
 

@@ -42,7 +42,7 @@ test("poll trigger", async () => {
 
   expect(triggerResults.length).toBe(2);
   const itemKey = poll.getItemKey(triggerResults[0]);
-  expect(itemKey).toBe(1);
+  expect(itemKey).toBe("https://jsonplaceholder.typicode.com/posts__1");
 });
 
 test("poll trigger with deduplicationKey", async () => {
@@ -63,7 +63,7 @@ test("poll trigger with deduplicationKey", async () => {
 
   expect(triggerResults.length).toBe(2);
   const itemKey = poll.getItemKey(triggerResults[0]);
-  expect(itemKey).toBe(1);
+  expect(itemKey).toBe("https://jsonplaceholder.typicode.com/posts__1");
 });
 
 test("poll trigger with deduplicationKey as key", async () => {
@@ -101,7 +101,7 @@ test("poll trigger with deduplicationKey as key", async () => {
 
   expect(triggerResults.length).toBe(2);
   const itemKey = poll.getItemKey(triggerResults[0]);
-  expect(itemKey).toBe(1);
+  expect(itemKey).toBe("https://jsonplaceholder.typicode.com/posts__1");
 });
 
 test("poll trigger with deduplicationKey no found", async () => {
