@@ -13,4 +13,4 @@ jobs:
       - name: Configure CI Git User
         run: |
           git config user.name github-actions[bot]
-          git config user.email ithub-actions[bot]@users.noreply.github.com
+          git config user.email github-actions[bot]@users.noreply.github.com
