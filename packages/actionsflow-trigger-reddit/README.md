@@ -4,7 +4,7 @@ This is a [reddit](https://reddit.com/) trigger of [Actionsflow](https://github.
 
 > This is an official trigger, you don't need to install it manually.
 
-[View trigger on Github](https://github.com/actionsflow/actionsflow/tree/master/packages/actionsflow-trigger-reddit)
+[View trigger on Github](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-reddit)
 
 # Usage
 

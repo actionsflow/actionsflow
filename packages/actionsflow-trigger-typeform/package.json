@@ -8,7 +8,7 @@
     "trigger"
   ],
   "author": "Owen Young <theowenyoung@gmail.com>",
-  "homepage": "https://github.com/actionsflow/actionsflow/tree/master/packages/actionsflow-trigger-typeform",
+  "homepage": "https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-typeform",
   "license": "MIT",
   "main": "index.js",
   "repository": {

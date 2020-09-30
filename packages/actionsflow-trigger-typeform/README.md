@@ -4,7 +4,7 @@ This is a [typeform](https://www.typeform.com/) trigger of [Actionsflow](https:/
 
 > This is an official trigger, you don't need to install it manually.
 
-[View trigger on Github](https://github.com/actionsflow/actionsflow/tree/master/packages/actionsflow-trigger-typeform)
+[View trigger on Github](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-typeform)
 
 ## Prerequisites
 

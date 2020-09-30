@@ -1,0 +1,20 @@
+on:
+  twitter:
+    api: statuses/user_timeline
+    auth:
+      consumer_key: ${{ secrets.TWITTER_CONSUMER_KEY }}
+      consumer_secret: ${{ secrets.TWITTER_CONSUMER_SECRET }}
+      access_token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+      access_token_secret: ${{ secrets.TWITTER_ACCESS_SECRET }}
+    params:
+      screen_name: theowenyoung
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          text: ${{ on.twitter.outputs.full_text }}
+        run: |
+          echo text: $text

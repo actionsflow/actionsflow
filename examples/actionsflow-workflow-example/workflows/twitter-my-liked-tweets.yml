@@ -1,6 +1,6 @@
 on:
   twitter:
-    event: user_timeline
+    api: favorites/list
     auth:
       consumer_key: ${{ secrets.TWITTER_CONSUMER_KEY }}
       consumer_secret: ${{ secrets.TWITTER_CONSUMER_SECRET }}
@@ -15,6 +15,6 @@ jobs:
     steps:
       - name: Print Outputs
         env:
-          text: ${{ on.twitter.outputs.full_text }}
+          text: ${{ on.twitter.outputs.text }}
         run: |
           echo text: $text

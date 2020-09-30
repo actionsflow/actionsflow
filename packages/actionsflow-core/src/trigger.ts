@@ -122,11 +122,13 @@ export const getTriggerConstructorParams = async ({
   name,
   cwd,
   workflowPath,
+  logLevel,
 }: {
   options: ITriggerOptions;
   name: string;
   cwd?: string;
   workflowPath: string;
+  logLevel?: LogLevelDesc;
 }): Promise<ITriggerContructorParams> => {
   cwd = cwd || process.cwd();
   const relativePath = path.relative(
@@ -139,6 +141,7 @@ export const getTriggerConstructorParams = async ({
     helpers: getTriggerHelpers({
       name: name,
       workflowRelativePath: relativePath,
+      logLevel: logLevel,
     }),
     workflow: (await getWorkflow({
       path: workflowPath,

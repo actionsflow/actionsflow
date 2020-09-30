@@ -11,7 +11,7 @@ This is a twitter trigger of [Actionsflow](https://github.com/actionsflow/action
 ```yaml
 on:
   twitter:
-    event: user_timeline
+    api: statuses/user_timeline
     auth:
       consumer_key: ${{ secrets.TWITTER_CONSUMER_KEY }}
       consumer_secret: ${{ secrets.TWITTER_CONSUMER_SECRET }}
@@ -23,7 +23,7 @@ on:
 
 ## Options
 
-- `event`, optional, default is `user_timeline`, for now only support `user_timeline`.
+- `api`, optional, default is `statuses/user_timeline`, for now, you can use [`search/tweets`](https://developer.twitter.com/en/docs/twitter-api/v1/tweets/search/api-reference/get-search-tweets), [`statuses/user_timeline`](https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-user_timeline), [`statuses/mentions_timeline`](https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-mentions_timeline), [`favorites/list`](https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/get-favorites-list)
 
 - `auth`, required, twitter API authentication, you should get it from [Twitter Developers App](https://developer.twitter.com/en/apps)
 
@@ -35,12 +35,13 @@ on:
     access_token_secret: ${{ secrets.TWITTER_ACCESS_SECRET }}
   ```
 
-- `query`, optional, fetch twitter API query params, for `user_timeline`, you must provide `screen_name` field, for example:
+- `params`, optional, fetch twitter API params, See [`search/tweets`](https://developer.twitter.com/en/docs/twitter-api/v1/tweets/search/api-reference/get-search-tweets), [`statuses/user_timeline`](https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-user_timeline), [`statuses/mentions_timeline`](https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-mentions_timeline), [`favorites/list`](https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/get-favorites-list).
+
+  For `statuses/user_timeline`, you must provide `screen_name` field, for example:
 
   ```yaml
-  query:
+  params:
     screen_name: theowenyoung
-    count: 50,
     exclude_replies: true,
     include_rts: true,
     tweet_mode: "extended",
@@ -52,7 +53,7 @@ on:
 
 This trigger's outputs will be the item of the following results.
 
-An outputs example:
+An `statuses/user_timeline` outputs example:
 
 ```json
 {
@@ -139,7 +140,7 @@ You can use the outputs like this:
 ```yaml
 on:
   twitter:
-    event: user_timeline
+    api: user_timeline
     auth:
       consumer_key: ${{ secrets.TWITTER_CONSUMER_KEY }}
       consumer_secret: ${{ secrets.TWITTER_CONSUMER_SECRET }}
@@ -158,3 +159,5 @@ jobs:
         run: |
           echo text: $text
 ```
+
+> For the other API outputs, please see [`search/tweets`](https://developer.twitter.com/en/docs/twitter-api/v1/tweets/search/api-reference/get-search-tweets), [`statuses/user_timeline`](https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-user_timeline), [`statuses/mentions_timeline`](https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-mentions_timeline), [`favorites/list`](https://developer.twitter.com/en/docs/twitter-api/v1/tweets/post-and-engage/api-reference/get-favorites-list).

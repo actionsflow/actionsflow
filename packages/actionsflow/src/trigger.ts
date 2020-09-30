@@ -30,6 +30,7 @@ interface ITriggerInternalOptions {
   trigger: ITaskTrigger;
   workflow: IWorkflow;
   event: ITriggerEvent;
+  logLevel?: LogLevelDesc;
 }
 interface ITriggerHelpersOptions {
   name: string;
@@ -43,6 +44,7 @@ export const run = async ({
   trigger,
   event,
   workflow,
+  logLevel,
 }: ITriggerInternalOptions): Promise<ITriggerInternalResult> => {
   log.debug("trigger:", trigger);
   log.debug("trigger event", event);
@@ -61,6 +63,8 @@ export const run = async ({
     };
     if (trigger.options && trigger.options.logLevel) {
       triggerHelperOptions.logLevel = trigger.options.logLevel as LogLevelDesc;
+    } else if (logLevel) {
+      triggerHelperOptions.logLevel = logLevel;
     }
     const triggerHelpers = getTriggerHelpers(triggerHelperOptions);
     finalResult.helpers = triggerHelpers;
@@ -204,6 +208,17 @@ export const run = async ({
           triggerResultFormat = triggerResult as ITriggerResultObject;
         }
         let items = triggerResultFormat.items;
+        if (!Array.isArray(items)) {
+          throw new Error(
+            `trigger [${
+              trigger.name
+            }] returns an invalid results: ${JSON.stringify(
+              triggerResult,
+              null,
+              2
+            )}`
+          );
+        }
         if (items.length > 0) {
           // duplicate
           if (shouldDeduplicate === true && getItemKey && !force) {

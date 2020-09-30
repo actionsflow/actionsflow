@@ -44,10 +44,14 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
     jsonGithub: "",
     ...options,
   };
+  let logLevel: LogLevelDesc | undefined;
   if (options.logLevel) {
-    log.setLevel(options.logLevel as LogLevelDesc);
+    logLevel = options.logLevel as LogLevelDesc;
   } else if (options.verbose) {
-    log.setLevel("debug");
+    logLevel = "debug";
+  }
+  if (logLevel) {
+    log.setLevel(logLevel);
   }
   log.debug("build: options", options);
   const { cwd, dest, include, exclude, force } = options;
@@ -150,6 +154,7 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
           class: trigger.class,
         },
         event: event,
+        logLevel,
       });
     } catch (error) {
       // if buildOutputsOnError
