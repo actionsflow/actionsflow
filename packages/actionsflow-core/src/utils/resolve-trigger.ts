@@ -5,7 +5,7 @@ import { log } from "../log";
 export const getThirdPartyTrigger = (
   triggerName: string
 ): ITriggerClassTypeConstructable | undefined => {
-  log.debug(`Try to find trigger: [${triggerName}]`);
+  log.debug(`Try to find trigger [${triggerName}] at third party`);
 
   // TODO get @scope/actionsflow-trigger-xxxx
 
@@ -35,7 +35,7 @@ export const getThirdPartyTrigger = (
       return Trigger;
     }
   } else {
-    log.debug(`Cannot find trigger [${triggerName}]`);
+    log.debug(`Cannot find trigger [${triggerName}] at third party`);
     return undefined;
   }
 };
@@ -44,11 +44,11 @@ export const getLocalTrigger = (
   triggerName: string
 ): ITriggerClassTypeConstructable | undefined => {
   // first resolve local triggers
-  log.debug(`Try to find trigger: [${triggerName}]`);
+  log.debug(`Try to find trigger [${triggerName}] at local trigger`);
   log.debug(`Try to find trigger at ./triggers/${triggerName}`);
   const triggerPath = resolveCwd.silent(`./triggers/${triggerName}`);
   if (triggerPath) {
-    log.debug("Found third party trigger at: ", triggerPath);
+    log.debug("Found local trigger at: ", triggerPath);
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const Trigger = require(triggerPath);
     if (Trigger.default) {
