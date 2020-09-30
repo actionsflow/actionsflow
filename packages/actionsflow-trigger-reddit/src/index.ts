@@ -12,8 +12,8 @@ export default class Reddit implements ITriggerClassType {
   getItemKey(item: AnyObject): string {
     // TODO adapt every cases
     if (item.guid) return item.guid as string;
-    if (item.id) return item.id as string;
     if (item.link) return item.link as string;
+    if (item.id) return item.id as string;
     return this.helpers.createContentDigest(item);
   }
   constructor({ helpers, options }: ITriggerContructorParams) {
