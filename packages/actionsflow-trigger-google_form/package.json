@@ -1,6 +1,6 @@
 {
   "name": "@actionsflow/trigger-google_form",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "description": "Actionsflow trigger google_form",
   "keywords": [
     "google_form",
@@ -24,6 +24,6 @@
     "url": "https://github.com/actionsflow/actionsflow/issues"
   },
   "devDependencies": {
-    "actionsflow-core": "^1.0.0-alpha.2"
+    "actionsflow-core": "^1.0.0-alpha.3"
   }
 }

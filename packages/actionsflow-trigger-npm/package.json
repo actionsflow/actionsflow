@@ -1,6 +1,6 @@
 {
   "name": "@actionsflow/trigger-npm",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "description": "Actionsflow trigger npm",
   "keywords": [
     "npm",
@@ -29,7 +29,7 @@
     "url": "https://github.com/actionsflow/actionsflow/issues"
   },
   "dependencies": {
-    "actionsflow-core": "^1.0.0-alpha.2",
+    "actionsflow-core": "^1.0.0-alpha.3",
     "tslib": "^2.0.1"
   },
   "devDependencies": {
