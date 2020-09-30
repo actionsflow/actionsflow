@@ -10,3 +10,7 @@ test("check createContentDigest object hash", () => {
 test("check createContentDigest string hash", () => {
   expect(createContentDigest("test")).toBe("098f6bcd4621d373cade4e832627b4f6");
 });
+
+test("check createContentDigest number hash", () => {
+  expect(createContentDigest(222)).toBe("bcbe3365e6ac95ea2c0343a2395834dd");
+});

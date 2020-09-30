@@ -12,8 +12,15 @@ const hasher = objectHash({
   },
 });
 
-const hashPrimitive = (input: string) =>
-  crypto.createHash(`md5`).update(input).digest(`hex`);
+const hashPrimitive = (input: string | number) => {
+  let key = "";
+  if (typeof input !== "string") {
+    key = input.toString();
+  } else {
+    key = input;
+  }
+  return crypto.createHash(`md5`).update(key).digest(`hex`);
+};
 
 /**
  * Hashes an input using md5 hash of hexadecimal digest.
@@ -22,7 +29,9 @@ const hashPrimitive = (input: string) =>
  * @return The content digest
  */
 
-export const createContentDigest = (input: string | unknown): string => {
+export const createContentDigest = (
+  input: string | number | unknown
+): string => {
   if (typeof input === `object`) {
     return hasher.hash(input);
   }
