@@ -9,8 +9,11 @@ import Twit from "twit";
 export default class Twitter implements ITriggerClassType {
   options: ITriggerOptions = {};
   helpers: IHelpers;
+  event = "user_timeline";
   getItemKey(item: AnyObject): string {
-    if (item.id_str) return item.id_str as string;
+    if (this.event && item.id_str) {
+      return (this.event + "__" + item.id_str) as string;
+    }
     return this.helpers.createContentDigest(item);
   }
   constructor({ helpers, options }: ITriggerContructorParams) {
@@ -32,11 +35,11 @@ export default class Twitter implements ITriggerClassType {
       access_token: string;
       access_token_secret: string;
     };
-    let { event } = this.options as {
+    const { event } = this.options as {
       event: string;
     };
-    if (!event) {
-      event = "user_timeline";
+    if (event) {
+      this.event = event;
     }
     let finalResult: AnyObject[] = [];
     const twitter = new Twit({
@@ -45,11 +48,11 @@ export default class Twitter implements ITriggerClassType {
       access_token,
       access_token_secret,
     });
-    if (event === "user_timeline") {
+    if (this.event === "user_timeline") {
       // get cache with since_id
-      const since_id = (await this.helpers.cache.get(`${event}_since_id`)) as
-        | string
-        | undefined;
+      const since_id = (await this.helpers.cache.get(
+        `${this.event}_since_id`
+      )) as string | undefined;
       // get screen_name
       const optionParams = this.options.query as AnyObject;
       const params = {
@@ -76,7 +79,7 @@ export default class Twitter implements ITriggerClassType {
         });
       }
       if (max_id) {
-        this.helpers.cache.set(`${event}_since_id`, max_id);
+        this.helpers.cache.set(`${this.event}_since_id`, max_id);
       }
       finalResult = tweets;
     }
