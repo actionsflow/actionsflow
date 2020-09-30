@@ -105,7 +105,7 @@ Build an Actionsflow workflow is a three-step process:
 
    You can explore [Triggers List](https://actionsflow.github.io/docs/triggers/) or [Awesome Actionsflow Workflows](https://github.com/actionsflow/awesome-actionsflow) to get more inspired.
 
-1. **commit and push your updates to Github**
+1. **Commit and push your updates to Github**
 
 Then, Actionsflow will run your workflows as you defined, you can view logs at your repository actions tab at [Github](https://github.com)
 
