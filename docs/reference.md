@@ -11,6 +11,7 @@ In this section:
 - [Trigger API](./reference/trigger-api.md)
 - [Trigger Helpers API](./reference/trigger-helpers.md)
 - [Webhook Syntax](./webhook.md)
+- [Actionsflow Github Workflows](./reference/github-workflow.md)
 - [Package actionsflow API](./reference/actionsflow-api.md)
 - [Package actionsflow-core API](https://actionsflow.github.io/docs/reference/actionsflow-core-api/)
 - [Package actionsflow-action CLI API](https://github.com/actionsflow/actionsflow-action)

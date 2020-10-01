@@ -44,7 +44,7 @@ test("rename jobs by suffix", () => {
   });
 });
 
-test("get jobs dependence", () => {
+test("get jobs dependencie", () => {
   const jobsDependences = getJobsDependences({
     job1: {
       needs: ["job2"],
