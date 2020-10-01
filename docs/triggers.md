@@ -34,7 +34,9 @@ For now, the following triggers are available:
 
 Want to list your trigger here? Welcome to [submit a pull request](https://github.com/actionsflow/actionsflow/edit/main/docs/triggers.md)
 
-> TODO
+> [Creating a 3rd-party trigger](./creating-triggers.md) is really easy, we are so happy that you can share your trigger for community.
+
+> Waiting for your contribution 😊
 
 - [rsshub](https://github.com/theowenyoung/actionsflow-trigger-rsshub) - Watches [rsshub](https://docs.rsshub.app/social-media.html) routes easily
 
