@@ -59,7 +59,7 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
   log.debug("destPath:", destPath);
   // clean the dest folder
   await del([destPath]);
-  log.info("clean the dest folder");
+  log.info("Clean the dest folder");
   const context = getContext({
     JSON_SECRETS: options.jsonSecrets || "",
     JSON_GITHUB: options.jsonGithub || "",
