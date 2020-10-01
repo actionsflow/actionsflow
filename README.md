@@ -121,6 +121,7 @@ Full documentation for Actionsflow lives [on the website](https://actionsflow.gi
 - [Core Concepts](https://actionsflow.github.io/docs/concepts/) - Learn more about how Actionsflow worked
 - [Creating Triggers for Actionsflow](https://actionsflow.github.io/docs/creating-triggers/) - Learn more about how to create your own trigger for Actionsflow
 - [FAQs](https://actionsflow.github.io/docs/faqs/) - Actionsflow FAQs
+- [Join Actionsflow Slack](https://join.slack.com/t/actionsflow/shared_invite/zt-h5tmw9cn-GbZ4fzU_vc_qB~nnS_2Lvg) - Communicate with the other users at Slack
 
 ## 👏 How to Contribute
 

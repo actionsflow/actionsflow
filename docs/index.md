@@ -78,3 +78,4 @@ For more information about quick started, see [Getting Started](/docs/getting-st
 - [Core Concepts](/docs/concepts.md) - Learn more about how Actionsflow worked
 - [Creating Triggers for Actionsflow](/docs/creating-triggers.md) - Learn more about how to create your own trigger for Actionsflow
 - [FAQs](/docs/faqs.md) - Actionsflow FAQs
+- [Join Actionsflow Slack](https://join.slack.com/t/actionsflow/shared_invite/zt-h5tmw9cn-GbZ4fzU_vc_qB~nnS_2Lvg) - Communicate with the other users at Slack
