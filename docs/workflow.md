@@ -14,7 +14,6 @@ A typical workflow file `workflow.yml` looks like this:
 ```yaml
 on:
   rss:
-    event: new_item
     url: https://hnrss.org/newest?points=300
 jobs:
   ifttt:
