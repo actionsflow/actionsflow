@@ -23,7 +23,7 @@ If you like Actionsflow, please vote for us on <a href="https://www.producthunt.
 ---
 
 <p align="center">
-<strong>The best <a href="https://ifttt.com/">IFTTT</a>/<a href="https://zapier.com/">Zapier</a> free alternative for developers to automate your workflows based on Github actions</strong>
+<strong>The free <a href="https://ifttt.com/">IFTTT</a>/<a href="https://zapier.com/">Zapier</a> alternative for developers to automate your workflows based on Github actions</strong>
 <br>
 </p>
 
@@ -38,7 +38,7 @@ If you like Actionsflow, please vote for us on <a href="https://www.producthunt.
 
 ## 😁 About
 
-[Actionsflow](https://github.com/actionsflow/actionsflow) helps you to automate workflows, it's the best [IFTTT](https://ifttt.com/)/[Zapier](https://zapier.com/) free alternative for developers. With [Actionsflow](https://github.com/actionsflow/actionsflow), you can connect your favorite apps, data, and APIs, receive notifications of actions as they occur, sync files, collect data, and more. We implemented it based on [Github actions](https://docs.github.com/en/actions), and you use a YAML file (The configuration format is the same as [Github actions](https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow)) to build your workflows. If you have already written a [Github actions file](https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow), it's very easy to define an Actionsflow workflow file, and you can use any [Github actions](https://github.com/marketplace?type=actions) as your job's steps.
+[Actionsflow](https://github.com/actionsflow/actionsflow) helps you to automate workflows, it's a free [IFTTT](https://ifttt.com/)/[Zapier](https://zapier.com/) alternative for developers. With [Actionsflow](https://github.com/actionsflow/actionsflow), you can connect your favorite apps, data, and APIs, receive notifications of actions as they occur, sync files, collect data, and more. We implemented it based on [Github actions](https://docs.github.com/en/actions), and you use a YAML file (The configuration format is the same as [Github actions](https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow)) to build your workflows. If you have already written a [Github actions file](https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow), it's very easy to define an Actionsflow workflow file, and you can use any [Github actions](https://github.com/marketplace?type=actions) as your job's steps.
 
 You can see core concepts of Actionsflow at [here](#-how-actionsflow-worked).
 

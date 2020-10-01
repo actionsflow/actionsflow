@@ -16,7 +16,7 @@
     "prepublishOnly": "npm run build"
   },
   "name": "actionsflow",
-  "description": "The best Zapier/IFTTT free alternative for developers to automate your workflows based on Github actions",
+  "description": "A free Zapier/IFTTT alternative for developers to automate your workflows based on Github actions",
   "keywords": [
     "workflow",
     "github",
