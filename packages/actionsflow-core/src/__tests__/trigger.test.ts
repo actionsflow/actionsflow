@@ -1,4 +1,11 @@
-import { getTriggerId, getTriggerHelpers } from "../trigger";
+import {
+  getTriggerId,
+  getTriggerHelpers,
+  getGeneralTriggerFinalOptions,
+} from "../trigger";
+import { getEventByContext } from "../event";
+import { ITriggerClassType } from "../interface";
+import { getContext } from "../context";
 
 test("get trigger id", () => {
   expect(
@@ -18,4 +25,20 @@ test("getTriggerHelpers", async () => {
   expect(helpers).toHaveProperty("createContentDigest");
   expect(helpers).toHaveProperty("log");
   await helpers.cache.reset();
+});
+
+class TriggerTest implements ITriggerClassType {
+  config = { skipFirst: true };
+  async run() {
+    return [];
+  }
+}
+
+test("getGeneralTriggerFinalOptions", async () => {
+  const options = getGeneralTriggerFinalOptions(
+    new TriggerTest(),
+    {},
+    getEventByContext(getContext())
+  );
+  expect(options.skipFirst).toBe(true);
 });
