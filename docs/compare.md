@@ -1,6 +1,6 @@
 ---
 title: Compare with Zapier & IFTTT
-metaTitle: "Compare with Zapier and IFTTT"
+metaTitle: "Compare Actionsflow with Zapier and IFTTT"
 ---
 
 [Actionsflow](https://github.com/actionsflow/actionsflow) is a great alternative to [Zapier](https://zapier.com/) and [IFTTT](https://ifttt.com/) for developers, you can also use it with [Zapier](https://zapier.com/) or [IFTTT](https://ifttt.com/). With [Actionsflow](https://github.com/actionsflow/actionsflow), you can connect your favorite apps, data, and APIs, receive notifications of actions as they occur, sync files, collect data, and more.
