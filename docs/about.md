@@ -10,7 +10,7 @@ I started this project because I need to watch some RSS and do something, but I 
 Here are some useful links:
 
 - [Workflow Syntax for Actionsflow](./workflow.md) - Learn more about the Actionsflow workflow file syntax
-- [Triggers List](./triggers.md) - Explore Actionsflow triggers
+- [Trigger List](./triggers.md) - Explore Actionsflow triggers
 - [Awesome Actionsflow Workflows](https://github.com/actionsflow/awesome-actionsflow) - Explore and get inspired by other Actionsflow workflow use-cases
 - [Core Concepts](./concepts.md) - Learn more about how Actionsflow works
 - [Creating Triggers for Actionsflow](./creating-triggers.md) - Learn more about how to create your own trigger for Actionsflow

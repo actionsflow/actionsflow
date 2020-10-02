@@ -73,7 +73,7 @@ For more information about getting up and running, see [Getting Started](/docs/g
 # Learn More
 
 - [Workflow Syntax for Actionsflow](/docs/workflow.md) - Learn more about the Actionsflow workflow file syntax
-- [Triggers List](/docs/triggers.md) - Explore Actionsflow triggers
+- [Trigger List](/docs/triggers.md) - Explore Actionsflow triggers
 - [Awesome Actionsflow Workflows](https://github.com/actionsflow/awesome-actionsflow) - Explore and get inspired by other Actionsflow workflow use-cases
 - [Core Concepts](/docs/concepts.md) - Learn more about how Actionsflow works
 - [Creating Triggers for Actionsflow](/docs/creating-triggers.md) - Learn more about how to create your own trigger for Actionsflow

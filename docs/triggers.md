@@ -5,7 +5,7 @@ metaTitle: "Actionsflow Triggers"
 
 Every Actionsflow workflow file starts with a trigger, which watches for new data as it comes in or makes a polling API call to check if there are new updates.
 
-# Triggers List
+# Trigger List
 
 For now, the following triggers are available:
 

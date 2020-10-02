@@ -295,6 +295,6 @@ If you set multiple triggers on one workflow, only one trigger's `conclusion` is
 
 # Learn More
 
-For a list of available triggers, see [Triggers List](./triggers.md)
+For a list of available triggers, see [Trigger List](./triggers.md)
 
 For a list of awesome workflows, see [Awesome Actionsflow Workflows](https://github.com/actionsflow/awesome-actionsflow)

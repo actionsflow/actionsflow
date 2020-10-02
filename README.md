@@ -120,7 +120,7 @@ For more information about getting up and running, see [Getting Started](https:/
 Full documentation for Actionsflow lives [on the website](https://actionsflow.github.io/docs/).
 
 - [Workflow Syntax for Actionsflow](https://actionsflow.github.io/docs/workflow/) - Learn more about the Actionsflow workflow file syntax
-- [Triggers List](https://actionsflow.github.io/docs/triggers/) - Explore Actionsflow triggers
+- [Trigger List](https://actionsflow.github.io/docs/triggers/) - Explore Actionsflow triggers
 - [Awesome Actionsflow Workflows](https://github.com/actionsflow/awesome-actionsflow) - Explore and get inspired by other Actionsflow workflow use-cases
 - [Core Concepts](https://actionsflow.github.io/docs/concepts/) - Learn more about how Actionsflow works
 - [Creating Triggers for Actionsflow](https://actionsflow.github.io/docs/creating-triggers/) - Learn more about how to create your own trigger for Actionsflow
