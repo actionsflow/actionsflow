@@ -13,5 +13,3 @@ npm i actionsflow-core --save
 
 yarn add actionsflow-core
 ```
-
-> TODO

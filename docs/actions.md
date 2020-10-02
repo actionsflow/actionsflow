@@ -31,7 +31,7 @@ For now, the following triggers are available:
 - [Google Sheets](https://github.com/marketplace/actions/gsheet-action) - Do CRUD operations on google sheets
 - [Google Chat Notifier](https://github.com/marketplace/actions/google-chat-release-notifier) - Sends a Google Chat notification
 - [Intaract with Google Drive](https://github.com/marketplace/actions/intaract-with-google-drive) - Upload to Google Drive
-- [Wechat Work Robot Messages](https://github.com/marketplace/actions/wechat-work-robot-messages) - Send Wechat Wrok robot messages
+- [Wechat Work Robot Messages](https://github.com/marketplace/actions/wechat-work-robot-messages) - Send Wechat Work robot messages
 - [DingDing Notify](https://github.com/marketplace/actions/dingding-notify-action) - Send dingding simple notify message
 - [Mattermost Notify](https://github.com/marketplace/actions/mattermost) - Send Mattermost messages
 - [Notify IRC](https://github.com/marketplace/actions/notify-irc) - Send Notification Message to IRC

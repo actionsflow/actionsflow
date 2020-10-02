@@ -1,3 +1,5 @@
+<!-- NOTE!!! This markdown file is automatically generated from <root>/README.md, please edit <root>/README.md if you need to change it-->
+
 <p align="center">
   <a href="https://actionsflow.github.io" rel="noopener">
  <img width=200px height=200px src="https://raw.githubusercontent.com/actionsflow/actionsflow/main/docs/assets/logo.svg" alt="Project logo"></a>
@@ -13,6 +15,10 @@
 [![GitHub Issues](https://img.shields.io/github/issues/actionsflow/actionsflow.svg)](https://github.com/actionsflow/actionsflow/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/actionsflow/actionsflow.svg)](https://github.com/actionsflow/actionsflow/pulls)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
+<br><br>
+<a href="https://www.producthunt.com/posts/actionsflow-automate-workflows?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-actionsflow-automate-workflows" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=269085&theme=light" alt="Actionsflow - Automate Workflows -  IFTTT/Zapier free alternative, based on Github Actions | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+
+If you like Actionsflow, please vote for us on <a href="https://www.producthunt.com/posts/actionsflow-automate-workflows?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-actionsflow-automate-workflows">Product Hunt</a>
 
 </div>
 
@@ -22,6 +28,8 @@
 <strong>The free <a href="https://ifttt.com/">IFTTT</a>/<a href="https://zapier.com/">Zapier</a> alternative for developers to automate their workflows based on Github actions</strong>
 <br>
 </p>
+
+// test
 
 ## 📝 Table of Contents
 
@@ -121,6 +129,7 @@ Full documentation for Actionsflow lives [on the website](https://actionsflow.gi
 - [Core Concepts](https://actionsflow.github.io/docs/concepts/) - Learn more about how Actionsflow works
 - [Creating Triggers for Actionsflow](https://actionsflow.github.io/docs/creating-triggers/) - Learn more about how to create your own trigger for Actionsflow
 - [FAQs](https://actionsflow.github.io/docs/faqs/) - Actionsflow FAQs
+- [Join Actionsflow Slack](https://join.slack.com/t/actionsflow/shared_invite/zt-h5tmw9cn-GbZ4fzU_vc_qB~nnS_2Lvg) - Chat with other users and contributors on Slack
 
 ## 👏 How to Contribute
 
