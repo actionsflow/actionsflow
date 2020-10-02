@@ -2,9 +2,9 @@
 title: "Core Concepts"
 ---
 
-# How Actionsflow worked
+# How Actionsflow works
 
-Actionsflow uses [Github Actions](https://docs.github.com/en/actions)' [**`repository_dispatch` event**](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#repository_dispatch) and [**per 5 minutes' `scheduled` event**](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#scheduled-events) to run [Actionsflow triggers](./triggers.md) for getting an array results, and do some caching and deduplication works, then generating a standard Github actions workflow file with the trigger result, then calling [act](https://github.com/nektos/act)(a tool for running GitHub Actions locally) to run the built workflow files.
+Actionsflow uses [Github Actions](https://docs.github.com/en/actions)' [**`repository_dispatch` event**](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#repository_dispatch) and [**`scheduled` event**](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#scheduled-events) every 5 minutes to run [Actionsflow triggers](./triggers.md). Those triggers generate an array of results, which are cached and deduplicated, generating a standard Github actions workflow file with the trigger result. Finally, the workflows are executed using [act](https://github.com/nektos/act) (a tool for running GitHub Actions locally).
 
 In programming language, the power of actionsflow comes from the following Github workflows file (`.github/workflows/actionsflow.yml`):
 
@@ -35,7 +35,7 @@ jobs:
 
 ## `scheduled` Run
 
-Actionsflow setup a Github scheduled action running per 5 minutes, Actionsflow will call the trigger's manual `run` method to check if there are any updates with the triggers in the workflows, if Actionsflow found an updated item, it will generate a standard Github actions workflow file with the item payload, and call [act](https://github.com/nektos/act) to run the built workflows.
+Actionsflow sets up a Github scheduled action running every 5 minutes. Actionsflow will call the trigger's manual `run` method to check if there are any updates to the triggers in the workflows. If an updated item is found, Actionsflow generates a standard Github actions workflow file with the item payload and calls [act](https://github.com/nektos/act) to run the built workflows.
 
 For example, if an Actionsflow workflow file looks like this:
 
@@ -59,9 +59,9 @@ jobs:
           echo link: $link
 ```
 
-Then, Actionsflow will call [RSS trigger](https://github.com/actionsflow/actionsflow/blob/main/packages/actionsflow/src/triggers/rss.ts), [RSS trigger](./triggers/rss.md) will return data of the feed items in JSON format. Actionsflow will generate a standard Github actions workflow file after some caching, deduplicating works.
+Then, Actionsflow will call [RSS trigger](https://github.com/actionsflow/actionsflow/blob/main/packages/actionsflow/src/triggers/rss.ts) and [RSS trigger](./triggers/rss.md) will return data of the feed items in JSON format. Actionsflow will generate a standard Github actions workflow file after some caching and deduplication work.
 
-The built workflow file looks like:
+The built workflow file looks like this:
 
 ```yaml
 "on":
@@ -103,15 +103,15 @@ env:
     }
 ```
 
-Then, Actionsflow will call [act](https://github.com/nektos/act)(a tool for running GitHub Actions locally) to run the built workflow file jobs.
+Then, Actionsflow will call [act](https://github.com/nektos/act) (a tool for running GitHub Actions locally) to run the jobs in the workflow file.
 
 ## `repository_dispatch` Run
 
-Github provides a [`repository_dispatch`](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#repository_dispatch) event for the outside service to trigger a Github actions workflow run.
+Github provides a [`repository_dispatch`](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#repository_dispatch) event for an outside service to trigger a Github actions workflow run.
 
-Actionsflow use it to support standard webhook request.
+Actionsflow uses it to support standard webhook requests.
 
-We made the [webhook2github project](https://github.com/actionsflow/webhook2github) to do this.
+To do this, we created the [webhook2github project](https://github.com/actionsflow/webhook2github).
 
 This API will forward the following original webhook request:
 
@@ -133,14 +133,14 @@ To `https://api.github.com/repos/<owner>/<repo>/dispatches`, with body:
 }
 ```
 
-Then, Actionsflow will call the trigger's webhook handler to get the result items, and generate a built workflow file.
+Then, Actionsflow will call the trigger's webhook handler to get the result items and generate a built workflow file.
 
-Then, Actionsflow will call [act](https://github.com/nektos/act)(a tool for running GitHub Actions locally) to run the built workflow file jobs.
+Finally, Actionsflow will call [act](https://github.com/nektos/act) (a tool for running GitHub Actions locally) to run the jobs in the built workflow file.
 
-# What Actionsflow workflow file include
+# What the Actionsflow workflow file includes
 
-A typical Actionsflow workflow file includes a [trigger](./triggers.md) and some jobs. Actionsflow also support multiple triggers and multiple jobs.
+A typical Actionsflow workflow file includes a [trigger](./triggers.md) and some jobs. Actionsflow also supports multiple triggers and multiple jobs.
 
-Learn more about Workflow syntax for Actionsflow, please see [here](./workflow.md).
+To learn more about the Workflow syntax for Actionsflow, please see [here](./workflow.md).
 
-Lerna more about all github workflow files of Actionsflow, See [Actionsflow Github Workflows](./reference/github-workflow.md)
+To learn more about all Actionsflow's github workflow files, see [Actionsflow Github Workflows](./reference/github-workflow.md).
