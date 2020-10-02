@@ -23,7 +23,7 @@ For now, the following triggers are available:
 - [Sends a Discord notification message](https://github.com/marketplace/actions/actions-for-discord) - Sends a Discord notification message
 - [Twitter | Send Tweet](https://github.com/marketplace/actions/send-tweet-action) - Use this action to send a tweet
 - [LINE Message Notify](https://github.com/marketplace/actions/line-message-notify) - Send a Line message
-- [Microsoft Teams Notity](https://github.com/marketplace/actions/microsoft-teams-generic) - This is a GitHub Actions that sends a message to a given channel in Microsoft Teams
+- [Microsoft Teams Notify](https://github.com/marketplace/actions/microsoft-teams-generic) - This is a GitHub Actions that sends a message to a given channel in Microsoft Teams
 - [Matrix Message](https://github.com/marketplace/actions/matrix-message) - Send messages to matrix servers
 - [AWS SQS](https://github.com/marketplace/actions/aws-sqs) - Send message to AWS SQS
 - [Amazon Chime "Chime Webhook"](https://github.com/marketplace/actions/amazon-chime-chime-webhook-action-for-github-actions) - Send message to Amazon Chime chat rooms

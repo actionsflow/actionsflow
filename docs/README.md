@@ -1,7 +1,7 @@
-# Actionsflow Document
+# Actionsflow Documentation
 
-This is [Actionsflow](https://github.com/actionsflow/actionsflow) document.
+This is the [Actionsflow](https://github.com/actionsflow/actionsflow) documentation.
 
-You can visit the document by [online version](https://actionsflow.github.io/docs) or [github version](https://github.com/actionsflow/actionsflow/blob/main/docs/index.md)
+You can read the [online version](https://actionsflow.github.io/docs) or the [github version](https://github.com/actionsflow/actionsflow/blob/main/docs/index.md).
 
-Contributing is welcome, please read the [Contributing Guide](./contributing.md#docs-contributions)
+Contributions are welcome. Please read the [Contributing Guide](./contributing.md#docs-contributions) for more details.
