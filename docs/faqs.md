@@ -25,3 +25,5 @@ If some errors occur, maybe you want to debug it. To enable Github Actions step 
 ](https://docs.github.com/en/free-pro-team@latest/actions/managing-workflow-runs/enabling-debug-logging)
 
 ## 3. How to clean cache?
+
+For some reason, you may want to delete the Actionsflow's cache, then you can manual run this workflow at your repository Actions tab.
