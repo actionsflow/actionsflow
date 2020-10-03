@@ -27,3 +27,21 @@ If some errors occur, maybe you want to debug it. To enable Github Actions step 
 ## 3. How to clean cache?
 
 For some reason, you may want to delete the Actionsflow's cache, then you can manual run this workflow at your repository Actions tab.
+
+## 4. How to
+
+If you received this error [`OCI runtime exec failed: exec failed: container_linux.go:370: starting container process caused: argument list too long: unknown`](https://github.com/actionsflow/actionsflow/issues/4) when run `act`. This because your built workflow file is too large for [`act`](https://github.com/nektos/act) to handle. You'd better reduce your outputs by using [`on.<trigger>.config.filterOutputs`](https://actionsflow.github.io/docs/workflow/#ontriggerconfigfilteroutputs), For example:
+
+```yaml
+on:
+  rss:
+    url:
+      - https://hnrss.org/newest?points=500
+      - https://hnrss.org/show?points=100
+    config:
+      filterOutputs:
+        title: 1
+        link: 1
+```
+
+Then, only `title`, `link` will be placed to outputs.
