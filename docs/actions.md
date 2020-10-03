@@ -39,3 +39,8 @@ For now, the following triggers are available:
 # Workflow Syntax
 
 For how to use actions, see [Workflow Syntax for Actionsflow](./workflow.md)
+
+# Explore
+
+- [Awesome Actionsflow Workflows](https://github.com/actionsflow/awesome-actionsflow)
+- [Awesome Trigger List](./triggers.md)

@@ -43,3 +43,8 @@ Want to list your trigger here? Welcome to [submit a pull request](https://githu
 # Trigger Syntax
 
 For how to define a trigger, see [Workflow Syntax for Actionsflow](./workflow.md)
+
+# Explore
+
+- [Awesome Actionsflow Workflows](https://github.com/actionsflow/awesome-actionsflow)
+- [Awesome Actions List](./actions.md)

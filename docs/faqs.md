@@ -18,3 +18,10 @@ individuals, we have a number of open channels for communication.
 ## 1. How to set a scheduled/cron event?
 
 Actionsflow does not support schedule event, because Github actions support the scheduled event, you can use [Github actions](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#scheduled-events) to do it if you want.
+
+## 2. How to debug?
+
+If some errors occur, maybe you want to debug it. To enable Github Actions step debug logging, you must set the following secret in the repository that contains the workflow: `ACTIONS_STEP_DEBUG` to true. If so, Actionsflow will set `logLevel: debug`, so you can debug the details. For more about debug please see [Enabling debug logging
+](https://docs.github.com/en/free-pro-team@latest/actions/managing-workflow-runs/enabling-debug-logging)
+
+## 3. How to clean cache?
