@@ -1,3 +1,15 @@
+# [1.1.0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-youtube@1.1.0...v1.1.0) (2020-10-04)
+
+
+### Bug Fixes
+
+* 🐛 use env secrets ([19ad187](https://github.com/actionsflow/actionsflow/commit/19ad187e8c1c416bc2b837d00110efe910304560))
+
+
+### Features
+
+* 🎸 support youtube trigger ([be24b8f](https://github.com/actionsflow/actionsflow/commit/be24b8f4aaf9b5570b84075c8656d30791a2f6fd))
+
 ## [1.0.1](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.0.1...v1.0.1) (2020-10-04)
 
 ## [1.0.1-3](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.0.1-alpha.2...v1.0.1-3) (2020-10-04)
