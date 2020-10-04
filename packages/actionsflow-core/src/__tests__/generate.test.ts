@@ -48,17 +48,30 @@ test("build env", async () => {
 });
 
 test("build workflow file", async () => {
+  let longText = ``;
+
+  for (let i = 0; i < 500; i++) {
+    longText += "long ";
+  }
   await buildWorkflowFile({
     dest: path.resolve(".cache", "workflow.yml"),
     workflowData: {
-      on: ["push"],
+      on: {
+        push: null,
+      },
+      env: {
+        test: longText,
+      },
     },
   });
   const workflowContent = await readFile(
     path.resolve(".cache/workflow.yml"),
     "utf8"
   );
-  expect(workflowContent).toEqual(`'on':
-  - push
+
+  expect(workflowContent).toBe(`'on':
+  push: null
+env:
+  test: '${longText}'
 `);
 });

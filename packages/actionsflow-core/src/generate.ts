@@ -81,7 +81,9 @@ export const buildWorkflowFile = async ({
   workflowData: IWorkflowData;
   dest: string;
 }): Promise<{ path: string; workflowContent: string }> => {
-  const workflowContent = yaml.safeDump(workflowData);
+  const workflowContent = yaml.safeDump(workflowData, {
+    lineWidth: Infinity,
+  });
   log.debug("generate workflow file: ", dest);
   await fs.outputFile(dest, workflowContent);
   return {

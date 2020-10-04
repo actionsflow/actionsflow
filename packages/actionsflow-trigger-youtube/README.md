@@ -60,7 +60,6 @@ on:
 ## Options
 
 - `channel_id`, optional, Youtube channel ID, `string` or `string[]`, when `channel_id` is `string[]`, then multiple Youtube channels can trigger the action. You can get it from Youtube channel URL. For example, [`https://www.youtube.com/channel/UCOmHUn--16B90oW2L6FRR3A`](https://www.youtube.com/channel/UCOmHUn--16B90oW2L6FRR3A), `channel_id` is `UCOmHUn--16B90oW2L6FRR3A`
-
 - `playlist_id`, optional, Youtube playlist ID, `string` or `string[]`, when `playlist_id` is `string[]`, then multiple Youtube playlist can trigger the action. You can get it from Youtube playlist URL. For example, [`https://www.youtube.com/playlist?list=PL2qc-hH9Ip-SSUaZd_G8IxtecK0WZ-af-`](https://www.youtube.com/channel/UCOmHUn--16B90oW2L6FRR3A), `playlist_id` is `PL2qc-hH9Ip-SSUaZd_G8IxtecK0WZ-af-`, you can use `playlist_id` and `channel_id` at the same time.
 
 > You can use [General Config for Actionsflow Trigger](https://actionsflow.github.io/docs/workflow/#ontriggerconfig) for more customization.
