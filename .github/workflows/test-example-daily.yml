@@ -1,0 +1,35 @@
+name: Test Examples
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron: "55 3 * * *"
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [12.x]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: ${{ matrix.node-version }}
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ matrix.node-version }}
+      - name: build and test
+        run: |
+          npm run bootstrap
+          npm run build
+          npm run build:example
+        env:
+          CI: true
