@@ -287,6 +287,7 @@ export const getBuiltWorkflow = async (
     firstJobs: string[];
     jobs: Record<string, AnyObject>;
   }[] = [];
+  // jobs internal env
   const jobInternalEnvs: Record<string, string>[] = [];
   // todo
   for (let index = 0; index < trigger.results.length; index++) {

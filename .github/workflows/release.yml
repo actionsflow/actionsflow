@@ -45,7 +45,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - uses: 8398a7/action-slack@v3
-        if: steps.is-release.outputs.result == "true"
+        if: steps.is-release.outputs.result == 'true'
         with:
           status: ${{ job.status }}
           text: Released Packages
@@ -55,7 +55,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }} # optional
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_RELEASE_WEBHOOK }} # required
       - name: Trigger actionsflow-action Update
-        if: steps.is-release.outputs.result == "true"
+        if: steps.is-release.outputs.result == 'true'
         uses: actionsflow/axios@v1
         with:
           url: https://theowenyoung:${{secrets.REPO_TOKEN}}@api.github.com/repos/actionsflow/actionsflow-action/dispatches
@@ -65,7 +65,7 @@ jobs:
               "event_type": "new_version_with_actionsflow"
             }
       - name: Trigger actionsflow-workflow-default Update
-        if: steps.is-release.outputs.result == "true"
+        if: steps.is-release.outputs.result == 'true'
         uses: actionsflow/axios@v1
         with:
           url: https://theowenyoung:${{secrets.REPO_TOKEN}}@api.github.com/repos/actionsflow/actionsflow-workflow-default/dispatches
