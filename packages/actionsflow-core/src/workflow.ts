@@ -287,14 +287,13 @@ export const getBuiltWorkflow = async (
     firstJobs: string[];
     jobs: Record<string, AnyObject>;
   }[] = [];
-  const newEnv: Record<string, string> = {
-    ...(workflowData.env as Record<string, string>),
-  };
+  const jobInternalEnvs: Record<string, string>[] = [];
   // todo
   for (let index = 0; index < trigger.results.length; index++) {
     const triggerResult = trigger.results[index];
     const { outputs, outcome, conclusion } = triggerResult;
     if (conclusion === "success") {
+      const jobInternalEnv: Record<string, string> = {};
       const context: Record<string, AnyObject> = {
         on: {},
       };
@@ -302,8 +301,8 @@ export const getBuiltWorkflow = async (
       // add all triggers results to env
       rawTriggers.forEach((rawTrigger) => {
         if (trigger.name === rawTrigger.name) {
-          newEnv[
-            `${TRIGGER_RESULT_ENV_PREFIX}${rawTrigger.name}_${index}`
+          jobInternalEnv[
+            `${TRIGGER_RESULT_ENV_PREFIX}${rawTrigger.name}`
           ] = JSON.stringify(
             {
               outcome: outcome,
@@ -314,8 +313,8 @@ export const getBuiltWorkflow = async (
             2
           );
         } else {
-          newEnv[
-            `${TRIGGER_RESULT_ENV_PREFIX}${rawTrigger.name}_${index}`
+          jobInternalEnv[
+            `${TRIGGER_RESULT_ENV_PREFIX}${rawTrigger.name}`
           ] = JSON.stringify(
             {
               outcome: "skipped",
@@ -326,9 +325,10 @@ export const getBuiltWorkflow = async (
             2
           );
         }
+        jobInternalEnvs.push(jobInternalEnv);
         context.on[
           rawTrigger.name
-        ] = `(fromJSON(env.${TRIGGER_RESULT_ENV_PREFIX}${rawTrigger.name}_${index}))`;
+        ] = `(fromJSON(env.${TRIGGER_RESULT_ENV_PREFIX}${rawTrigger.name}))`;
       });
       // handle context expresstion
       let newJobs = {};
@@ -393,6 +393,11 @@ export const getBuiltWorkflow = async (
     if (index > 0) {
       jobKeys.forEach((jobKey) => {
         const job = jobs[jobKey];
+        // inject envs
+        job.env = {
+          ...jobInternalEnvs[index],
+          ...(job.env as Record<string, string>),
+        };
         if (jobsGroup.firstJobs.includes(jobKey)) {
           if (Array.isArray(job.needs)) {
             job.needs = (job.needs as string[]).concat(
@@ -409,6 +414,11 @@ export const getBuiltWorkflow = async (
     } else {
       jobKeys.forEach((jobKey) => {
         const job = jobs[jobKey];
+        // inject envs
+        job.env = {
+          ...jobInternalEnvs[index],
+          ...(job.env as Record<string, string>),
+        };
         finalJobs[jobKey] = job;
       });
     }
@@ -422,11 +432,11 @@ export const getBuiltWorkflow = async (
     } else {
       job.name = `job ${index}`;
     }
+
     finalJobs[jobKey] = job;
   });
   newWorkflowData.on = ["push"];
   newWorkflowData.jobs = finalJobs;
-  newWorkflowData.env = newEnv;
   return newWorkflowData;
 };
 

@@ -30,7 +30,7 @@ For some reason, you may want to delete the Actionsflow's cache, then you can ma
 
 ## 4. How to run single workflow?
 
-When you have multiple workflow files, you want run only some workflows of them. You can set [`on.<trigger>.config.active `](https://actionsflow.github.io/docs/workflow/#ontriggerconfigactive) as `false`, or you can use [`--include`](https://actionsflow.github.io/docs/reference/cli/#build) args, `npm run build -- -i rss.yml`, or glob `npm run build -- -i "rss*"`
+When you have multiple workflow files, you want run only some workflows of them. You can set [`on.<trigger>.config.active`](https://actionsflow.github.io/docs/workflow/#ontriggerconfigactive) as `false`, or you can use [`--include`](https://actionsflow.github.io/docs/reference/cli/#build) args, `npm run build -- -i rss.yml`, or glob `npm run build -- -i "rss*"`
 
 ## 5. `argument list too long` Error
 

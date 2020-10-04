@@ -56,7 +56,7 @@ test("build webhook workflows", async () => {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   expect((newWorkflow as any).jobs.ifttt_0.steps[0].with.value2).toBe(
-    "${{(fromJSON(env.ACTIONSFLOW_TRIGGER_RESULT_FOR_webhook_0)).outputs.payload.key}}"
+    "${{(fromJSON(env.ACTIONSFLOW_TRIGGER_RESULT_FOR_webhook)).outputs.payload.key}}"
   );
 });
 
