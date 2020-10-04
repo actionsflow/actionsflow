@@ -1,3 +1,10 @@
+## [1.0.1-0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.0.1-alpha.0...v1.0.1-0) (2020-10-04)
+
+
+### Performance Improvements
+
+* ⚡️ move built workflow env to job env for args reduce ([5524302](https://github.com/actionsflow/actionsflow/commit/55243024add71f9d01db99a2e44095ee517fc2fb)), closes [#4](https://github.com/actionsflow/actionsflow/issues/4)
+
 # [1.0.0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.0.0...v1.0.0) (2020-10-01)
 
 # [1.0.0-6](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.0.0-alpha.5...v1.0.0-6) (2020-10-01)
