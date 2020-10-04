@@ -2,6 +2,8 @@
 const exec = require("exec-sh").promise;
 const fs = require("fs-extra");
 const releaseFlagFileName = `.releaseflag`;
+const yargs = require(`yargs`);
+let argv = yargs.argv;
 
 async function main() {
   let lernaCmd = `npx lerna publish from-package `;
@@ -13,6 +15,9 @@ async function main() {
   }
   if (releaseFlag.startsWith("pre")) {
     lernaCmd += `--dist-tag beta`;
+  }
+  if (process.env.CI === "true" || argv.yes || argv.ci) {
+    lernaCmd += " --yes";
   }
   await run(lernaCmd);
 }

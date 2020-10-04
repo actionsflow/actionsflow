@@ -289,7 +289,6 @@ export const getBuiltWorkflow = async (
   }[] = [];
   // jobs internal env
   const jobInternalEnvs: Record<string, string>[] = [];
-  // todo
   for (let index = 0; index < trigger.results.length; index++) {
     const triggerResult = trigger.results[index];
     const { outputs, outcome, conclusion } = triggerResult;
