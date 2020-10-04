@@ -44,16 +44,11 @@ jobs:
           npm run lerna:publish -- --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - uses: 8398a7/action-slack@v3
+      - name: Sleep for NPM Update
         if: steps.is-release.outputs.result == 'true'
+        uses: jakejarvis/wait-action@master
         with:
-          status: ${{ job.status }}
-          text: Released Packages
-          author_name:
-          fields: repo,message,author,ref,job,took # selectable (default: repo,message)
-        env:
-          GITHUB_TOKEN: ${{ github.token }} # optional
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_RELEASE_WEBHOOK }} # required
+          time: "5m"
       - name: Trigger actionsflow-action Update
         if: steps.is-release.outputs.result == 'true'
         uses: actionsflow/axios@v1
