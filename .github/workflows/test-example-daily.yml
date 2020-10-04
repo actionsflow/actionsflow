@@ -32,4 +32,4 @@ jobs:
         env:
           CI: true
       - name: Test
-        run: npm run build:example
+        run: npm run build:example -- --json-secrets ${{ toJSON(secrets) }} --json-github ${{ toJSON(github) }}
