@@ -32,5 +32,8 @@ jobs:
         env:
           CI: true
       - name: Test
+        env:
+          JSON_SECRETS: ${{ toJSON(secrets) }}
+          JSON_GITHUB: ${{ toJSON(github) }}
         run: |
-          npm run build:example -- --json-secrets ${{ toJSON(secrets) }} --json-github ${{ toJSON(github) }}
+          npm run build:example
