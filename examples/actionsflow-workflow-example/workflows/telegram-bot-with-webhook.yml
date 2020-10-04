@@ -1,6 +1,5 @@
 on:
   telegram_bot:
-    token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
     webhook: true
 jobs:
   print:

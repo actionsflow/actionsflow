@@ -1,6 +1,6 @@
 on:
   email:
-    shouldDownloadAttachments: true
+    shouldDownloadAttachments: false
     imap:
       host: outlook.office365.com
       user: ${{secrets.EMAIL_USER}}

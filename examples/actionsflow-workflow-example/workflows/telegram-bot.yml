@@ -1,6 +1,6 @@
 on:
   telegram_bot:
-    token: ${{ secrets.TELEGRAM_BOT_TOKEN2 }}
+    token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
     config:
       skipOnError: true
 jobs:

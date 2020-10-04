@@ -3,10 +3,9 @@ on:
   push:
     branches:
       - main
-  pull_request:
   schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron: "55 3 * * *"
+    - cron: "20 8 * * *"
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -26,10 +25,11 @@ jobs:
           key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-${{ matrix.node-version }}
-      - name: build and test
+      - name: build
         run: |
           npm run bootstrap
           npm run build
-          npm run build:example
         env:
           CI: true
+      - name: Test
+        run: npm run build:example
