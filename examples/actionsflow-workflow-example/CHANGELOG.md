@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.0.1...actionsflow-workflow-example@1.1.0) (2020-10-04)
+
+
+### Features
+
+* 🎸 support youtube trigger ([be24b8f](https://github.com/actionsflow/actionsflow/commit/be24b8f4aaf9b5570b84075c8656d30791a2f6fd))
+
+
+
+
+
 ## [1.0.1](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.0.1-alpha.2...actionsflow-workflow-example@1.0.1) (2020-10-04)
 
 **Note:** Version bump only for package actionsflow-workflow-example

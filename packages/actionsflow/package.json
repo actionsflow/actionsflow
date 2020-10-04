@@ -1,5 +1,5 @@
 {
-  "version": "1.0.1",
+  "version": "1.1.0",
   "license": "MIT",
   "main": "dist/src/index.js",
   "typings": "dist/src/index.d.ts",
@@ -46,7 +46,7 @@
     "@actionsflow/trigger-trello": "^1.0.1",
     "@actionsflow/trigger-twitter": "^1.0.1",
     "@actionsflow/trigger-typeform": "^1.0.1",
-    "@actionsflow/trigger-youtube": "^1.0.0",
+    "@actionsflow/trigger-youtube": "^1.1.0",
     "@babel/polyfill": "^7.11.5",
     "@octokit/core": "^3.1.2",
     "@types/fs-extra": "^9.0.1",
