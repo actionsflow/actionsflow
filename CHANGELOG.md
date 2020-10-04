@@ -1,3 +1,10 @@
+## [1.0.1-2](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.0.1-alpha.1...v1.0.1-2) (2020-10-04)
+
+
+### Bug Fixes
+
+* 🐛 fix release workflow ([c14f60f](https://github.com/actionsflow/actionsflow/commit/c14f60f718c3bd527b29402d34a455f51354ad7e))
+
 ## [1.0.1-1](https://github.com/actionsflow/actionsflow/compare/v1.0.1-0...v1.0.1-1) (2020-10-04)
 
 ## [1.0.1-0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.0.1-alpha.0...v1.0.1-0) (2020-10-04)
