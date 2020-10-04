@@ -56,7 +56,7 @@
     "mingo": "^3.0.6",
     "multimatch": "^4.0.0",
     "node-object-hash": "^2.0.0",
-    "path-to-regexp": "^6.1.0",
+    "path-to-regexp": "^6.2.0",
     "resolve-cwd": "^3.0.0",
     "rss-parser": "^3.9.0",
     "string.prototype.matchall": "^4.0.2",
