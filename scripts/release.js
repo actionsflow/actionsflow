@@ -17,7 +17,7 @@ async function main() {
   // git add
   await run(`git add ${releaseFlagFileName}`);
   await run(
-    `git commit -m "chore: add release flag file" ${releaseFlagFileName}`
+    `git diff-index --quiet HEAD || git commit -m "chore: add release flag file" ${releaseFlagFileName}`
   );
   const releaseFlag = await fs.readFile(releaseFlagFileName, "utf-8");
   if (!releaseFlag) {
