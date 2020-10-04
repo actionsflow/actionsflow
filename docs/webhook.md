@@ -15,7 +15,9 @@ https://webhook.actionsflow.workers.dev/<owner>/<repo>/<workflow-file-name>/<tri
 
 You need to generate personal access tokens with `repo` scope at [Github settings](https://github.com/settings/tokens), then replace `<your-github-personal-token>`.
 
-The default response of the webhook will use [the github `create-a-repository-dispatch-event` API response](https://docs.github.com/en/rest/reference/repos#create-a-repository-dispatch-event). You can use search params `__response_code`, `__response_content_type`, `__response_body` to specify a custom response.
+If it's success for forwarding to [Github `create-a-repository-dispatch-event` API](https://docs.github.com/en/rest/reference/repos#create-a-repository-dispatch-event), you will get a status: `200`, body: `{"success":true}` response.
+
+Of course, you can use search params `__response_code`, `__response_content_type`, `__response_body` to specify a custom response.
 
 You can also use headers `X-Github-Authorization` instead of search params `__token` for more security.
 
