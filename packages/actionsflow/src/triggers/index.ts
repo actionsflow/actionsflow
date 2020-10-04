@@ -12,6 +12,8 @@ import NPM from "@actionsflow/trigger-npm";
 import Trello from "@actionsflow/trigger-trello";
 import Typeform from "@actionsflow/trigger-typeform";
 import Reddit from "@actionsflow/trigger-reddit";
+import Youtube from "@actionsflow/trigger-youtube";
+
 export default {
   poll: Poll,
   rss: Rss,
@@ -27,4 +29,5 @@ export default {
   reddit: Reddit,
   google_form: GoogleForm,
   trello: Trello,
+  youtube: Youtube,
 };

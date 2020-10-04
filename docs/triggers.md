@@ -29,6 +29,7 @@ For now, the following triggers are available:
 - [Trello](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-trello) - Watch any action updates of trello
 - [Twitter](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-twitter) - Watch twitter's timeline updates
 - [Typeform](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-typeform) - Get form response updates when someone submitted
+- [Youtube](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-youtube) - Get Youtube channel or playlist video updates
 
 ## Community Triggers
 

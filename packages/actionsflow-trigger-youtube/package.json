@@ -1,20 +1,20 @@
 {
-  "name": "@actionsflow/trigger-{{snakeCase name}}",
+  "name": "@actionsflow/trigger-youtube",
   "version": "1.0.0",
-  "description": "Actionsflow trigger {{name}}",
+  "description": "Actionsflow trigger youtube",
   "keywords": [
-    "{{name}}",
+    "youtube",
     "actionsflow",
     "trigger"
   ],
-  "author": "{{author}}",
-  "homepage": "https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-{{snakeCase name}}#readme",
+  "author": "Owen Young",
+  "homepage": "https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-youtube#readme",
   "license": "MIT",
   "main": "dist/src/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/actionsflow/actionsflow.git",
-    "directory": "packages/actionsflow-trigger-{{snakeCase name}}"
+    "directory": "packages/actionsflow-trigger-youtube"
   },
   "scripts": {
     "start": "tsc -w -p tsconfig.production.json",

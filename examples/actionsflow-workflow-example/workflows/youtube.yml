@@ -1,0 +1,22 @@
+on:
+  youtube:
+    channel_id:
+      - UCnCikd0s4i9KoDtaHPlK-JA
+      - UCseUQK4kC3x2x543nHtGpzw
+    playlist_id:
+      - PL99D544ED5B1E58D8
+      - PL2qc-hH9Ip-SSUaZd_G8IxtecK0WZ-af-
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          title: ${{on.youtube.outputs.title}}
+          description: ${{on.youtube.outputs.description}}
+          link: ${{on.youtube.outputs.link}}
+        run: |
+          echo title: $title
+          echo description: $description
+          echo link: $link
