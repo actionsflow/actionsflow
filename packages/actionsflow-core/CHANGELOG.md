@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.2](https://github.com/actionsflow/actionsflow/compare/actionsflow-core@1.0.1...actionsflow-core@1.0.2) (2020-10-04)
+
+
+### Bug Fixes
+
+* 🐛 js to yaml line width bug ([939f440](https://github.com/actionsflow/actionsflow/commit/939f440e735ebffbf14224974e4ebe325f23edd8))
+
+
+
+
+
 ## [1.0.1](https://github.com/actionsflow/actionsflow/compare/actionsflow-core@1.0.1-alpha.2...actionsflow-core@1.0.1) (2020-10-04)
 
 **Note:** Version bump only for package actionsflow-core
