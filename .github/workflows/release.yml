@@ -34,6 +34,9 @@ jobs:
           npm run test
         env:
           CI: true
+      - name: Get IsPreReLease
+        id: is-release
+        run: echo ::set-output name=result::$([ $(cat .releaseflag | cut -c1-3) = pre ] && echo false || echo true)
       - name: Git Status
         run: git status
       - name: Publish Packages
@@ -42,6 +45,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - uses: 8398a7/action-slack@v3
+        if: steps.is-release.outputs.result == "true"
         with:
           status: ${{ job.status }}
           text: Released Packages
@@ -50,8 +54,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }} # optional
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_RELEASE_WEBHOOK }} # required
-        if: always() # Pick up events even if the job fails or is canceled.
       - name: Trigger actionsflow-action Update
+        if: steps.is-release.outputs.result == "true"
         uses: actionsflow/axios@v1
         with:
           url: https://theowenyoung:${{secrets.REPO_TOKEN}}@api.github.com/repos/actionsflow/actionsflow-action/dispatches
@@ -61,6 +65,7 @@ jobs:
               "event_type": "new_version_with_actionsflow"
             }
       - name: Trigger actionsflow-workflow-default Update
+        if: steps.is-release.outputs.result == "true"
         uses: actionsflow/axios@v1
         with:
           url: https://theowenyoung:${{secrets.REPO_TOKEN}}@api.github.com/repos/actionsflow/actionsflow-workflow-default/dispatches

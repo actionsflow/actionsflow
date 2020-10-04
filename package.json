@@ -7,7 +7,7 @@
     "reset": "lerna clean && lerna bootstrap --no-ci",
     "clean": "lerna run --ignore actionsflow-workflow* clean && rimraf ./.cache ./dist ./coverage",
     "build": "lerna exec --ignore actionsflow-workflow* --ignore @actionsflow/trigger-typeform --ignore @actionsflow/trigger-google_form --ignore @actionsflow/trigger-trello -- npm run build ",
-    "lerna:publish": "lerna publish from-package",
+    "lerna:publish": "node scripts/publish.js",
     "test": "npm run lint && jest",
     "coverage": "jest --coverage",
     "lint": "npm-run-all --continue-on-error -p lint:code lint:docs lint:other",

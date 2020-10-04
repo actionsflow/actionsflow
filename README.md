@@ -27,8 +27,6 @@ If you like Actionsflow, please vote for us on <a href="https://www.producthunt.
 <br>
 </p>
 
-// test
-
 ## 📝 Table of Contents
 
 - [About](#-about)

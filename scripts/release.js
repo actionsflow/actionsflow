@@ -1,13 +1,32 @@
 #!/usr/bin/env node
 const exec = require("exec-sh").promise;
 const yargs = require(`yargs`);
+const fs = require("fs-extra");
+const releaseFlagFileName = `.releaseflag`;
 let argv = yargs.argv;
 const version = argv._[0] || "";
 
 async function main() {
   let lernaCmd = `npm run lerna -- version`;
-  if (version) {
-    lernaCmd += ` ${version}`;
+  if (!version) {
+    throw new Error(
+      "You must specific a version, like prepatch, patch, minor, major, prerelease"
+    );
+  }
+  await fs.writeFile(releaseFlagFileName, version);
+  // git add
+  await run(`git add ${releaseFlagFileName}`);
+  await run(
+    `git commit -m "chore: add release flag file" ${releaseFlagFileName}`
+  );
+  const releaseFlag = await fs.readFile(releaseFlagFileName, "utf-8");
+  if (!releaseFlag) {
+    throw new Error(
+      `Cannot get a valid version flag from ${releaseFlagFileName}`
+    );
+  }
+  if (releaseFlag) {
+    lernaCmd += ` ${releaseFlag}`;
   }
   if (process.env.CI === "true" || argv.yes || argv.ci) {
     lernaCmd += " --yes";
@@ -15,8 +34,8 @@ async function main() {
   await run(lernaCmd);
 
   let releaseCmd = `npm run release-it --`;
-  if (version) {
-    releaseCmd += ` ${version}`;
+  if (releaseFlag) {
+    releaseCmd += ` ${releaseFlag}`;
   }
   if (process.env.CI === "true" || argv.yes || argv.ci) {
     releaseCmd += " --ci";

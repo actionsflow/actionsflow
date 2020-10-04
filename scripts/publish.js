@@ -1,0 +1,36 @@
+#!/usr/bin/env node
+const exec = require("exec-sh").promise;
+const fs = require("fs-extra");
+const releaseFlagFileName = `.releaseflag`;
+
+async function main() {
+  let lernaCmd = `npx lerna publish from-package `;
+  const releaseFlag = await fs.readFile(releaseFlagFileName, "utf-8");
+  if (!releaseFlag) {
+    throw new Error(
+      `Cannot get a valid version flag from ${releaseFlagFileName}`
+    );
+  }
+  if (releaseFlag.startsWith("pre")) {
+    lernaCmd += `--dist-tag beta`;
+  }
+  await run(lernaCmd);
+}
+
+async function run(cmd) {
+  console.log("Start to run: ", cmd);
+  try {
+    const { stderr } = await exec(cmd);
+    if (stderr) {
+      console.error(`Error occurred executing ${cmd}:\n`, stderr);
+    } else {
+      console.log(`Success executing ${cmd}`);
+    }
+  } catch (e) {
+    throw e;
+  }
+}
+
+main().catch((e) => {
+  console.error(e);
+});
