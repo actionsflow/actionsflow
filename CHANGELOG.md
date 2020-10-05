@@ -1,3 +1,15 @@
+## [1.1.2](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.0.3...v1.1.2) (2020-10-05)
+
+
+### Bug Fixes
+
+* 🐛 throw error when trigger throw an error ([00a1ffd](https://github.com/actionsflow/actionsflow/commit/00a1ffd31ff7937a9b470a4e822852c2a440c5cc))
+
+
+### Performance Improvements
+
+* ⚡️ update dependencies ([35d8d15](https://github.com/actionsflow/actionsflow/commit/35d8d15d049f9b8109186449c3405a7c891d1bab))
+
 ## [1.1.1](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.0.2...v1.1.1) (2020-10-04)
 
 
