@@ -248,7 +248,7 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
   // if errors.length>0, then throw Error
   if (errors.length > 0) {
     errors.forEach((error) => {
-      log.error(
+      log.info(
         `When running trigger [${error.trigger.name}], an error occured`,
         error.error
       );

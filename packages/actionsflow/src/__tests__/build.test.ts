@@ -80,5 +80,5 @@ test("build webhook workflows with error", async () => {
       force: true,
       cwd: path.resolve(__dirname, "./fixtures"),
     })
-  ).rejects.toThrow("data is not defined");
+  ).rejects.toThrow("Multiple Errors when running triggers");
 });
