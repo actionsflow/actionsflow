@@ -14,11 +14,13 @@ import {
   ITriggerInternalResult,
   ITriggerBuildResult,
   AnyObject,
+  ITriggerError,
 } from "actionsflow-core";
 import del from "del";
 import { run as runTrigger } from "./trigger";
 import { LogLevelDesc } from "loglevel";
 import { getTasksByTriggerEvent } from "./task";
+import { TriggersError } from "./error";
 
 interface IBuildOptions {
   dest?: string;
@@ -120,6 +122,8 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
     )
   );
 
+  const errors: ITriggerError[] = [];
+
   for (let i = 0; i < tasks.length; i++) {
     const task = tasks[i];
     const workflow = task.workflow;
@@ -189,7 +193,11 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
         log.info(`Run trigger ${trigger.name} error: `, error);
         continue;
       } else {
-        throw error;
+        errors.push({
+          error: error,
+          trigger: trigger,
+        });
+        continue;
       }
     }
 
@@ -237,7 +245,17 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
       );
     }
   }
-
+  // if errors.length>0, then throw Error
+  if (errors.length > 0) {
+    errors.forEach((error) => {
+      log.error(
+        `When running trigger [${error.trigger.name}], an error occured`,
+        error.error
+      );
+    });
+    log.info("Done.");
+    throw new TriggersError(errors);
+  }
   log.info("Done.");
 };
 
