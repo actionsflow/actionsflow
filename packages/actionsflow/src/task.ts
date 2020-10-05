@@ -70,6 +70,8 @@ export const getTasksByTriggerEvent = ({
       for (let j = 0; j < supportedTriggers.length; j++) {
         const trigger = supportedTriggers[j];
 
+        // TODO check is trigger should be triggered at the moment
+
         tasks.push({
           workflow: workflow,
           trigger: trigger,
