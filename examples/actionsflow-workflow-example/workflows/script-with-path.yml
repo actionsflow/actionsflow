@@ -1,5 +1,7 @@
 on:
   script:
+    config:
+      limit: 10
     path: ./workflows/script.js
 jobs:
   print:

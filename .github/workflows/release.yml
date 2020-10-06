@@ -46,9 +46,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Sleep for NPM Update
         if: steps.is-release.outputs.result == 'true'
-        uses: jakejarvis/wait-action@master
-        with:
-          time: "5m"
+        run: sleep 5m
       - name: Trigger actionsflow-action Update
         if: steps.is-release.outputs.result == 'true'
         uses: actionsflow/axios@v1

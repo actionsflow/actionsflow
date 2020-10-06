@@ -164,3 +164,8 @@ export interface ITask {
   trigger: ITaskTrigger;
   event: ITriggerEvent;
 }
+
+export interface ITriggerError {
+  error: Error;
+  trigger: ITaskTrigger;
+}

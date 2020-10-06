@@ -108,7 +108,7 @@ export const createCli = (argv: string): Promise<string> => {
       })
       .fail((msg, err) => {
         log.debug("fail command");
-        if (msg || err) log.error(msg || err);
+        if (msg) log.error(msg);
         reject(err);
       });
     const cliArgv = cli.parse(argv);

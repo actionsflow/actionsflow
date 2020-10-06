@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.2](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-youtube@1.1.1...@actionsflow/trigger-youtube@1.1.2) (2020-10-05)
+
+
+### Performance Improvements
+
+* ⚡️ update dependencies ([35d8d15](https://github.com/actionsflow/actionsflow/commit/35d8d15d049f9b8109186449c3405a7c891d1bab))
+
+
+
+
+
 ## [1.1.1](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-youtube@1.1.0...@actionsflow/trigger-youtube@1.1.1) (2020-10-04)
 
 
