@@ -60,7 +60,7 @@ export default class Reddit implements ITriggerClassType {
           );
         }
 
-        this.helpers.log.error(`fetch reddit rss feed [${feedUrl}] error: `, e);
+        this.helpers.log.error(`Fetch reddit rss feed [${feedUrl}] error: `, e);
         throw e;
       }
       // For now we just take the items and ignore everything else
