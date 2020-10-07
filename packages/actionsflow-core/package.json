@@ -1,5 +1,5 @@
 {
-  "version": "1.0.3",
+  "version": "1.0.4",
   "license": "MIT",
   "main": "dist/src/index.js",
   "typings": "dist/src/index.d.ts",
@@ -60,7 +60,7 @@
     "resolve-cwd": "^3.0.0",
     "rss-parser": "^3.9.0",
     "string.prototype.matchall": "^4.0.2",
-    "tslib": "^2.0.1",
+    "tslib": "^2.0.2",
     "type-is": "^1.6.18"
   }
 }

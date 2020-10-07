@@ -53,7 +53,7 @@ export default class Npm implements ITriggerClassType {
       try {
         packageMeta = await packageJson(packageName, restOptions);
       } catch (e) {
-        this.helpers.log.error(`get [${packageName}] package error: `, e);
+        this.helpers.log.error(`Get [${packageName}] package error: `, e);
         throw e;
       }
       items.push(packageMeta);

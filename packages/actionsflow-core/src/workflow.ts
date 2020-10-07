@@ -39,7 +39,7 @@ export const getWorkflow = async ({
   try {
     doc = yaml.safeLoad(await fs.readFile(filePath, "utf8")) as IWorkflowData;
   } catch (e) {
-    log.error("load yaml file error:", filePath, e);
+    log.error("Load yaml file error:", filePath, e);
     throw e;
   }
   if (doc && typeof doc === "object" && doc.on) {

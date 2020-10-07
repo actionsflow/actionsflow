@@ -62,7 +62,7 @@ export default class Poll implements ITriggerClassType {
         );
       }
 
-      this.helpers.log.error(`fetch ${url} error: `, e);
+      this.helpers.log.error(`Poll fetch ${url} error: `, e);
       throw e;
     }
     // For now we just take the items and ignore everything else

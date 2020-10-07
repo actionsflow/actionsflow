@@ -35,9 +35,9 @@ curl --request POST 'https://webhook.actionsflow.workers.dev/actionsflow/webhook
 
 > `https://webhook.actionsflow.workers.dev/<owner>/<repo>/<workflow-file-name>/<trigger-name>` is the fixed prefix for webhook URL, most triggers will use this as their webhook URL. But if some trigger has more than one webhook path, the webhook URL may have a suffix, like `https://webhook.actionsflow.workers.dev/<owner>/<repo>/<workflow-file-name>/<trigger-name>/webhook1`, you should check that trigger's documentation about webhook URL to get more information.
 
-# Triggers Supoorted Webhook
+# Triggers Supported Webhook
 
-Here are some trigger examples which supportted webhook, you can use webhook with them:
+Here are some trigger examples which supported webhook, you can use webhook with them:
 
 - [Webhook](./triggers/webhook.md) - Receiving webhook notifications
 - [AWS SNS](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-aws_sns) - Any messages published to the SNS topic you created are triggered by this trigger.

@@ -63,7 +63,7 @@ export default class TelegramBot implements ITriggerClassType {
         );
       }
 
-      log.error(`fetch ${url} error: `, e);
+      log.error(`Fetch telegram bot api ${url} error: `, e);
       throw e;
     }
 

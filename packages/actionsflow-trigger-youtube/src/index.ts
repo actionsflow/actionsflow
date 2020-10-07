@@ -81,7 +81,7 @@ export default class Youtube implements ITriggerClassType {
         }
 
         this.helpers.log.error(
-          `fetch youtube rss feed [${feedUrl}] error: `,
+          `Fetch youtube rss feed [${feedUrl}] error: `,
           e
         );
         throw e;

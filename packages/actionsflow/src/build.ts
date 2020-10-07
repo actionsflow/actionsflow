@@ -196,6 +196,7 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
         errors.push({
           error: error,
           trigger: trigger,
+          workflow: workflow,
         });
         continue;
       }
@@ -247,13 +248,13 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
   }
   // if errors.length>0, then throw Error
   if (errors.length > 0) {
+    log.info("Actionsflow build finished with the following errors:");
     errors.forEach((error) => {
       log.info(
-        `When running trigger [${error.trigger.name}], an error occured`,
+        `When running trigger [${error.trigger.name}] of workflow file [${error.workflow.relativePath}]: `,
         error.error
       );
     });
-    log.info("Done.");
     throw new TriggersError(errors);
   }
   log.info("Done.");

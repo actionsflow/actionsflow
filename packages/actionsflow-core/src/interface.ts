@@ -168,4 +168,5 @@ export interface ITask {
 export interface ITriggerError {
   error: Error;
   trigger: ITaskTrigger;
+  workflow: IWorkflow;
 }

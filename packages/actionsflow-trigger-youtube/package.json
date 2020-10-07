@@ -1,6 +1,6 @@
 {
   "name": "@actionsflow/trigger-youtube",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Actionsflow trigger youtube",
   "keywords": [
     "youtube",
@@ -29,8 +29,8 @@
     "url": "https://github.com/actionsflow/actionsflow/issues"
   },
   "dependencies": {
-    "actionsflow-core": "^1.0.3",
-    "tslib": "^2.0.1"
+    "actionsflow-core": "^1.0.4",
+    "tslib": "^2.0.2"
   },
   "devDependencies": {
     "axios": "^0.20.0"
