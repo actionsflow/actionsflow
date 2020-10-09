@@ -78,7 +78,7 @@ You can use the following context at your script code:
         owner:"actionsflow",
         repo:"actionsflow",
       });
-      return resutls.data;
+      return results.data;
   ```
 
 - `require`, you can use `require` to require the `js` module. Be care for, you should use an absolute path to require the specific js file.
