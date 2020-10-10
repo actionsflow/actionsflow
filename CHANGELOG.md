@@ -1,3 +1,5 @@
+# [1.2.0-1](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-npm@1.1.0-alpha.2...v1.2.0-1) (2020-10-10)
+
 # [1.2.0-0](https://github.com/actionsflow/actionsflow/compare/v1.1.5-1...v1.2.0-0) (2020-10-10)
 
 
