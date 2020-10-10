@@ -1,0 +1,16 @@
+on:
+  script:
+    config:
+      every: 1
+    run: |
+      return [{title:"test a test",id:"1"}]
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          outputs: ${{ toJson(on.script.outputs) }}
+        run: |
+          echo outputs: $outputs

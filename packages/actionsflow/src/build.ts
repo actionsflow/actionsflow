@@ -144,14 +144,15 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
       immediateTasks.push(task);
     }
   });
+  const newTasks: ITask[] = immediateTasks.concat(delayTasks);
   log.info(
     `There are ${immediateTasks.length} immediate tasks, ${delayTasks.length} delay tasks`
   );
   const delayTasksPromises: Promise<ITriggerInternalResult>[] = [];
 
   // Add immediate tasks
-  for (let i = 0; i < tasks.length; i++) {
-    const task = tasks[i];
+  for (let i = 0; i < newTasks.length; i++) {
+    const task = newTasks[i];
     // TODO check type
     const workflow = task.workflow;
     const trigger = task.trigger;
@@ -200,16 +201,19 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
       );
     }
   }
-  log.info("Run immediate tasks finished, wait for delay tasks to finish...");
+  log.info(
+    `Run ${tasksResults.length} immediate tasks finished, wait for ${delayTasksPromises.length} delay tasks to finish...`
+  );
+
   tasksResults = tasksResults.concat(
     await Promise.allSettled(delayTasksPromises)
   );
-  log.info("All tasks finished, wait for building...");
 
+  log.info("All tasks finished, wait for building...");
   // Add
 
-  for (let i = 0; i < tasks.length; i++) {
-    const task = tasks[i];
+  for (let i = 0; i < newTasks.length; i++) {
+    const task = newTasks[i];
     // TODO check type
     const workflow = task.workflow;
     const trigger = task.trigger;
