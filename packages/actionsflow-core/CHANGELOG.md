@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.3](https://github.com/actionsflow/actionsflow/compare/actionsflow-core@1.1.0-alpha.2...actionsflow-core@1.1.0-alpha.3) (2020-10-10)
+
+
+### Features
+
+* manual ([1fe186d](https://github.com/actionsflow/actionsflow/commit/1fe186dcce7c284808c81225c730445024dbe2d7))
+
+
+
+
+
 # [1.1.0-alpha.2](https://github.com/actionsflow/actionsflow/compare/actionsflow-core@1.1.0-alpha.1...actionsflow-core@1.1.0-alpha.2) (2020-10-10)
 
 
