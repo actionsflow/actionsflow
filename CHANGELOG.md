@@ -1,3 +1,10 @@
+# [1.2.0-2](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.1.0-alpha.3...v1.2.0-2) (2020-10-10)
+
+
+### Features
+
+* manual ([1fe186d](https://github.com/actionsflow/actionsflow/commit/1fe186dcce7c284808c81225c730445024dbe2d7))
+
 # [1.2.0-1](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-npm@1.1.0-alpha.2...v1.2.0-1) (2020-10-10)
 
 # [1.2.0-0](https://github.com/actionsflow/actionsflow/compare/v1.1.5-1...v1.2.0-0) (2020-10-10)
