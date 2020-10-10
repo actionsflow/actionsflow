@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-alpha.4](https://github.com/actionsflow/actionsflow/compare/actionsflow@1.2.0-alpha.3...actionsflow@1.2.0-alpha.4) (2020-10-10)
+
+
+### Features
+
+* task ([c005e79](https://github.com/actionsflow/actionsflow/commit/c005e79fa54fa0e2d275d391578a7a9ff9e6358a))
+
+
+
+
+
 # [1.2.0-alpha.3](https://github.com/actionsflow/actionsflow/compare/actionsflow@1.2.0-alpha.2...actionsflow@1.2.0-alpha.3) (2020-10-10)
 
 
