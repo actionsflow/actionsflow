@@ -1,3 +1,10 @@
+# [1.2.0-6](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.1.0-alpha.5...v1.2.0-6) (2020-10-10)
+
+
+### Bug Fixes
+
+* global options ([a49652a](https://github.com/actionsflow/actionsflow/commit/a49652a3210f4901b06e1449c9859007cdecb6b5))
+
 # [1.2.0-5](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.2.0-alpha.6...v1.2.0-5) (2020-10-10)
 
 
