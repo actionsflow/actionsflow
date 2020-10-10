@@ -170,10 +170,6 @@ on:
 
 Learn more about MongoDB query sort syntax, please see [`MongoDB query language sort syntax`](https://docs.mongodb.com/manual/reference/method/cursor.sort/index.html) and [`mingo`](https://github.com/kofrasa/mingo).
 
-## `on.<trigger>.config.active`
-
-Optional, `boolean`, if the trigger is active, default is `true`. for some reason, you can make trigger inactive by set `active: false`
-
 ## `on.<trigger>.config.limit`
 
 Optional, `number`, the trigger's results max length, the default value is `undefined`, it means the trigger will handle all items
@@ -182,11 +178,37 @@ Optional, `number`, the trigger's results max length, the default value is `unde
 
 Optional, `number`, skip `<count>` results of the trigger's results , the default value is `undefined`, it means the trigger will handle all items
 
+## `on.<trigger>.config.active`
+
+Optional, `boolean`, if the trigger is active, default is `true`. for some reason, you can make trigger inactive by set `active: false`
+
 ## `on.<trigger>.config.every`
 
-Optional, `number`, polling data interval time, the unit is minute, the default value is `5`, but you can also trigger Actionsflow run through `push` or `workflow_dispatch`
+Optional, `number` or `string`, the interval time of running trigger, the unit is minute, the default value is `5`, you can also use [cron expression](https://en.wikipedia.org/wiki/Cron), we use [`cron-parser`](https://github.com/harrisiirak/cron-parser#readme) to parse cron expression, with cron, you can define a more complex trigger schedule.
+
+For example, if you want run a trigger hourly, you can use the following config:
+
+```yaml
+on:
+  rss:
+    url: https://hnrss.org/newest?points=300
+    config:
+      every: 60
+```
+
+Or, use cron expression:
+
+```yaml
+on:
+  rss:
+    url: https://hnrss.org/newest?points=300
+    config:
+      every: 0 * * * *
+```
 
 > Note, webhook event will ignore `every` config
+
+> Note, the default time zone is `UTC`, so if you set a cron expression, you should notice it. You can also change the time zone by `on.<trigger>.config.timeZone`
 
 ## `on.<trigger>.config.timeZone`
 
@@ -221,6 +243,10 @@ Optional, `boolean`, Set to `true`, Actionsflow will build a workflow with `on.<
 ## `on.<trigger>.config.logLevel`
 
 Optional, `string`, log level for trigger, the default value is `info`, you can use `trace`, `debug`, `info`, `warn`, `error`
+
+## `on.<trigger>.config.debug`
+
+Optional, `boolean`, if debug the trigger, the default value is `false`, if `true`, then the `logLevel` will be `debug`, and the trigger will be triggered when all events occurred, like `push`, `workflow_dispatch`, `repository_dispatch`
 
 ## `on.<trigger>.config.skipSchedule`
 

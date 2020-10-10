@@ -14,6 +14,7 @@ import {
   getGeneralTriggerFinalOptions,
   getScheduler,
   TaskType,
+  ITriggerGeneralConfigOptions,
 } from "actionsflow-core";
 import { RUN_INTERVAL } from "./constans";
 import { getSupportedTriggers, resolveTrigger } from "./trigger";
@@ -22,11 +23,11 @@ import { isManualEvent, shouldRunMannually } from "./utils";
 export const getTasksByTriggerEvent = async ({
   event,
   workflows,
-  logLevel,
+  globalOptions,
 }: {
   event: ITriggerEvent;
   workflows: IWorkflow[];
-  logLevel?: Log.LogLevelDesc;
+  globalOptions?: ITriggerGeneralConfigOptions;
 }): Promise<ITask[]> => {
   const tasks: ITask[] = [];
   if (event.type === "webhook") {
@@ -39,7 +40,7 @@ export const getTasksByTriggerEvent = async ({
         const workflowFileName = getWorkflowFileNameByPath(
           workflow.relativePath
         );
-        const rawTriggers = getRawTriggers(workflow.data);
+        const rawTriggers = getRawTriggers(workflow.data, globalOptions);
         // get support and active triggers.
         for (let j = 0; j < rawTriggers.length; j++) {
           const trigger = rawTriggers[j];
@@ -51,7 +52,11 @@ export const getTasksByTriggerEvent = async ({
             if (TriggerClass) {
               tasks.push({
                 workflow: workflow,
-                trigger: { ...trigger, class: TriggerClass },
+                trigger: {
+                  name: trigger.name,
+                  options: trigger.options,
+                  class: TriggerClass,
+                },
                 event: event,
                 type: "immediate",
               });
@@ -79,7 +84,8 @@ export const getTasksByTriggerEvent = async ({
 
     for (let i = 0; i < workflows.length; i++) {
       const workflow = workflows[i];
-      const rawTriggers = getRawTriggers(workflow.data);
+
+      const rawTriggers = getRawTriggers(workflow.data, globalOptions);
       // get all support and active triggers
       const supportedTriggers = getSupportedTriggers(rawTriggers);
       // manual run trigger
@@ -89,11 +95,10 @@ export const getTasksByTriggerEvent = async ({
           name: trigger.name,
           workflowRelativePath: workflow.relativePath,
         };
+
         if (trigger.options && trigger.options.logLevel) {
           triggerHelperOptions.logLevel = trigger.options
             .logLevel as Log.LogLevelDesc;
-        } else if (logLevel) {
-          triggerHelperOptions.logLevel = logLevel;
         }
         const triggerInstance = new (trigger.class as ITriggerClassTypeConstructable)(
           {
@@ -116,6 +121,7 @@ export const getTasksByTriggerEvent = async ({
         } = triggerGeneralOptions;
         const scheduler = getScheduler({ every, timeZone });
         const lastUpdatedAt = await getLastUpdatedAt();
+
         if (!triggerInstance.run) {
           // trigger do not have run method
           // do nothing

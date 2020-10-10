@@ -31,10 +31,10 @@ export const run = async ({
   trigger,
   event,
   workflow,
-  logLevel,
 }: ITriggerInternalOptions): Promise<ITriggerInternalResult> => {
   log.debug("trigger:", trigger);
   log.debug("trigger event", event);
+  const originLogLevel = log.getLevel();
   const finalResult: ITriggerInternalResult = {
     items: [],
     outcome: "success",
@@ -48,7 +48,6 @@ export const run = async ({
       name: trigger.name,
       workflowPath: workflow.path,
       options: trigger.options,
-      logLevel: logLevel,
     });
     finalResult.helpers = triggerConstructorParams.helpers;
     const triggerInstance = new Trigger(triggerConstructorParams);
@@ -78,192 +77,201 @@ export const run = async ({
         skip,
         skipFirst,
         force,
+        logLevel,
       } = triggerGeneralOptions;
+      if (logLevel) {
+        log.setLevel(logLevel);
+      }
+      log.debug(
+        `Start to run trigger [${trigger.name}] of workflow [${workflow.relativePath}]`
+      );
+      try {
+        const lastUpdatedAt = await getLastUpdatedAt();
+        if (event.type === "webhook" && triggerInstance.webhooks) {
+          // webhook event should call webhook method
+          // lookup specific webhook event
+          // call webhooks
+          const webhook = getWebhookByRequest({
+            webhooks: triggerInstance.webhooks,
+            request: event.request as IWebhookRequestPayload,
+            workflow,
+            trigger: { name: trigger.name, options: trigger.options },
+          });
 
-      const lastUpdatedAt = await getLastUpdatedAt();
-      log.debug("lastUpdatedAt: ", lastUpdatedAt);
-      if (event.type === "webhook" && triggerInstance.webhooks) {
-        // webhook event should call webhook method
-        // lookup specific webhook event
-        // call webhooks
-        const webhook = getWebhookByRequest({
-          webhooks: triggerInstance.webhooks,
-          request: event.request as IWebhookRequestPayload,
-          workflow,
-          trigger: { name: trigger.name, options: trigger.options },
-        });
-
-        if (webhook) {
-          log.debug("detect webhook", webhook);
-          // check if specific getItemKey at Webhook
-          if (webhook.getItemKey) {
-            triggerGeneralOptions.getItemKey = webhook.getItemKey.bind(
-              triggerInstance
+          if (webhook) {
+            log.debug("detect webhook", webhook);
+            // check if specific getItemKey at Webhook
+            if (webhook.getItemKey) {
+              triggerGeneralOptions.getItemKey = webhook.getItemKey.bind(
+                triggerInstance
+              );
+            }
+            const webhookHandlerResult = webhook.handler.bind(triggerInstance)(
+              webhook.request
+            );
+            if (isPromise(webhookHandlerResult)) {
+              triggerResult = (await webhookHandlerResult) as ITriggerResult;
+            } else {
+              triggerResult = webhookHandlerResult as ITriggerResult;
+            }
+          } else {
+            // skip
+            throw new Error(
+              `No webhook path matched request path, skip [${trigger.name}] trigger building`
             );
           }
-          const webhookHandlerResult = webhook.handler.bind(triggerInstance)(
-            webhook.request
-          );
-          if (isPromise(webhookHandlerResult)) {
-            triggerResult = (await webhookHandlerResult) as ITriggerResult;
+        } else if (triggerInstance.run) {
+          const runHandler = triggerInstance.run.bind(triggerInstance)();
+          if (isPromise(runHandler)) {
+            triggerResult = (await runHandler) as ITriggerResult;
           } else {
-            triggerResult = webhookHandlerResult as ITriggerResult;
+            triggerResult = runHandler as ITriggerResult;
           }
         } else {
-          // skip
-          throw new Error(
-            `No webhook path matched request path, skip [${trigger.name}] trigger building`
-          );
+          //  skipped, no method for the event type
+          finalResult.outcome = "skipped";
+          finalResult.conclusion = "skipped";
+          triggerResult = [];
         }
-      } else if (triggerInstance.run) {
-        const runHandler = triggerInstance.run.bind(triggerInstance)();
-        if (isPromise(runHandler)) {
-          triggerResult = (await runHandler) as ITriggerResult;
-        } else {
-          triggerResult = runHandler as ITriggerResult;
-        }
-      } else {
-        //  skipped, no method for the event type
-        finalResult.outcome = "skipped";
-        finalResult.conclusion = "skipped";
-        triggerResult = [];
-      }
 
-      if (triggerResult) {
-        let triggerResultFormat: ITriggerResultObject = {
-          items: [],
-        };
-        let deduplicationKeys: string[] = [];
-        const { getItemKey } = triggerGeneralOptions;
-        if (Array.isArray(triggerResult)) {
-          triggerResultFormat.items = triggerResult;
-        } else {
-          triggerResultFormat = triggerResult as ITriggerResultObject;
-        }
-        let items = triggerResultFormat.items;
-        if (!Array.isArray(items)) {
-          throw new Error(
-            `trigger [${
-              trigger.name
-            }] returns an invalid results: ${JSON.stringify(
-              triggerResult,
-              null,
-              2
-            )}`
-          );
-        }
-        if (items.length > 0) {
-          // duplicate
-          if (shouldDeduplicate === true && getItemKey && !force) {
-            // deduplicate
-            // get cache
-            deduplicationKeys =
-              (await triggerCacheManager.get("deduplicationKeys")) || [];
-            log.debug("get cached deduplicationKeys", deduplicationKeys);
-            const itemsKeyMaps = new Map();
-            items.forEach((item) => {
-              itemsKeyMaps.set(getItemKey(item), item);
-            });
-            items = [...itemsKeyMaps.values()];
-            items = items.filter((result) => {
-              const key = getItemKey(result);
-              if ((deduplicationKeys as string[]).includes(key)) {
-                return false;
-              } else {
-                return true;
+        if (triggerResult) {
+          let triggerResultFormat: ITriggerResultObject = {
+            items: [],
+          };
+          let deduplicationKeys: string[] = [];
+          const { getItemKey } = triggerGeneralOptions;
+          if (Array.isArray(triggerResult)) {
+            triggerResultFormat.items = triggerResult;
+          } else {
+            triggerResultFormat = triggerResult as ITriggerResultObject;
+          }
+          let items = triggerResultFormat.items;
+          if (!Array.isArray(items)) {
+            throw new Error(
+              `trigger [${
+                trigger.name
+              }] returns an invalid results: ${JSON.stringify(
+                triggerResult,
+                null,
+                2
+              )}`
+            );
+          }
+          if (items.length > 0) {
+            // duplicate
+            if (shouldDeduplicate === true && getItemKey && !force) {
+              // deduplicate
+              // get cache
+              deduplicationKeys =
+                (await triggerCacheManager.get("deduplicationKeys")) || [];
+              log.debug("get cached deduplicationKeys", deduplicationKeys);
+              const itemsKeyMaps = new Map();
+              items.forEach((item) => {
+                itemsKeyMaps.set(getItemKey(item), item);
+              });
+              items = [...itemsKeyMaps.values()];
+              items = items.filter((result) => {
+                const key = getItemKey(result);
+                if ((deduplicationKeys as string[]).includes(key)) {
+                  return false;
+                } else {
+                  return true;
+                }
+              });
+            }
+            let cursor: Cursor | undefined;
+            // filter
+            if (filter) {
+              cursor = filterFn(items, filter);
+            }
+
+            if (sort) {
+              if (!cursor) {
+                cursor = filterFn(items, {});
               }
-            });
-          }
-          let cursor: Cursor | undefined;
-          // filter
-          if (filter) {
-            cursor = filterFn(items, filter);
-          }
-
-          if (sort) {
-            if (!cursor) {
-              cursor = filterFn(items, {});
+              cursor = cursor.sort(sort);
             }
-            cursor = cursor.sort(sort);
-          }
-          if (cursor) {
-            items = cursor.all();
-          }
-          if (skip && skip > 0) {
-            items = items.slice(skip, items.length);
-          }
-
-          if (limit && limit > 0) {
-            items = items.slice(0, limit);
-          }
-
-          if (shouldDeduplicate === true && getItemKey && !force) {
-            // set deduplicate key
-            // if save to cache
-            // items should use raw items
-            if (items.length > 0) {
-              deduplicationKeys = (deduplicationKeys as string[]).concat(
-                items
-                  .map((item: AnyObject) => getItemKey(item))
-                  .filter((item) => {
-                    if (deduplicationKeys.includes(item)) {
-                      return false;
-                    } else {
-                      return true;
-                    }
-                  })
-              );
-
-              // deduplicate, just in case
-
-              deduplicationKeys = [...new Set(deduplicationKeys)];
-
-              deduplicationKeys = (deduplicationKeys as string[]).slice(
-                -MAX_CACHE_KEYS_COUNT
-              );
-
-              // set cache
-              await triggerCacheManager.set(
-                "deduplicationKeys",
-                deduplicationKeys
-              );
-              log.debug("save deduplicationKeys to cache", deduplicationKeys);
-            } else {
-              log.debug("no items update, do not need to update cache");
+            if (cursor) {
+              items = cursor.all();
             }
-          }
+            if (skip && skip > 0) {
+              items = items.slice(skip, items.length);
+            }
 
-          // last filter outputs
-          if (filterOutputs) {
-            const filterOutpusCursor = filterFn(items, {}, filterOutputs);
-            items = filterOutpusCursor.all();
-          }
-          // last format outputs
-          if (format) {
-            items = items.map((item) => {
-              try {
-                const newItem = getStringFunctionResult(format, {
-                  item,
-                }) as Record<string, unknown>;
-                return newItem;
-              } catch (error) {
-                throw new Error(
-                  `An error occurred in the ${workflow.relativePath} [${
-                    trigger.name
-                  }] format function: ${error.toString()}`
+            if (limit && limit > 0) {
+              items = items.slice(0, limit);
+            }
+
+            if (shouldDeduplicate === true && getItemKey && !force) {
+              // set deduplicate key
+              // if save to cache
+              // items should use raw items
+              if (items.length > 0) {
+                deduplicationKeys = (deduplicationKeys as string[]).concat(
+                  items
+                    .map((item: AnyObject) => getItemKey(item))
+                    .filter((item) => {
+                      if (deduplicationKeys.includes(item)) {
+                        return false;
+                      } else {
+                        return true;
+                      }
+                    })
                 );
+
+                // deduplicate, just in case
+
+                deduplicationKeys = [...new Set(deduplicationKeys)];
+
+                deduplicationKeys = (deduplicationKeys as string[]).slice(
+                  -MAX_CACHE_KEYS_COUNT
+                );
+
+                // set cache
+                await triggerCacheManager.set(
+                  "deduplicationKeys",
+                  deduplicationKeys
+                );
+                log.debug("save deduplicationKeys to cache", deduplicationKeys);
+              } else {
+                log.debug("no items update, do not need to update cache");
               }
-            });
+            }
+
+            // last filter outputs
+            if (filterOutputs) {
+              const filterOutpusCursor = filterFn(items, {}, filterOutputs);
+              items = filterOutpusCursor.all();
+            }
+            // last format outputs
+            if (format) {
+              items = items.map((item) => {
+                try {
+                  const newItem = getStringFunctionResult(format, {
+                    item,
+                  }) as Record<string, unknown>;
+                  return newItem;
+                } catch (error) {
+                  throw new Error(
+                    `An error occurred in the ${workflow.relativePath} [${
+                      trigger.name
+                    }] format function: ${error.toString()}`
+                  );
+                }
+              });
+            }
           }
-        }
 
-        if (!(skipFirst && lastUpdatedAt === 0) || force) {
-          finalResult.items = items;
+          if (!(skipFirst && lastUpdatedAt === 0) || force) {
+            finalResult.items = items;
+          }
+        } else {
+          log.debug("no items update, do not need to update cache");
         }
-
-        return finalResult;
-      } else {
-        log.debug("no items update, do not need to update cache");
+        log.setLevel(originLogLevel);
+      } catch (e) {
+        log.setLevel(originLogLevel);
+        throw e;
       }
     } else {
       throw new Error(`Trigger [${trigger.name}] construct error`);

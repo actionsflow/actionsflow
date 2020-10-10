@@ -190,13 +190,11 @@ export const getTriggerConstructorParams = async ({
   name,
   cwd,
   workflowPath,
-  logLevel,
 }: {
   options: ITriggerOptions;
   name: string;
   cwd?: string;
   workflowPath: string;
-  logLevel?: LogLevelDesc;
 }): Promise<ITriggerContructorParams> => {
   cwd = cwd || process.cwd();
   const relativePath = path.relative(
@@ -209,8 +207,6 @@ export const getTriggerConstructorParams = async ({
   };
   if (options && options.logLevel) {
     triggerHelperOptions.logLevel = options.logLevel as LogLevelDesc;
-  } else if (logLevel) {
-    triggerHelperOptions.logLevel = logLevel;
   }
   return {
     options: options,

@@ -1,4 +1,9 @@
-import { ITrigger, IWorkflowData, AnyObject } from "../interface";
+import {
+  ITrigger,
+  IWorkflowData,
+  AnyObject,
+  ITriggerGeneralConfigOptions,
+} from "../interface";
 import { useOperators, OperatorType } from "mingo/core";
 import mingo from "mingo";
 import * as stringOperators from "mingo/operators/expression/string";
@@ -10,7 +15,10 @@ useOperators(OperatorType.EXPRESSION, stringOperators);
  * get raw triggers from workflow data
  * @param doc
  */
-export const getRawTriggers = (doc: IWorkflowData): ITrigger[] => {
+export const getRawTriggers = (
+  doc: IWorkflowData,
+  globalOptions?: ITriggerGeneralConfigOptions
+): ITrigger[] => {
   const triggers = [];
   if (doc && doc.on) {
     const onObj = doc.on as Record<string, Record<string, unknown>>;
@@ -18,10 +26,20 @@ export const getRawTriggers = (doc: IWorkflowData): ITrigger[] => {
 
     for (let index = 0; index < keys.length; index++) {
       const key = keys[index] as string;
-      let options = {};
+      let options: { config?: ITriggerGeneralConfigOptions } = {};
       if (onObj && onObj[key]) {
         options = onObj[key];
       }
+      if (globalOptions) {
+        options.config = {
+          ...globalOptions,
+          ...options.config,
+        };
+        if (Object.keys(options.config).length === 0) {
+          delete options.config;
+        }
+      }
+
       triggers.push({
         name: key,
         options: options,

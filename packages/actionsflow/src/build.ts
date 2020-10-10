@@ -108,7 +108,10 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
   const tasks = await getTasksByTriggerEvent({
     event: triggerEvent,
     workflows,
-    logLevel: logLevel,
+    globalOptions: {
+      force: force,
+      logLevel: logLevel,
+    },
   });
 
   // scheduled task
@@ -158,17 +161,6 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
     const trigger = task.trigger;
     const event = task.event;
 
-    if (force) {
-      if (trigger.options) {
-        if (trigger.options.config) {
-          trigger.options.config.force = true;
-        } else {
-          trigger.options.config = { force: true };
-        }
-      } else {
-        trigger.options = { config: { force: true } };
-      }
-    }
     if (task.type === "immediate") {
       tasksResults.push(
         await runSettled({
@@ -225,17 +217,7 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
     const workflowDestPath = path.resolve(workflowsDestPath, destRelativePath);
     // manual run trigger
     const triggerResults: ITriggerBuildResult[] = [];
-    if (force) {
-      if (trigger.options) {
-        if (trigger.options.config) {
-          trigger.options.config.force = true;
-        } else {
-          trigger.options.config = { force: true };
-        }
-      } else {
-        trigger.options = { config: { force: true } };
-      }
-    }
+
     const taskResult = tasksResults[i];
 
     let triggerRunResult: ITriggerInternalResult | undefined;
@@ -276,6 +258,7 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
         log.info(`Run trigger ${trigger.name} error: `, error);
         continue;
       } else {
+        // TODO JSON.stringify, change type
         errors.push({
           error: error,
           trigger: trigger,
