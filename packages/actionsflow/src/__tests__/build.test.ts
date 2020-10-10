@@ -7,7 +7,6 @@ test("build workflows", async () => {
   // set process env
   process.env.JSON_SECRETS =
     '{"GITHUB_TOKEN": "fake_github_token","IFTTT_KEY":"fake_ifttt_key","TELEGRAM_BOT_TOKEN":"fake_telegram_bot_token"}';
-  process.env.JSON_GITHUB = "{}";
 
   await build({
     force: true,

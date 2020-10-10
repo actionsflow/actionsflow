@@ -25,7 +25,7 @@ test("run trigger", async () => {
       context: getContext(),
     })) as IWorkflow,
     event: {
-      type: "manual",
+      type: "schedule",
     },
   });
 

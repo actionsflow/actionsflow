@@ -7,6 +7,21 @@ test("get context", () => {
   expect(getContext()).toEqual({
     github: {
       event: {},
+      event_name: "workflow_dispatch",
+    },
+    secrets: {
+      token: "test2333",
+    },
+  });
+});
+
+test("get context with empty", () => {
+  process.env.JSON_SECRETS = `{"token":"test2333"}`;
+
+  expect(getContext()).toEqual({
+    github: {
+      event_name: "workflow_dispatch",
+      event: {},
     },
     secrets: {
       token: "test2333",

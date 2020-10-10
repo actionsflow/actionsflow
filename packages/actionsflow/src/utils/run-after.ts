@@ -3,20 +3,20 @@ interface IRunAfterFn<T> {
 }
 export async function runAfter<T>(
   fn: IRunAfterFn<T>,
-  timeout: number
+  delay: number
 ): Promise<T> {
   return new Promise(async (resolve, reject) => {
-    if (timeout >= 0) {
+    if (delay >= 0) {
       setTimeout(async () => {
         try {
           resolve(await fn());
         } catch (e) {
           reject(e);
         }
-      }, timeout);
+      }, delay);
     } else {
       // invalid
-      reject(`Invalid timeout param: ${timeout}`);
+      reject(`Invalid delay param: ${delay}`);
     }
   });
 }

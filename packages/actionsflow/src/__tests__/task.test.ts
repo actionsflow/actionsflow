@@ -10,7 +10,7 @@ import path from "path";
 test("get task by trigger event manual", async () => {
   const tasks = await getTasksByTriggerEvent({
     event: {
-      type: "manual",
+      type: "push",
     },
     workflows: [
       (await getWorkflow({
@@ -131,8 +131,8 @@ test("get task by trigger event border range", async () => {
   delete process.env.ACTIONSFLOW_LAST_UPDATE_AT;
   delete process.env.ACTIONSFLOW_CURRENT_TIME_FOR_CRON;
   delete process.env.ACTIONSFLOW_CURRENT_RUN_CREATED_AT;
-  expect(tasks[0].type).toBe("timeout");
-  expect(tasks[0].timeout).toBe(0);
+  expect(tasks[0].type).toBe("delay");
+  expect(tasks[0].delay).toBe(0);
 });
 
 test("get task by trigger event specific time", async () => {
@@ -157,8 +157,8 @@ test("get task by trigger event specific time", async () => {
   delete process.env.ACTIONSFLOW_LAST_UPDATE_AT;
   delete process.env.ACTIONSFLOW_CURRENT_TIME_FOR_CRON;
   delete process.env.ACTIONSFLOW_CURRENT_RUN_CREATED_AT;
-  expect(tasks[0].type).toBe("timeout");
-  expect(tasks[0].timeout).toBe(0);
+  expect(tasks[0].type).toBe("delay");
+  expect(tasks[0].delay).toBe(0);
 });
 
 test("get task by trigger event specific time2", async () => {
@@ -204,6 +204,32 @@ test("get task by trigger event specific time3", async () => {
   delete process.env.ACTIONSFLOW_LAST_UPDATE_AT;
   delete process.env.ACTIONSFLOW_CURRENT_TIME_FOR_CRON;
   delete process.env.ACTIONSFLOW_CURRENT_RUN_CREATED_AT;
-  expect(tasks[0].type).toBe("timeout");
-  expect(tasks[0].timeout).toBe(0);
+  expect(tasks[0].type).toBe("delay");
+  expect(tasks[0].delay).toBe(0);
+});
+
+test("get task by trigger event specific time but manual run", async () => {
+  const currentDate = new Date("2020-10-04T23:00:00.000Z");
+  process.env.ACTIONSFLOW_CURRENT_TIME_FOR_CRON = `${currentDate.toISOString()}`;
+  process.env.ACTIONSFLOW_CURRENT_RUN_CREATED_AT = `${currentDate.getTime()}`;
+  process.env.ACTIONSFLOW_LAST_UPDATE_AT = `${
+    currentDate.getTime() - 20 * 60 * 1000
+  }`;
+  const tasks = await getTasksByTriggerEvent({
+    event: {
+      type: "push",
+    },
+    workflows: [
+      (await getWorkflow({
+        path: path.resolve(__dirname, "./fixtures/task/workflows/time.yml"),
+        cwd: path.resolve(__dirname, "./fixtures/task"),
+        context: getContext(),
+      })) as IWorkflow,
+    ],
+  });
+  delete process.env.ACTIONSFLOW_LAST_UPDATE_AT;
+  delete process.env.ACTIONSFLOW_CURRENT_TIME_FOR_CRON;
+  delete process.env.ACTIONSFLOW_CURRENT_RUN_CREATED_AT;
+  expect(tasks[0].type).toBe("delay");
+  expect(tasks[0].delay).toBe(0);
 });

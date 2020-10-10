@@ -25,7 +25,7 @@ export const getScheduler = ({
     currentDate: process.env.ACTIONSFLOW_CURRENT_TIME_FOR_CRON || new Date(),
     tz: timeZone,
   });
-  scheduler.type = "timeout";
+  scheduler.type = "delay";
   scheduler.prev = interval.prev().getTime();
   scheduler.next = interval.next().getTime();
   return scheduler;

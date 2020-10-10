@@ -124,7 +124,7 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
           },
           event: item.event,
           type: item.type,
-          timeout: item.timeout,
+          delay: item.delay,
         };
       }),
       null,
@@ -136,18 +136,18 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
   let tasksResults: PromiseSettledResult<ITriggerInternalResult>[] = [];
   // get immediate tasks
   const immediateTasks: ITask[] = [];
-  const timeoutTasks: ITask[] = [];
+  const delayTasks: ITask[] = [];
   tasks.forEach((task) => {
-    if (task.type === "timeout") {
-      timeoutTasks.push(task);
+    if (task.type === "delay") {
+      delayTasks.push(task);
     } else {
       immediateTasks.push(task);
     }
   });
   log.info(
-    `There are ${immediateTasks.length} immediate tasks, ${timeoutTasks.length} timeout tasks`
+    `There are ${immediateTasks.length} immediate tasks, ${delayTasks.length} delay tasks`
   );
-  const timeoutTasksPromises: Promise<ITriggerInternalResult>[] = [];
+  const delayTasksPromises: Promise<ITriggerInternalResult>[] = [];
 
   // Add immediate tasks
   for (let i = 0; i < tasks.length; i++) {
@@ -182,8 +182,8 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
         })
       );
     } else {
-      // Add timeout promise
-      timeoutTasksPromises.push(
+      // Add delay promise
+      delayTasksPromises.push(
         runAfter(
           runTrigger.bind(null, {
             workflow: workflow,
@@ -195,14 +195,14 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
             event: event,
             logLevel,
           }),
-          task.timeout as number
+          task.delay as number
         )
       );
     }
   }
-  log.info("Run immediate tasks finished, wait for timeout tasks to finish...");
+  log.info("Run immediate tasks finished, wait for delay tasks to finish...");
   tasksResults = tasksResults.concat(
-    await Promise.allSettled(timeoutTasksPromises)
+    await Promise.allSettled(delayTasksPromises)
   );
   log.info("All tasks finished, wait for building...");
 

@@ -302,6 +302,9 @@ export const resolveTrigger = (
   // last, get official trigger
   if (!trigger) {
     trigger = allTriggers[name];
+    if (trigger) {
+      log.debug(`Use official trigger ${name}`);
+    }
   }
   return trigger;
 };

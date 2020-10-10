@@ -196,9 +196,9 @@ Optional, `boolean`, whether to skip the data obtained for the first time, if `t
 
 Optional, `boolean`, if the trigger's results should be dedeplicate, the default value is decided by the trigger, you can force to override it.
 
-## `on.<trigger>.config.shouldRunManually`
+## `on.<trigger>.config.event`
 
-Optional, `boolean`, if the trigger should run manually, like when Actionsflow received the Github event `push`, `workflow_dispatch`, if the trigger should run. The default value is `true`
+Optional, `string` or `string[]`, The default value is `["schedule","webhook"]`
 
 ## `on.<trigger>.config.force`
 

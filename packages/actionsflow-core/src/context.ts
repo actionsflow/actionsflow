@@ -30,6 +30,9 @@ export const getContext = (contextEnv?: IContextEnv): ITriggerContext => {
   } catch (error) {
     log.warn("parse enviroment variable JSON_GITHUB error:", error);
   }
+  if (!githubObj.event_name) {
+    githubObj.event_name = "workflow_dispatch";
+  }
   const context: ITriggerContext = {
     secrets: secretObj,
     github: githubObj,

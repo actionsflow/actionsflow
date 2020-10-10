@@ -3,11 +3,9 @@ on:
     url: https://hnrss.org/newest?points=300
     test: ${{ secrets.TEST }}-1
     config:
-      every: "*/5 * * * *"
-      event:
-        - schedule
-        - webhook
-        - workflow_dispatch
+      every: "0 7 * * *"
+      timeZone: "Asia/Taipei"
+      shouldRunManually: true
 jobs:
   ifttt:
     name: Make a Request to IFTTT

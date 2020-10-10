@@ -18,6 +18,7 @@ import {
 import { RUN_INTERVAL } from "./constans";
 import { getSupportedTriggers, resolveTrigger } from "./trigger";
 import { getLastUpdatedAt, getCurrentJobCreatedAt } from "./job";
+import { isManualEvent, shouldRunMannually } from "./utils";
 export const getTasksByTriggerEvent = async ({
   event,
   workflows,
@@ -48,12 +49,35 @@ export const getTasksByTriggerEvent = async ({
           ) {
             const TriggerClass = resolveTrigger(trigger.name);
             if (TriggerClass) {
-              tasks.push({
-                workflow: workflow,
-                trigger: { ...trigger, class: TriggerClass },
-                event: event,
-                type: "immediate",
-              });
+              const triggerHelperOptions: ITriggerHelpersOptions = {
+                name: trigger.name,
+                workflowRelativePath: workflow.relativePath,
+              };
+              const triggerInstance = new (TriggerClass as ITriggerClassTypeConstructable)(
+                {
+                  options: trigger.options,
+                  helpers: getTriggerHelpers(triggerHelperOptions),
+                  workflow: workflow,
+                }
+              );
+              const triggerGeneralOptions = getGeneralTriggerFinalOptions(
+                triggerInstance,
+                trigger.options,
+                event
+              );
+              const { event: triggerEventType } = triggerGeneralOptions;
+              if (triggerEventType.includes("webhook")) {
+                tasks.push({
+                  workflow: workflow,
+                  trigger: { ...trigger, class: TriggerClass },
+                  event: event,
+                  type: "immediate",
+                });
+              } else {
+                log.info(
+                  `Skip webhook event, because trigger [${trigger.name}] of workflow [${workflow.relativePath}] config event ${triggerEventType} does not include webhook`
+                );
+              }
             } else {
               log.warn(
                 `can not found the trigger [${trigger.name}]. Did you forget to install the third party trigger?
@@ -71,7 +95,7 @@ export const getTasksByTriggerEvent = async ({
         `The webhook request path [${webhookPath}] does not match any workflow triggers, Actionsflow will skip building for this time`
       );
     }
-  } else if (event.type === "schedule") {
+  } else if (event.type === "schedule" || isManualEvent(event.type)) {
     // schedule
     const currentJobRunCreatedAt = getCurrentJobCreatedAt();
     const currentJobEndTime = currentJobRunCreatedAt + RUN_INTERVAL;
@@ -106,15 +130,38 @@ export const getTasksByTriggerEvent = async ({
           trigger.options,
           event
         );
-        const { every, timeZone } = triggerGeneralOptions;
+        const {
+          every,
+          timeZone,
+          event: triggerEventType,
+        } = triggerGeneralOptions;
         const scheduler = getScheduler({ every, timeZone });
         const lastUpdatedAt = await getLastUpdatedAt();
-        if (scheduler.type === "timeout") {
+        if (!triggerInstance.run) {
+          // trigger do not have run method
+          // do nothing
+          log.debug(
+            `There is no 'run' method at trigger [${trigger.name}] of workflow [${workflow.relativePath}], skip this trigger for tasks`
+          );
+        } else if (
+          isManualEvent(event.type) &&
+          shouldRunMannually(event.type, triggerEventType)
+        ) {
+          log.debug(
+            `trigger [${trigger.name}] of workflow [${workflow.relativePath}] should be run manually`
+          );
+          tasks.push({
+            workflow: workflow,
+            trigger: trigger,
+            event: event,
+            type: "immediate",
+          });
+        } else if (scheduler.type === "delay") {
           // first check is prev has run,
 
           let isShouldUpdate = false;
-          let taskRunType: TaskType = "timeout";
-          let timeout: number | undefined = 0;
+          let taskRunType: TaskType = "delay";
+          let delay: number | undefined = 0;
           const isFirstRun = lastUpdatedAt === 0;
           const prevTaskShouldRunAt = scheduler.prev as number;
           const nextTaskShouldRunAt = scheduler.next as number;
@@ -136,20 +183,20 @@ currentJobCreateTime: ${new Date(currentJobRunCreatedAt)}`
             taskRunType = "immediate";
           } else if (nextTaskShouldRunAt <= currentJobEndTime) {
             isShouldUpdate = true;
-            taskRunType = "timeout";
-            timeout = nextTaskShouldRunAt - currentJobRunCreatedAt;
+            taskRunType = "delay";
+            delay = nextTaskShouldRunAt - currentJobRunCreatedAt;
           }
 
           if (isShouldUpdate) {
             log.debug(
-              `Trigger [${trigger.name}] of [${workflow.relativePath}] should be update, schedule type: ${taskRunType}, timeout: ${timeout}`
+              `Trigger [${trigger.name}] of [${workflow.relativePath}] should be update, schedule type: ${taskRunType}, delay: ${delay}`
             );
             tasks.push({
               workflow: workflow,
               trigger: trigger,
               event: event,
               type: taskRunType,
-              timeout: timeout,
+              delay: delay,
             });
           } else {
             log.debug(
@@ -168,25 +215,6 @@ currentJobCreateTime: ${new Date(currentJobRunCreatedAt)}`
         }
         // check is trigger should be triggered at the moment
         // get last run at
-      }
-    }
-  } else if (event.type === "manual") {
-    // manual
-    for (let i = 0; i < workflows.length; i++) {
-      const workflow = workflows[i];
-      const rawTriggers = getRawTriggers(workflow.data);
-      // get all support and active triggers
-      const supportedTriggers = getSupportedTriggers(rawTriggers);
-      // manual run trigger
-      for (let j = 0; j < supportedTriggers.length; j++) {
-        const trigger = supportedTriggers[j];
-        // TODO if need to check is trigger should trigger should be run
-        tasks.push({
-          workflow: workflow,
-          trigger: trigger,
-          event: event,
-          type: "immediate",
-        });
       }
     }
   } else {

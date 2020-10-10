@@ -12,6 +12,7 @@ import {
   ITriggerContructorParams,
   ITriggerEvent,
   ITriggerHelpersOptions,
+  TriggerEventType,
 } from "./interface";
 import axios from "axios";
 import rssParser from "rss-parser";
@@ -66,10 +67,24 @@ export const getTriggerHelpers = ({
   return triggerHelpers;
 };
 interface IGeneralTriggerOptions extends ITriggerGeneralConfigOptions {
-  every: number;
+  every: number | string;
+  event: TriggerEventType[];
+  debug: boolean;
   shouldDeduplicate: boolean;
-  shouldRunManually: boolean;
   getItemKey: (item: AnyObject) => string;
+  skipFirst: boolean;
+  force: boolean;
+  logLevel: LogLevelDesc;
+  active: boolean;
+  buildOutputsOnError: boolean;
+  skipOnError: boolean;
+  timeZone: string;
+}
+interface IGeneralTriggerDefaultOptions extends ITriggerGeneralConfigOptions {
+  every: string | number;
+  shouldDeduplicate: boolean;
+  event: TriggerEventType | TriggerEventType[];
+  debug: boolean;
   skipFirst: boolean;
   force: boolean;
   logLevel: LogLevelDesc;
@@ -88,10 +103,51 @@ export const getGeneralTriggerFinalOptions = (
   if (triggerOptions && triggerOptions.config) {
     userOptions = triggerOptions.config;
   }
-  const options: IGeneralTriggerOptions = {
+  const options: IGeneralTriggerDefaultOptions = {
     every: 5, // github actions every 5
     shouldDeduplicate: event.type === "webhook" ? false : true,
-    shouldRunManually: true, // should run on manual, like push, workflow run event
+    event: ["schedule", "webhook"],
+    debug: false,
+    skipFirst: false,
+    force: false,
+    logLevel: "info",
+    active: true,
+    buildOutputsOnError: false,
+    skipOnError: false,
+    timeZone: "UTC",
+    ...instanceConfig,
+    ...userOptions,
+  };
+
+  // format event
+
+  if (options.event) {
+    if (typeof options.event === "string") {
+      options.event = [options.event];
+    } else if (Array.isArray(options.event)) {
+      options.event = options.event;
+    } else {
+      // invalid event type
+      throw new Error(
+        `Invalid config event value, you should use one of "push", "schedule", "webhook", "repository_dispatch", "workflow_dispatch"`
+      );
+    }
+  } else {
+    options.event = [];
+  }
+
+  // debug
+  if (options.debug) {
+    options.logLevel = "debug";
+    options.event = [
+      "push",
+      "schedule",
+      "webhook",
+      "repository_dispatch",
+      "workflow_dispatch",
+    ];
+  }
+  const newOptions: IGeneralTriggerOptions = {
     getItemKey: (item: AnyObject): string => {
       let key = "";
       if (item.id) {
@@ -108,20 +164,12 @@ export const getGeneralTriggerFinalOptions = (
       }
       return createContentDigest(item);
     },
-    skipFirst: false,
-    force: false,
-    logLevel: "info",
-    active: true,
-    buildOutputsOnError: false,
-    skipOnError: false,
-    timeZone: "UTC",
-    ...instanceConfig,
-    ...userOptions,
+    ...options,
+    event: options.event as TriggerEventType[],
   };
-
   if (options.shouldDeduplicate) {
     if (triggerInstance.getItemKey) {
-      options.getItemKey = (item: AnyObject) => {
+      newOptions.getItemKey = (item: AnyObject) => {
         let key = "";
         if (triggerInstance.getItemKey) {
           key = triggerInstance.getItemKey.call(triggerInstance, item);
@@ -131,7 +179,7 @@ export const getGeneralTriggerFinalOptions = (
     }
   }
 
-  return options;
+  return newOptions;
 };
 
 export const getTriggerConstructorParams = async ({

@@ -50,10 +50,11 @@ export interface IContextEnv {
   JSON_GITHUB: string;
 }
 export interface ITriggerGeneralConfigOptions {
-  every?: number;
+  every?: number | string;
   timeZone?: string;
   shouldDeduplicate?: boolean;
-  shouldRunManually?: boolean;
+  event?: TriggerEventType | TriggerEventType[];
+  debug?: boolean;
   skipFirst?: boolean;
   force?: boolean;
   logLevel?: LogLevelDesc;
@@ -149,10 +150,11 @@ export interface IWorkflow {
 }
 
 export type TriggerEventType =
-  | "manual"
+  | "push"
   | "schedule"
   | "webhook"
-  | "repository_dispatch";
+  | "repository_dispatch"
+  | "workflow_dispatch";
 export interface ITriggerEvent {
   type: TriggerEventType;
   request?: IWebhookRequestPayload;
@@ -160,13 +162,13 @@ export interface ITriggerEvent {
 export interface ITaskTrigger extends ITrigger {
   class: ITriggerClassTypeConstructable | undefined;
 }
-export type TaskType = "timeout" | "immediate";
+export type TaskType = "delay" | "immediate";
 export interface ITask {
   workflow: IWorkflow;
   trigger: ITaskTrigger;
   event: ITriggerEvent;
   type?: TaskType;
-  timeout?: number;
+  delay?: number;
 }
 
 export interface ITriggerError {

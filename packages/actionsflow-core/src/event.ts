@@ -5,6 +5,7 @@ import {
   HTTP_METHODS_LOWERCASE,
   IWebhookRequestPayload,
   AnyObject,
+  TriggerEventType,
 } from "./interface";
 import querystring from "querystring";
 import typeis from "type-is";
@@ -48,7 +49,7 @@ export const formatRequest = ({
 };
 export const getEventByContext = (context: ITriggerContext): ITriggerEvent => {
   const triggerEvent: ITriggerEvent = {
-    type: "manual",
+    type: "push",
   };
   const githubObj = context.github;
   const isWebhookEvent =
@@ -120,13 +121,9 @@ export const getEventByContext = (context: ITriggerContext): ITriggerEvent => {
       headers: clientPayload.headers,
       body: clientPayload.body,
     });
-  } else if (githubObj.event_name === "schedule") {
-    triggerEvent.type = "schedule";
-  } else if (githubObj.event_name === "repository_dispatch") {
-    triggerEvent.type = "repository_dispatch";
   } else {
-    // manual
-    triggerEvent.type = "manual";
+    // other event
+    triggerEvent.type = githubObj.event_name as TriggerEventType;
   }
   return triggerEvent;
 };
