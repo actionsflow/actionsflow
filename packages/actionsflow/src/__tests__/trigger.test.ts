@@ -36,41 +36,6 @@ test("run trigger", async () => {
   }
 });
 
-test("run trigger with github enviroment, use lastUpdateAt", async () => {
-  process.env.GITHUB_ACTIONS = "true";
-  process.env.ACTIONSFLOW_LAST_UPDATE_AT = `${Date.now()}`;
-
-  const result = await run({
-    trigger: {
-      name: "rss",
-      options: {
-        url: "https://hnrss.org/newest?points=300",
-        config: {
-          every: 5,
-        },
-      },
-      class: resolveTrigger("rss"),
-    },
-
-    workflow: (await getWorkflow({
-      path: path.resolve(__dirname, "./fixtures/workflows/rss.yml"),
-      cwd: path.resolve(__dirname, "./fixtures"),
-      context: getContext(),
-    })) as IWorkflow,
-    event: {
-      type: "manual",
-    },
-  });
-  process.env.GITHUB_ACTIONS = "";
-  process.env.ACTIONSFLOW_LAST_UPDATE_AT = "";
-
-  expect(result.items.length).toBe(0);
-  // clear cache
-  if (result.helpers && result.helpers.cache) {
-    await result.helpers.cache.reset();
-  }
-});
-
 test("run trigger with  webhook", async () => {
   const result = await run({
     trigger: {

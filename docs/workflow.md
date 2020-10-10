@@ -180,9 +180,13 @@ Optional, `number`, skip `<count>` results of the trigger's results , the defaul
 
 ## `on.<trigger>.config.every`
 
-Optional, `number`, polling data interval time, the unit is minute, the default value is `0`, means the trigger will be ran every time. But due to the limitation of the [shortest interval of github actions](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#schedule), generally Actionsflow will run once every 5 minutes, but you can also trigger Actionsflow run through `push` or the [other events that trigger Actionsflow run](https://docs.github.com/en/actions/reference/events-that-trigger-workflows)
+Optional, `number`, polling data interval time, the unit is minute, the default value is `5`, but you can also trigger Actionsflow run through `push` or `workflow_dispatch`
 
 > Note, webhook event will ignore `every` config
+
+## `on.<trigger>.config.timeZone`
+
+Optional, `string`, time zone, the default value is `UTC`, used for parsing `on.<trigger>.config.every` cron expression, see more time zone string at [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
 
 ## `on.<trigger>.config.skipFirst`
 
@@ -191,6 +195,10 @@ Optional, `boolean`, whether to skip the data obtained for the first time, if `t
 ## `on.<trigger>.config.shouldDeduplicate`
 
 Optional, `boolean`, if the trigger's results should be dedeplicate, the default value is decided by the trigger, you can force to override it.
+
+## `on.<trigger>.config.shouldRunManually`
+
+Optional, `boolean`, if the trigger should run manually, like when Actionsflow received the Github event `push`, `workflow_dispatch`, if the trigger should run. The default value is `true`
 
 ## `on.<trigger>.config.force`
 

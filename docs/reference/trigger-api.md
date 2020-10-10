@@ -70,7 +70,9 @@ interface ITriggerContructorParams {
   ```typescript
   interface ITriggerGeneralConfigOptions {
     every?: number;
+    timeZone?: string;
     shouldDeduplicate?: boolean;
+    shouldRunManually?: boolean;
     skipFirst?: boolean;
     force?: boolean;
     logLevel?: LogLevelDesc;
@@ -143,7 +145,9 @@ optional, `ITriggerGeneralConfigOptions`, you can change the default config by p
 ```yaml
 interface ITriggerGeneralConfigOptions {
   every?: number;
+  timeZone?: string;
   shouldDeduplicate?: boolean;
+  shouldRunManually?: boolean;
   skipFirst?: boolean;
   force?: boolean;
   logLevel?: LogLevelDesc;
@@ -172,7 +176,9 @@ The default value is:
   "logLevel": "info",
   "active": true,
   "skipOnError": false,
-  "buildOutputsOnError": false
+  "buildOutputsOnError": false,
+  "timeZone": "UTC",
+  "shouldRunManually": true
 }
 ```
 

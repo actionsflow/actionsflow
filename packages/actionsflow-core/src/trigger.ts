@@ -11,6 +11,7 @@ import {
   ITriggerOptions,
   ITriggerContructorParams,
   ITriggerEvent,
+  ITriggerHelpersOptions,
 } from "./interface";
 import axios from "axios";
 import rssParser from "rss-parser";
@@ -31,11 +32,7 @@ export const getTriggerId = ({
   });
   return triggerId;
 };
-interface ITriggerHelpersOptions {
-  name: string;
-  workflowRelativePath: string;
-  logLevel?: LogLevelDesc;
-}
+
 export const getTriggerHelpers = ({
   name,
   workflowRelativePath,
@@ -71,6 +68,7 @@ export const getTriggerHelpers = ({
 interface IGeneralTriggerOptions extends ITriggerGeneralConfigOptions {
   every: number;
   shouldDeduplicate: boolean;
+  shouldRunManually: boolean;
   getItemKey: (item: AnyObject) => string;
   skipFirst: boolean;
   force: boolean;
@@ -78,6 +76,7 @@ interface IGeneralTriggerOptions extends ITriggerGeneralConfigOptions {
   active: boolean;
   buildOutputsOnError: boolean;
   skipOnError: boolean;
+  timeZone: string;
 }
 export const getGeneralTriggerFinalOptions = (
   triggerInstance: ITriggerClassType,
@@ -90,8 +89,9 @@ export const getGeneralTriggerFinalOptions = (
     userOptions = triggerOptions.config;
   }
   const options: IGeneralTriggerOptions = {
-    every: 0, // github actions every 5, here we can set 0,due to triggered by other event, like push
+    every: 5, // github actions every 5
     shouldDeduplicate: event.type === "webhook" ? false : true,
+    shouldRunManually: true, // should run on manual, like push, workflow run event
     getItemKey: (item: AnyObject): string => {
       let key = "";
       if (item.id) {
@@ -114,6 +114,7 @@ export const getGeneralTriggerFinalOptions = (
     active: true,
     buildOutputsOnError: false,
     skipOnError: false,
+    timeZone: "UTC",
     ...instanceConfig,
     ...userOptions,
   };
@@ -151,14 +152,18 @@ export const getTriggerConstructorParams = async ({
     path.resolve(cwd, "workflows"),
     workflowPath
   );
-
+  const triggerHelperOptions: ITriggerHelpersOptions = {
+    name: name,
+    workflowRelativePath: relativePath,
+  };
+  if (options && options.logLevel) {
+    triggerHelperOptions.logLevel = options.logLevel as LogLevelDesc;
+  } else if (logLevel) {
+    triggerHelperOptions.logLevel = logLevel;
+  }
   return {
     options: options,
-    helpers: getTriggerHelpers({
-      name: name,
-      workflowRelativePath: relativePath,
-      logLevel: logLevel,
-    }),
+    helpers: getTriggerHelpers(triggerHelperOptions),
     workflow: (await getWorkflow({
       path: workflowPath,
       cwd: cwd,

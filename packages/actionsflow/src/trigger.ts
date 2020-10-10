@@ -1,7 +1,6 @@
 import {
   getCache,
   getTriggerId,
-  getTriggerHelpers,
   getGeneralTriggerFinalOptions,
   getThirdPartyTrigger,
   isPromise,
@@ -16,27 +15,15 @@ import {
   ITriggerClassTypeConstructable,
   ITriggerResult,
   ITriggerResultObject,
-  IWorkflow,
   ITaskTrigger,
-  ITriggerEvent,
   IWebhookRequestPayload,
   ITrigger,
+  getTriggerConstructorParams,
+  ITriggerInternalOptions,
 } from "actionsflow-core";
-import { LogLevelDesc } from "loglevel";
 import Triggers from "./triggers";
-
+import { getLastUpdatedAt } from "./job";
 const MAX_CACHE_KEYS_COUNT = 5000;
-interface ITriggerInternalOptions {
-  trigger: ITaskTrigger;
-  workflow: IWorkflow;
-  event: ITriggerEvent;
-  logLevel?: LogLevelDesc;
-}
-interface ITriggerHelpersOptions {
-  name: string;
-  workflowRelativePath: string;
-  logLevel?: LogLevelDesc;
-}
 
 const allTriggers = Triggers as Record<string, ITriggerClassTypeConstructable>;
 
@@ -57,22 +44,14 @@ export const run = async ({
   const Trigger = trigger.class;
 
   if (Trigger) {
-    const triggerHelperOptions: ITriggerHelpersOptions = {
+    const triggerConstructorParams = await getTriggerConstructorParams({
       name: trigger.name,
-      workflowRelativePath: workflow.relativePath,
-    };
-    if (trigger.options && trigger.options.logLevel) {
-      triggerHelperOptions.logLevel = trigger.options.logLevel as LogLevelDesc;
-    } else if (logLevel) {
-      triggerHelperOptions.logLevel = logLevel;
-    }
-    const triggerHelpers = getTriggerHelpers(triggerHelperOptions);
-    finalResult.helpers = triggerHelpers;
-    const triggerInstance = new Trigger({
-      helpers: triggerHelpers,
-      options: trigger.options || {},
-      workflow: workflow,
+      workflowPath: workflow.path,
+      options: trigger.options,
+      logLevel: logLevel,
     });
+    finalResult.helpers = triggerConstructorParams.helpers;
+    const triggerInstance = new Trigger(triggerConstructorParams);
 
     let triggerResult: ITriggerResult | undefined;
     const triggerId = getTriggerId({
@@ -90,7 +69,6 @@ export const run = async ({
         event
       );
       const {
-        every,
         shouldDeduplicate,
         limit,
         filter,
@@ -101,24 +79,8 @@ export const run = async ({
         skipFirst,
         force,
       } = triggerGeneralOptions;
-      // last update at, first find at env
-      const lastUpdateAtFromEnv = process.env.ACTIONSFLOW_LAST_UPDATE_AT;
-      let lastUpdateAtTimeFromEnv: number | undefined;
-      if (lastUpdateAtFromEnv && process.env.GITHUB_ACTIONS === "true") {
-        log.debug("last Update At From Env", lastUpdateAtFromEnv);
-        lastUpdateAtTimeFromEnv = new Date(
-          Number(lastUpdateAtFromEnv)
-        ).getTime();
-        if (isNaN(lastUpdateAtTimeFromEnv)) {
-          lastUpdateAtTimeFromEnv = undefined;
-        } else {
-          log.debug("get last update at from env", lastUpdateAtTimeFromEnv);
-        }
-      }
-      const lastUpdatedAt =
-        lastUpdateAtTimeFromEnv ||
-        (await triggerCacheManager.get("lastUpdatedAt")) ||
-        0;
+
+      const lastUpdatedAt = await getLastUpdatedAt();
       log.debug("lastUpdatedAt: ", lastUpdatedAt);
       if (event.type === "webhook" && triggerInstance.webhooks) {
         // webhook event should call webhook method
@@ -147,11 +109,6 @@ export const run = async ({
           } else {
             triggerResult = webhookHandlerResult as ITriggerResult;
           }
-          if (process.env.GITHUB_ACTIONS !== "true") {
-            log.debug("save last update at at cache for locally");
-            // only save at local run, not for github enviroment
-            await triggerCacheManager.set("lastUpdatedAt", Date.now());
-          }
         } else {
           // skip
           throw new Error(
@@ -159,35 +116,11 @@ export const run = async ({
           );
         }
       } else if (triggerInstance.run) {
-        // updateInterval
-
-        // check if should update
-        // unit minutes
-        // get latest update time
-        const shouldUpdateUtil =
-          (Number(lastUpdatedAt) as number) + every * 60 * 1000;
-        const now = Date.now();
-
-        const shouldUpdate = force || shouldUpdateUtil - now <= 0;
-        log.debug("shouldUpdate:", shouldUpdate);
-        // write to cache
-        if (!shouldUpdate) {
-          finalResult.outcome = "skipped";
-          finalResult.conclusion = "skipped";
-          triggerResult = [];
+        const runHandler = triggerInstance.run.bind(triggerInstance)();
+        if (isPromise(runHandler)) {
+          triggerResult = (await runHandler) as ITriggerResult;
         } else {
-          // check should run
-          // scheduled event call run method
-          const runHandler = triggerInstance.run.bind(triggerInstance)();
-          if (isPromise(runHandler)) {
-            triggerResult = (await runHandler) as ITriggerResult;
-          } else {
-            triggerResult = runHandler as ITriggerResult;
-          }
-          if (process.env.GITHUB_ACTIONS !== "true") {
-            log.debug("save last update at at cache for locally");
-            await triggerCacheManager.set("lastUpdatedAt", Date.now());
-          }
+          triggerResult = runHandler as ITriggerResult;
         }
       } else {
         //  skipped, no method for the event type
@@ -337,6 +270,22 @@ export const run = async ({
     }
   }
   return finalResult;
+};
+export const runSettled = async (
+  options: ITriggerInternalOptions
+): Promise<PromiseSettledResult<ITriggerInternalResult>> => {
+  try {
+    const value = await run(options);
+    return {
+      status: "fulfilled",
+      value,
+    };
+  } catch (e) {
+    return {
+      status: "rejected",
+      reason: e,
+    };
+  }
 };
 export const resolveTrigger = (
   name: string

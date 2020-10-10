@@ -105,5 +105,8 @@
       "packages/*"
     ]
   },
-  "dependencies": {}
+  "dependencies": {
+    "cron-parser": "^2.16.3",
+    "lowdb": "^1.0.0"
+  }
 }

@@ -13,6 +13,7 @@ test("build workflows", async () => {
     force: true,
     cwd: path.resolve(__dirname, "./fixtures"),
   });
+  expect(process.env.ACTIONSFLOW_CURRENT_RUN_CREATED_AT).toBe(undefined);
   // read built file
   const yamlString = await readFile(
     path.resolve(__dirname, "./fixtures/dist/workflows/rss-rss.yml"),

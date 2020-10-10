@@ -51,7 +51,9 @@ export interface IContextEnv {
 }
 export interface ITriggerGeneralConfigOptions {
   every?: number;
+  timeZone?: string;
   shouldDeduplicate?: boolean;
+  shouldRunManually?: boolean;
   skipFirst?: boolean;
   force?: boolean;
   logLevel?: LogLevelDesc;
@@ -158,15 +160,28 @@ export interface ITriggerEvent {
 export interface ITaskTrigger extends ITrigger {
   class: ITriggerClassTypeConstructable | undefined;
 }
-
+export type TaskType = "timeout" | "immediate";
 export interface ITask {
   workflow: IWorkflow;
   trigger: ITaskTrigger;
   event: ITriggerEvent;
+  type?: TaskType;
+  timeout?: number;
 }
 
 export interface ITriggerError {
   error: Error;
   trigger: ITaskTrigger;
   workflow: IWorkflow;
+}
+export interface ITriggerHelpersOptions {
+  name: string;
+  workflowRelativePath: string;
+  logLevel?: LogLevelDesc;
+}
+export interface ITriggerInternalOptions {
+  trigger: ITaskTrigger;
+  workflow: IWorkflow;
+  event: ITriggerEvent;
+  logLevel?: LogLevelDesc;
 }

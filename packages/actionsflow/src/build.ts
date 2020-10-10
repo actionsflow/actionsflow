@@ -15,13 +15,16 @@ import {
   ITriggerBuildResult,
   AnyObject,
   ITriggerError,
+  ITask,
 } from "actionsflow-core";
 import del from "del";
-import { run as runTrigger } from "./trigger";
+import { run as runTrigger, runSettled } from "./trigger";
 import { LogLevelDesc } from "loglevel";
 import { getTasksByTriggerEvent } from "./task";
 import { TriggersError } from "./error";
-
+import preBuild from "./pre-build";
+import postBuild from "./post-build";
+import { runAfter } from "./utils";
 interface IBuildOptions {
   dest?: string;
   cwd?: string;
@@ -34,6 +37,7 @@ interface IBuildOptions {
   jsonGithub?: string;
 }
 const build = async (options: IBuildOptions = {}): Promise<void> => {
+  preBuild();
   options = {
     dest: "./dist",
     cwd: process.cwd(),
@@ -101,9 +105,10 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
 
   // get workflows that belong this type
 
-  const tasks = getTasksByTriggerEvent({
+  const tasks = await getTasksByTriggerEvent({
     event: triggerEvent,
     workflows,
+    logLevel: logLevel,
   });
 
   // scheduled task
@@ -113,8 +118,13 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
       tasks.map((item) => {
         return {
           relativePath: item.workflow.relativePath,
-          trigger: item.trigger,
+          trigger: {
+            name: item.trigger.name,
+            options: item.trigger.options,
+          },
           event: item.event,
+          type: item.type,
+          timeout: item.timeout,
         };
       }),
       null,
@@ -123,12 +133,86 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
   );
 
   const errors: ITriggerError[] = [];
+  let tasksResults: PromiseSettledResult<ITriggerInternalResult>[] = [];
+  // get immediate tasks
+  const immediateTasks: ITask[] = [];
+  const timeoutTasks: ITask[] = [];
+  tasks.forEach((task) => {
+    if (task.type === "timeout") {
+      timeoutTasks.push(task);
+    } else {
+      immediateTasks.push(task);
+    }
+  });
+  log.info(
+    `There are ${immediateTasks.length} immediate tasks, ${timeoutTasks.length} timeout tasks`
+  );
+  const timeoutTasksPromises: Promise<ITriggerInternalResult>[] = [];
 
+  // Add immediate tasks
   for (let i = 0; i < tasks.length; i++) {
     const task = tasks[i];
+    // TODO check type
     const workflow = task.workflow;
     const trigger = task.trigger;
     const event = task.event;
+
+    if (force) {
+      if (trigger.options) {
+        if (trigger.options.config) {
+          trigger.options.config.force = true;
+        } else {
+          trigger.options.config = { force: true };
+        }
+      } else {
+        trigger.options = { config: { force: true } };
+      }
+    }
+    if (task.type === "immediate") {
+      tasksResults.push(
+        await runSettled({
+          workflow: workflow,
+          trigger: {
+            name: trigger.name,
+            options: trigger.options,
+            class: trigger.class,
+          },
+          event: event,
+          logLevel,
+        })
+      );
+    } else {
+      // Add timeout promise
+      timeoutTasksPromises.push(
+        runAfter(
+          runTrigger.bind(null, {
+            workflow: workflow,
+            trigger: {
+              name: trigger.name,
+              options: trigger.options,
+              class: trigger.class,
+            },
+            event: event,
+            logLevel,
+          }),
+          task.timeout as number
+        )
+      );
+    }
+  }
+  log.info("Run immediate tasks finished, wait for timeout tasks to finish...");
+  tasksResults = tasksResults.concat(
+    await Promise.allSettled(timeoutTasksPromises)
+  );
+  log.info("All tasks finished, wait for building...");
+
+  // Add
+
+  for (let i = 0; i < tasks.length; i++) {
+    const task = tasks[i];
+    // TODO check type
+    const workflow = task.workflow;
+    const trigger = task.trigger;
     const relativePathWithoutExt = workflow.relativePath
       .split(".")
       .slice(0, -1)
@@ -148,20 +232,15 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
         trigger.options = { config: { force: true } };
       }
     }
+    const taskResult = tasksResults[i];
+
     let triggerRunResult: ITriggerInternalResult | undefined;
-    try {
-      triggerRunResult = await runTrigger({
-        workflow: workflow,
-        trigger: {
-          name: trigger.name,
-          options: trigger.options,
-          class: trigger.class,
-        },
-        event: event,
-        logLevel,
-      });
-    } catch (error) {
+    if (taskResult.status === "fulfilled") {
+      triggerRunResult = taskResult.value;
+    } else {
+      // error
       // if buildOutputsOnError
+      const error = taskResult.reason as Error;
       if (
         trigger.options &&
         trigger.options.config &&
@@ -201,7 +280,6 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
         continue;
       }
     }
-
     if (
       triggerRunResult.conclusion === "success" &&
       triggerRunResult.items.length > 0
@@ -246,6 +324,8 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
       );
     }
   }
+
+  postBuild();
   // if errors.length>0, then throw Error
   if (errors.length > 0) {
     log.info("Actionsflow build finished with the following errors:");

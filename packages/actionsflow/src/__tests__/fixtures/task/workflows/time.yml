@@ -3,7 +3,8 @@ on:
     url: https://hnrss.org/newest?points=300
     test: ${{ secrets.TEST }}-1
     config:
-      every: "*/5 * * * *"
+      every: "0 7 * * *"
+      timeZone: "Asia/Taipei"
 jobs:
   ifttt:
     name: Make a Request to IFTTT
