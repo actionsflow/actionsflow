@@ -1,3 +1,11 @@
+## [1.1.5-0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.1.0-alpha.0...v1.1.5-0) (2020-10-10)
+
+
+### Features
+
+* no allow ([c2a3ab8](https://github.com/actionsflow/actionsflow/commit/c2a3ab8ee86e6bfc02d8e54574ead7e87b264364))
+* support cron every ([5c85545](https://github.com/actionsflow/actionsflow/commit/5c85545c4ed86d0722cad3e6645dd667442257a1))
+
 ## [1.1.4](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.0.4...v1.1.4) (2020-10-06)
 
 ## [1.1.3](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.1.3...v1.1.3) (2020-10-05)
