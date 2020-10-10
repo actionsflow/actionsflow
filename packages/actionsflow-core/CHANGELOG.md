@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.0](https://github.com/actionsflow/actionsflow/compare/actionsflow-core@1.0.4...actionsflow-core@1.1.0-alpha.0) (2020-10-10)
+
+
+### Features
+
+* support cron every ([5c85545](https://github.com/actionsflow/actionsflow/commit/5c85545c4ed86d0722cad3e6645dd667442257a1))
+
+
+
+
+
 ## [1.0.4](https://github.com/actionsflow/actionsflow/compare/actionsflow-core@1.0.3...actionsflow-core@1.0.4) (2020-10-06)
 
 **Note:** Version bump only for package actionsflow-core
