@@ -221,8 +221,8 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
       .split(".")
       .slice(0, -1)
       .join(".");
-    const destRelativePath = `${relativePathWithoutExt}-${task.trigger.name}.yml`;
-    const destPath = path.resolve(workflowsDestPath, destRelativePath);
+    const destRelativePath = `${i}-${relativePathWithoutExt}-${task.trigger.name}.yml`;
+    const workflowDestPath = path.resolve(workflowsDestPath, destRelativePath);
     // manual run trigger
     const triggerResults: ITriggerBuildResult[] = [];
     if (force) {
@@ -311,7 +311,7 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
       if (Object.keys(newWorkflowFileData.jobs as AnyObject).length > 0) {
         await buildWorkflowFile({
           workflowData: newWorkflowFileData,
-          dest: destPath,
+          dest: workflowDestPath,
         });
 
         // success

@@ -15,7 +15,7 @@ test("build workflows", async () => {
   expect(process.env.ACTIONSFLOW_CURRENT_RUN_CREATED_AT).toBe(undefined);
   // read built file
   const yamlString = await readFile(
-    path.resolve(__dirname, "./fixtures/dist/workflows/rss-rss.yml"),
+    path.resolve(__dirname, "./fixtures/dist/workflows/0-rss-rss.yml"),
     "utf8"
   );
   const newWorkflow = yaml.safeLoad(yamlString);
@@ -49,7 +49,7 @@ test("build webhook workflows", async () => {
   });
   // read built file
   const yamlString = await readFile(
-    path.resolve(__dirname, "./fixtures/dist/workflows/webhook-webhook.yml"),
+    path.resolve(__dirname, "./fixtures/dist/workflows/0-webhook-webhook.yml"),
     "utf8"
   );
   const newWorkflow = yaml.safeLoad(yamlString);

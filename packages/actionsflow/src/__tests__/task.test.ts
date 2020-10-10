@@ -296,3 +296,33 @@ test("get task by trigger skipSchedule", async () => {
   });
   expect(tasks.length).toBe(0);
 });
+
+test("get task by trigger event schedule and manual", async () => {
+  const currentDate = new Date("2020-10-05T04:10:00.000Z");
+  process.env.ACTIONSFLOW_CURRENT_TIME_FOR_CRON = `${currentDate.toISOString()}`;
+  process.env.ACTIONSFLOW_CURRENT_RUN_CREATED_AT = `${currentDate.getTime()}`;
+  process.env.ACTIONSFLOW_LAST_UPDATE_AT = `${
+    currentDate.getTime() - 21 * 60 * 1000
+  }`;
+  const tasks = await getTasksByTriggerEvent({
+    event: {
+      type: "workflow_dispatch",
+    },
+    workflows: [
+      (await getWorkflow({
+        path: path.resolve(__dirname, "./fixtures/task/workflows/manual.yml"),
+        cwd: path.resolve(__dirname, "./fixtures/task"),
+        context: getContext(),
+      })) as IWorkflow,
+      (await getWorkflow({
+        path: path.resolve(__dirname, "./fixtures/task/workflows/schedule.yml"),
+        cwd: path.resolve(__dirname, "./fixtures/task"),
+        context: getContext(),
+      })) as IWorkflow,
+    ],
+  });
+  delete process.env.ACTIONSFLOW_LAST_UPDATE_AT;
+  delete process.env.ACTIONSFLOW_CURRENT_TIME_FOR_CRON;
+  delete process.env.ACTIONSFLOW_CURRENT_RUN_CREATED_AT;
+  expect(tasks.length).toEqual(2);
+});
