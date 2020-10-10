@@ -1,3 +1,10 @@
+# [1.2.0-3](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.1.0-alpha.4...v1.2.0-3) (2020-10-10)
+
+
+### Features
+
+* task ([c005e79](https://github.com/actionsflow/actionsflow/commit/c005e79fa54fa0e2d275d391578a7a9ff9e6358a))
+
 # [1.2.0-2](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.1.0-alpha.3...v1.2.0-2) (2020-10-10)
 
 
