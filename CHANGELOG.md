@@ -1,3 +1,10 @@
+# [1.2.0-0](https://github.com/actionsflow/actionsflow/compare/v1.1.5-1...v1.2.0-0) (2020-10-10)
+
+
+### Bug Fixes
+
+* cron dependence ([b13c4b4](https://github.com/actionsflow/actionsflow/commit/b13c4b41b4c7823ede1af76ec3c73630161ba13a))
+
 ## [1.1.5-1](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.1.0-alpha.1...v1.1.5-1) (2020-10-10)
 
 ## [1.1.5-0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.1.0-alpha.0...v1.1.5-0) (2020-10-10)
