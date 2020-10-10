@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-alpha.7](https://github.com/actionsflow/actionsflow/compare/actionsflow@1.2.0-alpha.6...actionsflow@1.2.0-alpha.7) (2020-10-10)
+
+
+### Bug Fixes
+
+* global options ([a49652a](https://github.com/actionsflow/actionsflow/commit/a49652a3210f4901b06e1449c9859007cdecb6b5))
+
+
+
+
+
 # [1.2.0-alpha.6](https://github.com/actionsflow/actionsflow/compare/actionsflow@1.2.0-alpha.5...actionsflow@1.2.0-alpha.6) (2020-10-10)
 
 
