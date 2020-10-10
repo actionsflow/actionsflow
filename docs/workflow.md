@@ -196,13 +196,15 @@ Optional, `boolean`, whether to skip the data obtained for the first time, if `t
 
 Optional, `boolean`, if the trigger's results should be dedeplicate, the default value is decided by the trigger, you can force to override it.
 
-## `on.<trigger>.config.event`
+## `on.<trigger>.config.manualRunEvent`
 
-Optional, `string` or `string[]`, The default value is `["schedule","webhook"]`
+Optional, `string` or `string[]`, github actions events that should trigger this trigger run manually, the default value is `[]`, you can use `push`, `workflow_dispatch`, `repository_dispatch` as `manualRunEvent` value.
+
+For example, if you set a trigger `every` as `1 2 * * *`, then, you don't wait to `02:01` to test your trigger, you can config `workflow_dispatch` as a trigger's `manualRunEvent`, then, if a [`workflow_dispatch`](https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#workflow_dispatch) event occurred, your trigger will be triggered.
 
 ## `on.<trigger>.config.force`
 
-Optional, `boolean`, whether to force data to be updated, if `true`, the trigger will ignore cache, and last update time. The default value is `false`
+Optional, `boolean`, whether to force data to be updated, if `true`, the trigger will ignore cache, every, and last update time. The default value is `false`
 
 ## `on.<trigger>.config.skipOnError`
 

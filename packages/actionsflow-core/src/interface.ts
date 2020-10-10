@@ -53,7 +53,8 @@ export interface ITriggerGeneralConfigOptions {
   every?: number | string;
   timeZone?: string;
   shouldDeduplicate?: boolean;
-  event?: TriggerEventType | TriggerEventType[];
+  manualRunEvent?: ManualRunTriggerEventType | ManualRunTriggerEventType[];
+  onlyRunManually?: boolean;
   debug?: boolean;
   skipFirst?: boolean;
   force?: boolean;
@@ -150,9 +151,13 @@ export interface IWorkflow {
 }
 
 export type TriggerEventType =
-  | "push"
   | "schedule"
   | "webhook"
+  | "push"
+  | "repository_dispatch"
+  | "workflow_dispatch";
+export type ManualRunTriggerEventType =
+  | "push"
   | "repository_dispatch"
   | "workflow_dispatch";
 export interface ITriggerEvent {

@@ -12,7 +12,7 @@ import {
   ITriggerContructorParams,
   ITriggerEvent,
   ITriggerHelpersOptions,
-  TriggerEventType,
+  ManualRunTriggerEventType,
 } from "./interface";
 import axios from "axios";
 import rssParser from "rss-parser";
@@ -68,9 +68,10 @@ export const getTriggerHelpers = ({
 };
 interface IGeneralTriggerOptions extends ITriggerGeneralConfigOptions {
   every: number | string;
-  event: TriggerEventType[];
+  manualRunEvent: ManualRunTriggerEventType[];
   debug: boolean;
   shouldDeduplicate: boolean;
+  onlyRunManually: boolean;
   getItemKey: (item: AnyObject) => string;
   skipFirst: boolean;
   force: boolean;
@@ -83,7 +84,8 @@ interface IGeneralTriggerOptions extends ITriggerGeneralConfigOptions {
 interface IGeneralTriggerDefaultOptions extends ITriggerGeneralConfigOptions {
   every: string | number;
   shouldDeduplicate: boolean;
-  event: TriggerEventType | TriggerEventType[];
+  onlyRunManually: boolean;
+  manualRunEvent: ManualRunTriggerEventType | ManualRunTriggerEventType[];
   debug: boolean;
   skipFirst: boolean;
   force: boolean;
@@ -106,7 +108,8 @@ export const getGeneralTriggerFinalOptions = (
   const options: IGeneralTriggerDefaultOptions = {
     every: 5, // github actions every 5
     shouldDeduplicate: event.type === "webhook" ? false : true,
-    event: ["schedule", "webhook"],
+    manualRunEvent: [],
+    onlyRunManually: false,
     debug: false,
     skipFirst: false,
     force: false,
@@ -121,11 +124,11 @@ export const getGeneralTriggerFinalOptions = (
 
   // format event
 
-  if (options.event) {
-    if (typeof options.event === "string") {
-      options.event = [options.event];
-    } else if (Array.isArray(options.event)) {
-      options.event = options.event;
+  if (options.manualRunEvent) {
+    if (typeof options.manualRunEvent === "string") {
+      options.manualRunEvent = [options.manualRunEvent];
+    } else if (Array.isArray(options.manualRunEvent)) {
+      options.manualRunEvent = options.manualRunEvent;
     } else {
       // invalid event type
       throw new Error(
@@ -133,20 +136,20 @@ export const getGeneralTriggerFinalOptions = (
       );
     }
   } else {
-    options.event = [];
+    options.manualRunEvent = [];
   }
 
   // debug
   if (options.debug) {
     options.logLevel = "debug";
-    options.event = [
+    options.manualRunEvent = [
       "push",
-      "schedule",
-      "webhook",
       "repository_dispatch",
       "workflow_dispatch",
     ];
   }
+  const finalEvents: ManualRunTriggerEventType[] = options.manualRunEvent as ManualRunTriggerEventType[];
+
   const newOptions: IGeneralTriggerOptions = {
     getItemKey: (item: AnyObject): string => {
       let key = "";
@@ -165,7 +168,7 @@ export const getGeneralTriggerFinalOptions = (
       return createContentDigest(item);
     },
     ...options,
-    event: options.event as TriggerEventType[],
+    manualRunEvent: finalEvents,
   };
   if (options.shouldDeduplicate) {
     if (triggerInstance.getItemKey) {

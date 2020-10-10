@@ -49,35 +49,12 @@ export const getTasksByTriggerEvent = async ({
           ) {
             const TriggerClass = resolveTrigger(trigger.name);
             if (TriggerClass) {
-              const triggerHelperOptions: ITriggerHelpersOptions = {
-                name: trigger.name,
-                workflowRelativePath: workflow.relativePath,
-              };
-              const triggerInstance = new (TriggerClass as ITriggerClassTypeConstructable)(
-                {
-                  options: trigger.options,
-                  helpers: getTriggerHelpers(triggerHelperOptions),
-                  workflow: workflow,
-                }
-              );
-              const triggerGeneralOptions = getGeneralTriggerFinalOptions(
-                triggerInstance,
-                trigger.options,
-                event
-              );
-              const { event: triggerEventType } = triggerGeneralOptions;
-              if (triggerEventType.includes("webhook")) {
-                tasks.push({
-                  workflow: workflow,
-                  trigger: { ...trigger, class: TriggerClass },
-                  event: event,
-                  type: "immediate",
-                });
-              } else {
-                log.info(
-                  `Skip webhook event, because trigger [${trigger.name}] of workflow [${workflow.relativePath}] config event ${triggerEventType} does not include webhook`
-                );
-              }
+              tasks.push({
+                workflow: workflow,
+                trigger: { ...trigger, class: TriggerClass },
+                event: event,
+                type: "immediate",
+              });
             } else {
               log.warn(
                 `can not found the trigger [${trigger.name}]. Did you forget to install the third party trigger?
@@ -133,7 +110,9 @@ export const getTasksByTriggerEvent = async ({
         const {
           every,
           timeZone,
-          event: triggerEventType,
+          manualRunEvent,
+          force,
+          onlyRunManually,
         } = triggerGeneralOptions;
         const scheduler = getScheduler({ every, timeZone });
         const lastUpdatedAt = await getLastUpdatedAt();
@@ -144,8 +123,9 @@ export const getTasksByTriggerEvent = async ({
             `There is no 'run' method at trigger [${trigger.name}] of workflow [${workflow.relativePath}], skip this trigger for tasks`
           );
         } else if (
-          isManualEvent(event.type) &&
-          shouldRunMannually(event.type, triggerEventType)
+          force ||
+          (isManualEvent(event.type) &&
+            shouldRunMannually(event.type, manualRunEvent))
         ) {
           log.debug(
             `trigger [${trigger.name}] of workflow [${workflow.relativePath}] should be run manually`
@@ -156,65 +136,71 @@ export const getTasksByTriggerEvent = async ({
             event: event,
             type: "immediate",
           });
-        } else if (scheduler.type === "delay") {
-          // first check is prev has run,
-
-          let isShouldUpdate = false;
-          let taskRunType: TaskType = "delay";
-          let delay: number | undefined = 0;
-          const isFirstRun = lastUpdatedAt === 0;
-          const prevTaskShouldRunAt = scheduler.prev as number;
-          const nextTaskShouldRunAt = scheduler.next as number;
-          let currentJobStartTime = lastUpdatedAt + RUN_INTERVAL;
-          if (isFirstRun) {
-            currentJobStartTime = currentJobRunCreatedAt;
-          }
-          log.debug(
-            `isFirstRun: ${isFirstRun}
-lastUpdatedAt: ${isFirstRun ? 0 : new Date(lastUpdatedAt)}
-prevTaskShouldRunAt: ${new Date(prevTaskShouldRunAt)}
-nextTaskShouldRunAt: ${new Date(nextTaskShouldRunAt)}
-currentJobStartTime: ${new Date(currentJobStartTime)}
-currentJobEndTime: ${new Date(currentJobEndTime)}
-currentJobCreateTime: ${new Date(currentJobRunCreatedAt)}`
-          );
-          if (currentJobStartTime < prevTaskShouldRunAt) {
-            isShouldUpdate = true;
-            taskRunType = "immediate";
-          } else if (nextTaskShouldRunAt <= currentJobEndTime) {
-            isShouldUpdate = true;
-            taskRunType = "delay";
-            delay = nextTaskShouldRunAt - currentJobRunCreatedAt;
-          }
-
-          if (isShouldUpdate) {
+        } else if (!onlyRunManually) {
+          if (scheduler.type === "delay") {
+            // first check is prev has run,
+            let isShouldUpdate = false;
+            let taskRunType: TaskType = "delay";
+            let delay: number | undefined = 0;
+            const isFirstRun = lastUpdatedAt === 0;
+            const prevTaskShouldRunAt = scheduler.prev as number;
+            const nextTaskShouldRunAt = scheduler.next as number;
+            let currentJobStartTime = lastUpdatedAt + RUN_INTERVAL;
+            if (isFirstRun) {
+              currentJobStartTime = currentJobRunCreatedAt;
+            }
             log.debug(
-              `Trigger [${trigger.name}] of [${workflow.relativePath}] should be update, schedule type: ${taskRunType}, delay: ${delay}`
+              `Trigger [${trigger.name}] of [${
+                workflow.relativePath
+              }] isFirstRun: ${isFirstRun}
+  lastUpdatedAt: ${isFirstRun ? 0 : new Date(lastUpdatedAt)}
+  prevTaskShouldRunAt: ${new Date(prevTaskShouldRunAt)}
+  nextTaskShouldRunAt: ${new Date(nextTaskShouldRunAt)}
+  currentJobStartTime: ${new Date(currentJobStartTime)}
+  currentJobEndTime: ${new Date(currentJobEndTime)}
+  currentJobCreateTime: ${new Date(currentJobRunCreatedAt)}`
             );
+            if (currentJobStartTime < prevTaskShouldRunAt) {
+              isShouldUpdate = true;
+              taskRunType = "immediate";
+            } else if (nextTaskShouldRunAt <= currentJobEndTime) {
+              isShouldUpdate = true;
+              taskRunType = "delay";
+              delay = nextTaskShouldRunAt - currentJobRunCreatedAt;
+            }
+
+            if (isShouldUpdate) {
+              log.debug(
+                `Trigger [${trigger.name}] of [${workflow.relativePath}] should be update, schedule type: ${taskRunType}, delay: ${delay}`
+              );
+              tasks.push({
+                workflow: workflow,
+                trigger: trigger,
+                event: event,
+                type: taskRunType,
+                delay: delay,
+              });
+            } else {
+              log.debug(
+                `The task does not need to update, next run will be ${new Date(
+                  nextTaskShouldRunAt
+                )}`
+              );
+            }
+          } else {
             tasks.push({
               workflow: workflow,
               trigger: trigger,
               event: event,
-              type: taskRunType,
-              delay: delay,
+              type: "immediate",
             });
-          } else {
-            log.debug(
-              `The task does not need to update, next run will be ${new Date(
-                nextTaskShouldRunAt
-              )}`
-            );
           }
         } else {
-          tasks.push({
-            workflow: workflow,
-            trigger: trigger,
-            event: event,
-            type: "immediate",
-          });
+          // not should trigger
+          log.debug(
+            `The task trigger [${trigger.name}] of [${workflow.relativePath}]  does not need to be trigged`
+          );
         }
-        // check is trigger should be triggered at the moment
-        // get last run at
       }
     }
   } else {

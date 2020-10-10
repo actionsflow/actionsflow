@@ -5,7 +5,7 @@ on:
     config:
       every: "0 7 * * *"
       timeZone: "Asia/Taipei"
-      manualRunEvent: workflow_dispatch
+      force: true
 jobs:
   ifttt:
     name: Make a Request to IFTTT

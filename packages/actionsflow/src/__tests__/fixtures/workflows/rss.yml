@@ -4,10 +4,7 @@ on:
     test: ${{ secrets.TEST }}-1
     config:
       every: "*/5 * * * *"
-      event:
-        - schedule
-        - webhook
-        - workflow_dispatch
+      force: true
 jobs:
   ifttt:
     name: Make a Request to IFTTT

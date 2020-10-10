@@ -22,6 +22,7 @@ test("get task by trigger event manual", async () => {
   });
   expect(tasks[0].trigger.name).toEqual("rss");
 });
+
 test("get task by trigger event webhook", async () => {
   const tasks = await getTasksByTriggerEvent({
     event: {
@@ -232,4 +233,66 @@ test("get task by trigger event specific time but manual run", async () => {
   delete process.env.ACTIONSFLOW_CURRENT_RUN_CREATED_AT;
   expect(tasks[0].type).toBe("delay");
   expect(tasks[0].delay).toBe(0);
+});
+test("get task by trigger event push", async () => {
+  const currentDate = new Date("2020-10-05T00:08:00.000Z");
+
+  process.env.ACTIONSFLOW_CURRENT_TIME_FOR_CRON = `${currentDate.toISOString()}`;
+  process.env.ACTIONSFLOW_CURRENT_RUN_CREATED_AT = `${currentDate.getTime()}`;
+  const tasks = await getTasksByTriggerEvent({
+    event: {
+      type: "push",
+    },
+    workflows: [
+      (await getWorkflow({
+        path: path.resolve(__dirname, "./fixtures/task/workflows/push.yml"),
+        cwd: path.resolve(__dirname, "./fixtures/task"),
+        context: getContext(),
+      })) as IWorkflow,
+    ],
+  });
+  expect(tasks.length).toBe(0);
+  delete process.env.ACTIONSFLOW_CURRENT_TIME_FOR_CRON;
+  delete process.env.ACTIONSFLOW_CURRENT_RUN_CREATED_AT;
+});
+
+test("get task by trigger force", async () => {
+  const currentDate = new Date("2020-10-05T00:08:00.000Z");
+
+  process.env.ACTIONSFLOW_CURRENT_TIME_FOR_CRON = `${currentDate.toISOString()}`;
+  process.env.ACTIONSFLOW_CURRENT_RUN_CREATED_AT = `${currentDate.getTime()}`;
+  const tasks = await getTasksByTriggerEvent({
+    event: {
+      type: "push",
+    },
+    workflows: [
+      (await getWorkflow({
+        path: path.resolve(__dirname, "./fixtures/task/workflows/force.yml"),
+        cwd: path.resolve(__dirname, "./fixtures/task"),
+        context: getContext(),
+      })) as IWorkflow,
+    ],
+  });
+  expect(tasks.length).toBe(1);
+  delete process.env.ACTIONSFLOW_CURRENT_TIME_FOR_CRON;
+  delete process.env.ACTIONSFLOW_CURRENT_RUN_CREATED_AT;
+});
+
+test("get task by trigger onlyRunManually", async () => {
+  const tasks = await getTasksByTriggerEvent({
+    event: {
+      type: "schedule",
+    },
+    workflows: [
+      (await getWorkflow({
+        path: path.resolve(
+          __dirname,
+          "./fixtures/task/workflows/only-manual.yml"
+        ),
+        cwd: path.resolve(__dirname, "./fixtures/task"),
+        context: getContext(),
+      })) as IWorkflow,
+    ],
+  });
+  expect(tasks.length).toBe(0);
 });

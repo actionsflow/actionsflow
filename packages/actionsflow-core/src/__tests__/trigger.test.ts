@@ -41,4 +41,29 @@ test("getGeneralTriggerFinalOptions", async () => {
     getEventByContext(getContext())
   );
   expect(options.skipFirst).toBe(true);
+  expect(options.manualRunEvent).toEqual([]);
+});
+
+test("getGeneralTriggerFinalOptions2", async () => {
+  const options = getGeneralTriggerFinalOptions(
+    new TriggerTest(),
+    {
+      config: { manualRunEvent: "push" },
+    },
+    getEventByContext(getContext())
+  );
+  expect(options.skipFirst).toBe(true);
+  expect(options.manualRunEvent).toEqual(["push"]);
+});
+
+test("getGeneralTriggerFinalOptions3", async () => {
+  const options = getGeneralTriggerFinalOptions(
+    new TriggerTest(),
+    {
+      config: { manualRunEvent: ["workflow_dispatch"] },
+    },
+    getEventByContext(getContext())
+  );
+  expect(options.skipFirst).toBe(true);
+  expect(options.manualRunEvent).toEqual(["workflow_dispatch"]);
 });
