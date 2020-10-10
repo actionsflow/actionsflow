@@ -278,7 +278,7 @@ test("get task by trigger force", async () => {
   delete process.env.ACTIONSFLOW_CURRENT_RUN_CREATED_AT;
 });
 
-test("get task by trigger onlyRunManually", async () => {
+test("get task by trigger skipSchedule", async () => {
   const tasks = await getTasksByTriggerEvent({
     event: {
       type: "schedule",

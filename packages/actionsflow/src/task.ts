@@ -112,7 +112,7 @@ export const getTasksByTriggerEvent = async ({
           timeZone,
           manualRunEvent,
           force,
-          onlyRunManually,
+          skipSchedule,
         } = triggerGeneralOptions;
         const scheduler = getScheduler({ every, timeZone });
         const lastUpdatedAt = await getLastUpdatedAt();
@@ -136,7 +136,7 @@ export const getTasksByTriggerEvent = async ({
             event: event,
             type: "immediate",
           });
-        } else if (!onlyRunManually) {
+        } else if (!skipSchedule) {
           if (scheduler.type === "delay") {
             // first check is prev has run,
             let isShouldUpdate = false;

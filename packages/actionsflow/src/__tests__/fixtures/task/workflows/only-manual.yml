@@ -6,7 +6,7 @@ on:
       every: "* * * * *"
       timeZone: "Asia/Taipei"
       manualRunEvent: workflow_dispatch
-      onlyRunManually: true
+      skipSchedule: true
 jobs:
   ifttt:
     name: Make a Request to IFTTT

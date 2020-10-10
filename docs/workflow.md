@@ -170,6 +170,10 @@ on:
 
 Learn more about MongoDB query sort syntax, please see [`MongoDB query language sort syntax`](https://docs.mongodb.com/manual/reference/method/cursor.sort/index.html) and [`mingo`](https://github.com/kofrasa/mingo).
 
+## `on.<trigger>.config.active`
+
+Optional, `boolean`, if the trigger is active, default is `true`. for some reason, you can make trigger inactive by set `active: false`
+
 ## `on.<trigger>.config.limit`
 
 Optional, `number`, the trigger's results max length, the default value is `undefined`, it means the trigger will handle all items
@@ -218,9 +222,9 @@ Optional, `boolean`, Set to `true`, Actionsflow will build a workflow with `on.<
 
 Optional, `string`, log level for trigger, the default value is `info`, you can use `trace`, `debug`, `info`, `warn`, `error`
 
-## `on.<trigger>.config.active`
+## `on.<trigger>.config.skipSchedule`
 
-Optional, `boolean`, if the trigger is active, default is `true`. for some reason, you can make trigger inactive by set `active: false`
+Optional, `boolean`, if should skip schedule event, the default is `false`, if `true`, the trigger will ignore `every` param, not triggered by `schedule` event, use this param when you want a trigger run only manually.
 
 ## `on.<trigger>.<param>`
 

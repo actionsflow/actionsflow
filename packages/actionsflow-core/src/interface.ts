@@ -54,7 +54,7 @@ export interface ITriggerGeneralConfigOptions {
   timeZone?: string;
   shouldDeduplicate?: boolean;
   manualRunEvent?: ManualRunTriggerEventType | ManualRunTriggerEventType[];
-  onlyRunManually?: boolean;
+  skipSchedule?: boolean;
   debug?: boolean;
   skipFirst?: boolean;
   force?: boolean;

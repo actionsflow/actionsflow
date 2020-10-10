@@ -71,7 +71,7 @@ interface IGeneralTriggerOptions extends ITriggerGeneralConfigOptions {
   manualRunEvent: ManualRunTriggerEventType[];
   debug: boolean;
   shouldDeduplicate: boolean;
-  onlyRunManually: boolean;
+  skipSchedule: boolean;
   getItemKey: (item: AnyObject) => string;
   skipFirst: boolean;
   force: boolean;
@@ -84,7 +84,7 @@ interface IGeneralTriggerOptions extends ITriggerGeneralConfigOptions {
 interface IGeneralTriggerDefaultOptions extends ITriggerGeneralConfigOptions {
   every: string | number;
   shouldDeduplicate: boolean;
-  onlyRunManually: boolean;
+  skipSchedule: boolean;
   manualRunEvent: ManualRunTriggerEventType | ManualRunTriggerEventType[];
   debug: boolean;
   skipFirst: boolean;
@@ -109,7 +109,7 @@ export const getGeneralTriggerFinalOptions = (
     every: 5, // github actions every 5
     shouldDeduplicate: event.type === "webhook" ? false : true,
     manualRunEvent: [],
-    onlyRunManually: false,
+    skipSchedule: false,
     debug: false,
     skipFirst: false,
     force: false,
