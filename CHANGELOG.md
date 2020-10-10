@@ -1,3 +1,10 @@
+# [1.2.0-5](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.2.0-alpha.6...v1.2.0-5) (2020-10-10)
+
+
+### Bug Fixes
+
+* name ([b736a47](https://github.com/actionsflow/actionsflow/commit/b736a479c3fdb088210adfc3a078f50ecde116c6))
+
 # [1.2.0-4](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-telegram_bot@1.1.0-alpha.5...v1.2.0-4) (2020-10-10)
 
 
