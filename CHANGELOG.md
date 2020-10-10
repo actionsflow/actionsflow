@@ -1,3 +1,10 @@
+# [1.2.0-4](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-telegram_bot@1.1.0-alpha.5...v1.2.0-4) (2020-10-10)
+
+
+### Bug Fixes
+
+* task order ([044c23e](https://github.com/actionsflow/actionsflow/commit/044c23e00afff6dc5e85b4bfa93c15a2773a5f65))
+
 # [1.2.0-3](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.1.0-alpha.4...v1.2.0-3) (2020-10-10)
 
 
