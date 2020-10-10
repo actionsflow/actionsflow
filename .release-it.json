@@ -1,7 +1,6 @@
 {
   "git": {
     "commitMessage": "chore(release): 🤖 v${version}",
-    "requireBranch": "main",
     "requireCommits": false,
     "tagName": "v${version}",
     "push": true
