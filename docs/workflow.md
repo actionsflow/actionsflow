@@ -96,7 +96,7 @@ on:
   rss:
     url: https://hnrss.org/newest?points=300
     config:
-      every: 0 7 * * 1-5
+      every: "0 7 * * 1-5"
 ```
 
 > Note, the default time zone is `UTC`, so if you set a cron expression, you should notice it. You can also change the time zone by `on.<trigger>.config.timeZone`
@@ -105,7 +105,7 @@ on:
 
 ## `on.<trigger>.config.timeZone`
 
-Optional, `string`, time zone, the default value is `UTC`, used for parsing `on.<trigger>.config.every` cron expression, see more time zone string at [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
+Optional, `string`, time zone, the default value is `UTC`, used for parsing `on.<trigger>.config.every` cron expression, see more time zone string at [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
 
 ## `on.<trigger>.config.filter`
 

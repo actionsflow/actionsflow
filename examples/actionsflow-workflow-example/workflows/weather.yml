@@ -5,7 +5,8 @@ on:
       lat: 51.509865
       lon: -0.118092
       units: metric
-    every: 0
+    every: "0 7 * * *"
+    timeZone: UTC
     filter:
       "current.temp":
         $lt: 13

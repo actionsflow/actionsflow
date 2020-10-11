@@ -8,6 +8,8 @@ This is a weather trigger using [Openweathermap API](https://openweathermap.org/
 
 # Usage
 
+When the temperature is below 13°C at 07:00 AM every morning:
+
 ```yaml
 on:
   weather:
@@ -23,7 +25,22 @@ on:
         $lt: 13
 ```
 
-> This trigger will be triggered when the temperature is below 13°C when 07:00 AM every morning
+When it will rain today:
+
+```yaml
+on:
+  weather:
+    apiKey: ${{ secrets.OPENWEATHERMAP_API_KEY }}
+    params:
+      lat: 51.509865
+      lon: -0.118092
+      units: metric
+    every: "0 7 * * *"
+    timeZone: UTC
+    filter:
+      "daily.0.weather.0.main":
+        $eq: Rain
+```
 
 ## Options
 

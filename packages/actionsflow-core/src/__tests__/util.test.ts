@@ -9,6 +9,8 @@ import {
   getParamsByWebhookPath,
 } from "../utils";
 import emails from "./fixtures/emails.json";
+import weather from "./fixtures/weather.json";
+
 test("filter", () => {
   const items = emails;
   const filterResults = filter(items, {
@@ -19,6 +21,15 @@ test("filter", () => {
     },
     subject: {
       $regex: "hash2",
+    },
+  });
+  expect(filterResults.all().length).toBe(1);
+});
+test("filter weather", () => {
+  const items = [weather];
+  const filterResults = filter(items, {
+    "daily.0.weather.0.main": {
+      $eq: "Clear",
     },
   });
   expect(filterResults.all().length).toBe(1);
