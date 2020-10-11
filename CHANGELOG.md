@@ -1,3 +1,10 @@
+# [1.2.0-10](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-typeform@1.1.0-alpha.8...v1.2.0-10) (2020-10-11)
+
+
+### Features
+
+* weather ([a18d1fd](https://github.com/actionsflow/actionsflow/commit/a18d1fd3d27db8a287452381eaf0d38470ea2993))
+
 # [1.2.0-9](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.2.0-alpha.10...v1.2.0-9) (2020-10-11)
 
 
