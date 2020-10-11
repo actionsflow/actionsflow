@@ -1,8 +1,8 @@
 on:
   rss:
+    url: https://hnrss.org/newest?count=3
     config:
-      every: 55 16 * * *
-    url: https://hnrss.org/newest?points=300
+      every: 28 13 * * 6,0
 jobs:
   print:
     name: Print

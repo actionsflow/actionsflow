@@ -62,7 +62,7 @@ test("get task by trigger event schedule", async () => {
 });
 
 test("get task by trigger event schedule, should not update", async () => {
-  const currentDate = new Date("2020-10-05T04:13:00.000Z");
+  const currentDate = new Date("2020-10-05T04:14:00.000Z");
   process.env.ACTIONSFLOW_CURRENT_TIME_FOR_CRON = `${currentDate.toISOString()}`;
   process.env.ACTIONSFLOW_CURRENT_RUN_CREATED_AT = `${currentDate.getTime()}`;
   process.env.ACTIONSFLOW_LAST_UPDATE_AT = `${

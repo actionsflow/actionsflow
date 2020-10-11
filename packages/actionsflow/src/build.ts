@@ -18,13 +18,13 @@ import {
   ITask,
 } from "actionsflow-core";
 import del from "del";
-import { run as runTrigger, runSettled } from "./trigger";
+import { run as runTrigger } from "./trigger";
 import { LogLevelDesc } from "loglevel";
 import { getTasksByTriggerEvent } from "./task";
 import { TriggersError } from "./error";
 import preBuild from "./pre-build";
 import postBuild from "./post-build";
-import { runAfter } from "./utils";
+import { runAfter, promiseSerial } from "./utils";
 interface IBuildOptions {
   dest?: string;
   cwd?: string;
@@ -122,7 +122,6 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
   });
 
   const errors: ITriggerError[] = [];
-  let tasksResults: PromiseSettledResult<ITriggerInternalResult>[] = [];
   // get immediate tasks
   const immediateTasks: ITask[] = [];
   const delayTasks: ITask[] = [];
@@ -137,6 +136,8 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
   log.info(
     `There are ${immediateTasks.length} immediate tasks, ${delayTasks.length} delay tasks`
   );
+  const immediatePromises: (() => Promise<ITriggerInternalResult>)[] = [];
+
   const delayTasksPromises: Promise<ITriggerInternalResult>[] = [];
 
   // scheduled task
@@ -159,6 +160,9 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
     )
   );
 
+  // run immediate tasks
+  let tasksResults: PromiseSettledResult<ITriggerInternalResult>[] = [];
+
   // Add immediate tasks
   for (let i = 0; i < newTasks.length; i++) {
     const task = newTasks[i];
@@ -168,8 +172,8 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
     const event = task.event;
 
     if (task.type === "immediate") {
-      tasksResults.push(
-        await runSettled({
+      immediatePromises.push(
+        runTrigger.bind(null, {
           workflow: workflow,
           trigger: {
             name: trigger.name,
@@ -199,14 +203,14 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
       );
     }
   }
+
+  tasksResults = await promiseSerial(immediatePromises);
   log.info(
     `Run ${tasksResults.length} immediate tasks finished, wait for ${delayTasksPromises.length} delay tasks to finish...`
   );
-
   tasksResults = tasksResults.concat(
     await Promise.allSettled(delayTasksPromises)
   );
-
   log.info("All tasks finished, wait for building...");
   // Add
 

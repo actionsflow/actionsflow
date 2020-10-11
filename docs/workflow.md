@@ -184,17 +184,11 @@ Optional, `boolean`, if the trigger is active, default is `true`. for some reaso
 
 ## `on.<trigger>.config.every`
 
-Optional, `number` or `string`, the interval time of running trigger, the unit is minute, the default value is `5`, you can also use [cron expression](https://en.wikipedia.org/wiki/Cron), we use [`cron-parser`](https://github.com/harrisiirak/cron-parser#readme) to parse cron expression, with cron, you can define a more complex trigger schedule.
+Optional, `number` or `string`, the interval time of running trigger, if `every` value type is `number`, the unit is minute. The default value is `0`, witch means the trigger will be ran once every Github Actionsflow workflow runs. But due to the limitation of the [shortest interval of github actions](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#schedule), generally Actionsflow will run once every 5 minutes.
 
-For example, if you want run a trigger hourly, you can use the following config:
+You can use `number` to specify the interval time of running trigger, like `60`, means the trigger will be ran once per 60 minutes. You can also use [cron expression](https://en.wikipedia.org/wiki/Cron) for `every` option, Like every 60 minutes, you can use `1 * * * *` instead. We use [`cron-parser`](https://github.com/harrisiirak/cron-parser#readme) to parse cron expression, with cron, you can define a more complex trigger schedule.
 
-```yaml
-on:
-  rss:
-    url: https://hnrss.org/newest?points=300
-    config:
-      every: 60
-```
+For example, if you want run a trigger at 7:00 AM weekly, you can use the following config:
 
 Or, use cron expression:
 
@@ -203,12 +197,12 @@ on:
   rss:
     url: https://hnrss.org/newest?points=300
     config:
-      every: 0 * * * *
+      every: 0 7 * * 1-5
 ```
 
-> Note, webhook event will ignore `every` config
-
 > Note, the default time zone is `UTC`, so if you set a cron expression, you should notice it. You can also change the time zone by `on.<trigger>.config.timeZone`
+
+> Note, webhook event will ignore `every` config
 
 ## `on.<trigger>.config.timeZone`
 

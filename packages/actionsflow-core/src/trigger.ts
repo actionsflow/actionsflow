@@ -106,7 +106,7 @@ export const getGeneralTriggerFinalOptions = (
     userOptions = triggerOptions.config;
   }
   const options: IGeneralTriggerDefaultOptions = {
-    every: 5, // github actions every 5
+    every: 0, // by the default, trigger will run every time when the github Actions workflow run.
     shouldDeduplicate: event.type === "webhook" ? false : true,
     manualRunEvent: [],
     skipSchedule: false,
