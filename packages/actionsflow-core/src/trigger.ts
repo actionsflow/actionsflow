@@ -1,7 +1,6 @@
 import chalk from "chalk";
 import { createContentDigest, getCache, formatBinary } from "./helpers";
 import { LogLevelDesc } from "loglevel";
-import path from "path";
 import {
   AnyObject,
   ITriggerClassType,
@@ -14,11 +13,12 @@ import {
   ITriggerHelpersOptions,
   ManualRunTriggerEventType,
 } from "./interface";
+import { getRawTriggers } from "./utils";
 import axios from "axios";
 import rssParser from "rss-parser";
 import { getWorkflow } from "./workflow";
 import { getContext } from "./context";
-import { Log, prefix, colors } from "./log";
+import { Log, prefix, colors, log } from "./log";
 
 export const getTriggerId = ({
   name,
@@ -54,7 +54,7 @@ export const getTriggerHelpers = ({
   if (logLevel) {
     triggerLog.setDefaultLevel(logLevel);
   } else {
-    triggerLog.setDefaultLevel("info");
+    triggerLog.setDefaultLevel(log.getLevel());
   }
   const triggerHelpers = {
     createContentDigest,
@@ -75,7 +75,6 @@ interface IGeneralTriggerOptions extends ITriggerGeneralConfigOptions {
   getItemKey: (item: AnyObject) => string;
   skipFirst: boolean;
   force: boolean;
-  logLevel: LogLevelDesc;
   active: boolean;
   buildOutputsOnError: boolean;
   skipOnError: boolean;
@@ -89,7 +88,6 @@ interface IGeneralTriggerDefaultOptions extends ITriggerGeneralConfigOptions {
   debug: boolean;
   skipFirst: boolean;
   force: boolean;
-  logLevel: LogLevelDesc;
   active: boolean;
   buildOutputsOnError: boolean;
   skipOnError: boolean;
@@ -113,7 +111,6 @@ export const getGeneralTriggerFinalOptions = (
     debug: false,
     skipFirst: false,
     force: false,
-    logLevel: "info",
     active: true,
     buildOutputsOnError: false,
     skipOnError: false,
@@ -186,35 +183,59 @@ export const getGeneralTriggerFinalOptions = (
 };
 
 export const getTriggerConstructorParams = async ({
-  options,
+  globalOptions,
   name,
   cwd,
   workflowPath,
+  workflow,
+  options,
 }: {
-  options: ITriggerOptions;
   name: string;
   cwd?: string;
-  workflowPath: string;
+  workflowPath?: string;
+  workflow?: IWorkflow;
+  globalOptions?: ITriggerGeneralConfigOptions;
+  options?: ITriggerOptions;
 }): Promise<ITriggerContructorParams> => {
-  cwd = cwd || process.cwd();
-  const relativePath = path.relative(
-    path.resolve(cwd, "workflows"),
-    workflowPath
-  );
-  const triggerHelperOptions: ITriggerHelpersOptions = {
-    name: name,
-    workflowRelativePath: relativePath,
-  };
-  if (options && options.logLevel) {
-    triggerHelperOptions.logLevel = options.logLevel as LogLevelDesc;
-  }
-  return {
-    options: options,
-    helpers: getTriggerHelpers(triggerHelperOptions),
-    workflow: (await getWorkflow({
+  let theWorkflow: IWorkflow | undefined;
+  if (workflow) {
+    theWorkflow = workflow as IWorkflow;
+  } else if (workflowPath) {
+    cwd = cwd || process.cwd();
+
+    theWorkflow = (await getWorkflow({
       path: workflowPath,
       cwd: cwd,
       context: getContext(),
-    })) as IWorkflow,
+    })) as IWorkflow;
+  } else {
+    throw new Error("Miss param workflowPath");
+  }
+
+  const triggerHelperOptions: ITriggerHelpersOptions = {
+    name: name,
+    workflowRelativePath: theWorkflow.relativePath,
+  };
+
+  let triggerOptions: ITriggerOptions = {};
+  if (options) {
+    triggerOptions = options;
+  } else {
+    const rawTriggers = getRawTriggers(theWorkflow.data, globalOptions);
+    rawTriggers.forEach((trigger) => {
+      if (trigger.name === name) {
+        triggerOptions = trigger.options;
+      }
+    });
+  }
+
+  if (triggerOptions && triggerOptions.logLevel) {
+    triggerHelperOptions.logLevel = triggerOptions.logLevel as LogLevelDesc;
+  }
+
+  return {
+    options: triggerOptions,
+    helpers: getTriggerHelpers(triggerHelperOptions),
+    workflow: theWorkflow,
   };
 };

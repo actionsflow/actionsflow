@@ -50,6 +50,7 @@ async function run(cmd) {
     if (stderr) {
       console.error(`Error occurred executing ${cmd}:\n`, stderr);
     } else {
+      // eslint-disable-next-line no-console
       console.log(`Success executing ${cmd}`);
     }
   } catch (e) {

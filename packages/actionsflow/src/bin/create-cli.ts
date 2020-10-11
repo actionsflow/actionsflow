@@ -79,6 +79,7 @@ function getVersionInfo() {
 export const createCli = (argv: string): Promise<string> => {
   return new Promise((resolve, reject) => {
     const versionInfo = getVersionInfo();
+    // eslint-disable-next-line no-console
     console.log(versionInfo + "\n");
     const cli = yargs;
     cli

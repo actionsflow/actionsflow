@@ -81,6 +81,32 @@ on:
 
 The `config` has the following options.
 
+## `on.<trigger>.config.every`
+
+Optional, `number` or `string`, the interval time of running trigger, if `every` value type is `number`, the unit is minute. The default value is `0`, witch means the trigger will be ran once every Github Actionsflow workflow runs. But due to the limitation of the [shortest interval of github actions](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#schedule), generally Actionsflow will run once every 5 minutes.
+
+You can use `number` to specify the interval time of running trigger, like `60`, means the trigger will be ran once per 60 minutes. You can also use [cron expression](https://en.wikipedia.org/wiki/Cron) for `every` option, Like every 60 minutes, you can use `1 * * * *` instead. We use [`cron-parser`](https://github.com/harrisiirak/cron-parser#readme) to parse cron expression, with cron, you can define a more complex trigger schedule.
+
+For example, if you want run a trigger at 7:00 AM weekly, you can use the following config:
+
+Or, use cron expression:
+
+```yaml
+on:
+  rss:
+    url: https://hnrss.org/newest?points=300
+    config:
+      every: 0 7 * * 1-5
+```
+
+> Note, the default time zone is `UTC`, so if you set a cron expression, you should notice it. You can also change the time zone by `on.<trigger>.config.timeZone`
+
+> Note, webhook event will ignore `every` config
+
+## `on.<trigger>.config.timeZone`
+
+Optional, `string`, time zone, the default value is `UTC`, used for parsing `on.<trigger>.config.every` cron expression, see more time zone string at [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
+
 ## `on.<trigger>.config.filter`
 
 Optional, [`MongoDB query language`](https://docs.mongodb.com/manual/tutorial/query-documents/index.html). You can use `filter` to filter the trigger's results as you need.
@@ -181,32 +207,6 @@ Optional, `number`, skip `<count>` results of the trigger's results , the defaul
 ## `on.<trigger>.config.active`
 
 Optional, `boolean`, if the trigger is active, default is `true`. for some reason, you can make trigger inactive by set `active: false`
-
-## `on.<trigger>.config.every`
-
-Optional, `number` or `string`, the interval time of running trigger, if `every` value type is `number`, the unit is minute. The default value is `0`, witch means the trigger will be ran once every Github Actionsflow workflow runs. But due to the limitation of the [shortest interval of github actions](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#schedule), generally Actionsflow will run once every 5 minutes.
-
-You can use `number` to specify the interval time of running trigger, like `60`, means the trigger will be ran once per 60 minutes. You can also use [cron expression](https://en.wikipedia.org/wiki/Cron) for `every` option, Like every 60 minutes, you can use `1 * * * *` instead. We use [`cron-parser`](https://github.com/harrisiirak/cron-parser#readme) to parse cron expression, with cron, you can define a more complex trigger schedule.
-
-For example, if you want run a trigger at 7:00 AM weekly, you can use the following config:
-
-Or, use cron expression:
-
-```yaml
-on:
-  rss:
-    url: https://hnrss.org/newest?points=300
-    config:
-      every: 0 7 * * 1-5
-```
-
-> Note, the default time zone is `UTC`, so if you set a cron expression, you should notice it. You can also change the time zone by `on.<trigger>.config.timeZone`
-
-> Note, webhook event will ignore `every` config
-
-## `on.<trigger>.config.timeZone`
-
-Optional, `string`, time zone, the default value is `UTC`, used for parsing `on.<trigger>.config.every` cron expression, see more time zone string at [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
 
 ## `on.<trigger>.config.skipFirst`
 

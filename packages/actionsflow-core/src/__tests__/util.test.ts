@@ -23,6 +23,22 @@ test("filter", () => {
   });
   expect(filterResults.all().length).toBe(1);
 });
+test("filter nest", () => {
+  const items = [
+    {
+      id: 1,
+      current: {
+        temp: 12,
+      },
+    },
+  ];
+  const filterResults = filter(items, {
+    "current.temp": {
+      $lt: 13,
+    },
+  });
+  expect(filterResults.all().length).toBe(1);
+});
 test("filter outputs", () => {
   const items = emails;
   const filterResults = filter(

@@ -45,7 +45,7 @@ export const run = async ({
   if (Trigger) {
     const triggerConstructorParams = await getTriggerConstructorParams({
       name: trigger.name,
-      workflowPath: workflow.path,
+      workflow: workflow,
       options: trigger.options,
     });
     finalResult.helpers = triggerConstructorParams.helpers;

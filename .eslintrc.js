@@ -14,6 +14,9 @@ module.exports = {
   },
   extends: ["plugin:jest/recommended", "prettier"],
   plugins: ["jest"],
+  rules: {
+    "no-console": ["error", { allow: ["warn", "error"] }],
+  },
   overrides: [
     {
       // enable the rule specifically for TypeScript files

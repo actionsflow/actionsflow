@@ -1,20 +1,20 @@
 {
-  "name": "@actionsflow/trigger-npm",
-  "version": "1.1.0-alpha.7",
-  "description": "Actionsflow trigger npm",
+  "name": "@actionsflow/trigger-weather",
+  "version": "1.0.0",
+  "description": "Actionsflow trigger weather",
   "keywords": [
-    "npm",
+    "weather",
     "actionsflow",
     "trigger"
   ],
   "author": "Owen Young <theowenyoung@gmail.com>",
-  "homepage": "https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-npm#readme",
+  "homepage": "https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-weather#readme",
   "license": "MIT",
   "main": "dist/src/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/actionsflow/actionsflow.git",
-    "directory": "packages/actionsflow-trigger-npm"
+    "directory": "packages/actionsflow-trigger-weather"
   },
   "scripts": {
     "start": "tsc -w -p tsconfig.production.json",
@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "actionsflow-core": "^1.1.0-alpha.7",
-    "tslib": "^2.0.3"
+    "tslib": "^2.0.1"
   },
   "devDependencies": {
     "axios": "^0.20.0"
