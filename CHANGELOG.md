@@ -1,3 +1,10 @@
+# [1.2.0-7](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.1.0-alpha.6...v1.2.0-7) (2020-10-11)
+
+
+### Bug Fixes
+
+* debug log ([5a6d01a](https://github.com/actionsflow/actionsflow/commit/5a6d01a3db647662fd31c0cd9f99c1da4e0a74b1))
+
 # [1.2.0-6](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.1.0-alpha.5...v1.2.0-6) (2020-10-10)
 
 
