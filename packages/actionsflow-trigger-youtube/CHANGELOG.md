@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-youtube@1.1.3...@actionsflow/trigger-youtube@1.2.0) (2020-10-11)
+
+
+### Features
+
+* 🎸 support cron and weather trigger ([33d11ab](https://github.com/actionsflow/actionsflow/commit/33d11ab0952b84aaa38e7195407138180f727392)), closes [#9](https://github.com/actionsflow/actionsflow/issues/9)
+
+
+
+
+
 # [1.2.0-alpha.8](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-youtube@1.2.0-alpha.7...@actionsflow/trigger-youtube@1.2.0-alpha.8) (2020-10-11)
 
 
