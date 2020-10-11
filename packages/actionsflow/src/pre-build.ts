@@ -8,10 +8,7 @@ export default async function preBuild(): Promise<void> {
       process.env.ACTIONSFLOW_CURRENT_RUN_CREATED_AT;
   }
 
-  if (
-    process.env.GITHUB_ACTIONS !== "true" &&
-    !process.env.ACTIONSFLOW_CURRENT_RUN_CREATED_AT
-  ) {
+  if (!process.env.ACTIONSFLOW_CURRENT_RUN_CREATED_AT) {
     // inject ACTIONSFLOW_CURRENT_RUN_CREATED_AT for local
     process.env.ACTIONSFLOW_CURRENT_RUN_CREATED_AT = getCurrentTime().toString();
   }
@@ -22,14 +19,13 @@ export default async function preBuild(): Promise<void> {
       process.env.ACTIONSFLOW_LAST_UPDATE_AT;
   }
 
-  if (
-    process.env.GITHUB_ACTIONS !== "true" &&
-    !process.env.ACTIONSFLOW_LAST_UPDATE_AT
-  ) {
+  if (!process.env.ACTIONSFLOW_LAST_UPDATE_AT) {
     // inject ACTIONSFLOW_LAST_UPDATE_AT for local
     const cacheManager = getCache(`actionsflow-system-cache`);
     const lastUpdatedAt = await cacheManager.get("lastUpdatedAt");
-    process.env.ACTIONSFLOW_LAST_UPDATE_AT = lastUpdatedAt as string;
+    if (lastUpdatedAt) {
+      process.env.ACTIONSFLOW_LAST_UPDATE_AT = lastUpdatedAt as string;
+    }
     await cacheManager.set("lastUpdatedAt", getCurrentTime().toString());
   }
 }
