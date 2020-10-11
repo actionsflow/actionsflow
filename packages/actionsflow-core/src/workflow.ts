@@ -272,7 +272,7 @@ interface IBuildSingleWorkflowOptions {
 export const getBuiltWorkflow = async (
   options: IBuildSingleWorkflowOptions
 ): Promise<IWorkflowData> => {
-  log.debug("buildWorkflow options:", options);
+  log.trace("buildWorkflow options:", options);
   const { workflow, trigger } = options;
   const workflowData = workflow.data;
   // handle context expresstion

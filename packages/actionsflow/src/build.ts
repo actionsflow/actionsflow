@@ -59,13 +59,20 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
   if (logLevel) {
     log.setLevel(logLevel);
   }
-  log.debug("build: options", options);
+  log.debug("build: options", {
+    dest: options.dest,
+    cwd: options.cwd,
+    include: options.include,
+    exclude: options.exclude,
+    logLevel: options.logLevel,
+    verbose: options.verbose,
+    force: options.force,
+  });
   const { cwd, dest, include, exclude, force } = options;
   const destPath = path.resolve(cwd as string, dest as string);
-  log.debug("destPath:", destPath);
   // clean the dest folder
   await del([destPath]);
-  log.info("Clean the dest folder");
+  log.info("Clean the dest folder...");
   const context = getContext({
     JSON_SECRETS: options.jsonSecrets || "",
     JSON_GITHUB: options.jsonGithub || "",
@@ -114,27 +121,6 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
     },
   });
 
-  // scheduled task
-  log.debug(
-    "tasks",
-    JSON.stringify(
-      tasks.map((item) => {
-        return {
-          relativePath: item.workflow.relativePath,
-          trigger: {
-            name: item.trigger.name,
-            options: item.trigger.options,
-          },
-          event: item.event,
-          type: item.type,
-          delay: item.delay,
-        };
-      }),
-      null,
-      2
-    )
-  );
-
   const errors: ITriggerError[] = [];
   let tasksResults: PromiseSettledResult<ITriggerInternalResult>[] = [];
   // get immediate tasks
@@ -152,6 +138,26 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
     `There are ${immediateTasks.length} immediate tasks, ${delayTasks.length} delay tasks`
   );
   const delayTasksPromises: Promise<ITriggerInternalResult>[] = [];
+
+  // scheduled task
+  log.debug(
+    "tasks",
+    JSON.stringify(
+      newTasks.map((item) => {
+        return {
+          relativePath: item.workflow.relativePath,
+          trigger: {
+            name: item.trigger.name,
+          },
+          event: item.event,
+          type: item.type,
+          delay: item.delay,
+        };
+      }),
+      null,
+      2
+    )
+  );
 
   // Add immediate tasks
   for (let i = 0; i < newTasks.length; i++) {

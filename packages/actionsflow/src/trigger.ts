@@ -32,8 +32,7 @@ export const run = async ({
   event,
   workflow,
 }: ITriggerInternalOptions): Promise<ITriggerInternalResult> => {
-  log.debug("trigger:", trigger);
-  log.debug("trigger event", event);
+  log.debug("Trigger event: ", event);
   const originLogLevel = log.getLevel();
   const finalResult: ITriggerInternalResult = {
     items: [],
@@ -164,7 +163,9 @@ export const run = async ({
               // get cache
               deduplicationKeys =
                 (await triggerCacheManager.get("deduplicationKeys")) || [];
-              log.debug("get cached deduplicationKeys", deduplicationKeys);
+              log.debug(
+                `Get ${deduplicationKeys.length} cached deduplicationKeys`
+              );
               const itemsKeyMaps = new Map();
               items.forEach((item) => {
                 itemsKeyMaps.set(getItemKey(item), item);
@@ -232,7 +233,9 @@ export const run = async ({
                   "deduplicationKeys",
                   deduplicationKeys
                 );
-                log.debug("save deduplicationKeys to cache", deduplicationKeys);
+                log.debug(
+                  `Save ${deduplicationKeys.length} deduplicationKeys to cache`
+                );
               } else {
                 log.debug("no items update, do not need to update cache");
               }
@@ -277,6 +280,9 @@ export const run = async ({
       throw new Error(`Trigger [${trigger.name}] construct error`);
     }
   }
+  log.debug(
+    `End to run trigger [${trigger.name}] of workflow [${workflow.relativePath}] with ${finalResult.items.length} items`
+  );
   return finalResult;
 };
 export const runSettled = async (
@@ -302,16 +308,22 @@ export const resolveTrigger = (
   let trigger: ITriggerClassTypeConstructable | undefined;
   // first get local trigger
   trigger = getLocalTrigger(name);
+  if (trigger) {
+    log.debug(`Use local trigger [${name}]`);
+  }
 
   // then, get third party trigger
   if (!trigger) {
     trigger = getThirdPartyTrigger(name);
+    if (trigger) {
+      log.debug(`Use third party trigger [${name}]`);
+    }
   }
   // last, get official trigger
   if (!trigger) {
     trigger = allTriggers[name];
     if (trigger) {
-      log.debug(`Use official trigger ${name}`);
+      log.debug(`Use official trigger [${name}]`);
     }
   }
   return trigger;
