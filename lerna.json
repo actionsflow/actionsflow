@@ -6,7 +6,6 @@
       "license": "MIT"
     },
     "publish": {
-      "allowBranch": ["main", "v*"],
       "bump": "patch",
       "conventionalCommits": true,
       "message": "chore(release): 🤖 publish"

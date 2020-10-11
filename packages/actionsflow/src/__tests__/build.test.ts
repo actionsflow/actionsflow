@@ -7,15 +7,15 @@ test("build workflows", async () => {
   // set process env
   process.env.JSON_SECRETS =
     '{"GITHUB_TOKEN": "fake_github_token","IFTTT_KEY":"fake_ifttt_key","TELEGRAM_BOT_TOKEN":"fake_telegram_bot_token"}';
-  process.env.JSON_GITHUB = "{}";
 
   await build({
     force: true,
     cwd: path.resolve(__dirname, "./fixtures"),
   });
+  expect(process.env.ACTIONSFLOW_CURRENT_RUN_CREATED_AT).toBe(undefined);
   // read built file
   const yamlString = await readFile(
-    path.resolve(__dirname, "./fixtures/dist/workflows/rss-rss.yml"),
+    path.resolve(__dirname, "./fixtures/dist/workflows/0-rss-rss.yml"),
     "utf8"
   );
   const newWorkflow = yaml.safeLoad(yamlString);
@@ -49,7 +49,7 @@ test("build webhook workflows", async () => {
   });
   // read built file
   const yamlString = await readFile(
-    path.resolve(__dirname, "./fixtures/dist/workflows/webhook-webhook.yml"),
+    path.resolve(__dirname, "./fixtures/dist/workflows/0-webhook-webhook.yml"),
     "utf8"
   );
   const newWorkflow = yaml.safeLoad(yamlString);

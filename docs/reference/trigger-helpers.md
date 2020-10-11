@@ -18,6 +18,7 @@ interface IHelpers {
   };
   log: Logger;
   axios: AxiosStatic;
+  rssParser: typeof Parser;
 }
 ```
 
@@ -117,3 +118,13 @@ const binaryData = helpers.formatBinary(Buffer.from("test"));
 console.log(binaryData.data === "dGVzdA==");
 console.log(binaryData.mimeType === "text/plain");
 ```
+
+# `rssParser`
+
+A small function for turning RSS XML feeds into JavaScript objects. Actionsflow use [`rss-parser`](https://github.com/rbren/rss-parser) to parse a RSS feed.
+
+```javascript
+const response = await this.helpers.axios(options);
+```
+
+See [RSS Parser documentation](https://github.com/rbren/rss-parser)

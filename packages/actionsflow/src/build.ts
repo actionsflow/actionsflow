@@ -15,13 +15,16 @@ import {
   ITriggerBuildResult,
   AnyObject,
   ITriggerError,
+  ITask,
 } from "actionsflow-core";
 import del from "del";
 import { run as runTrigger } from "./trigger";
 import { LogLevelDesc } from "loglevel";
 import { getTasksByTriggerEvent } from "./task";
 import { TriggersError } from "./error";
-
+import preBuild from "./pre-build";
+import postBuild from "./post-build";
+import { runAfter, promiseSerial } from "./utils";
 interface IBuildOptions {
   dest?: string;
   cwd?: string;
@@ -34,6 +37,7 @@ interface IBuildOptions {
   jsonGithub?: string;
 }
 const build = async (options: IBuildOptions = {}): Promise<void> => {
+  preBuild();
   options = {
     dest: "./dist",
     cwd: process.cwd(),
@@ -55,13 +59,20 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
   if (logLevel) {
     log.setLevel(logLevel);
   }
-  log.debug("build: options", options);
+  log.debug("build: options", {
+    dest: options.dest,
+    cwd: options.cwd,
+    include: options.include,
+    exclude: options.exclude,
+    logLevel: options.logLevel,
+    verbose: options.verbose,
+    force: options.force,
+  });
   const { cwd, dest, include, exclude, force } = options;
   const destPath = path.resolve(cwd as string, dest as string);
-  log.debug("destPath:", destPath);
   // clean the dest folder
   await del([destPath]);
-  log.info("Clean the dest folder");
+  log.info("Clean the dest folder...");
   const context = getContext({
     JSON_SECRETS: options.jsonSecrets || "",
     JSON_GITHUB: options.jsonGithub || "",
@@ -101,20 +112,47 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
 
   // get workflows that belong this type
 
-  const tasks = getTasksByTriggerEvent({
+  const tasks = await getTasksByTriggerEvent({
     event: triggerEvent,
     workflows,
+    globalOptions: {
+      force: force,
+      logLevel: logLevel,
+    },
   });
+
+  const errors: ITriggerError[] = [];
+  // get immediate tasks
+  const immediateTasks: ITask[] = [];
+  const delayTasks: ITask[] = [];
+  tasks.forEach((task) => {
+    if (task.type === "delay") {
+      delayTasks.push(task);
+    } else {
+      immediateTasks.push(task);
+    }
+  });
+  const newTasks: ITask[] = immediateTasks.concat(delayTasks);
+  log.info(
+    `There are ${immediateTasks.length} immediate tasks, ${delayTasks.length} delay tasks`
+  );
+  const immediatePromises: (() => Promise<ITriggerInternalResult>)[] = [];
+
+  const delayTasksPromises: Promise<ITriggerInternalResult>[] = [];
 
   // scheduled task
   log.debug(
     "tasks",
     JSON.stringify(
-      tasks.map((item) => {
+      newTasks.map((item) => {
         return {
           relativePath: item.workflow.relativePath,
-          trigger: item.trigger,
+          trigger: {
+            name: item.trigger.name,
+          },
           event: item.event,
+          type: item.type,
+          delay: item.delay,
         };
       }),
       null,
@@ -122,46 +160,83 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
     )
   );
 
-  const errors: ITriggerError[] = [];
+  // run immediate tasks
+  let tasksResults: PromiseSettledResult<ITriggerInternalResult>[] = [];
 
-  for (let i = 0; i < tasks.length; i++) {
-    const task = tasks[i];
+  // Add immediate tasks
+  for (let i = 0; i < newTasks.length; i++) {
+    const task = newTasks[i];
+    // TODO check type
     const workflow = task.workflow;
     const trigger = task.trigger;
     const event = task.event;
+
+    if (task.type === "immediate") {
+      immediatePromises.push(
+        runTrigger.bind(null, {
+          workflow: workflow,
+          trigger: {
+            name: trigger.name,
+            options: trigger.options,
+            class: trigger.class,
+          },
+          event: event,
+          logLevel,
+        })
+      );
+    } else {
+      // Add delay promise
+      delayTasksPromises.push(
+        runAfter(
+          runTrigger.bind(null, {
+            workflow: workflow,
+            trigger: {
+              name: trigger.name,
+              options: trigger.options,
+              class: trigger.class,
+            },
+            event: event,
+            logLevel,
+          }),
+          task.delay as number
+        )
+      );
+    }
+  }
+
+  tasksResults = await promiseSerial(immediatePromises);
+  log.info(
+    `Run ${tasksResults.length} immediate tasks finished, wait for ${delayTasksPromises.length} delay tasks to finish...`
+  );
+  tasksResults = tasksResults.concat(
+    await Promise.allSettled(delayTasksPromises)
+  );
+  log.info("All tasks finished, wait for building...");
+  // Add
+
+  for (let i = 0; i < newTasks.length; i++) {
+    const task = newTasks[i];
+    // TODO check type
+    const workflow = task.workflow;
+    const trigger = task.trigger;
     const relativePathWithoutExt = workflow.relativePath
       .split(".")
       .slice(0, -1)
       .join(".");
-    const destRelativePath = `${relativePathWithoutExt}-${task.trigger.name}.yml`;
-    const destPath = path.resolve(workflowsDestPath, destRelativePath);
+    const destRelativePath = `${i}-${relativePathWithoutExt}-${task.trigger.name}.yml`;
+    const workflowDestPath = path.resolve(workflowsDestPath, destRelativePath);
     // manual run trigger
     const triggerResults: ITriggerBuildResult[] = [];
-    if (force) {
-      if (trigger.options) {
-        if (trigger.options.config) {
-          trigger.options.config.force = true;
-        } else {
-          trigger.options.config = { force: true };
-        }
-      } else {
-        trigger.options = { config: { force: true } };
-      }
-    }
+
+    const taskResult = tasksResults[i];
+
     let triggerRunResult: ITriggerInternalResult | undefined;
-    try {
-      triggerRunResult = await runTrigger({
-        workflow: workflow,
-        trigger: {
-          name: trigger.name,
-          options: trigger.options,
-          class: trigger.class,
-        },
-        event: event,
-        logLevel,
-      });
-    } catch (error) {
+    if (taskResult.status === "fulfilled") {
+      triggerRunResult = taskResult.value;
+    } else {
+      // error
       // if buildOutputsOnError
+      const error = taskResult.reason as Error;
       if (
         trigger.options &&
         trigger.options.config &&
@@ -193,6 +268,7 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
         log.info(`Run trigger ${trigger.name} error: `, error);
         continue;
       } else {
+        // TODO JSON.stringify, change type
         errors.push({
           error: error,
           trigger: trigger,
@@ -201,7 +277,6 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
         continue;
       }
     }
-
     if (
       triggerRunResult.conclusion === "success" &&
       triggerRunResult.items.length > 0
@@ -229,7 +304,7 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
       if (Object.keys(newWorkflowFileData.jobs as AnyObject).length > 0) {
         await buildWorkflowFile({
           workflowData: newWorkflowFileData,
-          dest: destPath,
+          dest: workflowDestPath,
         });
 
         // success
@@ -246,6 +321,8 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
       );
     }
   }
+
+  postBuild();
   // if errors.length>0, then throw Error
   if (errors.length > 0) {
     log.info("Actionsflow build finished with the following errors:");

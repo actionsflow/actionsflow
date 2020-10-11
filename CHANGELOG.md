@@ -1,3 +1,85 @@
+# [1.2.0-10](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-typeform@1.1.0-alpha.8...v1.2.0-10) (2020-10-11)
+
+
+### Features
+
+* weather ([a18d1fd](https://github.com/actionsflow/actionsflow/commit/a18d1fd3d27db8a287452381eaf0d38470ea2993))
+
+# [1.2.0-9](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.2.0-alpha.10...v1.2.0-9) (2020-10-11)
+
+
+### Bug Fixes
+
+* github action ([31fb6a8](https://github.com/actionsflow/actionsflow/commit/31fb6a8a8aed8748ac621e5c0172446cd34db0c7))
+
+# [1.2.0-8](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.1.0-alpha.7...v1.2.0-8) (2020-10-11)
+
+
+### Bug Fixes
+
+* every ([a5beb8a](https://github.com/actionsflow/actionsflow/commit/a5beb8a29b62e3945e03be45e0110151a7191a8e))
+
+# [1.2.0-7](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.1.0-alpha.6...v1.2.0-7) (2020-10-11)
+
+
+### Bug Fixes
+
+* debug log ([5a6d01a](https://github.com/actionsflow/actionsflow/commit/5a6d01a3db647662fd31c0cd9f99c1da4e0a74b1))
+
+# [1.2.0-6](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.1.0-alpha.5...v1.2.0-6) (2020-10-10)
+
+
+### Bug Fixes
+
+* global options ([a49652a](https://github.com/actionsflow/actionsflow/commit/a49652a3210f4901b06e1449c9859007cdecb6b5))
+
+# [1.2.0-5](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.2.0-alpha.6...v1.2.0-5) (2020-10-10)
+
+
+### Bug Fixes
+
+* name ([b736a47](https://github.com/actionsflow/actionsflow/commit/b736a479c3fdb088210adfc3a078f50ecde116c6))
+
+# [1.2.0-4](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-telegram_bot@1.1.0-alpha.5...v1.2.0-4) (2020-10-10)
+
+
+### Bug Fixes
+
+* task order ([044c23e](https://github.com/actionsflow/actionsflow/commit/044c23e00afff6dc5e85b4bfa93c15a2773a5f65))
+
+# [1.2.0-3](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.1.0-alpha.4...v1.2.0-3) (2020-10-10)
+
+
+### Features
+
+* task ([c005e79](https://github.com/actionsflow/actionsflow/commit/c005e79fa54fa0e2d275d391578a7a9ff9e6358a))
+
+# [1.2.0-2](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.1.0-alpha.3...v1.2.0-2) (2020-10-10)
+
+
+### Features
+
+* manual ([1fe186d](https://github.com/actionsflow/actionsflow/commit/1fe186dcce7c284808c81225c730445024dbe2d7))
+
+# [1.2.0-1](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-npm@1.1.0-alpha.2...v1.2.0-1) (2020-10-10)
+
+# [1.2.0-0](https://github.com/actionsflow/actionsflow/compare/v1.1.5-1...v1.2.0-0) (2020-10-10)
+
+
+### Bug Fixes
+
+* cron dependence ([b13c4b4](https://github.com/actionsflow/actionsflow/commit/b13c4b41b4c7823ede1af76ec3c73630161ba13a))
+
+## [1.1.5-1](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.1.0-alpha.1...v1.1.5-1) (2020-10-10)
+
+## [1.1.5-0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.1.0-alpha.0...v1.1.5-0) (2020-10-10)
+
+
+### Features
+
+* no allow ([c2a3ab8](https://github.com/actionsflow/actionsflow/commit/c2a3ab8ee86e6bfc02d8e54574ead7e87b264364))
+* support cron every ([5c85545](https://github.com/actionsflow/actionsflow/commit/5c85545c4ed86d0722cad3e6645dd667442257a1))
+
 ## [1.1.4](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.0.4...v1.1.4) (2020-10-06)
 
 ## [1.1.3](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.1.3...v1.1.3) (2020-10-05)

@@ -1,0 +1,20 @@
+on:
+  script:
+    config:
+      force: true
+      skipSchedule: true
+      manualRunEvent:
+        - workflow_dispatch
+        - push
+    run: |
+      return [{title:"test manual",id:"1"}]
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          outputs: ${{ toJson(on.script.outputs) }}
+        run: |
+          echo outputs: $outputs

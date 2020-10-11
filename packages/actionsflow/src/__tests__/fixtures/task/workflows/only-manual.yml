@@ -1,0 +1,21 @@
+on:
+  rss:
+    url: https://hnrss.org/newest?points=300
+    test: ${{ secrets.TEST }}-1
+    config:
+      every: "* * * * *"
+      timeZone: "Asia/Taipei"
+      manualRunEvent: workflow_dispatch
+      skipSchedule: true
+jobs:
+  ifttt:
+    name: Make a Request to IFTTT
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actionsflow/ifttt-webhook-action@v1
+        with:
+          event: notice
+          key: ${{ secrets.IFTTT_KEY }}
+          value1: ${{on.rss.outputs.title}}
+          value2: ${{on.rss.outputs.contentSnippet}}
+          value3: ${{on.rss.outputs.link}}

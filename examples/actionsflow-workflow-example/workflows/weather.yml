@@ -1,0 +1,22 @@
+on:
+  weather:
+    apiKey: ${{ secrets.OPENWEATHERMAP_API_KEY }}
+    params:
+      lat: 51.509865
+      lon: -0.118092
+      units: metric
+    every: "0 7 * * *"
+    timeZone: UTC
+    filter:
+      "current.temp":
+        $lt: 13
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          json: ${{toJSON(on.weather.outputs)}}
+        run: |
+          echo json: $json

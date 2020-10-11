@@ -13,7 +13,7 @@ import Trello from "@actionsflow/trigger-trello";
 import Typeform from "@actionsflow/trigger-typeform";
 import Reddit from "@actionsflow/trigger-reddit";
 import Youtube from "@actionsflow/trigger-youtube";
-
+import Weather from "@actionsflow/trigger-weather";
 export default {
   poll: Poll,
   rss: Rss,
@@ -30,4 +30,5 @@ export default {
   google_form: GoogleForm,
   trello: Trello,
   youtube: Youtube,
+  weather: Weather,
 };

@@ -1,13 +1,13 @@
 {
   "name": "@actionsflow/trigger-npm",
-  "version": "1.0.4",
+  "version": "1.1.0-alpha.8",
   "description": "Actionsflow trigger npm",
   "keywords": [
     "npm",
     "actionsflow",
     "trigger"
   ],
-  "author": "Owen Young &lt;theowenyoung@gmail.com&gt;",
+  "author": "Owen Young <theowenyoung@gmail.com>",
   "homepage": "https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-npm#readme",
   "license": "MIT",
   "main": "dist/src/index.js",
@@ -29,8 +29,8 @@
     "url": "https://github.com/actionsflow/actionsflow/issues"
   },
   "dependencies": {
-    "actionsflow-core": "^1.0.4",
-    "tslib": "^2.0.2"
+    "actionsflow-core": "^1.1.0-alpha.8",
+    "tslib": "^2.0.3"
   },
   "devDependencies": {
     "axios": "^0.20.0"

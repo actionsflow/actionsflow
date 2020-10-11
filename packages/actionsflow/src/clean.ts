@@ -14,7 +14,6 @@ export default (options: {
   options = {
     dest: "./dist",
     cwd: process.cwd(),
-    logLevel: "info",
     ...options,
   };
   let logLevel: LogLevelDesc | undefined;

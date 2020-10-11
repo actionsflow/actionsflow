@@ -5,6 +5,7 @@ import {
   ITriggerOptions,
   IHelpers,
   IWebhookRequest,
+  ITriggerGeneralConfigOptions,
 } from "actionsflow-core";
 
 export default class TelegramBot implements ITriggerClassType {
@@ -13,7 +14,11 @@ export default class TelegramBot implements ITriggerClassType {
       this.options = options;
     }
     this.helpers = helpers;
+    if (this.options.webhook) {
+      this.config.skipSchedule = true;
+    }
   }
+  config: ITriggerGeneralConfigOptions = {};
   options: ITriggerOptions = {};
   helpers: IHelpers;
   getItemKey = (item: AnyObject): string => {
@@ -127,7 +132,8 @@ export default class TelegramBot implements ITriggerClassType {
     ];
 
     itemsArray.forEach((item: AnyObject) => {
-      const message = item.message as AnyObject;
+      const message = (item.message as AnyObject) || item.channel_post;
+
       // add update_id to message for unique key
       message.update_id = item.update_id as string;
       const messageType = _messageTypes.find((messageType) => {

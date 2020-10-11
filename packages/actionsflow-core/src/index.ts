@@ -1,4 +1,4 @@
-export { log } from "./log";
+export { log, Log } from "./log";
 export {
   getTriggerHelpers,
   getTriggerId,
@@ -32,4 +32,5 @@ export {
   buildWorkflowFile,
 } from "./generate";
 export { Cursor } from "mingo/cursor";
+export { getScheduler } from "./schedule";
 export * from "./interface";

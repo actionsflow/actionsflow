@@ -1,10 +1,8 @@
 import path from "path";
 import {
-  getTriggerHelpers,
-  getWorkflow,
   ITriggerContructorParams,
-  IWorkflow,
   ITriggerOptions,
+  getTriggerConstructorParams as getTriggerConstructorParamsFn,
 } from "actionsflow-core";
 
 export const CONTEXT = {
@@ -26,16 +24,10 @@ export const getTriggerConstructorParams = async ({
   options: ITriggerOptions;
   name: string;
 }): Promise<ITriggerContructorParams> => {
-  return {
-    options: options,
-    helpers: getTriggerHelpers({
-      name: name,
-      workflowRelativePath: "test.yml",
-    }),
-    workflow: (await getWorkflow({
-      path: path.resolve(__dirname, "./fixtures/workflows/rss.yml"),
-      cwd: path.resolve(__dirname, "./fixtures"),
-      context: CONTEXT,
-    })) as IWorkflow,
-  };
+  return getTriggerConstructorParamsFn({
+    name: name,
+    options,
+    cwd: path.resolve(__dirname, "./fixtures"),
+    workflowPath: path.resolve(__dirname, "./fixtures/workflows/rss.yml"),
+  });
 };

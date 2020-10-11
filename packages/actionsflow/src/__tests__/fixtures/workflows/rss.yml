@@ -2,6 +2,9 @@ on:
   rss:
     url: https://hnrss.org/newest?points=300
     test: ${{ secrets.TEST }}-1
+    config:
+      every: "*/5 * * * *"
+      force: true
 jobs:
   ifttt:
     name: Make a Request to IFTTT

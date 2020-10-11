@@ -69,8 +69,12 @@ interface ITriggerContructorParams {
 
   ```typescript
   interface ITriggerGeneralConfigOptions {
-    every?: number;
+    every?: number | string;
+    timeZone?: string;
     shouldDeduplicate?: boolean;
+    manualRunEvent?: ManualRunTriggerEventType | ManualRunTriggerEventType[];
+    skipSchedule?: boolean;
+    debug?: boolean;
     skipFirst?: boolean;
     force?: boolean;
     logLevel?: LogLevelDesc;
@@ -142,8 +146,12 @@ optional, `ITriggerGeneralConfigOptions`, you can change the default config by p
 
 ```yaml
 interface ITriggerGeneralConfigOptions {
-  every?: number;
+  every?: number | string;
+  timeZone?: string;
   shouldDeduplicate?: boolean;
+  manualRunEvent?: ManualRunTriggerEventType | ManualRunTriggerEventType[];
+  skipSchedule?: boolean;
+  debug?: boolean;
   skipFirst?: boolean;
   force?: boolean;
   logLevel?: LogLevelDesc;
@@ -165,14 +173,17 @@ The default value is:
 
 ```json
 {
-  "every": 5,
+  "every": 0,
   "shouldDeduplicate": true,
   "skipFirst": false,
   "force": false,
   "logLevel": "info",
   "active": true,
   "skipOnError": false,
-  "buildOutputsOnError": false
+  "buildOutputsOnError": false,
+  "timeZone": "UTC",
+  "shouldRunManually": true,
+  "manualRunEvent": []
 }
 ```
 
