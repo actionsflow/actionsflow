@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.2.1...v1.2.1) (2020-10-11)
+
+
+### Bug Fixes
+
+* 🐛 node10 Promise.allSettled polyfill ([a204a54](https://github.com/actionsflow/actionsflow/commit/a204a546cbadba9e83a662124c62e273915a0fd2))
+
 # [1.2.0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.1.0...v1.2.0) (2020-10-11)
 
 
