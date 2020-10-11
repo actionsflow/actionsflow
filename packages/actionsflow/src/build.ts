@@ -25,6 +25,8 @@ import { TriggersError } from "./error";
 import preBuild from "./pre-build";
 import postBuild from "./post-build";
 import { runAfter, promiseSerial } from "./utils";
+import allSettled from "promise.allsettled";
+allSettled.shim(); // will be a no-op if not needed
 interface IBuildOptions {
   dest?: string;
   cwd?: string;
