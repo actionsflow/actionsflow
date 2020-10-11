@@ -1,3 +1,10 @@
+# [1.2.0-9](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.2.0-alpha.10...v1.2.0-9) (2020-10-11)
+
+
+### Bug Fixes
+
+* github action ([31fb6a8](https://github.com/actionsflow/actionsflow/commit/31fb6a8a8aed8748ac621e5c0172446cd34db0c7))
+
 # [1.2.0-8](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.1.0-alpha.7...v1.2.0-8) (2020-10-11)
 
 
