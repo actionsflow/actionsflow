@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/actionsflow/actionsflow/compare/actionsflow@1.2.0...actionsflow@1.2.1) (2020-10-11)
+
+
+### Bug Fixes
+
+* 🐛 node10 Promise.allSettled polyfill ([a204a54](https://github.com/actionsflow/actionsflow/commit/a204a546cbadba9e83a662124c62e273915a0fd2))
+
+
+
+
+
 # [1.2.0](https://github.com/actionsflow/actionsflow/compare/actionsflow@1.1.4...actionsflow@1.2.0) (2020-10-11)
 
 
