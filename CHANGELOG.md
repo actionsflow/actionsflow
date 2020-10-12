@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-twitter@1.1.1...v1.2.2) (2020-10-12)
+
+
+### Bug Fixes
+
+* 🐛 tweets sort ([7b519c5](https://github.com/actionsflow/actionsflow/commit/7b519c5b30d8a213c9889f8fa2d17b64531c5ce6))
+
 ## [1.2.1](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.2.1...v1.2.1) (2020-10-11)
 
 
