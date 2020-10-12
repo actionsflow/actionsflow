@@ -6,7 +6,7 @@ title: "Core Concepts"
 
 Actionsflow uses [Github Actions](https://docs.github.com/en/actions)' [**`repository_dispatch` event**](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#repository_dispatch) and [**`scheduled` event**](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#scheduled-events) every 5 minutes to run [Actionsflow triggers](./triggers.md). Those triggers generate an array of results, which are cached and deduplicated, generating a standard Github actions workflow file with the trigger result. Finally, the workflows are executed using [act](https://github.com/nektos/act) (a tool for running GitHub Actions locally).
 
-In programming language, the power of actionsflow comes from the following Github workflows file (`.github/workflows/actionsflow.yml`):
+In practical terms, the power of actionsflow comes from the following Github workflows file (`.github/workflows/actionsflow.yml`):
 
 ```yaml
 name: Actionsflow
@@ -35,7 +35,7 @@ jobs:
 
 ## `scheduled` Run
 
-Actionsflow sets up a Github scheduled action running every 5 minutes. Actionsflow will call the trigger's manual `run` method to check if there are any updates to the triggers in the workflows. If an updated item is found, Actionsflow generates a standard Github actions workflow file with the item payload and calls [act](https://github.com/nektos/act) to run the built workflows.
+Actionsflow sets up a Github scheduled action to run every 5 minutes. Actionsflow will call the trigger's manual `run` method to check if there are any updates to the triggers in the workflows. If an updated item is found, Actionsflow generates a standard Github actions workflow file with the item payload and calls [act](https://github.com/nektos/act) to run the built workflows.
 
 For example, if an Actionsflow workflow file looks like this:
 
@@ -59,9 +59,9 @@ jobs:
           echo link: $link
 ```
 
-Then, Actionsflow will call [RSS trigger](https://github.com/actionsflow/actionsflow/blob/main/packages/actionsflow/src/triggers/rss.ts) and [RSS trigger](./triggers/rss.md) will return data of the feed items in JSON format. Actionsflow will generate a standard Github actions workflow file after some caching and deduplication work.
+Then, Actionsflow will call [RSS trigger](https://github.com/actionsflow/actionsflow/blob/main/packages/actionsflow/src/triggers/rss.ts) (more info [here](./triggers/rss.md)) and return data of the RSS feed items in JSON format. To do this, Actionsflow generates a standard Github actions workflow file, after doing some caching and deduplication work.
 
-The built workflow file looks like this:
+The standard Github actions workflow file it generates looks like this:
 
 ```yaml
 "on":
@@ -107,7 +107,7 @@ Then, Actionsflow will call [act](https://github.com/nektos/act) (a tool for run
 
 ## `repository_dispatch` Run
 
-Github provides a [`repository_dispatch`](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#repository_dispatch) event for an outside service to trigger a Github actions workflow run.
+Github provides a [`repository_dispatch`](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#repository_dispatch) event which allows an outside service to trigger a Github actions workflow run.
 
 Actionsflow uses it to support standard webhook requests.
 
@@ -133,9 +133,9 @@ To `https://api.github.com/repos/<owner>/<repo>/dispatches`, with body:
 }
 ```
 
-Then, Actionsflow will call the trigger's webhook handler to get the result items and generate a built workflow file.
+Then, Actionsflow will call the trigger's webhook handler to get the result items and generate a standard Github actions workflow file.
 
-Finally, Actionsflow will call [act](https://github.com/nektos/act) (a tool for running GitHub Actions locally) to run the jobs in the built workflow file.
+Finally, Actionsflow calls [act](https://github.com/nektos/act) (a tool for running GitHub Actions locally) on the generated workflow file, so that the jobs run.
 
 # What the Actionsflow workflow file includes
 
