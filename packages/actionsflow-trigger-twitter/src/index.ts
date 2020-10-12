@@ -92,7 +92,7 @@ export default class Twitter implements ITriggerClassType {
 
     if (tweets.length > 0) {
       tweets.sort((a, b) => {
-        return Number(BigInt(a.id as bigint) - BigInt(b.id as bigint));
+        return Number(BigInt(b.id as bigint) - BigInt(a.id as bigint));
       });
       tweets.forEach((tweet) => {
         if (!max_id || BigInt(tweet.id_str) > BigInt(max_id)) {
@@ -105,7 +105,6 @@ export default class Twitter implements ITriggerClassType {
     if (max_id) {
       this.helpers.cache.set(`${this.api}_since_id`, max_id);
     }
-
     return finalResult;
   }
 }
