@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-twitter@1.1.0...@actionsflow/trigger-twitter@1.1.1) (2020-10-12)
+
+
+### Bug Fixes
+
+* 🐛 tweets sort ([7b519c5](https://github.com/actionsflow/actionsflow/commit/7b519c5b30d8a213c9889f8fa2d17b64531c5ce6))
+
+
+
+
+
 # [1.1.0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-twitter@1.0.4...@actionsflow/trigger-twitter@1.1.0) (2020-10-11)
 
 
