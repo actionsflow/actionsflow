@@ -7,8 +7,8 @@ You may be looking to build and perhaps publish a trigger that doesn't exist yet
 
 # Core concepts
 
-- Each Actionsflow trigger can be created as an npm package or as a [local trigger](./creating-triggers/creating-a-local-trigger.md)
-- Trigger exports a class with `run` method for getting the initial results.
+- Actionsflow triggers can be created either as an npm package or as a [local trigger](./creating-triggers/creating-a-local-trigger.md).
+- Trigger files export a class with a `run` method for getting the initial results.
 
 A typical trigger class looks like this:
 
@@ -32,7 +32,7 @@ module.exports = class Example {
 
 # Naming a trigger
 
-An Actionsflow trigger name looks like **`@actionsflow/trigger-*`**, for example: [`@actionsflow/trigger-twitter`](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-twitter), then you can this trigger after install it:
+An Actionsflow trigger name looks like this: **`@actionsflow/trigger-*`**. For example: [`@actionsflow/trigger-twitter`](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-twitter). After installing this trigger you would be able to use it like this:
 
 ```yaml
 on:
@@ -40,11 +40,11 @@ on:
     event: user_timeline
 ```
 
-> if your trigger name is more than one word, snake case format is recommended for a trigger name, because the jobs use trigger's outputs by `on.trigger_name.outputs.param`, if your trigger is named `trigger-name`, then the jobs should use trigger's outputs by `on['trigger-name'].outputs.param`. Snake case is also Github actions naming conventions, like `pull_request`, it's also Actionsflow trigger recommended naming conventions.
+> If your trigger name is more than one word using snake case format is recommended, because the jobs use triggers' outputs by `on.trigger_name.outputs.param`. If your trigger is named `trigger-name`, then the jobs will use triggers' outputs by `on['trigger-name'].outputs.param`. Snake case is also Github actions' naming convention (like in `pull_request`).
 
-# Options styles
+# Options style
 
-Follow the Javascript name styles, we recommend you use camel case as the options field name style. For example:
+Follow the Javascript naming convention: we recommend you use camel case as the option field's name style. For example:
 
 ```javascript
 {
@@ -52,9 +52,9 @@ Follow the Javascript name styles, we recommend you use camel case as the option
 }
 ```
 
-> Note, `options.config` is the [General Config for Actionsflow Trigger](./workflow.md#ontriggerconfig), so you should not use `config` as your options.
+> Note: `options.config` is the [General Config for Actionsflow Trigger](./workflow.md#ontriggerconfig), so you should not use `config` as your option name.
 
-# Start to build a trigger
+# Start building a trigger
 
 This section of the docs includes the following guides:
 
