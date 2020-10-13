@@ -228,7 +228,7 @@ Optional, `boolean`, whether to force data to be updated, if `true`, the trigger
 
 ## `on.<trigger>.config.skipOnError`
 
-Optional, `boolean`, Set to `true`, Actionsflow will ignore the trigger for this time if there are any fails. The default value is `false`, which means Actionsflow will throw an error, stop to build.
+Optional, `boolean`, Set to `true`, Actionsflow will ignore the error of the trigger if there are any fails. The default value is `false`, which means Actionsflow will throw an error finally, Github may send an email to notice you the error.
 
 ## `on.<trigger>.config.buildOutputsOnError`
 
