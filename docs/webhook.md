@@ -3,9 +3,9 @@ title: "Webhook Syntax"
 metaTitle: "Webhook Syntax for Actionsflow"
 ---
 
-Some triggers (like [telegram_bot](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-telegram_bot)) may provide webhook option, so you can get updates more timely.
+Some triggers (like [telegram_bot](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-telegram_bot)) may provide a webhook option, so you can get updates more timely.
 
-Actionsflow provide a general webhook capability for triggers, if the trigger support webhook, you can set a webhook URL at the third party platform, then the trigger will handle your webhook event.
+Actionsflow provides a general webhook capability for triggers. If the trigger supports webhooks, you can set a webhook URL on the third-party platform and then the trigger will handle your webhook event.
 
 Generally, a webhook URL will look like this:
 
@@ -13,9 +13,9 @@ Generally, a webhook URL will look like this:
 https://webhook.actionsflow.workers.dev/<owner>/<repo>/<workflow-file-name>/<trigger-name>?__token=<your-github-personal-token>
 ```
 
-You need to generate personal access tokens with `repo` scope at [Github settings](https://github.com/settings/tokens), then replace `<your-github-personal-token>`.
+Note: You need to generate personal access tokens with `repo` scope on your [Github settings](https://github.com/settings/tokens) and then replace `<your-github-personal-token>`.
 
-If it's success for forwarding to [Github `create-a-repository-dispatch-event` API](https://docs.github.com/en/rest/reference/repos#create-a-repository-dispatch-event), you will get a status: `200`, body: `{"success":true}` response.
+You can try it out using [Github's `create-a-repository-dispatch-event` API](https://docs.github.com/en/rest/reference/repos#create-a-repository-dispatch-event). You will get a status: `200`, body: `{"success":true}` response if it's successful.
 
 Of course, you can use search params `__response_code`, `__response_content_type`, `__response_body` to specify a custom response.
 
@@ -33,23 +33,23 @@ curl --request POST 'https://webhook.actionsflow.workers.dev/actionsflow/webhook
 }'
 ```
 
-> `https://webhook.actionsflow.workers.dev/<owner>/<repo>/<workflow-file-name>/<trigger-name>` is the fixed prefix for webhook URL, most triggers will use this as their webhook URL. But if some trigger has more than one webhook path, the webhook URL may have a suffix, like `https://webhook.actionsflow.workers.dev/<owner>/<repo>/<workflow-file-name>/<trigger-name>/webhook1`, you should check that trigger's documentation about webhook URL to get more information.
+> `https://webhook.actionsflow.workers.dev/<owner>/<repo>/<workflow-file-name>/<trigger-name>` is the fixed prefix for webhook URL. Most triggers will use this as their webhook URL. But if some trigger has more than one webhook path, the webhook URL may have a suffix, like `https://webhook.actionsflow.workers.dev/<owner>/<repo>/<workflow-file-name>/<trigger-name>/webhook1`. You should check that trigger's documentation for the webhook URL to get more information.
 
-# Triggers Supported Webhook
+# Webhook-enabled Triggers
 
-Here are some trigger examples which supported webhook, you can use webhook with them:
+Here are examples of triggers that support webhooks:
 
-- [Webhook](./triggers/webhook.md) - Receiving webhook notifications
-- [AWS SNS](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-aws_sns) - Any messages published to the SNS topic you created are triggered by this trigger.
-- [Google Form](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-google_form) - Get google form response updates when someone submitted
-- [Slack](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-slack) - Triggered when new messages of slack channel are detected.
-- [Telegram Bot](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-telegram_bot) - Watch Telegram Bot updates
-- [Trello](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-trello) - Watch any action updates of trello
-- [Typeform](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-typeform) - Get form response updates when someone submitted
+- [Webhook](./triggers/webhook.md) - Receive webhook notifications.
+- [AWS SNS](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-aws_sns) - Any messages published to the SNS topic you create is triggered by this trigger.
+- [Google Form](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-google_form) - Get Google Form response updates when someone submits their response.
+- [Slack](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-slack) - Triggered when new messages are detected on a specific Slack channel.
+- [Telegram Bot](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-telegram_bot) - Watch Telegram Bot updates.
+- [Trello](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-trello) - Watch any action updates on Trello.
+- [Typeform](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-typeform) - Get form response updates when someone submits their response.
 
 # How It Works
 
-We implement Webhook feature by using Github's [`repository_dispatch`](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#repository_dispatch), So we made the [webhook2github project](https://github.com/actionsflow/webhook2github)
+We implemented the Webhook feature by using Github's [`repository_dispatch`](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#repository_dispatch) on the [webhook2github project](https://github.com/actionsflow/webhook2github).
 
 This API will forward the following original webhook request:
 
@@ -57,7 +57,7 @@ This API will forward the following original webhook request:
 https://webhook.actionsflow.workers.dev/<owner>/<repo>/<your-path>?__token=<your-github-personal-token>
 ```
 
-To `https://api.github.com/repos/<owner>/<repo>/dispatches`, with body:
+To `https://api.github.com/repos/<owner>/<repo>/dispatches`, with the body:
 
 ```json
 {
@@ -71,4 +71,4 @@ To `https://api.github.com/repos/<owner>/<repo>/dispatches`, with body:
 }
 ```
 
-So Github actions will be triggered with `repository_dispatch` event.
+This way, Github actions will be triggered via the `repository_dispatch` event.

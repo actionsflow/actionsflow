@@ -3,7 +3,7 @@ title: "Reference"
 metaTitle: "Actionsflow Reference"
 ---
 
-Learn more about Actionsflow config, methods and options, common files, and customizations.
+Learn more about Actionsflow config, methods, options, common files, and customizations.
 
 In this section:
 
