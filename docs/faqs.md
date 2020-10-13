@@ -9,19 +9,19 @@ Actionsflow is under active development. If you need help, would like to
 contribute, or simply want to talk about the project with like-minded
 individuals, we have a number of open channels for communication.
 
-- To report bugs, file feature requests, or submit trigger wanted: use the [issue tracker on Github](https://github.com/actionsflow/actionsflow/issues).
+- To report bugs, file feature requests, or submit trigger requests: use the [issue tracker on Github](https://github.com/actionsflow/actionsflow/issues).
 - To contribute code or documentation changes: submit a [pull request on Github](https://github.com/actionsflow/actionsflow/pulls).
-- To communicate/need help with Actionsflow users: join [Actionsflow Slack](https://join.slack.com/t/actionsflow/shared_invite/zt-h5tmw9cn-GbZ4fzU_vc_qB~nnS_2Lvg)
+- To communicate/get help from other Actionsflow users: join [Actionsflow Slack](https://join.slack.com/t/actionsflow/shared_invite/zt-h5tmw9cn-GbZ4fzU_vc_qB~nnS_2Lvg).
 
 # FAQs
 
-## 1. How to set a scheduled/cron event?
+## 1. How do I set a scheduled/cron event?
 
-Yes, you can set a cron event on Actionsflow, see [`on.<trigger>.config.every`](workflow.md#ontriggerconfigevery)
+To set a cron event on Actionsflow, see [`on.<trigger>.config.every`](./workflow.md#ontriggerconfigevery).
 
-## 2. How to debug trigger outputs?
+## 2. How do I debug trigger outputs?
 
-For example, if you want to debug the RSS trigger outputs, you can use [`toJSON` function provided by Github](https://docs.github.com/en/free-pro-team@latest/actions/reference/context-and-expression-syntax-for-github-actions#tojson) like this:
+For example, if you want to debug the RSS trigger outputs, you can use the [`toJSON` function provided by Github](https://docs.github.com/en/free-pro-team@latest/actions/reference/context-and-expression-syntax-for-github-actions#tojson) like this:
 
 ```yaml
 on:
@@ -39,24 +39,23 @@ jobs:
           echo outputs: $outputs
 ```
 
-## 3. How to debug?
+## 3. How do I debug?
 
-If you want to debug a specific trigger, you can pass [`debug: true`](workflow.md#ontriggerconfigdebug) to the trigger.
+If you want to debug a specific trigger, you can pass [`debug: true`](./workflow.md#ontriggerconfigdebug) to the trigger.
 
-If some errors occur, maybe you want to debug it. To enable Github Actions step debug logging, you must set the following secret in the repository that contains the workflow: `ACTIONS_STEP_DEBUG` to true. If so, Actionsflow will set `logLevel: debug`, so you can debug the details. For more about debug please see [Enabling debug logging
-](https://docs.github.com/en/free-pro-team@latest/actions/managing-workflow-runs/enabling-debug-logging)
+If some errors occur, maybe you want to debug the issues. To enable Github Actions step debug logging, you must set the following secret in the repository that contains the workflow: `ACTIONS_STEP_DEBUG` to true. If so, Actionsflow will set `logLevel: debug`, so you can debug the details. For more about debugging please see [Enabling debug logging](https://docs.github.com/en/free-pro-team@latest/actions/managing-workflow-runs/enabling-debug-logging).
 
-## 4. How to clean cache?
+## 4. How do I clean the cache?
 
-For some reason, you may want to delete the Actionsflow's cache, then you can manual run this workflow at your repository Actions tab.
+For some reason, you may want to delete the Actionsflow's cache. You can do this by manually running this workflow in your repository's Actions tab.
 
-## 5. How to run single workflow?
+## 5. How do I run a single workflow?
 
-When you have multiple workflow files, you want run only some workflows of them. You can set [`on.<trigger>.config.active`](https://actionsflow.github.io/docs/workflow/#ontriggerconfigactive) as `false`, or you can use [`--include`](https://actionsflow.github.io/docs/reference/cli/#build) args, `npm run build -- -i rss.yml`, or glob `npm run build -- -i "rss*"`
+When you have multiple workflow files, you may want to disable some of them. To do that you can set [`on.<trigger>.config.active`](./workflow.md#ontriggerconfigactive) to `false`, or you can use the [`--include`](./reference/cli.md#build) or [`--exclude`](./reference/cli.md#build) CLI arguments. Here's an `--include` example: `npm run build -- -i rss.yml`, or glob `npm run build -- -i "rss*"`.
 
 ## 6. `argument list too long` Error
 
-If you received this error [`OCI runtime exec failed: exec failed: container_linux.go:370: starting container process caused: argument list too long: unknown`](https://github.com/actionsflow/actionsflow/issues/4) when run `act`. This because your built workflow file is too large for [`act`](https://github.com/nektos/act) to handle. You'd better reduce your outputs by using [`on.<trigger>.config.filterOutputs`](https://actionsflow.github.io/docs/workflow/#ontriggerconfigfilteroutputs), For example:
+You may see this error [`OCI runtime exec failed: exec failed: container_linux.go:370: starting container process caused: argument list too long: unknown`](https://github.com/actionsflow/actionsflow/issues/4) when running `act`. This is because your built workflow file is too large for [`act`](https://github.com/nektos/act) to handle. You can work around this by reducing your outputs using [`on.<trigger>.config.filterOutputs`](./workflow.md#ontriggerconfigfilteroutputs). For example:
 
 ```yaml
 on:
@@ -70,4 +69,4 @@ on:
         link: 1
 ```
 
-Then, only `title`, `link` will be placed to outputs.
+With this configuration, only `title` and `link` will be sent to the output workflow.
