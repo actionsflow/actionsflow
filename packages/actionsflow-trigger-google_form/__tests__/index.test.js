@@ -1,25 +1,18 @@
 const path = require("path");
 const google_form = require("../index");
 const {
-  getTriggerHelpers,
-  getContext,
-  getWorkflow,
   formatRequest,
+  getTriggerConstructorParams,
 } = require("actionsflow-core");
 
 test("google_form with webhook", async () => {
-  const google_formBot = new google_form({
+  const triggerConstructorParams = await getTriggerConstructorParams({
+    name: "google_form",
+    cwd: path.resolve(__dirname, "fixtures"),
+    workflowPath: path.resolve(__dirname, "fixtures/workflows/workflow.yml"),
     options: {},
-    helpers: getTriggerHelpers({
-      name: "google_form",
-      workflowRelativePath: "workflow.yml",
-    }),
-    workflow: await getWorkflow({
-      path: path.resolve(__dirname, "fixtures/workflows/workflow.yml"),
-      cwd: path.resolve(__dirname, "fixtures"),
-      context: getContext(),
-    }),
   });
+  const google_formBot = new google_form(triggerConstructorParams);
 
   const requestPayload = formatRequest({
     path: "/",

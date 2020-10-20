@@ -47,6 +47,10 @@ on:
     tweet_mode: "extended",
   ```
 
+- `fetchAllResultsAtFirst`, optional, `boolean`, if fetch all results at first run, the default is `false`, if `true`, it will fetch all results of tweet. This is only available when `api` is `statuses/user_timeline`
+
+- `maxCount`, optional, `number`, if `fetchAllResultsAtFirst` is `true`, you can use `maxCount` to limit the number of fetched results, such like `1000`.
+
 > You can use [General Config for Actionsflow Trigger](https://actionsflow.github.io/docs/workflow/#ontriggerconfig) for more customization.
 
 ## Outputs

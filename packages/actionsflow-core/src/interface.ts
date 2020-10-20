@@ -45,6 +45,10 @@ export interface ITriggerContext {
   secrets: Record<string, string>;
   github: IGithub;
 }
+export interface ITriggerRunContext {
+  isFirstRun: boolean;
+  triggerId: string;
+}
 export interface IContextEnv {
   JSON_SECRETS: string;
   JSON_GITHUB: string;
@@ -77,6 +81,7 @@ export interface ITriggerContructorParams {
   options: ITriggerOptions;
   helpers: IHelpers;
   workflow: IWorkflow;
+  context: ITriggerRunContext;
 }
 export interface ITriggerResultObject {
   items: AnyObject[];

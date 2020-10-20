@@ -10,16 +10,28 @@ export default class Twitter implements ITriggerClassType {
   options: ITriggerOptions = {};
   helpers: IHelpers;
   api = "statuses/user_timeline";
+  fetchAllResultsAtFirst = false;
+  maxCount = Infinity;
+  isFirstRun = false;
   getItemKey(item: AnyObject): string {
     if (this.api && item.id_str) {
       return (this.api + "__" + item.id_str) as string;
     }
     return this.helpers.createContentDigest(item);
   }
-  constructor({ helpers, options }: ITriggerContructorParams) {
+  constructor({ helpers, options, context }: ITriggerContructorParams) {
     this.options = options;
     this.options.auth = this.options.auth || {};
     this.options.params = (this.options.params as AnyObject) || {};
+    if (this.options.fetchAllResultsAtFirst) {
+      this.fetchAllResultsAtFirst = true;
+    }
+    if (this.options.maxCount) {
+      this.maxCount = this.options.maxCount as number;
+    }
+    if (context.isFirstRun) {
+      this.isFirstRun = true;
+    }
     this.helpers = helpers;
   }
 
@@ -68,28 +80,56 @@ export default class Twitter implements ITriggerClassType {
     let params = optionParams;
     if (this.api === "statuses/user_timeline") {
       // get screen_name
+      if (this.fetchAllResultsAtFirst && this.isFirstRun && !params.count) {
+        params.count = 200;
+      }
       params = {
         screen_name: "",
         exclude_replies: true,
         include_rts: true,
         tweet_mode: "extended",
         since_id,
+        count: 20,
         ...params,
       };
     }
-    this.helpers.log.debug(`twitter api ${this.api} params: `, params);
-    const result = await twitter.get(this.api, params);
-    this.helpers.log.debug(`twitter api ${this.api} result: `, result.data);
+    let fetchNextResults = true;
     let tweets: AnyObject[] = [];
 
-    if (["search/tweets"].includes(this.api)) {
-      if (result.data && (result.data as AnyObject).statuses) {
-        tweets = (result.data as AnyObject).statuses as AnyObject[];
+    while (fetchNextResults) {
+      this.helpers.log.debug(`twitter api ${this.api} params: `, params);
+      const result = await twitter.get(this.api, params);
+      this.helpers.log.debug(`twitter api ${this.api} result: `, result.data);
+      let latestTweets: AnyObject[] = [];
+      if (["search/tweets"].includes(this.api)) {
+        if (result.data && (result.data as AnyObject).statuses) {
+          latestTweets = (result.data as AnyObject).statuses as AnyObject[];
+        }
+      } else {
+        latestTweets = result.data as AnyObject[];
       }
-    } else {
-      tweets = result.data as AnyObject[];
+      // concat tweets
+      if (latestTweets.length > 0) {
+        tweets = tweets.concat(latestTweets);
+      }
+      if (
+        this.api === "statuses/user_timeline" &&
+        this.fetchAllResultsAtFirst &&
+        latestTweets.length &&
+        this.maxCount > tweets.length
+      ) {
+        const maxId = decrementHugeNumberBy1(
+          tweets[tweets.length - 1].id_str as string
+        );
+        params = {
+          ...params,
+          max_id: maxId,
+        };
+      } else {
+        fetchNextResults = false;
+      }
     }
-
+    tweets = tweets.slice(0, this.maxCount);
     if (tweets.length > 0) {
       tweets.sort((a, b) => {
         return Number(BigInt(b.id as bigint) - BigInt(a.id as bigint));
@@ -103,8 +143,29 @@ export default class Twitter implements ITriggerClassType {
 
     finalResult = tweets;
     if (max_id) {
-      this.helpers.cache.set(`${this.api}_since_id`, max_id);
+      await this.helpers.cache.set(`${this.api}_since_id`, max_id);
     }
     return finalResult;
+  }
+}
+function trimLeft(s: string, c: string): string {
+  let i = 0;
+  while (i < s.length && s[i] === c) {
+    i++;
+  }
+
+  return s.substring(i);
+}
+function decrementHugeNumberBy1(n: string | number): string {
+  // make sure s is a string, as we can't do math on numbers over a certain size
+  n = n.toString();
+  const allButLast = n.substr(0, n.length - 1);
+  const lastNumber = n.substr(n.length - 1);
+
+  if (lastNumber === "0") {
+    return decrementHugeNumberBy1(allButLast) + "9";
+  } else {
+    const finalResult = allButLast + (parseInt(lastNumber, 10) - 1).toString();
+    return trimLeft(finalResult, "0");
   }
 }

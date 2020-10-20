@@ -22,7 +22,6 @@ import {
   ITriggerInternalOptions,
 } from "actionsflow-core";
 import Triggers from "./triggers";
-import { getLastUpdatedAt } from "./job";
 const MAX_CACHE_KEYS_COUNT = 5000;
 
 const allTriggers = Triggers as Record<string, ITriggerClassTypeConstructable>;
@@ -43,6 +42,13 @@ export const run = async ({
   const Trigger = trigger.class;
 
   if (Trigger) {
+    const triggerId = getTriggerId({
+      name: trigger.name,
+      workflowRelativePath: workflow.relativePath,
+    });
+    const triggerCacheManager = getCache(
+      `trigger-cache-manager-${trigger.name}-${triggerId}`
+    );
     const triggerConstructorParams = await getTriggerConstructorParams({
       name: trigger.name,
       workflow: workflow,
@@ -52,13 +58,6 @@ export const run = async ({
     const triggerInstance = new Trigger(triggerConstructorParams);
 
     let triggerResult: ITriggerResult | undefined;
-    const triggerId = getTriggerId({
-      name: trigger.name,
-      workflowRelativePath: workflow.relativePath,
-    });
-    const triggerCacheManager = getCache(
-      `trigger-cache-manager-${trigger.name}-${triggerId}`
-    );
 
     if (triggerInstance) {
       const triggerGeneralOptions = getGeneralTriggerFinalOptions(
@@ -85,7 +84,6 @@ export const run = async ({
         `Start to run trigger [${trigger.name}] of workflow [${workflow.relativePath}]`
       );
       try {
-        const lastUpdatedAt = await getLastUpdatedAt();
         if (event.type === "webhook" && triggerInstance.webhooks) {
           // webhook event should call webhook method
           // lookup specific webhook event
@@ -264,8 +262,14 @@ export const run = async ({
               });
             }
           }
-
-          if (!(skipFirst && lastUpdatedAt === 0) || force) {
+          // save first run status
+          await triggerCacheManager.set("firstRunAt", Date.now());
+          if (
+            !(
+              skipFirst && triggerConstructorParams.context.isFirstRun === true
+            ) ||
+            force
+          ) {
             finalResult.items = items;
           }
         } else {
