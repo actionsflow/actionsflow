@@ -17,6 +17,7 @@ For now, the following triggers are available:
 - [Asana](https://github.com/marketplace/actions/asana-git) - Integrate Asana with Github.
 - [AWS SQS](https://github.com/marketplace/actions/aws-sqs) - Send message to AWS SQS.
 - [Axios request actions](https://github.com/marketplace/actions/axios-action) - Make HTTP requests easily. You can use this to make webhook requests to [Zapier](https://zapier.com/), [Automate](https://automate.io/) or any HTTP server.
+- [Create JSON](https://github.com/marketplace/actions/create-json) - Create a `.json` file dynamically on your workflow
 - [DingDing Notify](https://github.com/marketplace/actions/dingding-notify-action) - Send DingDing simple notify message.
 - [Discord notification message](https://github.com/marketplace/actions/actions-for-discord) - Send a Discord notification message.
 - [Facebook Message Notify](https://github.com/marketplace/actions/facebook-message-notify) - Send a Facebook notification message.

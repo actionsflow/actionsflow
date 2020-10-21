@@ -71,9 +71,12 @@ export default class Twitter implements ITriggerClassType {
       access_token_secret,
     });
     // get cache with since_id
-    const since_id = (await this.helpers.cache.get(`${this.api}_since_id`)) as
+    let since_id = (await this.helpers.cache.get(`${this.api}_since_id`)) as
       | string
       | undefined;
+    if (this.options.config && this.options.config.force) {
+      since_id = undefined;
+    }
     let max_id = "";
 
     const optionParams = this.options.params as AnyObject;
