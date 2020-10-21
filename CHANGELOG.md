@@ -1,3 +1,10 @@
+# [1.3.0-0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.2.0-alpha.0...v1.3.0-0) (2020-10-21)
+
+
+### Bug Fixes
+
+* 🐛 skipFirst issue ([9035b2a](https://github.com/actionsflow/actionsflow/commit/9035b2a3e80085fe9e0f94053edeae55526b5a34))
+
 ## [1.2.2](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-twitter@1.1.1...v1.2.2) (2020-10-12)
 
 
