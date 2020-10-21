@@ -1,3 +1,10 @@
+# [1.3.0-1](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-twitter@1.2.0-alpha.1...v1.3.0-1) (2020-10-21)
+
+
+### Bug Fixes
+
+* 🐛 force fetch twitter ([91cdb9c](https://github.com/actionsflow/actionsflow/commit/91cdb9c41919758aa89f2e799d1f6bf21bafb061))
+
 # [1.3.0-0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.2.0-alpha.0...v1.3.0-0) (2020-10-21)
 
 
