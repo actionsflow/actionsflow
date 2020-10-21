@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-alpha.0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-trello@1.1.0...@actionsflow/trigger-trello@1.2.0-alpha.0) (2020-10-21)
+
+
+### Bug Fixes
+
+* 🐛 skipFirst issue ([9035b2a](https://github.com/actionsflow/actionsflow/commit/9035b2a3e80085fe9e0f94053edeae55526b5a34))
+
+
+
+
+
 # [1.1.0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-trello@1.0.4...@actionsflow/trigger-trello@1.1.0) (2020-10-11)
 
 
