@@ -8,13 +8,13 @@ import {
   ITriggerEvent,
   IWorkflow,
   IWebhookRequest,
-  getTriggerHelpers,
   ITriggerHelpersOptions,
   ITriggerClassTypeConstructable,
   getGeneralTriggerFinalOptions,
   getScheduler,
   TaskType,
   ITriggerGeneralConfigOptions,
+  getTriggerConstructorParams,
 } from "actionsflow-core";
 import { RUN_INTERVAL } from "./constans";
 import { getSupportedTriggers, resolveTrigger } from "./trigger";
@@ -100,12 +100,14 @@ export const getTasksByTriggerEvent = async ({
           triggerHelperOptions.logLevel = trigger.options
             .logLevel as Log.LogLevelDesc;
         }
+        const triggerConstructorParams = await getTriggerConstructorParams({
+          name: trigger.name,
+          workflow: workflow,
+          globalOptions: globalOptions,
+          options: trigger.options,
+        });
         const triggerInstance = new (trigger.class as ITriggerClassTypeConstructable)(
-          {
-            options: trigger.options,
-            helpers: getTriggerHelpers(triggerHelperOptions),
-            workflow: workflow,
-          }
+          triggerConstructorParams
         );
         const triggerGeneralOptions = getGeneralTriggerFinalOptions(
           triggerInstance,

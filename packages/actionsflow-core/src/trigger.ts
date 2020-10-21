@@ -12,6 +12,7 @@ import {
   ITriggerEvent,
   ITriggerHelpersOptions,
   ManualRunTriggerEventType,
+  ITriggerRunContext,
 } from "./interface";
 import { getRawTriggers } from "./utils";
 import axios from "axios";
@@ -229,13 +230,32 @@ export const getTriggerConstructorParams = async ({
     });
   }
 
-  if (triggerOptions && triggerOptions.logLevel) {
-    triggerHelperOptions.logLevel = triggerOptions.logLevel as LogLevelDesc;
+  if (triggerOptions && triggerOptions.config) {
+    if (triggerOptions.config.debug) {
+      triggerHelperOptions.logLevel = "debug";
+    } else if (triggerOptions.config.logLevel) {
+      triggerHelperOptions.logLevel = triggerOptions.config
+        .logLevel as LogLevelDesc;
+    }
   }
+
+  const triggerId = getTriggerId({
+    name: name,
+    workflowRelativePath: theWorkflow.relativePath,
+  });
+  const triggerCacheManager = getCache(
+    `trigger-cache-manager-${name}-${triggerId}`
+  );
+  const firstRunAt = await triggerCacheManager.get("firstRunAt");
+  const triggerRunContext: ITriggerRunContext = {
+    isFirstRun: firstRunAt ? false : true,
+    triggerId: triggerId,
+  };
 
   return {
     options: triggerOptions,
     helpers: getTriggerHelpers(triggerHelperOptions),
     workflow: theWorkflow,
+    context: triggerRunContext,
   };
 };

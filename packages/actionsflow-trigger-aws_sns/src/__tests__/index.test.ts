@@ -1,28 +1,17 @@
 import path from "path";
 import aws_sns from "../index";
-import {
-  getTriggerHelpers,
-  getContext,
-  getWorkflow,
-  formatRequest,
-} from "actionsflow-core";
-import { IWorkflow } from "actionsflow-core";
+import { formatRequest, getTriggerConstructorParams } from "actionsflow-core";
 
 test("aws_sns with webhook", async () => {
-  const aws_snsBot = new aws_sns({
+  const triggerConstructorParams = await getTriggerConstructorParams({
+    name: "aws_sns",
+    cwd: path.resolve(__dirname, "fixtures"),
+    workflowPath: path.resolve(__dirname, "fixtures/workflows/workflow.yml"),
     options: {
       webhook: true,
     },
-    helpers: getTriggerHelpers({
-      name: "aws_sns",
-      workflowRelativePath: "workflow.yml",
-    }),
-    workflow: (await getWorkflow({
-      path: path.resolve(__dirname, "fixtures/workflows/workflow.yml"),
-      cwd: path.resolve(__dirname, "fixtures"),
-      context: getContext(),
-    })) as IWorkflow,
   });
+  const aws_snsBot = new aws_sns(triggerConstructorParams);
   const requestPayload = formatRequest({
     path: "/",
     body: {

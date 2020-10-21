@@ -1,31 +1,20 @@
 import path from "path";
 import TelegramBot from "../index";
-import {
-  getTriggerHelpers,
-  getContext,
-  getWorkflow,
-  formatRequest,
-} from "actionsflow-core";
-import { IWorkflow } from "actionsflow-core";
+import { formatRequest, getTriggerConstructorParams } from "actionsflow-core";
 import { AxiosStatic } from "axios";
 const TELEGRAM_TOKEN = "test";
 
 test("telegram bot with webhook", async () => {
-  const telegramBot = new TelegramBot({
+  const triggerConstructorParams = await getTriggerConstructorParams({
+    name: "telegram_bot",
+    cwd: path.resolve(__dirname, "fixtures"),
+    workflowPath: path.resolve(__dirname, "fixtures/workflows/workflow.yml"),
     options: {
       token: TELEGRAM_TOKEN,
       webhook: true,
     },
-    helpers: getTriggerHelpers({
-      name: "telegram_bot",
-      workflowRelativePath: "workflow.yml",
-    }),
-    workflow: (await getWorkflow({
-      path: path.resolve(__dirname, "fixtures/workflows/workflow.yml"),
-      cwd: path.resolve(__dirname, "fixtures"),
-      context: getContext(),
-    })) as IWorkflow,
   });
+  const telegramBot = new TelegramBot(triggerConstructorParams);
   const requestPayload = formatRequest({
     path: "/",
     body: {
@@ -114,46 +103,40 @@ test("telegram bot trigger", async () => {
       ],
     },
   };
-  const helpers = getTriggerHelpers({
-    name: "telegram_bot",
-    workflowRelativePath: "workflow.yml",
-  });
 
   const mockAxios = jest.fn();
 
   mockAxios.mockResolvedValue(resp);
-  helpers.axios = (mockAxios as unknown) as AxiosStatic;
-  const telegramBot = new TelegramBot({
+  const triggerConstructorParams = await getTriggerConstructorParams({
+    name: "telegram_bot",
+    cwd: path.resolve(__dirname, "fixtures"),
+    workflowPath: path.resolve(__dirname, "fixtures/workflows/workflow.yml"),
     options: {
       token: TELEGRAM_TOKEN,
       event: ["text", "photo"],
     },
-    helpers: helpers,
-    workflow: (await getWorkflow({
-      path: path.resolve(__dirname, "fixtures/workflows/workflow.yml"),
-      cwd: path.resolve(__dirname, "fixtures"),
-      context: getContext(),
-    })) as IWorkflow,
   });
+  triggerConstructorParams.helpers.axios = (mockAxios as unknown) as AxiosStatic;
+  const telegramBot = new TelegramBot(triggerConstructorParams);
 
   const triggerResults = await telegramBot.run();
 
   expect(triggerResults.length).toBe(2);
 
   expect(telegramBot.getItemKey(triggerResults[0])).toBe(791185170);
-
-  const telegramBot2 = new TelegramBot({
+  const triggerConstructorParams2 = await getTriggerConstructorParams({
+    name: "telegram_bot",
+    cwd: path.resolve(__dirname, "fixtures"),
+    workflowPath: path.resolve(__dirname, "fixtures/workflows/workflow.yml"),
     options: {
       token: TELEGRAM_TOKEN,
       event: "photo",
     },
-    helpers: helpers,
-    workflow: (await getWorkflow({
-      path: path.resolve(__dirname, "fixtures/workflows/workflow.yml"),
-      cwd: path.resolve(__dirname, "fixtures"),
-      context: getContext(),
-    })) as IWorkflow,
   });
+  triggerConstructorParams2.helpers.axios = (mockAxios as unknown) as AxiosStatic;
+
+  const telegramBot2 = new TelegramBot(triggerConstructorParams2);
+
   const triggerResults2 = await telegramBot2.run();
   expect(triggerResults2.length).toBe(1);
 

@@ -1,25 +1,18 @@
 const path = require("path");
 const typeform = require("../index");
 const {
-  getTriggerHelpers,
-  getContext,
-  getWorkflow,
+  getTriggerConstructorParams,
   formatRequest,
 } = require("actionsflow-core");
 
 test("typeform with webhook", async () => {
-  const typeformBot = new typeform({
+  const triggerConstructorParams = await getTriggerConstructorParams({
+    name: "typeform",
+    cwd: path.resolve(__dirname, "fixtures"),
+    workflowPath: path.resolve(__dirname, "fixtures/workflows/workflow.yml"),
     options: {},
-    helpers: getTriggerHelpers({
-      name: "typeform",
-      workflowRelativePath: "workflow.yml",
-    }),
-    workflow: await getWorkflow({
-      path: path.resolve(__dirname, "fixtures/workflows/workflow.yml"),
-      cwd: path.resolve(__dirname, "fixtures"),
-      context: getContext(),
-    }),
   });
+  const typeformBot = new typeform(triggerConstructorParams);
 
   const requestPayload = formatRequest({
     path: "/",

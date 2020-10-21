@@ -1,25 +1,18 @@
 const path = require("path");
 const trello = require("../index");
 const {
-  getTriggerHelpers,
-  getContext,
-  getWorkflow,
   formatRequest,
+  getTriggerConstructorParams,
 } = require("actionsflow-core");
 
 test("trello with webhook", async () => {
-  const trelloBot = new trello({
+  const triggerConstructorParams = await getTriggerConstructorParams({
+    name: "trello",
+    cwd: path.resolve(__dirname, "fixtures"),
+    workflowPath: path.resolve(__dirname, "fixtures/workflows/workflow.yml"),
     options: {},
-    helpers: getTriggerHelpers({
-      name: "trello",
-      workflowRelativePath: "workflow.yml",
-    }),
-    workflow: await getWorkflow({
-      path: path.resolve(__dirname, "fixtures/workflows/workflow.yml"),
-      cwd: path.resolve(__dirname, "fixtures"),
-      context: getContext(),
-    }),
   });
+  const trelloBot = new trello(triggerConstructorParams);
 
   const requestPayload = formatRequest({
     path: "/",

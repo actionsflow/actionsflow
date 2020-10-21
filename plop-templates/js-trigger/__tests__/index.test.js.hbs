@@ -8,18 +8,15 @@ const {
 } = require("actionsflow-core");
 
 test("{{snakeCase name}} with webhook", async () => {
-  const {{snakeCase name}} = new {{pascalCase name}}({
-    options: {},
-    helpers: getTriggerHelpers({
-      name: "{{snakeCase name}}",
-      workflowRelativePath: "workflow.yml",
-    }),
-    workflow: await getWorkflow({
-      path: path.resolve(__dirname, "fixtures/workflows/workflow.yml"),
-      cwd: path.resolve(__dirname, "fixtures"),
-      context: getContext(),
-    }),
+  const triggerConstructorParams = await getTriggerConstructorParams({
+    name: "{{snakeCase name}}",
+    cwd: path.resolve(__dirname, "fixtures"),
+    workflowPath: path.resolve(__dirname, "fixtures/workflows/workflow.yml"),
+    options: {
+      url: "https://{{snakeCase name}}.com/r/news/",
+    }
   });
+  const {{snakeCase name}} = new {{pascalCase name}}(triggerConstructorParams);
 
   const requestPayload = formatRequest({
     path: "/",

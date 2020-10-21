@@ -1,22 +1,16 @@
 import Trigger from "../index";
-import { getTriggerHelpers, getWorkflow, getContext } from "actionsflow-core";
-import { IWorkflow } from "actionsflow-core";
+import { getTriggerConstructorParams } from "actionsflow-core";
 import path from "path";
 test("run trigger", async () => {
-  const trigger = new Trigger({
+  const triggerConstructorParams = await getTriggerConstructorParams({
+    name: "youtube",
+    cwd: path.resolve(__dirname, "fixtures"),
+    workflowPath: path.resolve(__dirname, "fixtures/workflows/workflow.yml"),
     options: {
       channel_id: "UCnCikd0s4i9KoDtaHPlK-JA",
     },
-    helpers: getTriggerHelpers({
-      name: "youtube",
-      workflowRelativePath: "workflow.yml",
-    }),
-    workflow: (await getWorkflow({
-      path: path.resolve(__dirname, "fixtures/workflows/workflow.yml"),
-      cwd: path.resolve(__dirname, "fixtures"),
-      context: getContext(),
-    })) as IWorkflow,
   });
+  const trigger = new Trigger(triggerConstructorParams);
   const results = await trigger.run();
 
   expect(results.length).toBeGreaterThan(1);

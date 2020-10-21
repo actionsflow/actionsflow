@@ -5,8 +5,18 @@ import {
   formatRequest,
   getWorkflow,
   getContext,
+  getCache,
+  getTriggerId,
+  getTriggerConstructorParams,
 } from "actionsflow-core";
 test("run trigger", async () => {
+  const triggerConstructorParams1 = await getTriggerConstructorParams({
+    name: "rss",
+    cwd: path.resolve(__dirname, "fixtures"),
+    workflowPath: path.resolve(__dirname, "fixtures/workflows/rss.yml"),
+  });
+
+  expect(triggerConstructorParams1.context.isFirstRun).toBe(true);
   const result = await run({
     trigger: {
       name: "rss",
@@ -28,14 +38,87 @@ test("run trigger", async () => {
       type: "schedule",
     },
   });
-
+  const triggerId = getTriggerId({
+    name: "rss",
+    workflowRelativePath: "rss.yml",
+  });
+  const triggerCacheManager = getCache(
+    `trigger-cache-manager-rss-${triggerId}`
+  );
+  const firstRunAt = await triggerCacheManager.get("firstRunAt");
+  expect(Number(firstRunAt) > 0).toBe(true);
   expect(result.items.length).toBe(2);
+
+  const triggerConstructorParams = await getTriggerConstructorParams({
+    name: "rss",
+    cwd: path.resolve(__dirname, "fixtures"),
+    workflowPath: path.resolve(__dirname, "fixtures/workflows/rss.yml"),
+  });
+
+  expect(triggerConstructorParams.context.isFirstRun).toBe(false);
   // clear cache
+  await triggerCacheManager.reset();
   if (result.helpers && result.helpers.cache) {
     await result.helpers.cache.reset();
   }
 });
+test("run trigger with skipFirst", async () => {
+  const triggerConstructorParams1 = await getTriggerConstructorParams({
+    name: "rss",
+    cwd: path.resolve(__dirname, "fixtures"),
+    workflowPath: path.resolve(__dirname, "fixtures/workflows/rss2.yml"),
+    options: {
+      config: { skipFirst: true },
+    },
+  });
 
+  expect(triggerConstructorParams1.context.isFirstRun).toBe(true);
+  const result = await run({
+    trigger: {
+      name: "rss",
+      options: {
+        url: "https://hnrss.org/newest?points=300",
+        config: {
+          skipFirst: true,
+        },
+      },
+      class: resolveTrigger("rss"),
+    },
+
+    workflow: (await getWorkflow({
+      path: path.resolve(__dirname, "./fixtures/workflows/rss2.yml"),
+      cwd: path.resolve(__dirname, "./fixtures"),
+      context: getContext(),
+    })) as IWorkflow,
+    event: {
+      type: "schedule",
+    },
+  });
+
+  const triggerId = getTriggerId({
+    name: "rss",
+    workflowRelativePath: "rss2.yml",
+  });
+  const triggerCacheManager = getCache(
+    `trigger-cache-manager-rss-${triggerId}`
+  );
+  const firstRunAt = await triggerCacheManager.get("firstRunAt");
+  expect(Number(firstRunAt) > 0).toBe(true);
+  expect(result.items.length).toBe(0);
+
+  const triggerConstructorParams = await getTriggerConstructorParams({
+    name: "rss",
+    cwd: path.resolve(__dirname, "fixtures"),
+    workflowPath: path.resolve(__dirname, "fixtures/workflows/rss2.yml"),
+  });
+
+  expect(triggerConstructorParams.context.isFirstRun).toBe(false);
+  // clear cache
+  await triggerCacheManager.reset();
+  if (result.helpers && result.helpers.cache) {
+    await result.helpers.cache.reset();
+  }
+});
 test("run trigger with  webhook", async () => {
   const result = await run({
     trigger: {

@@ -1,28 +1,17 @@
 import path from "path";
 import Slack from "../index";
-import {
-  getTriggerHelpers,
-  getContext,
-  getWorkflow,
-  formatRequest,
-} from "actionsflow-core";
-import { IWorkflow } from "actionsflow-core";
+import { getTriggerConstructorParams, formatRequest } from "actionsflow-core";
 
 test("slack with webhook", async () => {
-  const slackBot = new Slack({
+  const triggerConstructorParams = await getTriggerConstructorParams({
+    name: "slack",
+    cwd: path.resolve(__dirname, "fixtures"),
+    workflowPath: path.resolve(__dirname, "fixtures/workflows/workflow.yml"),
     options: {
       webhook: true,
     },
-    helpers: getTriggerHelpers({
-      name: "slack",
-      workflowRelativePath: "workflow.yml",
-    }),
-    workflow: (await getWorkflow({
-      path: path.resolve(__dirname, "fixtures/workflows/workflow.yml"),
-      cwd: path.resolve(__dirname, "fixtures"),
-      context: getContext(),
-    })) as IWorkflow,
   });
+  const slackBot = new Slack(triggerConstructorParams);
   const requestPayload = formatRequest({
     path: "/",
     body: {
