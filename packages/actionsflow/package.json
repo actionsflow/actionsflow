@@ -1,5 +1,5 @@
 {
-  "version": "1.3.0-alpha.0",
+  "version": "1.3.0-alpha.1",
   "license": "MIT",
   "main": "dist/src/index.js",
   "typings": "dist/src/index.d.ts",
@@ -44,7 +44,7 @@
     "@actionsflow/trigger-slack": "^1.2.0-alpha.0",
     "@actionsflow/trigger-telegram_bot": "^1.2.0-alpha.0",
     "@actionsflow/trigger-trello": "^1.2.0-alpha.0",
-    "@actionsflow/trigger-twitter": "^1.2.0-alpha.0",
+    "@actionsflow/trigger-twitter": "^1.2.0-alpha.1",
     "@actionsflow/trigger-typeform": "^1.2.0-alpha.0",
     "@actionsflow/trigger-weather": "^1.2.0-alpha.0",
     "@actionsflow/trigger-youtube": "^1.3.0-alpha.0",

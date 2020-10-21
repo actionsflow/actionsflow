@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-alpha.1](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-twitter@1.2.0-alpha.0...@actionsflow/trigger-twitter@1.2.0-alpha.1) (2020-10-21)
+
+
+### Bug Fixes
+
+* 🐛 force fetch twitter ([91cdb9c](https://github.com/actionsflow/actionsflow/commit/91cdb9c41919758aa89f2e799d1f6bf21bafb061))
+
+
+
+
+
 # [1.2.0-alpha.0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-twitter@1.1.1...@actionsflow/trigger-twitter@1.2.0-alpha.0) (2020-10-21)
 
 
