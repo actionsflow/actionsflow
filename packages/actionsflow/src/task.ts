@@ -74,7 +74,7 @@ export const getTasksByTriggerEvent = async ({
                   options: trigger.options,
                   class: TriggerClass,
                   outputsMode: triggerGeneralOptions.outputsMode,
-                  outputsLengh: triggerGeneralOptions.outputsLengh,
+                  outputsLength: triggerGeneralOptions.outputsLength,
                 },
                 event: event,
                 type: "immediate",
@@ -143,12 +143,12 @@ export const getTasksByTriggerEvent = async ({
           force,
           skipSchedule,
           outputsMode,
-          outputsLengh,
+          outputsLength,
         } = triggerGeneralOptions;
 
         trigger.outputsMode = outputsMode;
-        if (outputsLengh) {
-          trigger.outputsLengh = outputsLengh;
+        if (outputsLength) {
+          trigger.outputsLength = outputsLength;
         }
         const scheduler = getScheduler({ every, timeZone });
         const lastUpdatedAt = await getLastUpdatedAt();

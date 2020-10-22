@@ -6,7 +6,7 @@ export {
   getTriggerConstructorParams,
 } from "./trigger";
 export { getContext } from "./context";
-export { getWorkflow, getBuiltWorkflow, getWorkflows } from "./workflow";
+export { getWorkflow, getBuiltWorkflows, getWorkflows } from "./workflow";
 export { formatRequest, getEventByContext } from "./event";
 export { createContentDigest, getCache, formatBinary } from "./helpers";
 export {

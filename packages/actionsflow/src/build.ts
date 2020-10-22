@@ -2,7 +2,7 @@ import "./env";
 import path from "path";
 import fs from "fs-extra";
 import {
-  getBuiltWorkflow,
+  getBuiltWorkflows,
   getContext,
   getWorkflows,
   getEventByContext,
@@ -225,7 +225,6 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
       .slice(0, -1)
       .join(".");
     const destRelativePath = `${i}-${relativePathWithoutExt}-${task.trigger.name}.yml`;
-    const workflowDestPath = path.resolve(workflowsDestPath, destRelativePath);
 
     const taskResult = tasksResults[i];
 
@@ -278,7 +277,7 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
     }
 
     if (triggerRunResult.items.length > 0) {
-      const newWorkflowFileData = await getBuiltWorkflow({
+      const newWorkflowFileDatas = await getBuiltWorkflows({
         workflow: workflow,
         trigger: {
           name: trigger.name,
@@ -286,22 +285,34 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
           outcome: triggerRunResult.outcome,
           conclusion: triggerRunResult.conclusion,
           outputsMode: trigger.outputsMode,
-          outputsLengh: trigger.outputsLengh,
+          outputsLength: trigger.outputsLength,
         },
       });
-      if (Object.keys(newWorkflowFileData.jobs as AnyObject).length > 0) {
-        await buildWorkflowFile({
-          workflowData: newWorkflowFileData,
-          dest: workflowDestPath,
-        });
+      for (let j = 0; j < newWorkflowFileDatas.length; j++) {
+        const newWorkflowFileData = newWorkflowFileDatas[j];
+        let workflowRelativeDestPath = `${destRelativePath}`;
 
-        // success
-        log.info(
-          `${triggerRunResult.items.length} updates found at trigger [${trigger.name}] of workflow [${workflow.relativePath}], workflow file ${destRelativePath} build success`
+        if (newWorkflowFileDatas.length > 1) {
+          workflowRelativeDestPath = `${j}-${destRelativePath}`;
+        }
+        const workflowDestPath = path.resolve(
+          workflowsDestPath,
+          workflowRelativeDestPath
         );
-      } else {
-        log.info("Skip generate workflow file: ", workflow.relativePath),
-          " because of no jobs";
+        if (Object.keys(newWorkflowFileData.jobs as AnyObject).length > 0) {
+          await buildWorkflowFile({
+            workflowData: newWorkflowFileData,
+            dest: workflowDestPath,
+          });
+
+          // success
+          log.info(
+            `${triggerRunResult.items.length} updates found at trigger [${trigger.name}] of workflow [${workflow.relativePath}], workflow file ${workflowRelativeDestPath} build success`
+          );
+        } else {
+          log.info("Skip generate workflow file: ", workflow.relativePath),
+            " because of no jobs";
+        }
       }
     } else {
       log.info(

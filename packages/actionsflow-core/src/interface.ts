@@ -53,7 +53,7 @@ export interface IContextEnv {
   JSON_SECRETS: string;
   JSON_GITHUB: string;
 }
-export type OutputsMode = "separate" | "joined";
+export type OutputsMode = "separate" | "combine";
 export interface ITriggerGeneralConfigOptions {
   every?: number | string;
   timeZone?: string;
@@ -74,7 +74,7 @@ export interface ITriggerGeneralConfigOptions {
   limit?: number;
   sort?: AnyObject;
   outputsMode?: OutputsMode;
-  outputsLengh?: number;
+  outputsLength?: number;
 }
 export interface ITriggerOptions extends AnyObject {
   config?: ITriggerGeneralConfigOptions;
@@ -171,7 +171,7 @@ export interface ITriggerEvent {
 export interface ITaskTrigger extends ITrigger {
   class: ITriggerClassTypeConstructable | undefined;
   outputsMode: OutputsMode;
-  outputsLengh?: number;
+  outputsLength?: number;
 }
 export interface IInternalRunTrigger extends ITrigger {
   class: ITriggerClassTypeConstructable | undefined;
