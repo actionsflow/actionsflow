@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0-alpha.2](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.3.0-alpha.1...actionsflow-workflow-example@1.3.0-alpha.2) (2020-10-22)
+
+
+### Features
+
+* 🎸 outputs mode support combine, array ([6f57a98](https://github.com/actionsflow/actionsflow/commit/6f57a989869a0a5a7efe71935bea584c381cefb3))
+
+
+
+
+
 # [1.3.0-alpha.1](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.3.0-alpha.0...actionsflow-workflow-example@1.3.0-alpha.1) (2020-10-21)
 
 **Note:** Version bump only for package actionsflow-workflow-example
