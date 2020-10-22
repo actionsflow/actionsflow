@@ -53,6 +53,7 @@ export interface IContextEnv {
   JSON_SECRETS: string;
   JSON_GITHUB: string;
 }
+export type OutputsMode = "separate" | "joined";
 export interface ITriggerGeneralConfigOptions {
   every?: number | string;
   timeZone?: string;
@@ -72,6 +73,8 @@ export interface ITriggerGeneralConfigOptions {
   skip?: number;
   limit?: number;
   sort?: AnyObject;
+  outputsMode?: OutputsMode;
+  outputsLengh?: number;
 }
 export interface ITriggerOptions extends AnyObject {
   config?: ITriggerGeneralConfigOptions;
@@ -133,11 +136,7 @@ export interface ITrigger {
 }
 export type OutcomeStatus = "success" | "failure" | "skipped";
 export type ConclusionStatus = "success" | "failure" | "skipped";
-export interface ITriggerBuildResult {
-  outputs?: AnyObject;
-  outcome: OutcomeStatus;
-  conclusion: ConclusionStatus;
-}
+
 export interface ITriggerInternalResult {
   items: AnyObject[];
   outcome: OutcomeStatus;
@@ -171,6 +170,11 @@ export interface ITriggerEvent {
 }
 export interface ITaskTrigger extends ITrigger {
   class: ITriggerClassTypeConstructable | undefined;
+  outputsMode: OutputsMode;
+  outputsLengh?: number;
+}
+export interface IInternalRunTrigger extends ITrigger {
+  class: ITriggerClassTypeConstructable | undefined;
 }
 export type TaskType = "delay" | "immediate";
 export interface ITask {
@@ -192,7 +196,7 @@ export interface ITriggerHelpersOptions {
   logLevel?: LogLevelDesc;
 }
 export interface ITriggerInternalOptions {
-  trigger: ITaskTrigger;
+  trigger: IInternalRunTrigger;
   workflow: IWorkflow;
   event: ITriggerEvent;
   logLevel?: LogLevelDesc;

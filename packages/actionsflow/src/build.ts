@@ -12,7 +12,6 @@ import {
   buildNativeEnv,
   buildWorkflowFile,
   ITriggerInternalResult,
-  ITriggerBuildResult,
   AnyObject,
   ITriggerError,
   ITask,
@@ -179,8 +178,8 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
           workflow: workflow,
           trigger: {
             name: trigger.name,
-            options: trigger.options,
             class: trigger.class,
+            options: trigger.options,
           },
           event: event,
           logLevel,
@@ -194,8 +193,8 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
             workflow: workflow,
             trigger: {
               name: trigger.name,
-              options: trigger.options,
               class: trigger.class,
+              options: trigger.options,
             },
             event: event,
             logLevel,
@@ -227,8 +226,6 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
       .join(".");
     const destRelativePath = `${i}-${relativePathWithoutExt}-${task.trigger.name}.yml`;
     const workflowDestPath = path.resolve(workflowsDestPath, destRelativePath);
-    // manual run trigger
-    const triggerResults: ITriggerBuildResult[] = [];
 
     const taskResult = tasksResults[i];
 
@@ -251,11 +248,11 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
         log.warn(
           "But the workflow will continue to run because buildOutputsOnError: true"
         );
-        triggerResults.push({
-          outputs: {},
+        triggerRunResult = {
+          items: [{}],
           outcome: "failure",
           conclusion: "success",
-        });
+        };
         continue;
       } else if (
         trigger.options &&
@@ -279,28 +276,17 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
         continue;
       }
     }
-    if (
-      triggerRunResult.conclusion === "success" &&
-      triggerRunResult.items.length > 0
-    ) {
-      // only handle success, skip other status
-      // check is need to run workflowTasks
-      for (let index = 0; index < triggerRunResult.items.length; index++) {
-        const outputs = triggerRunResult.items[index];
-        triggerResults.push({
-          outputs,
-          conclusion: triggerRunResult.conclusion,
-          outcome: triggerRunResult.outcome,
-        });
-      }
-    }
 
-    if (triggerResults.length > 0) {
+    if (triggerRunResult.items.length > 0) {
       const newWorkflowFileData = await getBuiltWorkflow({
         workflow: workflow,
         trigger: {
           name: trigger.name,
-          results: triggerResults,
+          results: triggerRunResult.items,
+          outcome: triggerRunResult.outcome,
+          conclusion: triggerRunResult.conclusion,
+          outputsMode: trigger.outputsMode,
+          outputsLengh: trigger.outputsLengh,
         },
       });
       if (Object.keys(newWorkflowFileData.jobs as AnyObject).length > 0) {
@@ -311,7 +297,7 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
 
         // success
         log.info(
-          `${triggerResults.length} updates found at trigger [${trigger.name}] of workflow [${workflow.relativePath}], workflow file ${destRelativePath} build success`
+          `${triggerRunResult.items.length} updates found at trigger [${trigger.name}] of workflow [${workflow.relativePath}], workflow file ${destRelativePath} build success`
         );
       } else {
         log.info("Skip generate workflow file: ", workflow.relativePath),

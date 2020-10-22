@@ -15,7 +15,7 @@ import {
   ITriggerClassTypeConstructable,
   ITriggerResult,
   ITriggerResultObject,
-  ITaskTrigger,
+  IInternalRunTrigger,
   IWebhookRequestPayload,
   ITrigger,
   getTriggerConstructorParams,
@@ -335,7 +335,7 @@ export const resolveTrigger = (
 
 export const getSupportedTriggers = (
   rawTriggers: ITrigger[]
-): ITaskTrigger[] => {
+): IInternalRunTrigger[] => {
   const triggers = [];
   for (let index = 0; index < rawTriggers.length; index++) {
     const trigger = rawTriggers[index];

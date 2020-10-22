@@ -14,8 +14,10 @@ import {
   ITriggerContext,
   IWorkflow,
   AnyObject,
-  ITriggerBuildResult,
   IWorkflowData,
+  OutputsMode,
+  OutcomeStatus,
+  ConclusionStatus,
 } from "./interface";
 import { TRIGGER_RESULT_ENV_PREFIX } from "./constans";
 
@@ -266,7 +268,11 @@ interface IBuildSingleWorkflowOptions {
   workflow: IWorkflow;
   trigger: {
     name: string;
-    results: ITriggerBuildResult[];
+    results: AnyObject[];
+    outcome: OutcomeStatus;
+    conclusion: ConclusionStatus;
+    outputsMode?: OutputsMode;
+    outputsLengh?: number;
   };
 }
 export const getBuiltWorkflow = async (
@@ -274,6 +280,8 @@ export const getBuiltWorkflow = async (
 ): Promise<IWorkflowData> => {
   log.trace("buildWorkflow options:", options);
   const { workflow, trigger } = options;
+  const { outcome, conclusion } = trigger;
+  const outputsMode = trigger.outputsMode || "separate";
   const workflowData = workflow.data;
   // handle context expresstion
   const workflowDataJobs: Record<
@@ -289,9 +297,11 @@ export const getBuiltWorkflow = async (
   }[] = [];
   // jobs internal env
   const jobInternalEnvs: Record<string, string>[] = [];
+  if (outputsMode === "separate") {
+    // do nothing
+  }
   for (let index = 0; index < trigger.results.length; index++) {
-    const triggerResult = trigger.results[index];
-    const { outputs, outcome, conclusion } = triggerResult;
+    const outputs = trigger.results[index];
     if (conclusion === "success") {
       const jobInternalEnv: Record<string, string> = {};
       const context: Record<string, AnyObject> = {

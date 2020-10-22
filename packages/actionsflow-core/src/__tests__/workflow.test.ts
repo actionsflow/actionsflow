@@ -77,13 +77,10 @@ test("get built workflow", async () => {
     })) as IWorkflow,
     trigger: {
       name: "rss",
-      results: [
-        {
-          outputs: feedPayload,
-          outcome: "success",
-          conclusion: "success",
-        },
-      ],
+      results: [feedPayload],
+      outcome: "success",
+      conclusion: "success",
+      outputsMode: "separate",
     },
   });
 
@@ -131,13 +128,9 @@ test("get built for multile jobs workflow", async () => {
     })) as IWorkflow,
     trigger: {
       name: "rss",
-      results: [
-        {
-          outputs: feedPayload,
-          outcome: "success",
-          conclusion: "success",
-        },
-      ],
+      outcome: "success",
+      conclusion: "success",
+      results: [feedPayload],
     },
   });
 

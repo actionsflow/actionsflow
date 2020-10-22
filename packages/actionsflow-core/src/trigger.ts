@@ -13,6 +13,7 @@ import {
   ITriggerHelpersOptions,
   ManualRunTriggerEventType,
   ITriggerRunContext,
+  OutputsMode,
 } from "./interface";
 import { getRawTriggers } from "./utils";
 import axios from "axios";
@@ -80,6 +81,7 @@ interface IGeneralTriggerOptions extends ITriggerGeneralConfigOptions {
   buildOutputsOnError: boolean;
   skipOnError: boolean;
   timeZone: string;
+  outputsMode: OutputsMode;
 }
 interface IGeneralTriggerDefaultOptions extends ITriggerGeneralConfigOptions {
   every: string | number;
@@ -93,6 +95,7 @@ interface IGeneralTriggerDefaultOptions extends ITriggerGeneralConfigOptions {
   buildOutputsOnError: boolean;
   skipOnError: boolean;
   timeZone: string;
+  outputsMode: OutputsMode;
 }
 export const getGeneralTriggerFinalOptions = (
   triggerInstance: ITriggerClassType,
@@ -116,6 +119,7 @@ export const getGeneralTriggerFinalOptions = (
     buildOutputsOnError: false,
     skipOnError: false,
     timeZone: "UTC",
+    outputsMode: "separate",
     ...instanceConfig,
     ...userOptions,
   };
