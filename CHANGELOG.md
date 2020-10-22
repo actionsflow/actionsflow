@@ -1,3 +1,10 @@
+# [1.3.0-2](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.2.0-alpha.1...v1.3.0-2) (2020-10-22)
+
+
+### Features
+
+* 🎸 outputs mode support combine, array ([6f57a98](https://github.com/actionsflow/actionsflow/commit/6f57a989869a0a5a7efe71935bea584c381cefb3))
+
 # [1.3.0-1](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-twitter@1.2.0-alpha.1...v1.3.0-1) (2020-10-21)
 
 
