@@ -16,7 +16,7 @@
     "commit": "npx git-cz",
     "cm": "npm run commit --",
     "cz": "npm run commit --",
-    "jest": "jest",
+    "jest": "rimraf ./.cache ./dist && jest",
     "test:watch": "jest --watch",
     "lint:code": "eslint --cache --ext .js,.ts .",
     "lint:docs": "remark . --quiet --ext md",
