@@ -15,6 +15,7 @@ import {
   TaskType,
   ITriggerGeneralConfigOptions,
   getTriggerConstructorParams,
+  ITaskTrigger,
 } from "actionsflow-core";
 import { RUN_INTERVAL } from "./constans";
 import { getSupportedTriggers, resolveTrigger } from "./trigger";
@@ -50,12 +51,30 @@ export const getTasksByTriggerEvent = async ({
           ) {
             const TriggerClass = resolveTrigger(trigger.name);
             if (TriggerClass) {
+              const triggerConstructorParams = await getTriggerConstructorParams(
+                {
+                  name: trigger.name,
+                  workflow: workflow,
+                  globalOptions: globalOptions,
+                  options: trigger.options,
+                }
+              );
+              const triggerInstance = new (TriggerClass as ITriggerClassTypeConstructable)(
+                triggerConstructorParams
+              );
+              const triggerGeneralOptions = getGeneralTriggerFinalOptions(
+                triggerInstance,
+                trigger.options,
+                event
+              );
               tasks.push({
                 workflow: workflow,
                 trigger: {
                   name: trigger.name,
                   options: trigger.options,
                   class: TriggerClass,
+                  outputsMode: triggerGeneralOptions.outputsMode,
+                  outputsLength: triggerGeneralOptions.outputsLength,
                 },
                 event: event,
                 type: "immediate",
@@ -90,7 +109,10 @@ export const getTasksByTriggerEvent = async ({
       const supportedTriggers = getSupportedTriggers(rawTriggers);
       // manual run trigger
       for (let j = 0; j < supportedTriggers.length; j++) {
-        const trigger = supportedTriggers[j];
+        const trigger: ITaskTrigger = {
+          ...supportedTriggers[j],
+          outputsMode: "separate",
+        };
         const triggerHelperOptions: ITriggerHelpersOptions = {
           name: trigger.name,
           workflowRelativePath: workflow.relativePath,
@@ -120,7 +142,14 @@ export const getTasksByTriggerEvent = async ({
           manualRunEvent,
           force,
           skipSchedule,
+          outputsMode,
+          outputsLength,
         } = triggerGeneralOptions;
+
+        trigger.outputsMode = outputsMode;
+        if (outputsLength) {
+          trigger.outputsLength = outputsLength;
+        }
         const scheduler = getScheduler({ every, timeZone });
         const lastUpdatedAt = await getLastUpdatedAt();
 

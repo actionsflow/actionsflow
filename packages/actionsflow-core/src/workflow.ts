@@ -14,8 +14,10 @@ import {
   ITriggerContext,
   IWorkflow,
   AnyObject,
-  ITriggerBuildResult,
   IWorkflowData,
+  OutputsMode,
+  OutcomeStatus,
+  ConclusionStatus,
 } from "./interface";
 import { TRIGGER_RESULT_ENV_PREFIX } from "./constans";
 
@@ -266,126 +268,157 @@ interface IBuildSingleWorkflowOptions {
   workflow: IWorkflow;
   trigger: {
     name: string;
-    results: ITriggerBuildResult[];
+    results: AnyObject[];
+    outcome: OutcomeStatus;
+    conclusion: ConclusionStatus;
+    outputsMode?: OutputsMode;
+    outputsLength?: number;
   };
 }
-export const getBuiltWorkflow = async (
+export const getBuiltWorkflows = async (
   options: IBuildSingleWorkflowOptions
-): Promise<IWorkflowData> => {
+): Promise<IWorkflowData[]> => {
   log.trace("buildWorkflow options:", options);
   const { workflow, trigger } = options;
-  const workflowData = workflow.data;
+  const { outcome, conclusion, results, outputsLength } = trigger;
+  const outputsMode = trigger.outputsMode || "separate";
+  const workflowData = { ...workflow.data };
   // handle context expresstion
   const workflowDataJobs: Record<
     string,
     AnyObject
   > = workflowData.jobs as Record<string, AnyObject>;
   delete workflowData.jobs;
-  const newWorkflowData = workflowData;
-  const jobsGroups: {
+  let jobsGroups: {
     lastJobs: string[];
     firstJobs: string[];
     jobs: Record<string, AnyObject>;
   }[] = [];
   // jobs internal env
-  const jobInternalEnvs: Record<string, string>[] = [];
-  for (let index = 0; index < trigger.results.length; index++) {
-    const triggerResult = trigger.results[index];
-    const { outputs, outcome, conclusion } = triggerResult;
-    if (conclusion === "success") {
-      const jobInternalEnv: Record<string, string> = {};
-      const context: Record<string, AnyObject> = {
-        on: {},
-      };
-      const rawTriggers = getRawTriggers(workflow.data);
-      // add all triggers results to env
-      rawTriggers.forEach((rawTrigger) => {
-        if (trigger.name === rawTrigger.name) {
-          jobInternalEnv[
-            `${TRIGGER_RESULT_ENV_PREFIX}${rawTrigger.name}`
-          ] = JSON.stringify(
-            {
+  let jobInternalEnvs: Record<string, string>[] = [];
+
+  if (conclusion === "success") {
+    if (outputsMode === "combine") {
+      if (outputsLength && results.length > outputsLength) {
+        const jobsGroupsCount = Math.ceil(results.length / outputsLength);
+        const jobsGroupsResults = Array.from({ length: jobsGroupsCount }).map(
+          (_, index) => {
+            return getJobGroups({
+              outputs: results.slice(
+                index * outputsLength,
+                (index + 1) * outputsLength
+              ),
               outcome: outcome,
               conclusion: conclusion,
-              outputs: outputs,
-            },
-            null,
-            2
-          );
-        } else {
-          jobInternalEnv[
-            `${TRIGGER_RESULT_ENV_PREFIX}${rawTrigger.name}`
-          ] = JSON.stringify(
-            {
-              outcome: "skipped",
-              conclusion: "skipped",
-              outputs: {},
-            },
-            null,
-            2
-          );
-        }
-        jobInternalEnvs.push(jobInternalEnv);
-        context.on[
-          rawTrigger.name
-        ] = `(fromJSON(env.${TRIGGER_RESULT_ENV_PREFIX}${rawTrigger.name}))`;
-      });
-      // handle context expresstion
-      let newJobs = {};
-      try {
-        newJobs = mapObj(
-          workflowDataJobs as Record<string, unknown>,
-          (key, value) => {
-            value = value as unknown;
-
-            if (typeof value === "string" && key !== "if") {
-              // if supported
-
-              value = getTemplateStringByParentName(value, "on", context);
-            }
-            if (key === "if" && typeof value === "string") {
-              if (value.trim().indexOf("${{") !== 0) {
-                value = `\${{ ${value} }}`;
-              }
-              value = getTemplateStringByParentName(
-                value as string,
-                "on",
-                context
-              );
-            }
-            return [key, value];
-          },
-          {
-            deep: true,
+              workflowData: workflowData,
+              workflowDataJobs: workflowDataJobs,
+              workflowRelativePath: workflow.relativePath,
+              triggerName: trigger.name,
+              suffix: `${index}`,
+            });
           }
         );
-      } catch (error) {
-        throw new Error(
-          `An error occurred when parsing workflow file ${
-            workflow.relativePath
-          }:  ${error.toString()}`
-        );
+        jobsGroups = jobsGroupsResults.map((item) => item.jobsGroup);
+        jobInternalEnvs = jobsGroupsResults.map((item) => item.jobInternalEnv);
+        return jobsGroups.map((jobsGroup, index) => {
+          return getWorkflowData({
+            jobsGroups: [jobsGroup],
+            jobInternalEnvs: [jobInternalEnvs[index]],
+            workflowData,
+          });
+        });
+      } else {
+        const jobsGroupsResult = getJobGroups({
+          outputs: results,
+          outcome: outcome,
+          conclusion: conclusion,
+          workflowData: workflowData,
+          workflowDataJobs: workflowDataJobs,
+          workflowRelativePath: workflow.relativePath,
+          triggerName: trigger.name,
+        });
+        jobsGroups.push(jobsGroupsResult.jobsGroup);
+        jobInternalEnvs.push(jobsGroupsResult.jobInternalEnv);
       }
-
-      const jobs = renameJobsBySuffix(
-        newJobs as Record<string, AnyObject>,
-        `_${index}`
+    } else {
+      const jobsGroupsResults = results.map((result, index) =>
+        getJobGroups({
+          outputs: result,
+          outcome: outcome,
+          conclusion: conclusion,
+          workflowData: workflowData,
+          workflowDataJobs: workflowDataJobs,
+          workflowRelativePath: workflow.relativePath,
+          triggerName: trigger.name,
+          suffix: `${index}`,
+        })
       );
-
-      // jobs id rename for merge
-
-      const jobsDependences = getJobsDependences(jobs);
-
-      jobsGroups.push({
-        lastJobs: jobsDependences.lastJobs,
-        firstJobs: jobsDependences.firstJobs,
-        jobs: jobs,
-      });
+      jobsGroups = jobsGroupsResults.map((item) => item.jobsGroup);
+      jobInternalEnvs = jobsGroupsResults.map((item) => item.jobInternalEnv);
     }
   }
 
-  const finalJobs: Record<string, AnyObject> = {};
+  if (outputsLength) {
+    // split jobs
+    if (jobsGroups.length > outputsLength) {
+      const jobsGroupsCount = Math.ceil(jobsGroups.length / outputsLength);
+      return Array.from({ length: jobsGroupsCount }).map((_, outputsIndex) => {
+        const theWorkflowData = getWorkflowData({
+          jobsGroups: jobsGroups.slice(
+            outputsIndex * outputsLength,
+            (outputsIndex + 1) * outputsLength
+          ),
+          jobInternalEnvs: jobInternalEnvs.slice(
+            outputsIndex * outputsLength,
+            (outputsIndex + 1) * outputsLength
+          ),
+          workflowData,
+        });
+        return theWorkflowData;
+      });
+    } else {
+      const newWorkflowData = getWorkflowData({
+        jobsGroups: jobsGroups,
+        jobInternalEnvs: jobInternalEnvs,
+        workflowData,
+      });
 
+      return [newWorkflowData];
+    }
+  } else {
+    const newWorkflowData = getWorkflowData({
+      jobsGroups: jobsGroups,
+      jobInternalEnvs: jobInternalEnvs,
+      workflowData,
+    });
+
+    return [newWorkflowData];
+  }
+};
+interface IInternalGetJobGruopsOptions {
+  outputs: AnyObject[] | AnyObject;
+  outcome: OutcomeStatus;
+  conclusion: ConclusionStatus;
+  workflowData: IWorkflowData;
+  workflowDataJobs: Record<string, AnyObject>;
+  workflowRelativePath: string;
+  triggerName: string;
+  suffix?: string;
+}
+interface IInternalGetWorkflowDataOptions {
+  workflowData: IWorkflowData;
+  jobsGroups: {
+    lastJobs: string[];
+    firstJobs: string[];
+    jobs: Record<string, AnyObject>;
+  }[];
+  jobInternalEnvs: Record<string, string>[];
+}
+function getWorkflowData(
+  options: IInternalGetWorkflowDataOptions
+): IWorkflowData {
+  const { workflowData, jobsGroups, jobInternalEnvs } = options;
+  const finalJobs: Record<string, AnyObject> = {};
   jobsGroups.forEach((jobsGroup, index) => {
     const jobs = jobsGroup.jobs;
     const jobKeys = Object.keys(jobs);
@@ -423,6 +456,7 @@ export const getBuiltWorkflow = async (
       });
     }
   });
+
   // finalJobs name unique for act unique name
   const finalJobKeys = Object.keys(finalJobs);
   finalJobKeys.forEach((jobKey, index) => {
@@ -435,10 +469,118 @@ export const getBuiltWorkflow = async (
 
     finalJobs[jobKey] = job;
   });
+  const newWorkflowData = { ...workflowData };
   newWorkflowData.on = ["push"];
   newWorkflowData.jobs = finalJobs;
   return newWorkflowData;
-};
+}
+function getJobGroups(
+  options: IInternalGetJobGruopsOptions
+): {
+  jobsGroup: {
+    lastJobs: string[];
+    firstJobs: string[];
+    jobs: Record<string, AnyObject>;
+  };
+  jobInternalEnv: Record<string, string>;
+} {
+  const {
+    outputs,
+    workflowData,
+    workflowDataJobs,
+    triggerName,
+    outcome,
+    conclusion,
+    suffix,
+    workflowRelativePath,
+  } = options;
+
+  const jobInternalEnv: Record<string, string> = {};
+  const context: Record<string, AnyObject> = {
+    on: {},
+  };
+
+  const rawTriggers = getRawTriggers(workflowData);
+  // add all triggers results to env
+  rawTriggers.forEach((rawTrigger) => {
+    if (triggerName === rawTrigger.name) {
+      jobInternalEnv[
+        `${TRIGGER_RESULT_ENV_PREFIX}${rawTrigger.name}`
+      ] = JSON.stringify(
+        {
+          outcome: outcome,
+          conclusion: conclusion,
+          outputs: outputs,
+        },
+        null,
+        2
+      );
+    } else {
+      jobInternalEnv[
+        `${TRIGGER_RESULT_ENV_PREFIX}${rawTrigger.name}`
+      ] = JSON.stringify(
+        {
+          outcome: "skipped",
+          conclusion: "skipped",
+          outputs: {},
+        },
+        null,
+        2
+      );
+    }
+    context.on[
+      rawTrigger.name
+    ] = `(fromJSON(env.${TRIGGER_RESULT_ENV_PREFIX}${rawTrigger.name}))`;
+  });
+  // handle context expresstion
+  let newJobs = {};
+  try {
+    newJobs = mapObj(
+      workflowDataJobs as Record<string, unknown>,
+      (key, value) => {
+        value = value as unknown;
+
+        if (typeof value === "string" && key !== "if") {
+          // if supported
+
+          value = getTemplateStringByParentName(value, "on", context);
+        }
+        if (key === "if" && typeof value === "string") {
+          if (value.trim().indexOf("${{") !== 0) {
+            value = `\${{ ${value} }}`;
+          }
+          value = getTemplateStringByParentName(value as string, "on", context);
+        }
+        return [key, value];
+      },
+      {
+        deep: true,
+      }
+    );
+  } catch (error) {
+    throw new Error(
+      `An error occurred when parsing workflow file ${workflowRelativePath}:  ${error.toString()}`
+    );
+  }
+  let jobs = newJobs;
+
+  if (suffix) {
+    jobs = renameJobsBySuffix(
+      newJobs as Record<string, AnyObject>,
+      `_${suffix}`
+    );
+  }
+
+  // jobs id rename for merge
+
+  const jobsDependences = getJobsDependences(jobs);
+  const jobsGroup = {
+    lastJobs: jobsDependences.lastJobs,
+    firstJobs: jobsDependences.firstJobs,
+    jobs: jobs,
+  };
+  return { jobsGroup, jobInternalEnv };
+}
 
 function arrify(thing: string | string[]): string[] {
   if (!thing) {
