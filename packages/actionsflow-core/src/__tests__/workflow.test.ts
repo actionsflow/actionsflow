@@ -168,6 +168,41 @@ test("get built workflow split", async () => {
   // const newWorkflow = await readFile(path.resolve(".cache/workflows/"), "utf8");
 });
 
+test("get built workflow combine for multiple", async () => {
+  const feedPayload = {
+    title: "Can't you just right click?",
+    guid: "https://news.ycombinator.com/item?id=24217116",
+  };
+  const results = Array.from({ length: 11 }).map(() => feedPayload);
+
+  const workflowDatas = await getBuiltWorkflows({
+    workflow: (await getWorkflow({
+      path: path.resolve(
+        __dirname,
+        "./fixtures/workflows/rss-multiple-trigger-multiple-job.yml"
+      ),
+      cwd: path.resolve(__dirname, "./fixtures"),
+      context: getContext(),
+    })) as IWorkflow,
+    trigger: {
+      name: "rss",
+      results: results,
+      outcome: "success",
+      conclusion: "success",
+      outputsMode: "combine",
+      outputsLength: 2,
+    },
+  });
+
+  expect(workflowDatas.length).toBe(6);
+  const workflowData = workflowDatas[0];
+  const lastWorkflowData = workflowDatas[5];
+  expect(lastWorkflowData.jobs).toHaveProperty("print2_5");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  expect(workflowData.jobs).toHaveProperty("print2_0");
+
+  // const newWorkflow = await readFile(path.resolve(".cache/workflows/"), "utf8");
+});
 test("get built workflow combine mode", async () => {
   const feedPayload = {
     title: "Can't you just right click?",

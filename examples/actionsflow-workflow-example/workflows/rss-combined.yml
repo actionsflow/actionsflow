@@ -1,0 +1,17 @@
+on:
+  rss:
+    url: https://hnrss.org/newest?points=300
+    config:
+      outputsMode: combine
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          title: ${{on.rss.outputs[0].title}}
+          length: ${{ on.rss.outputs.length }}
+        run: |
+          echo title: $title
+          echo length: $length

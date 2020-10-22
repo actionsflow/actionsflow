@@ -282,7 +282,7 @@ export const getBuiltWorkflows = async (
   const { workflow, trigger } = options;
   const { outcome, conclusion, results, outputsLength } = trigger;
   const outputsMode = trigger.outputsMode || "separate";
-  const workflowData = workflow.data;
+  const workflowData = { ...workflow.data };
   // handle context expresstion
   const workflowDataJobs: Record<
     string,

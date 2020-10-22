@@ -176,6 +176,50 @@ on:
         return item;
 ```
 
+## `on<trigger>.config.outputsMode`
+
+Optional, available value is `separate` or `combine`, the default value is `separate`. For example, if a RSS trigger fetched 5 items once, if `outputsMode` is `separate`, then jobs of your workflow will be called 5 times with single item every time. If `outputsMode` is `combine`, then the jobs will be called only once, and the `outputs` will be an array witch includes 5 items. Such like daily digest is recommended to use `combine` mode.
+
+With `separate`:
+
+```yaml
+on:
+  rss:
+    url: https://hnrss.org/newest?points=300
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          title: ${{on.rss.outputs.title}}
+        run: |
+          echo title: $title
+```
+
+With `combine`
+
+```yaml
+on:
+  rss:
+    url: https://hnrss.org/newest?points=300
+    config:
+      outputsMode: combine
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          title: ${{on.rss.outputs[0].title}}
+          length: ${{ on.rss.outputs.length }}
+        run: |
+          echo title: $title
+          echo length: $length
+```
+
 ## `on.<trigger>.config.sort`
 
 Optional, [`MongoDB query language sort syntax`](https://docs.mongodb.com/manual/reference/method/cursor.sort/index.html). You can use `sort` to change the order of the trigger's results as you need.
