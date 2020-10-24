@@ -220,9 +220,9 @@ jobs:
           echo length: $length
 ```
 
-## `on.<trigger>.config.outputsLength`
+## `on.<trigger>.config.resultsPerWorkflow`
 
-Optional, `number` or `undefined`, the default is `undefined`, you can define the built workflow jobs length, if `undefined`, all outputs will be build to one single workflow. Generally, if your source data is large, you can use `outputsLength` to separate the built workflow files to save space.
+Optional, `number` or `undefined`, the default is `undefined`, you can define the built workflow jobs length, if `undefined`, all outputs will be build to one single workflow. Generally, if your source data is large, you can use `resultsPerWorkflow` to separate the built workflow files to save space.
 
 ## `on.<trigger>.config.sort`
 

@@ -285,7 +285,7 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
           outcome: triggerRunResult.outcome,
           conclusion: triggerRunResult.conclusion,
           outputsMode: trigger.outputsMode,
-          outputsLength: trigger.outputsLength,
+          resultsPerWorkflow: trigger.resultsPerWorkflow,
         },
       });
       for (let j = 0; j < newWorkflowFileDatas.length; j++) {

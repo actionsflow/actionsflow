@@ -74,7 +74,7 @@ export interface ITriggerGeneralConfigOptions {
   limit?: number;
   sort?: AnyObject;
   outputsMode?: OutputsMode;
-  outputsLength?: number;
+  resultsPerWorkflow?: number;
 }
 export interface ITriggerOptions extends AnyObject {
   config?: ITriggerGeneralConfigOptions;
@@ -171,7 +171,7 @@ export interface ITriggerEvent {
 export interface ITaskTrigger extends ITrigger {
   class: ITriggerClassTypeConstructable | undefined;
   outputsMode: OutputsMode;
-  outputsLength?: number;
+  resultsPerWorkflow?: number;
 }
 export interface IInternalRunTrigger extends ITrigger {
   class: ITriggerClassTypeConstructable | undefined;

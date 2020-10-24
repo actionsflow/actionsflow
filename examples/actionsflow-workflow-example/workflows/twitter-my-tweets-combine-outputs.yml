@@ -10,7 +10,7 @@ on:
       screen_name: theowenyoung
     config:
       outputsMode: combine
-      outputsLength: 2
+      resultsPerWorkflow: 2
 jobs:
   print:
     name: Print

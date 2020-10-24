@@ -3,12 +3,12 @@ on:
     url: https://jsonplaceholder.typicode.com/posts
     config:
       limit: 5
-      outputsLength: 2
+      resultsPerWorkflow: 2
   rss:
     url: https://hnrss.org/newest?points=300
     config:
       outputsMode: combine
-      outputsLength: 3
+      resultsPerWorkflow: 3
 jobs:
   print:
     name: Print

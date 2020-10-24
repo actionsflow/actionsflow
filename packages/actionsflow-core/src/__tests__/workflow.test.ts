@@ -132,7 +132,7 @@ test("get built workflow split", async () => {
       outcome: "success",
       conclusion: "success",
       outputsMode: "separate",
-      outputsLength: 2,
+      resultsPerWorkflow: 2,
     },
   });
 
@@ -190,7 +190,7 @@ test("get built workflow combine for multiple", async () => {
       outcome: "success",
       conclusion: "success",
       outputsMode: "combine",
-      outputsLength: 2,
+      resultsPerWorkflow: 2,
     },
   });
 
@@ -274,7 +274,7 @@ test("get built workflow combine mode split", async () => {
       outcome: "success",
       conclusion: "success",
       outputsMode: "combine",
-      outputsLength: 2,
+      resultsPerWorkflow: 2,
     },
   });
   expect(workflowDatas.length).toBe(6);

@@ -272,7 +272,7 @@ interface IBuildSingleWorkflowOptions {
     outcome: OutcomeStatus;
     conclusion: ConclusionStatus;
     outputsMode?: OutputsMode;
-    outputsLength?: number;
+    resultsPerWorkflow?: number;
   };
 }
 export const getBuiltWorkflows = async (
@@ -280,7 +280,7 @@ export const getBuiltWorkflows = async (
 ): Promise<IWorkflowData[]> => {
   log.trace("buildWorkflow options:", options);
   const { workflow, trigger } = options;
-  const { outcome, conclusion, results, outputsLength } = trigger;
+  const { outcome, conclusion, results, resultsPerWorkflow } = trigger;
   const outputsMode = trigger.outputsMode || "separate";
   const workflowData = { ...workflow.data };
   // handle context expresstion
@@ -299,14 +299,14 @@ export const getBuiltWorkflows = async (
 
   if (conclusion === "success") {
     if (outputsMode === "combine") {
-      if (outputsLength && results.length > outputsLength) {
-        const jobsGroupsCount = Math.ceil(results.length / outputsLength);
+      if (resultsPerWorkflow && results.length > resultsPerWorkflow) {
+        const jobsGroupsCount = Math.ceil(results.length / resultsPerWorkflow);
         const jobsGroupsResults = Array.from({ length: jobsGroupsCount }).map(
           (_, index) => {
             return getJobGroups({
               outputs: results.slice(
-                index * outputsLength,
-                (index + 1) * outputsLength
+                index * resultsPerWorkflow,
+                (index + 1) * resultsPerWorkflow
               ),
               outcome: outcome,
               conclusion: conclusion,
@@ -358,19 +358,19 @@ export const getBuiltWorkflows = async (
     }
   }
 
-  if (outputsLength) {
+  if (resultsPerWorkflow) {
     // split jobs
-    if (jobsGroups.length > outputsLength) {
-      const jobsGroupsCount = Math.ceil(jobsGroups.length / outputsLength);
+    if (jobsGroups.length > resultsPerWorkflow) {
+      const jobsGroupsCount = Math.ceil(jobsGroups.length / resultsPerWorkflow);
       return Array.from({ length: jobsGroupsCount }).map((_, outputsIndex) => {
         const theWorkflowData = getWorkflowData({
           jobsGroups: jobsGroups.slice(
-            outputsIndex * outputsLength,
-            (outputsIndex + 1) * outputsLength
+            outputsIndex * resultsPerWorkflow,
+            (outputsIndex + 1) * resultsPerWorkflow
           ),
           jobInternalEnvs: jobInternalEnvs.slice(
-            outputsIndex * outputsLength,
-            (outputsIndex + 1) * outputsLength
+            outputsIndex * resultsPerWorkflow,
+            (outputsIndex + 1) * resultsPerWorkflow
           ),
           workflowData,
         });
