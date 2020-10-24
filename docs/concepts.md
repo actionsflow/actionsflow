@@ -4,7 +4,14 @@ title: "Core Concepts"
 
 # How Actionsflow works
 
-Actionsflow uses [Github Actions](https://docs.github.com/en/actions)' [**`repository_dispatch` event**](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#repository_dispatch) and [**`scheduled` event**](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#scheduled-events) every 5 minutes to run [Actionsflow triggers](./triggers.md). Those triggers generate an array of results, which are cached and deduplicated, generating a standard Github actions workflow file with the trigger result. Finally, the workflows are executed using [act](https://github.com/nektos/act) (a tool for running GitHub Actions locally).
+Actionsflow will execute the workflow you define regularly or through webhook event. A typical workflow file contains a trigger and a job (a job can have multiple steps), Actionsflow currently supports two types of triggers, scheduled trigger and webhook trigger.
+
+- [A trigger](./triggers.md) is provided by the [official](./triggers.md), [community](https://www.npmjs.com/search?q=%40actionsflow%2Ftrigger) or [local triggers](./creating-triggers/creating-a-local-trigger.md) customized by javascript.
+- A Job may have many steps, you can use [Github marketplace actions](https://github.com/marketplace?type=actions) at step. With the steps, you can do many things with the trigger's result, such as sending a message, sending a HTTP request, or uploading a file, etc.
+
+Every time Actionsflow runs, the updated trigger will return an array of results to Actionsflow, Actionsflow will cache and deduplicate the trigger's results, and integrate the results according to the user-defined workflow file, generate a standard Github actions workflow file with your the trigger result. Finally, the workflows are executed using [act](https://github.com/nektos/act) (a tool for running GitHub Actions locally).
+
+Actionsflow uses [Github Actions'](https://docs.github.com/en/actions) [**`scheduled` event**](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#scheduled-events) to run workflows regularly, and uses [**`repository_dispatch` event**](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#repository_dispatch) to trigger a [Webhook event](./webhook.md)
 
 In practical terms, the power of actionsflow comes from the following Github workflows file (`.github/workflows/actionsflow.yml`):
 
@@ -23,14 +30,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run Actionsflow
-        uses: actionsflow/actionsflow-action@main
-        env:
-          JSON_SECRETS: ${{ toJson(secrets) }}
-          JSON_GITHUB: ${{ toJson(github) }}
+        uses: actionsflow/actionsflow-action@v1
+        with:
+          args: build
+          json-secrets: ${{ toJSON(secrets) }}
+          json-github: ${{ toJSON(github) }}
       - name: Setup act
         uses: actionsflow/setup-act-for-actionsflow@v1
       - name: Run act
-        run: act --workflows ./dist/workflows --secret-file ./dist/.secrets --eventpath ./dist/event.json --env-file ./dist/.env
+        run: act --workflows ./dist/workflows --secret-file ./dist/.secrets --eventpath ./dist/event.json --env-file ./dist/.env -P ubuntu-latest=actionsflow/act-environment:v1 -P ubuntu-18.04=actionsflow/act-environment:v1
 ```
 
 ## `scheduled` Run
