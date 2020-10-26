@@ -89,19 +89,23 @@ To learn more about how Actionsflow works, please see [Core Concepts of Actionsf
    ```yaml
    on:
      rss:
-       url: https://hnrss.org/newest?points=300
+       url: https://hnrss.org/newest?points=300&count=3
    jobs:
-     ifttt:
-       name: Make a Request to IFTTT
+     request:
+       name: Make a HTTP Request
        runs-on: ubuntu-latest
        steps:
-         - uses: actionsflow/ifttt-webhook-action@v1
+         - name: Make a HTTP Request
+           uses: actionsflow/axios@v1
            with:
-             event: notice
-             key: ${{ secrets.IFTTT_KEY }}
-             value1: ${{on.rss.outputs.title}}
-             value2: ${{on.rss.outputs.contentSnippet}}
-             value3: ${{on.rss.outputs.link}}
+             url: https://hookb.in/VGPzxoWbdjtE22bwznzE
+             method: POST
+             body: |
+               {
+                 "link":"${{ on.rss.outputs.link }}", 
+                 "title": "${{ on.rss.outputs.title }}",
+                 "content":"<<<${{ on.rss.outputs.contentSnippet }}>>>"
+               }
    ```
 
    For more information about the Actionsflow workflow file, see the

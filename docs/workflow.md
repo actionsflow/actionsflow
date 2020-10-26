@@ -121,6 +121,19 @@ on:
           $regex: interviews
 ```
 
+Example for not include `interviews`
+
+```yaml
+on:
+  rss:
+    url: https://hnrss.org/newest?points=300
+    config:
+      filter:
+        title:
+          $not:
+            $regex: interviews
+```
+
 Learn more about MongoDB query language, please see [`MongoDB query documents`](https://docs.mongodb.com/manual/tutorial/query-documents/index.html) and [`mingo`](https://github.com/kofrasa/mingo).
 
 ## `on.<trigger>.config.filterOutputs`

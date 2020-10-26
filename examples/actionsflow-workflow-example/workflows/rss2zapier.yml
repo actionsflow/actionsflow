@@ -10,4 +10,4 @@ jobs:
         with:
           url: https://hooks.zapier.com/hooks/catch/xxx
           method: POST
-          body: '{ "name": "breeze",  "title": "${{on.rss.outputs.title}}" }'
+          data: '{ "name": "breeze",  "title": "${{on.rss.outputs.title}}" }'

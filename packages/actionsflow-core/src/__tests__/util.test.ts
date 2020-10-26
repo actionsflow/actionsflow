@@ -25,6 +25,17 @@ test("filter", () => {
   });
   expect(filterResults.all().length).toBe(1);
 });
+test("filter not", () => {
+  const items = emails;
+  const filterResults = filter(items, {
+    subject: {
+      $not: {
+        $regex: "hash2",
+      },
+    },
+  });
+  expect(filterResults.all().length).toBe(2);
+});
 test("filter weather", () => {
   const items = [weather];
   const filterResults = filter(items, {
