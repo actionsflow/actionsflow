@@ -107,7 +107,7 @@ Optional. `string`, time zone, the default value is `UTC`, used for parsing `on.
 
 ## `on.<trigger>.config.filter`
 
-Optional, [`MongoDB query language`](https://docs.mongodb.com/manual/tutorial/query-documents/index.html). You can use `filter` to filter the trigger's results as you need.
+Optional, [`MongoDB query language`](https://docs.mongodb.com/manual/reference/operator/query/). You can use `filter` to filter the trigger's results as you need.
 
 Actionsflow use [`mingo`](https://github.com/kofrasa/mingo)(A tool to use MongoDB query language for in-memory objects) for filter the trigger's results. For example, the following workflow will only be triggered when RSS feed `title` contains `interviews`:
 
