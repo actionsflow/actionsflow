@@ -32,4 +32,4 @@ export const EXCLUDE_INJECT_GIHTUB_ENV = [
   // "GITHUB_REF",
   // "GITHUB_TOKEN",
 ];
-export const CACHE_PATH = ".cache";
+export const CACHE_PATH = ".actionsflow";
