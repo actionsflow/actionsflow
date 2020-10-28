@@ -6,17 +6,18 @@ import {
   buildWorkflowFile,
   buildNativeEnv,
 } from "../generate";
+import { CACHE_PATH } from "../constans";
 
 test("build native event", async () => {
   await buildNativeEvent({
-    dest: path.resolve(".cache"),
+    dest: path.resolve(CACHE_PATH),
     github: {
       event: {
         action: "test",
       },
     },
   });
-  const eventJson = await readJson(path.resolve(".cache/event.json"));
+  const eventJson = await readJson(path.resolve(`${CACHE_PATH}/event.json`));
   expect(eventJson).toEqual({
     action: "test",
   });
@@ -24,13 +25,16 @@ test("build native event", async () => {
 
 test("build secrets", async () => {
   await buildNativeSecrets({
-    dest: path.resolve(".cache"),
+    dest: path.resolve(CACHE_PATH),
     secrets: {
       TOKEN: "token",
       TEST: "test",
     },
   });
-  const secretsString = await readFile(path.resolve(".cache/.secrets"), "utf8");
+  const secretsString = await readFile(
+    path.resolve(`${CACHE_PATH}/.secrets`),
+    "utf8"
+  );
   expect(secretsString).toEqual("TOKEN=token\nTEST=test\n");
 });
 
@@ -38,12 +42,12 @@ test("build env", async () => {
   process.env.GITHUB_TEST = "test";
 
   await buildNativeEnv({
-    dest: path.resolve(".cache"),
+    dest: path.resolve(CACHE_PATH),
   });
   process.env.GITHUB_TEST = "";
   process.env.ACTIONS_TEST = "";
   process.env.GITHUB_RUN_ID = "";
-  const envString = await readFile(path.resolve(".cache/.env"), "utf8");
+  const envString = await readFile(path.resolve(`${CACHE_PATH}/.env`), "utf8");
   expect(envString).toMatch("GITHUB_TEST=test");
 });
 
@@ -54,7 +58,7 @@ test("build workflow file", async () => {
     longText += "long ";
   }
   await buildWorkflowFile({
-    dest: path.resolve(".cache", "workflow.yml"),
+    dest: path.resolve(CACHE_PATH, "workflow.yml"),
     workflowData: {
       on: {
         push: null,
@@ -65,7 +69,7 @@ test("build workflow file", async () => {
     },
   });
   const workflowContent = await readFile(
-    path.resolve(".cache/workflow.yml"),
+    path.resolve(`${CACHE_PATH}/workflow.yml`),
     "utf8"
   );
 

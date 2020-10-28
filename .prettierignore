@@ -4,6 +4,7 @@
 **/node_modules/**
 # cache-dirs
 **/.cache
+**/.actionsflow
 
 # fixtures
 **/__tests__/fixtures/**

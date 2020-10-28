@@ -110,7 +110,6 @@ test("get built workflow", async () => {
   expect((workflowData as any).jobs.ifttt_0.name).toBe(
     "Make a Request to IFTTT 0"
   );
-  // const newWorkflow = await readFile(path.resolve(".cache/workflows/"), "utf8");
 });
 
 test("get built workflow split", async () => {
@@ -165,7 +164,6 @@ test("get built workflow split", async () => {
   expect((workflowData as any).jobs.ifttt_0.name).toBe(
     "Make a Request to IFTTT 0"
   );
-  // const newWorkflow = await readFile(path.resolve(".cache/workflows/"), "utf8");
 });
 
 test("get built workflow combine for multiple", async () => {
@@ -200,8 +198,6 @@ test("get built workflow combine for multiple", async () => {
   expect(lastWorkflowData.jobs).toHaveProperty("print2_5");
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   expect(workflowData.jobs).toHaveProperty("print2_0");
-
-  // const newWorkflow = await readFile(path.resolve(".cache/workflows/"), "utf8");
 });
 test("get built workflow combine mode", async () => {
   const feedPayload = {
@@ -253,7 +249,6 @@ test("get built workflow combine mode", async () => {
   expect((workflowData as any).jobs.ifttt.name).toBe(
     "Make a Request to IFTTT 0"
   );
-  // const newWorkflow = await readFile(path.resolve(".cache/workflows/"), "utf8");
 });
 
 test("get built workflow combine mode split", async () => {
@@ -361,8 +356,6 @@ test("get built for multile jobs workflow", async () => {
   >).ACTIONSFLOW_TRIGGER_RESULT_FOR_rss;
   const valueJson2 = JSON.parse(value2);
   expect(valueJson2.outputs.title).toBe("Can't you just right click?");
-
-  // const newWorkflow = await readFile(path.resolve(".cache/workflows/"), "utf8");
 });
 test("get built for multile jobs workflow combine", async () => {
   const feedPayload = {
@@ -439,8 +432,6 @@ test("get built for multile jobs workflow combine", async () => {
   expect(valueJson2.outputs.length).toBe(2);
 
   expect(valueJson2.outputs[0].title).toBe("Can't you just right click?");
-
-  // const newWorkflow = await readFile(path.resolve(".cache/workflows/"), "utf8");
 });
 
 test("get workflow", async () => {

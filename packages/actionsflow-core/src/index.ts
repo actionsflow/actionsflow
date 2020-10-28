@@ -34,3 +34,4 @@ export {
 export { Cursor } from "mingo/cursor";
 export { getScheduler } from "./schedule";
 export * from "./interface";
+export { CACHE_PATH } from "./constans";

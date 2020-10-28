@@ -7,7 +7,7 @@ import manager, {
 import fs from "fs-extra";
 import fsStore from "cache-manager-fs-hash";
 import path from "path";
-
+import { CACHE_PATH } from "../constans";
 const MAX_CACHE_SIZE = 250;
 const TTL = Number.MAX_SAFE_INTEGER;
 
@@ -27,7 +27,7 @@ export class Cache {
   }
 
   get directory(): string {
-    return path.join(process.cwd(), `.cache/caches/${this.name}`);
+    return path.join(process.cwd(), CACHE_PATH, `caches/${this.name}`);
   }
 
   init(): Cache {

@@ -30,7 +30,7 @@ test("run trigger", async () => {
     },
 
     workflow: (await getWorkflow({
-      path: path.resolve(__dirname, "./fixtures/workflows/rss.yml"),
+      path: path.resolve(__dirname, "./fixtures/workflows/test1.yml"),
       cwd: path.resolve(__dirname, "./fixtures"),
       context: getContext(),
     })) as IWorkflow,
@@ -40,7 +40,7 @@ test("run trigger", async () => {
   });
   const triggerId = getTriggerId({
     name: "rss",
-    workflowRelativePath: "rss.yml",
+    workflowRelativePath: "test1.yml",
   });
   const triggerCacheManager = getCache(
     `trigger-cache-manager-rss-${triggerId}`
@@ -52,7 +52,7 @@ test("run trigger", async () => {
   const triggerConstructorParams = await getTriggerConstructorParams({
     name: "rss",
     cwd: path.resolve(__dirname, "fixtures"),
-    workflowPath: path.resolve(__dirname, "fixtures/workflows/rss.yml"),
+    workflowPath: path.resolve(__dirname, "fixtures/workflows/test1.yml"),
   });
 
   expect(triggerConstructorParams.context.isFirstRun).toBe(false);
@@ -86,7 +86,7 @@ test("run trigger with skipFirst", async () => {
     },
 
     workflow: (await getWorkflow({
-      path: path.resolve(__dirname, "./fixtures/workflows/rss2.yml"),
+      path: path.resolve(__dirname, "./fixtures/workflows/test2.yml"),
       cwd: path.resolve(__dirname, "./fixtures"),
       context: getContext(),
     })) as IWorkflow,
@@ -97,7 +97,7 @@ test("run trigger with skipFirst", async () => {
 
   const triggerId = getTriggerId({
     name: "rss",
-    workflowRelativePath: "rss2.yml",
+    workflowRelativePath: "test2.yml",
   });
   const triggerCacheManager = getCache(
     `trigger-cache-manager-rss-${triggerId}`
@@ -109,7 +109,7 @@ test("run trigger with skipFirst", async () => {
   const triggerConstructorParams = await getTriggerConstructorParams({
     name: "rss",
     cwd: path.resolve(__dirname, "fixtures"),
-    workflowPath: path.resolve(__dirname, "fixtures/workflows/rss2.yml"),
+    workflowPath: path.resolve(__dirname, "fixtures/workflows/test2.yml"),
   });
 
   expect(triggerConstructorParams.context.isFirstRun).toBe(false);

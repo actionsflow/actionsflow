@@ -4,6 +4,9 @@
 .LSOverride
 packages2
 packages3
+
+# Actionsflow cache
+.actionsflow
 # Icon must end with two \r
 Icon
 /workflows/

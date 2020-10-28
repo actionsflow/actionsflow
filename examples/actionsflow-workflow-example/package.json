@@ -15,8 +15,8 @@
   "scripts": {
     "build": "actionsflow build",
     "start": "npm run build",
-    "clean": "rimraf ./dist ./.cache",
-    "act": "act -W ./dist/workflows --secret-file ./dist/.secrets -e ./dist/event.json",
+    "clean": "actionsflow clean",
+    "act": "act --workflows ./dist/workflows --secret-file ./dist/.secrets --eventpath ./dist/event.json --env-file ./dist/.env -P ubuntu-latest=actionsflow/act-environment:v1 -P ubuntu-18.04=actionsflow/act-environment:v1",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
