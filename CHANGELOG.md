@@ -1,3 +1,10 @@
+# [1.4.0-0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.3.0-alpha.0...v1.4.0-0) (2020-10-28)
+
+
+### Features
+
+* change cache path ([9ca5f2c](https://github.com/actionsflow/actionsflow/commit/9ca5f2c27746d9aec1e86550a8ce6edc44c75ac1))
+
 ## [1.3.1](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.2.1...v1.3.1) (2020-10-28)
 
 # [1.3.0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.2.0...v1.3.0) (2020-10-24)
