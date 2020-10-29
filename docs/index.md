@@ -82,4 +82,4 @@ For more information about getting up and running, see [Getting Started](/docs/g
 - [Core Concepts](/docs/concepts.md) - Learn more about how Actionsflow works
 - [Creating Triggers for Actionsflow](/docs/creating-triggers.md) - Learn more about how to create your own trigger for Actionsflow
 - [FAQs](/docs/faqs.md) - Actionsflow FAQs
-- [Join Actionsflow Slack](https://join.slack.com/t/actionsflow/shared_invite/zt-h5tmw9cn-GbZ4fzU_vc_qB~nnS_2Lvg) - Chat with other users and contributors on Slack
+- [Join Actionsflow on Slack](https://forms.gle/9VvTVne6oU7zBCeVA) - Chat with other users and contributors on Slack, if you have already joined, please [signin](https://actionsflow.slack.com) directly
