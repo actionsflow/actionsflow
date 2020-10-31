@@ -7,6 +7,6 @@ jobs:
     steps:
       - name: Print Outputs
         env:
-          title: ${{ on.poll.outputs.title }}
+          title: ${{ on.local_trigger_test.outputs.title }}
         run: |
           echo "title: $title"
