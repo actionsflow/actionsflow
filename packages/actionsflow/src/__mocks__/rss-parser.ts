@@ -5,10 +5,12 @@ export default class Parser {
     return {
       items: [
         {
+          id: 1,
           title: "test",
           guid: "https://news.ycombinator.com/item?id=24227340",
         },
         {
+          id: 2,
           title: "test2",
           guid: "https://news.ycombinator.com/item?id=24224882",
         },

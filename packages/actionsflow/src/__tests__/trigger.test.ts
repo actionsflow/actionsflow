@@ -18,7 +18,7 @@ test("run trigger sortScript", async () => {
         config: {
           force: true,
           sortScript: `
-            return -1
+            return b.id-a.id
           `,
         },
       },
