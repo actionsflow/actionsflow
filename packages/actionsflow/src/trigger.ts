@@ -213,7 +213,7 @@ export const run = async ({
               cursor = cursor.sort(sort);
             }
             if (sortScript) {
-              items = items.sort((a, b) => {
+              items.sort((a, b) => {
                 try {
                   const sortResult = getStringFunctionResult(sortScript, {
                     a,
