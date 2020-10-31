@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.4.2...actionsflow-workflow-example@1.5.0) (2020-10-31)
+
+**Note:** Version bump only for package actionsflow-workflow-example
+
+
+
+
+
 ## [1.4.2](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.4.1...actionsflow-workflow-example@1.4.2) (2020-10-31)
 
 
