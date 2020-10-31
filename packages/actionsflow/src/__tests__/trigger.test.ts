@@ -26,7 +26,7 @@ test("run trigger sortScript", async () => {
     },
 
     workflow: (await getWorkflow({
-      path: path.resolve(__dirname, "./fixtures/workflows/test1.yml"),
+      path: path.resolve(__dirname, "./fixtures/workflows/rss.yml"),
       cwd: path.resolve(__dirname, "./fixtures"),
       context: getContext(),
     })) as IWorkflow,
@@ -36,7 +36,7 @@ test("run trigger sortScript", async () => {
   });
   const triggerId = getTriggerId({
     name: "rss",
-    workflowRelativePath: "test1.yml",
+    workflowRelativePath: "rss.yml",
   });
   const triggerCacheManager = getCache(
     `trigger-cache-manager-rss-${triggerId}`
@@ -54,7 +54,7 @@ test("run trigger", async () => {
   const triggerConstructorParams1 = await getTriggerConstructorParams({
     name: "rss",
     cwd: path.resolve(__dirname, "fixtures"),
-    workflowPath: path.resolve(__dirname, "fixtures/workflows/rss.yml"),
+    workflowPath: path.resolve(__dirname, "fixtures/workflows/test1.yml"),
   });
 
   expect(triggerConstructorParams1.context.isFirstRun).toBe(true);
@@ -112,7 +112,7 @@ test("run trigger with skipFirst", async () => {
   const triggerConstructorParams1 = await getTriggerConstructorParams({
     name: "rss",
     cwd: path.resolve(__dirname, "fixtures"),
-    workflowPath: path.resolve(__dirname, "fixtures/workflows/rss2.yml"),
+    workflowPath: path.resolve(__dirname, "fixtures/workflows/test2.yml"),
     options: {
       config: { skipFirst: true },
     },
