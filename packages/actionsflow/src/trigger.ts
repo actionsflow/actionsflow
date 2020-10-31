@@ -220,6 +220,8 @@ export const run = async ({
                     b,
                     items,
                   }) as number;
+                  // eslint-disable-next-line no-console
+                  console.log("sortResult", sortResult, typeof sortResult);
                   return sortResult;
                 } catch (error) {
                   throw new Error(
@@ -229,6 +231,8 @@ export const run = async ({
                   );
                 }
               });
+              // eslint-disable-next-line no-console
+              console.log("items", items);
             }
             if (cursor) {
               items = cursor.all();
