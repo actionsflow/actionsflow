@@ -1,5 +1,90 @@
 import { getTemplateStringByParentName } from "../utils/template";
+test("getTemplateStringByParentName god simple", () => {
+  expect(
+    getTemplateStringByParentName("${{on.test.event}}", "on", {
+      on: {
+        test: `(fromJson(env.test))`,
+      },
+    })
+  ).toBe("${{(fromJson(env.test)).event}}");
+});
 
+test("getTemplateStringByParentName god simple2", () => {
+  expect(
+    getTemplateStringByParentName("${{ on.test.event}}", "on", {
+      on: {
+        test: `(fromJson(env.test))`,
+      },
+    })
+  ).toBe("${{ (fromJson(env.test)).event}}");
+});
+test("getTemplateStringByParentName god simple3", () => {
+  expect(
+    getTemplateStringByParentName("${{on.test.event }}", "on", {
+      on: {
+        test: `(fromJson(env.test))`,
+      },
+    })
+  ).toBe("${{(fromJson(env.test)).event }}");
+});
+test("getTemplateStringByParentName god simple4", () => {
+  expect(
+    getTemplateStringByParentName("${{ toJSON(on.test.event) }}", "on", {
+      on: {
+        test: `(fromJson(env.test))`,
+      },
+    })
+  ).toBe("${{ toJSON((fromJson(env.test)).event) }}");
+});
+test("getTemplateStringByParentName god simple5", () => {
+  expect(
+    getTemplateStringByParentName("${{ toJSON(on.test.outputs) }}", "on", {
+      on: {
+        test: `(fromJson(env.test))`,
+      },
+    })
+  ).toBe("${{ toJSON((fromJson(env.test)).outputs) }}");
+});
+test("getTemplateStringByParentName god simple6", () => {
+  expect(
+    getTemplateStringByParentName(
+      "${{ toJSON(on['test']['outputs']) }}",
+      "on",
+      {
+        on: {
+          test: `(fromJson(env.test))`,
+        },
+      }
+    )
+  ).toBe("${{ toJSON((fromJson(env.test))['outputs']) }}");
+});
+
+test("getTemplateStringByParentName god simple7", () => {
+  expect(
+    getTemplateStringByParentName(
+      '${{ toJSON(on["test"]["outputs"]) }}',
+      "on",
+      {
+        on: {
+          test: `(fromJson(env.test))`,
+        },
+      }
+    )
+  ).toBe('${{ toJSON((fromJson(env.test))["outputs"]) }}');
+});
+test("getTemplateStringByParentName god simple8", () => {
+  expect(
+    getTemplateStringByParentName(
+      '${{ true && toJSON(on["test"]["outputs"]) && true }}',
+      "on",
+      {
+        on: {
+          test: `(fromJson(env.test))`,
+        },
+      }
+    )
+  ).toBe('${{ true && toJSON((fromJson(env.test))["outputs"]) && true }}');
+});
 test("getTemplateStringByParentName simple", () => {
   expect(
     getTemplateStringByParentName(

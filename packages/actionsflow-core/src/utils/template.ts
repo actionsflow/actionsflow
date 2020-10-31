@@ -88,6 +88,7 @@ export const getAstsByParentName = (
 
       // raw full expression text
       const rawFullExpressionText = interpolateMatchResult[2] || "";
+
       if (specificExpressionRegex && rawFullExpressionText) {
         // is expression include "on",
 
@@ -108,7 +109,12 @@ export const getAstsByParentName = (
             // check especially syntax string
             const firstSpecificExpressionMatchResult =
               specificExpressionResults[0];
-            if ((firstSpecificExpressionMatchResult.index as number) > 0) {
+
+            if (
+              (firstSpecificExpressionMatchResult.index as number) +
+                (firstSpecificExpressionMatchResult[1].length as number) >
+              0
+            ) {
               asts.push({
                 start: currentEnd,
                 end:
