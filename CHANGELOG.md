@@ -1,3 +1,10 @@
+## [1.5.2](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.4.1...v1.5.2) (2020-10-31)
+
+
+### Bug Fixes
+
+* 🐛 template epression includes multiple on ([ac3f7b4](https://github.com/actionsflow/actionsflow/commit/ac3f7b49bbb505f08c3d1dfb0782947b0f78bd76))
+
 ## [1.5.1](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.5.1...v1.5.1) (2020-10-31)
 
 
