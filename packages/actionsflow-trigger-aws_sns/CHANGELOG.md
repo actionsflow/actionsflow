@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.1](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.3.0...@actionsflow/trigger-aws_sns@1.3.1) (2020-10-31)
+
+**Note:** Version bump only for package @actionsflow/trigger-aws_sns
+
+
+
+
+
 # [1.3.0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.3.0-alpha.0...@actionsflow/trigger-aws_sns@1.3.0) (2020-10-28)
 
 **Note:** Version bump only for package @actionsflow/trigger-aws_sns

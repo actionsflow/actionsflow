@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.3.1...v1.4.1) (2020-10-31)
+
+
+### Bug Fixes
+
+* 🐛 expression regex issue ([66f17fc](https://github.com/actionsflow/actionsflow/commit/66f17fc34f3c1e1fead58ec3d38388aa43dd166e))
+
 # [1.4.0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.3.0...v1.4.0) (2020-10-28)
 
 # [1.4.0-0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.3.0-alpha.0...v1.4.0-0) (2020-10-28)

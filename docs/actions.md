@@ -34,6 +34,7 @@ For now, the following triggers are available:
 - [Slack notification Action](https://github.com/marketplace/actions/github-action-for-slack) - Send a Slack notification. Simple as that.
 - [Send Email](https://github.com/marketplace/actions/send-email) - Send an email to multiple recipients.
 - [Telegram Message Notify](https://github.com/marketplace/actions/telegram-message-notify) - Send a Telegram notification message.
+- [Translation Action](https://github.com/marketplace/actions/translation-action) - Translates any text to any language supported by chosen provider
 - [Twilio SMS](https://github.com/marketplace/actions/twilio-sms) - Send an SMS from Github Actions.
 - [Twitter | Send Tweet](https://github.com/marketplace/actions/send-tweet-action) - Send a tweet.
 - [Wechat Work Robot Messages](https://github.com/marketplace/actions/wechat-work-robot-messages) - Send Wechat Work robot messages.
