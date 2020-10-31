@@ -9,6 +9,47 @@ import {
   getTriggerId,
   getTriggerConstructorParams,
 } from "actionsflow-core";
+test("run trigger sortScript", async () => {
+  const result = await run({
+    trigger: {
+      name: "rss",
+      options: {
+        url: "https://hnrss.org/newest?points=300",
+        config: {
+          force: true,
+          sortScript: `
+            return -1
+          `,
+        },
+      },
+      class: resolveTrigger("rss"),
+    },
+
+    workflow: (await getWorkflow({
+      path: path.resolve(__dirname, "./fixtures/workflows/test1.yml"),
+      cwd: path.resolve(__dirname, "./fixtures"),
+      context: getContext(),
+    })) as IWorkflow,
+    event: {
+      type: "schedule",
+    },
+  });
+  const triggerId = getTriggerId({
+    name: "rss",
+    workflowRelativePath: "test1.yml",
+  });
+  const triggerCacheManager = getCache(
+    `trigger-cache-manager-rss-${triggerId}`
+  );
+  expect(result.items.length).toBe(2);
+  expect(result.items[0].title).toBe("test2");
+
+  // clear cache
+  await triggerCacheManager.reset();
+  if (result.helpers && result.helpers.cache) {
+    await result.helpers.cache.reset();
+  }
+});
 test("run trigger", async () => {
   const triggerConstructorParams1 = await getTriggerConstructorParams({
     name: "rss",
@@ -24,6 +65,11 @@ test("run trigger", async () => {
         url: "https://hnrss.org/newest?points=300",
         config: {
           force: true,
+          filterScript: `
+            if(item.title==='test'){
+              return true
+            }
+          `,
         },
       },
       class: resolveTrigger("rss"),
@@ -47,7 +93,7 @@ test("run trigger", async () => {
   );
   const firstRunAt = await triggerCacheManager.get("firstRunAt");
   expect(Number(firstRunAt) > 0).toBe(true);
-  expect(result.items.length).toBe(2);
+  expect(result.items.length).toBe(1);
 
   const triggerConstructorParams = await getTriggerConstructorParams({
     name: "rss",

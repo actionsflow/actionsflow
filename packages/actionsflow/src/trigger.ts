@@ -76,6 +76,8 @@ export const run = async ({
         skipFirst,
         force,
         logLevel,
+        filterScript,
+        sortScript,
       } = triggerGeneralOptions;
       if (logLevel) {
         log.setLevel(logLevel);
@@ -183,12 +185,50 @@ export const run = async ({
             if (filter) {
               cursor = filterFn(items, filter);
             }
+            // filterScript
+
+            if (filterScript) {
+              items = items.filter((item, index) => {
+                try {
+                  const filterResult = getStringFunctionResult(filterScript, {
+                    item,
+                    index,
+                    items,
+                  }) as Record<string, unknown>;
+                  return filterResult;
+                } catch (error) {
+                  throw new Error(
+                    `An error occurred in the ${workflow.relativePath} [${
+                      trigger.name
+                    }] filterScript function: ${error.toString()}`
+                  );
+                }
+              });
+            }
 
             if (sort) {
               if (!cursor) {
                 cursor = filterFn(items, {});
               }
               cursor = cursor.sort(sort);
+            }
+            if (sortScript) {
+              items = items.sort((a, b) => {
+                try {
+                  const sortResult = getStringFunctionResult(sortScript, {
+                    a,
+                    b,
+                    items,
+                  }) as number;
+                  return sortResult;
+                } catch (error) {
+                  throw new Error(
+                    `An error occurred in the ${workflow.relativePath} [${
+                      trigger.name
+                    }] sortScript function: ${error.toString()}`
+                  );
+                }
+              });
             }
             if (cursor) {
               items = cursor.all();

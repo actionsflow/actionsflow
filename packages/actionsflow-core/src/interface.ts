@@ -68,11 +68,13 @@ export interface ITriggerGeneralConfigOptions {
   buildOutputsOnError?: boolean;
   skipOnError?: boolean;
   filter?: AnyObject;
+  filterScript?: string;
   filterOutputs?: AnyObject;
   format?: string;
   skip?: number;
   limit?: number;
   sort?: AnyObject;
+  sortScript?: string;
   outputsMode?: OutputsMode;
   resultsPerWorkflow?: number;
 }
