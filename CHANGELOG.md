@@ -1,3 +1,10 @@
+## [1.4.2](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.3.2...v1.4.2) (2020-10-31)
+
+
+### Bug Fixes
+
+* 🐛 template example bug ([4b9aabb](https://github.com/actionsflow/actionsflow/commit/4b9aabb5c1864ecf158c280e19ae2ea8828ddf7a))
+
 ## [1.4.1](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.3.1...v1.4.1) (2020-10-31)
 
 
