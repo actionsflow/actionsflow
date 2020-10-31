@@ -1,6 +1,5 @@
 import {
   template,
-  getTemplateStringByParentName,
   getStringFunctionResult,
   getExpressionResult,
   isPromise,
@@ -115,51 +114,6 @@ test("getStringFunction object", () => {
   ).toEqual({
     id: "messageid",
   });
-});
-test("getTemplateStringByParentName simple", () => {
-  expect(
-    getTemplateStringByParentName(
-      "test ${{on.test.event}} true ${{github.event_type}}",
-      "on",
-      {
-        on: {
-          test: `(fromJson(env.test))`,
-        },
-      }
-    )
-  ).toBe("test ${{(fromJson(env.test)).event}} true ${{github.event_type}}");
-});
-
-test("getTemplateStringByParentName simple2", () => {
-  expect(
-    getTemplateStringByParentName(
-      "$xxx test ${{ true && on.test.event && true}} 999 ${{ true && on.test.event && true}} true ${{github.event_type}} false$",
-      "on",
-      {
-        on: {
-          test: `(fromJson(env.test))`,
-        },
-      }
-    )
-  ).toBe(
-    "$xxx test ${{ true && (fromJson(env.test)).event && true}} 999 ${{ true && (fromJson(env.test)).event && true}} true ${{github.event_type}} false$"
-  );
-});
-
-test("getTemplateStringByParentName simple3", () => {
-  expect(
-    getTemplateStringByParentName(
-      "$xxx test ${{ true && on['test'].event && true}} 999 ${{ true && on.test.event && true}} true ${{github.event_type}} false$",
-      "on",
-      {
-        on: {
-          test: `(fromJson(env.test))`,
-        },
-      }
-    )
-  ).toBe(
-    "$xxx test ${{ true && (fromJson(env.test)).event && true}} 999 ${{ true && (fromJson(env.test)).event && true}} true ${{github.event_type}} false$"
-  );
 });
 
 test("template string", () => {

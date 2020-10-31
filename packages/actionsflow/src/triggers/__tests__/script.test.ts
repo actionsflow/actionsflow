@@ -200,6 +200,7 @@ test("script trigger with github token", async () => {
     // skip github test
     return;
   }
+
   const script = new Script(
     await getTriggerConstructorParams({
       options: {

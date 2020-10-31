@@ -19,12 +19,7 @@ interface IVariableHandleOptions {
  * @param {*} text
  * @param {*} name
  * @example
- * getAstsByParentName('test ${{on.test.outputs.test}}',{
- *  on:{
- *    test: "xxxxx"
- *  }
- * })
- *
+ * getAstsByParentName('test ${{on.test.outputs.test}}',"on")
  * @return [
  * {
  *   type:"text",
@@ -48,7 +43,9 @@ export const getAstsByParentName = (
 
   const interpolate = /(\$\{\{)([\S\s]*?)(\}\})/g;
   // use for on.xxxx on['xxx'] expression
-  const specificExpressionRegexString = `(${name}([.\\[](.+?))\\]?)[.\\[]`;
+  const specificExpressionRegexString = `(\\(|\\s|^)(${name}([.\\[](.+?))\\]?)[.\\[]`;
+  // const specificExpressionRegexString = `(${name}([.\\[](.+?))\\]?)[.\\[]`;
+
   const specificExpressionTestRegex = new RegExp(specificExpressionRegexString);
   const specificExpressionRegex = new RegExp(
     specificExpressionRegexString,
@@ -93,6 +90,7 @@ export const getAstsByParentName = (
       const rawFullExpressionText = interpolateMatchResult[2] || "";
       if (specificExpressionRegex && rawFullExpressionText) {
         // is expression include "on",
+
         const isIncludeSpecificExpressionSyntax = specificExpressionTestRegex.test(
           rawFullExpressionText
         );
@@ -115,11 +113,13 @@ export const getAstsByParentName = (
                 start: currentEnd,
                 end:
                   (firstSpecificExpressionMatchResult.index as number) +
+                  (firstSpecificExpressionMatchResult[1].length as number) +
                   currentEnd,
                 type: "text",
               });
               currentEnd =
                 (firstSpecificExpressionMatchResult.index as number) +
+                (firstSpecificExpressionMatchResult[1].length as number) +
                 currentEnd;
             }
 
@@ -128,10 +128,10 @@ export const getAstsByParentName = (
                 // matched item end index
                 asts.push({
                   start: currentEnd,
-                  end: specificExpressionResult[1].length + currentEnd,
+                  end: specificExpressionResult[2].length + currentEnd,
                   type: "expression",
                 });
-                currentEnd = specificExpressionResult[1].length + currentEnd;
+                currentEnd = specificExpressionResult[2].length + currentEnd;
 
                 // add specificEnd to next start
                 const nextSpecificExpressionStartIndex = specificExpressionResults[
