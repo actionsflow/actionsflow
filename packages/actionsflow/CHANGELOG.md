@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.1](https://github.com/actionsflow/actionsflow/compare/actionsflow@1.5.0...actionsflow@1.5.1) (2020-10-31)
+
+
+### Bug Fixes
+
+* 🐛 sort function at nodejs 10 ([11f5d5a](https://github.com/actionsflow/actionsflow/commit/11f5d5a1209071ac41cb7b3075210d6346454d31))
+* 🐛 sortScript return ([8f5df52](https://github.com/actionsflow/actionsflow/commit/8f5df52abddecab928e16306a06d130c29ff87c4))
+
+
+
+
+
 # [1.5.0](https://github.com/actionsflow/actionsflow/compare/actionsflow@1.4.2...actionsflow@1.5.0) (2020-10-31)
 
 
