@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.4.0...v1.5.0) (2020-10-31)
+
+
+### Features
+
+* 🎸 support config filterScript, sortScript ([b2999ea](https://github.com/actionsflow/actionsflow/commit/b2999eabff84182fb7b1d984dcdf304a9a749b1e))
+
 ## [1.4.2](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.3.2...v1.4.2) (2020-10-31)
 
 
