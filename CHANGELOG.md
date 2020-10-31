@@ -1,3 +1,25 @@
+## [1.5.2](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.4.1...v1.5.2) (2020-10-31)
+
+
+### Bug Fixes
+
+* 🐛 template epression includes multiple on ([ac3f7b4](https://github.com/actionsflow/actionsflow/commit/ac3f7b49bbb505f08c3d1dfb0782947b0f78bd76))
+
+## [1.5.1](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.5.1...v1.5.1) (2020-10-31)
+
+
+### Bug Fixes
+
+* 🐛 sort function at nodejs 10 ([11f5d5a](https://github.com/actionsflow/actionsflow/commit/11f5d5a1209071ac41cb7b3075210d6346454d31))
+* 🐛 sortScript return ([8f5df52](https://github.com/actionsflow/actionsflow/commit/8f5df52abddecab928e16306a06d130c29ff87c4))
+
+# [1.5.0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.4.0...v1.5.0) (2020-10-31)
+
+
+### Features
+
+* 🎸 support config filterScript, sortScript ([b2999ea](https://github.com/actionsflow/actionsflow/commit/b2999eabff84182fb7b1d984dcdf304a9a749b1e))
+
 ## [1.4.2](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.3.2...v1.4.2) (2020-10-31)
 
 

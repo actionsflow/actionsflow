@@ -174,6 +174,21 @@ The resulting `outputs` when the trigger runs will include `date`, `subject` key
 
 To learn more about MongoDB query projection syntax, please see [`MongoDB query language projection syntax`](https://docs.mongodb.com/manual/reference/method/db.collection.find/index.html#find-projection) and [`mingo`](https://github.com/kofrasa/mingo).
 
+## `on.<trigger>.config.filterScript`
+
+Optional, `string`, javascript code, like [Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter), you need to return `true` to keep the item. You can use `item`, `index`, `items` variable. `filterScript` will be called after `filter`. This For example:
+
+```yaml
+on:
+  poll:
+    url: https://jsonplaceholder.typicode.com/posts
+    config:
+      filterScript: |
+        if(item.title.includes('accusamus')){
+          return true
+        }
+```
+
 ## `on.<trigger>.config.format`
 
 Optional, `js function code`. You can use `format` to filter results fields of the trigger's outputs as you need. `format` will be called after `filterOutputs`. You can use `format` like this:
@@ -253,7 +268,18 @@ on:
         id: -1
 ```
 
-To learn more about MongoDB query sort syntax, please see [`MongoDB query language sort syntax`](https://docs.mongodb.com/manual/reference/method/cursor.sort/index.html) and [`mingo`](https://github.com/kofrasa/mingo).
+## `on.<trigger>.config.sortScript`
+
+Optional, `string`, javascript code, like [Array.prototype.sort()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort), you need to return `number` like `-1`, `0`, `1` to sort items. You can use `a`, `b`, `items` variable. `sortScript` will be called after `sort`. This For example:
+
+```yaml
+on:
+  poll:
+    url: https://jsonplaceholder.typicode.com/posts
+    config:
+      sortScript: |
+        return a.id-b.id
+```
 
 ## `on.<trigger>.config.limit`
 
