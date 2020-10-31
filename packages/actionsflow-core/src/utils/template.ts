@@ -104,7 +104,6 @@ export const getAstsByParentName = (
             specificExpressionRegex
           );
           const specificExpressionResults = [...specificExpressRawResults];
-
           if (specificExpressionResults.length > 0) {
             // check especially syntax string
             const firstSpecificExpressionMatchResult =
@@ -144,6 +143,7 @@ export const getAstsByParentName = (
                   index + 1
                 ]
                   ? (specificExpressionResults[index + 1].index as number) +
+                    specificExpressionResults[index + 1][1].length +
                     fullExpressionStartIndex
                   : rawFullExpressionText.length + fullExpressionStartIndex;
 

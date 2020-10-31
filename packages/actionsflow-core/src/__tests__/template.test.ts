@@ -85,6 +85,21 @@ test("getTemplateStringByParentName god simple8", () => {
     )
   ).toBe('${{ true && toJSON((fromJson(env.test))["outputs"]) && true }}');
 });
+test("getTemplateStringByParentName 9", () => {
+  expect(
+    getTemplateStringByParentName(
+      '${{on.test.outputs.yes && true && toJSON(on["test"]["outputs"]) && true && on.test.outputs.test && on["test"]["outputs"]["test"] && true && toJSON(on["test"]["outputs"]) }}',
+      "on",
+      {
+        on: {
+          test: `(fromJson(env.test))`,
+        },
+      }
+    )
+  ).toBe(
+    '${{(fromJson(env.test)).outputs.yes && true && toJSON((fromJson(env.test))["outputs"]) && true && (fromJson(env.test)).outputs.test && (fromJson(env.test))["outputs"]["test"] && true && toJSON((fromJson(env.test))["outputs"]) }}'
+  );
+});
 test("getTemplateStringByParentName simple", () => {
   expect(
     getTemplateStringByParentName(
