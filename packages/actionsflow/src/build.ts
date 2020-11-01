@@ -71,9 +71,10 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
   });
   const { cwd, dest, include, exclude, force } = options;
   const destPath = path.resolve(cwd as string, dest as string);
+  const workflowDestRelativePath = path.relative(cwd as string, destPath);
   // clean the dest folder
   await del([destPath]);
-  log.info("Clean the dest folder...");
+  log.info(`Clean the dest folder ${workflowDestRelativePath}`);
   const context = getContext({
     JSON_SECRETS: options.jsonSecrets || "",
     JSON_GITHUB: options.jsonGithub || "",

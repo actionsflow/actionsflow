@@ -14,7 +14,7 @@
   "license": "0BSD",
   "scripts": {
     "build": "actionsflow build",
-    "start": "actionsflow start -i rss.yml --verbose",
+    "start": "actionsflow start -i rss.yml -i webhook.yml",
     "clean": "actionsflow clean",
     "act": "act --workflows ./dist/workflows --secret-file ./dist/.secrets --eventpath ./dist/event.json --env-file ./dist/.env -P ubuntu-latest=actionsflow/act-environment:v1 -P ubuntu-18.04=actionsflow/act-environment:v1",
     "test": "echo \"Error: no test specified\" && exit 1"

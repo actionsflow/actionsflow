@@ -216,7 +216,8 @@ export interface IBuildOptions {
 }
 export interface IStartOptions extends IBuildOptions {
   port?: number;
+  interval?: number;
 }
-export interface IStartCronOptions extends IBuildOptions {
-  cron?: string;
+export interface ICronJob {
+  stop: () => void;
 }

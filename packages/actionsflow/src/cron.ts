@@ -1,16 +1,18 @@
 import { CronJob } from "cron";
-import { log, IStartCronOptions } from "actionsflow-core";
-import build from "./build";
-import { run as runAct } from "./act";
-export const start = async (options: IStartCronOptions): Promise<void> => {
+import { log, IStartOptions, ICronJob } from "actionsflow-core";
+import runJob from "./run-workflows";
+export const start = (options: IStartOptions): ICronJob => {
   log.info("start cron tasks");
+  log.debug("start options", options);
+  const interval = options.interval || 5;
   const job = new CronJob(
-    "*/5 * * * *",
-    async function () {
-      await build(options);
-      await runAct();
-      // clean dist
-      log.info("tick done");
+    `*/${interval} * * * *`,
+    function (onComplete: () => void): void {
+      (async () => {
+        await runJob(options);
+      })().then(() => {
+        onComplete();
+      });
     },
     function () {
       log.info("cron complete");
@@ -21,4 +23,5 @@ export const start = async (options: IStartCronOptions): Promise<void> => {
     true
   );
   job.start();
+  return job;
 };

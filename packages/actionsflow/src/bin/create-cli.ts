@@ -44,12 +44,17 @@ export const buildCommandBuilder = (_: yargs.Argv): yargs.Argv =>
       default: "",
     });
 export const startCommandBuilder = (_: yargs.Argv): yargs.Argv =>
-  _.option(`dest`, {
-    alias: "d",
-    type: `string`,
-    describe: `workflows build dest path`,
-    default: "./dist",
+  _.option(`interval`, {
+    type: `number`,
+    describe: `Run cronjob interval`,
+    default: 5,
   })
+    .option(`dest`, {
+      alias: "d",
+      type: `string`,
+      describe: `workflows build dest path, the default value is ./dist/.cron/$\{timestamp\}`,
+      default: undefined,
+    })
     .option(`cwd`, {
       type: `string`,
       describe: `current workspace path`,

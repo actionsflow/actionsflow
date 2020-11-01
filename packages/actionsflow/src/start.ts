@@ -1,11 +1,13 @@
-import { log, Log, IStartOptions } from "actionsflow-core";
+import { log, Log, IStartOptions, ICronJob } from "actionsflow-core";
 import { start as startServer } from "./server";
 import { start as startCron } from "./cron";
 let processExistCode = 0;
-
+let cronJob: ICronJob;
 export async function stop(): Promise<void> {
   log.info(`\nStopping actionflow...`);
-
+  if (cronJob) {
+    cronJob.stop();
+  }
   setTimeout(() => {
     // In case that something goes wrong with shutdown we
     // kill after max. 30 seconds no matter what
@@ -30,8 +32,8 @@ export async function start(options: IStartOptions): Promise<void> {
   // Wrap that the process does not close but we can still use async
   (async () => {
     try {
-      await startServer();
-      await startCron(options);
+      await startServer(options);
+      cronJob = startCron(options);
     } catch (error) {
       log.error(`There was an error: ${error.message}`);
 
