@@ -20,10 +20,10 @@ export const start = async (options: IStartOptions): Promise<void> => {
   // Middlewares
   app.use(bodyParser());
   const router = new Router();
-  router.all("/(.*)", async (ctx) => {
+  router.all("/webhook/(.*)", async (ctx) => {
     const request = {
       method: ctx.method,
-      path: ctx.path + ctx.search,
+      path: ctx.params[0] + ctx.search,
       headers: ctx.headers,
       body: ctx.request.body,
     };
@@ -64,6 +64,7 @@ export const start = async (options: IStartOptions): Promise<void> => {
   app.use(router.routes()).use(router.allowedMethods());
   const port = options.port || 3000;
   app.listen(port, () => {
-    log.info(`start server at http://localhost:${port}`);
+    log.info(`Start server at http://localhost:${port}`);
+    log.info(`Listen webhook endpoint at http://localhost:${port}/webhook/`);
   });
 };

@@ -29,6 +29,7 @@ export async function start(options: IStartOptions): Promise<void> {
   if (logLevel) {
     log.setLevel(logLevel);
   }
+  log.debug("start options: ", options);
   // Wrap that the process does not close but we can still use async
   (async () => {
     try {
