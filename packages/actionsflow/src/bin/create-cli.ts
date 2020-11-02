@@ -53,7 +53,7 @@ export const startCommandBuilder = (_: yargs.Argv): yargs.Argv =>
       alias: "d",
       type: `string`,
       describe: `workflows build dest path, the default value is ./dist/.cron/$\{timestamp\}`,
-      default: undefined,
+      default: "",
     })
     .option(`cwd`, {
       type: `string`,

@@ -5,7 +5,11 @@ export {
   getExpressionResult,
   getStringFunctionResult,
 } from "./template";
-export { getThirdPartyTrigger, getLocalTrigger } from "./resolve-trigger";
+export {
+  getThirdPartyTrigger,
+  getGlobalThirdPartyTrigger,
+  getLocalTrigger,
+} from "./resolve-trigger";
 export {
   getParamsByWebhookPath,
   getWorkflowFileNameByPath,
