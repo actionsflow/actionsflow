@@ -1,3 +1,5 @@
+## [1.5.4](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.4.3...v1.5.4) (2020-11-02)
+
 ## [1.5.3](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.4.2...v1.5.3) (2020-11-02)
 
 
