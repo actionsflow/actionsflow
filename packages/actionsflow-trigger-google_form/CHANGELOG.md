@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.2](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-google_form@1.4.1...@actionsflow/trigger-google_form@1.4.2) (2020-11-02)
+
+**Note:** Version bump only for package @actionsflow/trigger-google_form
+
+
+
+
+
 ## [1.4.1](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-google_form@1.4.0...@actionsflow/trigger-google_form@1.4.1) (2020-10-31)
 
 **Note:** Version bump only for package @actionsflow/trigger-google_form
