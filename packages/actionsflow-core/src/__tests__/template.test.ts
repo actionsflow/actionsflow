@@ -1,4 +1,4 @@
-import { getTemplateStringByParentName } from "../utils/template";
+import { getTemplateStringByParentName, template } from "../utils/template";
 test("getTemplateStringByParentName god simple", () => {
   expect(
     getTemplateStringByParentName("${{on.test.event}}", "on", {
@@ -174,4 +174,84 @@ test("getTemplateStringByParentName simple3", () => {
   ).toBe(
     "$xxx test ${{ true && (fromJson(env.test)).event && true}} 999 ${{ true && (fromJson(env.test)).event && true}} true ${{github.event_type}} false$"
   );
+});
+
+test("template string", () => {
+  expect(
+    template("test ${{on.test.event}}", {
+      on: {
+        test: {
+          event: "new_item",
+        },
+      },
+    })
+  ).toBe("test new_item");
+});
+
+test("template string 2", () => {
+  expect(
+    template("test ${{ true && on.test.event}}", {
+      on: {
+        test: {
+          event: "new_item",
+        },
+      },
+    })
+  ).toBe("test new_item");
+});
+
+test("template if condition string", () => {
+  expect(
+    template(
+      "${{on.test.outcome ===  'success'}}",
+      {
+        on: {
+          test: {
+            outcome: "success",
+          },
+        },
+      },
+      {}
+    )
+  ).toBe("true");
+});
+
+test("test ${{secrets.test}} test2", () => {
+  expect(
+    template(
+      "test ${{secrets.test}} test2",
+      {
+        secrets: {
+          test: "test3",
+        },
+      },
+      {}
+    )
+  ).toBe("test test3 test2");
+});
+
+test("multiple line template string", () => {
+  const result = template(
+    "test\n${{secrets.test}} test2",
+    {
+      secrets: {
+        test: "test3",
+      },
+    },
+    {}
+  );
+  expect(result).toBe("test\ntest3 test2");
+});
+
+test("multiple line template with multipel expression string", () => {
+  const result = template(
+    "test\n${{secrets.test}} test2 ${{secrets.test }} ${{ secrets.test }} ${{ secrets.test}}test ",
+    {
+      secrets: {
+        test: "test3",
+      },
+    },
+    {}
+  );
+  expect(result).toBe("test\ntest3 test2 test3 test3 test3test ");
 });

@@ -304,8 +304,16 @@ export const template = function (
   }
 
   evaluate.push(stringify(text.slice(i)));
+
   // Function is needed to opt out from possible "use strict" directive
-  return Function("with(this)return " + evaluate.join("+")).call(context);
+  const functionString = evaluate
+    .map((item) => {
+      return `result += ${item};`;
+    })
+    .join("\n");
+  const finalFunctionString = `with(this) {var result="";${functionString};return result;}`;
+
+  return Function(finalFunctionString).call(context);
 };
 
 export const getTemplateStringByParentName = (
