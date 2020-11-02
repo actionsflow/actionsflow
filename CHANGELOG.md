@@ -1,3 +1,10 @@
+## [1.5.3](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.4.2...v1.5.3) (2020-11-02)
+
+
+### Bug Fixes
+
+* 🐛 multiple line template expression issue ([c6e45db](https://github.com/actionsflow/actionsflow/commit/c6e45db0f54cdebba4239b9d1bb50c4114f9bece))
+
 ## [1.5.2](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.4.1...v1.5.2) (2020-10-31)
 
 
