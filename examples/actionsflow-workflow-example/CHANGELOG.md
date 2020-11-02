@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0-alpha.0](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.5.4...actionsflow-workflow-example@1.6.0-alpha.0) (2020-11-02)
+
+
+### Features
+
+* init docker ([2b95d2b](https://github.com/actionsflow/actionsflow/commit/2b95d2beac8be5c6741dcee2a3f92d1c3646a39b))
+* support webhook ([fb83b83](https://github.com/actionsflow/actionsflow/commit/fb83b83b95049f65cab929495ebcd67187e6685d))
+
+
+
+
+
 ## [1.5.4](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.5.3...actionsflow-workflow-example@1.5.4) (2020-11-02)
 
 **Note:** Version bump only for package actionsflow-workflow-example

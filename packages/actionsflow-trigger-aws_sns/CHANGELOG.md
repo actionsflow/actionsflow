@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0-alpha.0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.4.3...@actionsflow/trigger-aws_sns@1.5.0-alpha.0) (2020-11-02)
+
+
+### Features
+
+* support webhook ([fb83b83](https://github.com/actionsflow/actionsflow/commit/fb83b83b95049f65cab929495ebcd67187e6685d))
+
+
+
+
+
 ## [1.4.3](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.4.2...@actionsflow/trigger-aws_sns@1.4.3) (2020-11-02)
 
 **Note:** Version bump only for package @actionsflow/trigger-aws_sns
