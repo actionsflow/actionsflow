@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.3](https://github.com/actionsflow/actionsflow/compare/actionsflow-core@1.4.2...actionsflow-core@1.4.3) (2020-11-02)
+
+**Note:** Version bump only for package actionsflow-core
+
+
+
+
+
+## [1.4.2](https://github.com/actionsflow/actionsflow/compare/actionsflow-core@1.4.1...actionsflow-core@1.4.2) (2020-11-02)
+
+
+### Bug Fixes
+
+* 🐛 multiple line template expression issue ([c6e45db](https://github.com/actionsflow/actionsflow/commit/c6e45db0f54cdebba4239b9d1bb50c4114f9bece))
+
+
+
+
+
 ## [1.4.1](https://github.com/actionsflow/actionsflow/compare/actionsflow-core@1.4.0...actionsflow-core@1.4.1) (2020-10-31)
 
 

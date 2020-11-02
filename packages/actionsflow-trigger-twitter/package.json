@@ -1,6 +1,6 @@
 {
   "name": "@actionsflow/trigger-twitter",
-  "version": "1.4.1",
+  "version": "1.4.3",
   "description": "Actionsflow trigger twitter",
   "keywords": [
     "twitter",
@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@types/twit": "^2.2.28",
-    "actionsflow-core": "^1.4.1",
+    "actionsflow-core": "^1.4.3",
     "tslib": "^2.0.3",
     "twit": "^2.2.11"
   },

@@ -1,5 +1,4 @@
 import {
-  template,
   getStringFunctionResult,
   getExpressionResult,
   isPromise,
@@ -114,46 +113,6 @@ test("getStringFunction object", () => {
   ).toEqual({
     id: "messageid",
   });
-});
-
-test("template string", () => {
-  expect(
-    template("test ${{on.test.event}}", {
-      on: {
-        test: {
-          event: "new_item",
-        },
-      },
-    })
-  ).toBe("test new_item");
-});
-
-test("template string 2", () => {
-  expect(
-    template("test ${{ true && on.test.event}}", {
-      on: {
-        test: {
-          event: "new_item",
-        },
-      },
-    })
-  ).toBe("test new_item");
-});
-
-test("template if condition string", () => {
-  expect(
-    template(
-      "${{on.test.outcome ===  'success'}}",
-      {
-        on: {
-          test: {
-            outcome: "success",
-          },
-        },
-      },
-      {}
-    )
-  ).toBe("true");
 });
 
 test("get raw trigger", () => {
