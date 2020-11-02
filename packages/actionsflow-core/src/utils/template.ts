@@ -322,14 +322,17 @@ export const getTemplateStringByParentName = (
   context: AnyObject
 ): string => {
   const asts = getAstsByParentName(text, parentName);
-  let finalResults = "";
-  asts.forEach((ast) => {
-    const string = text.slice(ast.start, ast.end);
-    if (ast.type === "expression") {
-      finalResults = finalResults + getExpressionResult(string, context);
-    } else {
-      finalResults = finalResults + string;
-    }
-  });
-  return finalResults;
+  const functionString = asts
+    .map((ast) => {
+      const string = text.slice(ast.start, ast.end);
+      if (ast.type === "expression") {
+        return `result += (${string});`;
+      } else {
+        return `result += ${JSON.stringify(string)};`;
+      }
+    })
+    .join("\n");
+  const finalFunctionString = `with(this) {var result="";${functionString};return result;}`;
+
+  return Function(finalFunctionString).call(context);
 };
