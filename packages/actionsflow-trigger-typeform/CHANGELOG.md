@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-typeform@1.4.3...@actionsflow/trigger-typeform@1.5.0) (2020-11-03)
+
+
+### Features
+
+* 🎸 support start actionsflow at local, docker ([d2699b7](https://github.com/actionsflow/actionsflow/commit/d2699b7b9251f6b2ce36ce0300079d62f29bed8f))
+
+
+
+
+
 # [1.5.0-alpha.0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-typeform@1.4.3...@actionsflow/trigger-typeform@1.5.0-alpha.0) (2020-11-02)
 
 **Note:** Version bump only for package @actionsflow/trigger-typeform
