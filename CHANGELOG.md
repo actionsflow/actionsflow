@@ -1,3 +1,10 @@
+## [1.6.2](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.6.2...v1.6.2) (2020-11-03)
+
+
+### Bug Fixes
+
+* 🐛 the default port is 3000 ([5df3e52](https://github.com/actionsflow/actionsflow/commit/5df3e521336bbc581c1237400c18f217220621ae))
+
 ## [1.6.1](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.5.1...v1.6.1) (2020-11-03)
 
 
