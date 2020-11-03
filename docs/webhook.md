@@ -13,9 +13,11 @@ Generally, a webhook URL will look like this:
 https://webhook.actionsflow.workers.dev/<owner>/<repo>/<workflow-file-name>/<trigger-name>?__token=<your-github-personal-token>
 ```
 
-Note: You need to generate personal access tokens with `repo` scope on your [Github settings](https://github.com/settings/tokens) and then replace `<your-github-personal-token>`.
+> Note: For self-hosted version, the webhook URL will look like this: `http://localhost:3000/webhook/<workflow-file-name>/<trigger-name>`
 
-You can try it out using [Github's `create-a-repository-dispatch-event` API](https://docs.github.com/en/rest/reference/repos#create-a-repository-dispatch-event). You will get a status: `200`, body: `{"success":true}` response if it's successful.
+> Note: You need to generate personal access tokens with `repo` scope on your [Github settings](https://github.com/settings/tokens) and then replace `<your-github-personal-token>`.
+
+If it's successful, you will get a status: `200`, body: `{"success":true}` response.
 
 Of course, you can use search params `__response_code`, `__response_content_type`, `__response_body` to specify a custom response.
 
