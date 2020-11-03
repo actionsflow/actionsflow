@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.5.0...v1.6.0) (2020-11-03)
+
+
+### Features
+
+* 🎸 support start actionsflow at local, docker ([d2699b7](https://github.com/actionsflow/actionsflow/commit/d2699b7b9251f6b2ce36ce0300079d62f29bed8f))
+
 # [1.6.0-0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.5.0-alpha.0...v1.6.0-0) (2020-11-02)
 
 
