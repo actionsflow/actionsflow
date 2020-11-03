@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.1](https://github.com/actionsflow/actionsflow/compare/actionsflow-core@1.5.0...actionsflow-core@1.5.1) (2020-11-03)
+
+
+### Features
+
+* 🎸 support .secrets file ([aa7f680](https://github.com/actionsflow/actionsflow/commit/aa7f6802759576f5ba71a8695fd269ce60697267))
+
+
+
+
+
 # [1.5.0](https://github.com/actionsflow/actionsflow/compare/actionsflow-core@1.4.3...actionsflow-core@1.5.0) (2020-11-03)
 
 
