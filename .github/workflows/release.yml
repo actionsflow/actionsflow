@@ -84,6 +84,16 @@ jobs:
             {
               "event_type": "new_version_with_actionsflow"
             }
+      - name: Trigger actionsflow Update
+        if: steps.is-release.outputs.result == 'true'
+        uses: actionsflow/axios@v1
+        with:
+          url: https://theowenyoung:${{secrets.REPO_TOKEN}}@api.github.com/repos/actionsflow/actionsflow/dispatches
+          method: POST
+          data: |
+            {
+              "event_type": "new_version_with_actionsflow"
+            }
       - name: Trigger actionsflow-workflow-default Update
         if: steps.is-release.outputs.result == 'true'
         uses: actionsflow/axios@v1
