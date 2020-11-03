@@ -49,6 +49,11 @@ export const startCommandBuilder = (_: yargs.Argv): yargs.Argv =>
     describe: `Run cronjob interval`,
     default: 5,
   })
+    .option(`port`, {
+      type: `number`,
+      describe: `Port to use`,
+      default: 5,
+    })
     .option(`dest`, {
       alias: "d",
       type: `string`,

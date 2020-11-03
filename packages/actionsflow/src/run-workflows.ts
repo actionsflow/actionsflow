@@ -17,9 +17,14 @@ export default async function runWorkflows(
   log.debug(`end to build Actionsflow workflows`);
 
   log.debug(`start to run act, ${new Date()}`);
-  await runAct({
+  const actParams: { src: string; argv: string[] } = {
     src: options.dest,
-  });
+    argv: [],
+  };
+  if (options._) {
+    actParams.argv = options._.slice(1) as string[];
+  }
+  await runAct(actParams);
   log.debug(`end to run act, ${new Date()}`);
   log.debug(`start to delete built workflows, ${new Date()}`);
   await del([options.dest]);
