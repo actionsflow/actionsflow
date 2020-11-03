@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.2](https://github.com/actionsflow/actionsflow/compare/actionsflow@1.6.1...actionsflow@1.6.2) (2020-11-03)
+
+
+### Bug Fixes
+
+* 🐛 the default port is 3000 ([5df3e52](https://github.com/actionsflow/actionsflow/commit/5df3e521336bbc581c1237400c18f217220621ae))
+
+
+
+
+
 ## [1.6.1](https://github.com/actionsflow/actionsflow/compare/actionsflow@1.6.0...actionsflow@1.6.1) (2020-11-03)
 
 
