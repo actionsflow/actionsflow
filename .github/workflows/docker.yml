@@ -21,7 +21,7 @@ jobs:
           url: https://raw.githubusercontent.com/actionsflow/setup-act-for-actionsflow/v1/version.json
       - name: Get the act version
         id: actVersion
-        run: echo ::set-output name=version::${{fromJSON(steps.actVersionResult.outptus.data).DEFAULT_VERSION}}
+        run: echo ::set-output name=version::${{fromJSON(steps.actVersionResult.outputs.data).DEFAULT_VERSION}}
       - name: Log in to Docker registry
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Build the Docker image of version
