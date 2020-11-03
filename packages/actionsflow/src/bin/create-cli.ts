@@ -59,7 +59,7 @@ export const startCommandBuilder = (_: yargs.Argv): yargs.Argv =>
       alias: "p",
       type: `number`,
       describe: `Port to use`,
-      default: 5,
+      default: 3000,
     })
     .option(`dest`, {
       alias: "d",
