@@ -1,6 +1,6 @@
 import { CronJob } from "cron";
 import { log, IStartOptions, ICronJob } from "actionsflow-core";
-import runJob from "./run-workflows";
+import runWorkflows from "./run-workflows";
 export const start = (options: IStartOptions): ICronJob => {
   log.info("Start cron tasks");
   const interval = options.interval || 5;
@@ -8,7 +8,7 @@ export const start = (options: IStartOptions): ICronJob => {
     `*/${interval} * * * *`,
     function (onComplete: () => void): void {
       (async () => {
-        await runJob(options);
+        await runWorkflows(options);
       })().then(() => {
         onComplete();
       });

@@ -3,7 +3,7 @@ on:
     run: |
       return [
         {
-          id: 222,
+          id: 6,
           title: "${{ secrets.EMAIL_USER }}test222${{ secrets.XX_TOKEN }}"
         }
       ]

@@ -69,6 +69,7 @@
     "@types/update-notifier": "^4.1.1",
     "@types/xml2js": "^0.4.5",
     "actionsflow-core": "^1.5.0-alpha.0",
+    "chokidar": "^3.4.3",
     "cron": "^1.8.2",
     "del": "^5.1.0",
     "dotenv": "^8.2.0",

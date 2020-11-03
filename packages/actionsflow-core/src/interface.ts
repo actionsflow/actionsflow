@@ -217,6 +217,7 @@ export interface IBuildOptions {
 export interface IStartOptions extends IBuildOptions {
   port?: number;
   interval?: number;
+  watch?: boolean;
   _?: string[];
 }
 export interface ICronJob {

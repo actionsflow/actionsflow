@@ -49,7 +49,14 @@ export const startCommandBuilder = (_: yargs.Argv): yargs.Argv =>
     describe: `Run cronjob interval`,
     default: 5,
   })
+    .option(`watch`, {
+      type: `boolean`,
+      alias: "w",
+      describe: `watch your workflow files change`,
+      default: false,
+    })
     .option(`port`, {
+      alias: "p",
       type: `number`,
       describe: `Port to use`,
       default: 5,

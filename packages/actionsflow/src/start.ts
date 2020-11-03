@@ -1,6 +1,9 @@
 import { log, Log, IStartOptions, ICronJob } from "actionsflow-core";
 import { start as startServer } from "./server";
 import { start as startCron } from "./cron";
+import chokidar from "chokidar";
+import runWorkflows from "./run-workflows";
+import path from "path";
 let processExistCode = 0;
 let cronJob: ICronJob;
 export async function stop(): Promise<void> {
@@ -40,6 +43,40 @@ export async function start(options: IStartOptions): Promise<void> {
 
       processExistCode = 1;
       stop();
+      return;
+    }
+    if (options.watch) {
+      // Initialize watcher.
+      const cwd = options.cwd || process.cwd();
+      const workflowPath = path.resolve(cwd, "workflows");
+      const watchPaths = [workflowPath];
+      const watcher = chokidar.watch(watchPaths, {
+        ignored: /(^|[\/\\])\../, // ignore dotfiles
+        persistent: true,
+        ignoreInitial: true,
+        cwd: cwd,
+      });
+      const onChange = async (filePath: string): Promise<void> => {
+        const absolutePath = path.resolve(cwd, filePath);
+        const relativePath = path.relative(workflowPath, absolutePath);
+        await runWorkflows({
+          ...options,
+          include: [relativePath],
+        });
+      };
+      watcher
+        .on("add", (path) => {
+          log.info(`File ${path} has been added`);
+          onChange(path).catch((e) => {
+            log.error(e);
+          });
+        })
+        .on("change", (path) => {
+          log.info(`File ${path} has been changed`);
+          onChange(path).catch((e) => {
+            log.error(e);
+          });
+        });
     }
   })();
 }
