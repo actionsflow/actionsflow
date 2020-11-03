@@ -10,10 +10,15 @@
 <div align="center">
 
 [![Actionsflow](https://img.shields.io/static/v1?label=&message=actionsflow&color=brightgreen&labelColor=white&style=flat&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjA0OCIgaGVpZ2h0PSIyMDQ4IiB2aWV3Qm94PSIwIDAgMjA0OCAyMDQ4IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxlbGxpcHNlIGN4PSI1NjAuNzUxIiBjeT0iOTE0LjYzIiByeD0iMTUxLjUzNCIgcnk9IjI1Mi41OTkiIGZpbGw9IiNmZmYiLz48ZWxsaXBzZSBjeD0iOTE1LjQxNSIgY3k9IjkxNy4yODkiIHJ4PSIxNTEuNTM0IiByeT0iMjUyLjU5OSIgZmlsbD0iI2ZmZiIvPjxwYXRoIGQ9Ik0tNzM1LjAxNSAxOC4yNDJjMCA0MDYuNjA0IDMyOC40MTEgNzM1LjAxNSA3MzUuMDE1IDczNS4wMTUgNDAzLjQ3NyAwIDczMS44ODgtMzI4LjQxMSA3MzUuMDE2LTczMS44ODgtMy4xMjggMTAwLjA4OC04NC40NDkgMTc4LjI4MS0xODQuNTM2IDE3OC4yODFTMzY1Ljk0NCAxMTguMzI5IDM2NS45NDQgMTUuMTE0di0yMTcuODkxYzAtMzAzLjM5LTI0Ny4wOS01NTAuNDgtNTUwLjQ4LTU1MC40OC0zMDMuMzg5IDAtNTUwLjQ3OSAyNDcuMDktNTUwLjQ3OSA1NTAuNDhWMTguMjQyem0yNzQuOTgtMzIxLjI0M2M2NC40NzcgMCAxMTcuNDExIDUyLjUzNiAxMTcuMDEzIDExNy4wMTN2MTYzLjk3N0MtMzQzLjAyMiA0Mi40NjUtMzk1Ljk1NiA5NS00NjAuMDM1IDk1Yy02NC4wNzggMC0xMTcuMDEzLTUyLjEzOC0xMTcuMDEzLTExNy4wMTJ2LTE2My45NzdjMC02NC40NzcgNTIuNTM3LTExNy4wMTMgMTE3LjAxMy0xMTcuMDEzem0zNDMuMDIgMGM2NC40NzYgMCAxMTcuNDEgNTIuNTM2IDExNy4wMTMgMTE3LjAxM3YxNjMuOTc3Qy0uMDAyIDQyLjQ2NS01Mi45MzcgOTUtMTE3LjAxNSA5NVMtMjM0LjAyOCA0Mi44NjMtMjM0LjAyOC0yMi4wMXYtMTYzLjk3N2MwLTY0LjQ3NyA1Mi41MzctMTE3LjAxMyAxMTcuMDEzLTExNy4wMTN6IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMDI0IDEwMjQpIiBpZD0iZG9jdW1lbnQiLz48ZWxsaXBzZSBjeD0iOTUwLjE2OSIgY3k9IjgzOC4xOTciIHJ4PSIuNjYxIiByeT0iNS40NjUiIGZpbGw9IiNkOGQ4ZDgiLz48L3N2Zz4=)](https://github.com/actionsflow/actionsflow)
+[![npm version](https://img.shields.io/npm/v/actionsflow.svg)](https://npmjs.org/package/actionsflow)
+[![npm](https://img.shields.io/npm/dw/actionsflow)](https://npmjs.org/package/actionsflow)
+[![Docker Pulls](https://img.shields.io/docker/pulls/actionsflow/actionsflow)](https://hub.docker.com/r/actionsflow/actionsflow)
 [![Build](https://github.com/actionsflow/actionsflow/workflows/Test/badge.svg)](https://github.com/actionsflow/actionsflow/actions?query=workflow%3ATest)
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
+[![codecov](https://codecov.io/gh/actionsflow/actionsflow/branch/main/graph/badge.svg?token=XsDPqlOTew)](https://codecov.io/gh/actionsflow/actionsflow)
 [![GitHub Issues](https://img.shields.io/github/issues/actionsflow/actionsflow.svg)](https://github.com/actionsflow/actionsflow/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/actionsflow/actionsflow.svg)](https://github.com/actionsflow/actionsflow/pulls)
+[![GitHub stars](https://img.shields.io/github/stars/actionsflow/actionsflow)](https://github.com/actionsflow/actionsflow/stargazers)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 <br><br>
 <a href="https://www.producthunt.com/posts/actionsflow-automate-workflows?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-actionsflow-automate-workflows" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=269085&theme=light" alt="Actionsflow - Automate Workflows -  IFTTT/Zapier free alternative, based on Github Actions | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
@@ -47,7 +52,7 @@ You can learn more about the core concepts of Actionsflow [here](#-how-actionsfl
 
 ## 🔥 Features
 
-- **Totally Free!** Actionsflow is based on [Github actions](https://docs.github.com/en/actions). To run an Actionsflow workflow, all you need to do is [create a repository from the Actionsflow template repository](https://github.com/actionsflow/actionsflow-workflow-default/generate).
+- **Totally Free!** Actionsflow is based on [Github actions](https://docs.github.com/en/actions). To run an Actionsflow workflow, all you need to do is [create a repository from the Actionsflow template repository](https://github.com/actionsflow/actionsflow-workflow-default/generate), or, you can also [deploy a self-hosted version](https://actionsflow.github.io/docs/self-hosted).
 - **Leverage Community Triggers**. You can use [community-provided triggers](https://actionsflow.github.io/docs/triggers/#triggers-list) like Slack, RSS, Webhook, Typeform, Email, Reddit, NPM, Telegram, Twitter, etc. You can also easily [create your own triggers](https://actionsflow.github.io/docs/creating-triggers/).
 - **Support Almost ALL Actions of [Github Actions](https://github.com/marketplace?type=actions)**. Actionsflow uses [act](https://github.com/nektos/act) (a tool for running GitHub Actions locally) to run the jobs on your workflow file. With [these awesome Github actions](https://actionsflow.github.io/docs/actions/), you can connect with IFTTT, Zapier, or other services like Slack, Telegram, Facebook, Twitter, Line, etc.
 - **Simple Workflow Configuration**. The Actionsflow configuration format is the same as [Github actions](https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow). If you've written a [Github actions file](https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow) before, you'll find defining an Actionsflow workflow file really easy.
@@ -67,6 +72,8 @@ Actionsflow uses [Github Actions](https://docs.github.com/en/actions)' [**`repos
 To learn more about how Actionsflow works, please see [Core Concepts of Actionsflow](https://actionsflow.github.io/docs/concepts/).
 
 ## 🏁 Getting Started
+
+> For self-hosted version please see [here](https://actionsflow.github.io/docs/self-hosted)
 
 1. **Create a public Github repository by using [this link](https://github.com/actionsflow/actionsflow-workflow-default/generate).**
 

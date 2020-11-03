@@ -30,4 +30,4 @@ jobs:
         env:
           CI: true
       - uses: codecov/codecov-action@v1
-        if: matrix.node-version == "12.x" && matrix.os=="ubuntu-latest"
+        if: matrix.node-version=="12.x" && matrix.os=="ubuntu-latest"
