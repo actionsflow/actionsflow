@@ -50,8 +50,9 @@ export interface ITriggerRunContext {
   triggerId: string;
 }
 export interface IContextEnv {
-  JSON_SECRETS: string;
-  JSON_GITHUB: string;
+  JSON_SECRETS?: string;
+  JSON_GITHUB?: string;
+  cwd?: string;
 }
 export type OutputsMode = "separate" | "combine";
 export interface ITriggerGeneralConfigOptions {

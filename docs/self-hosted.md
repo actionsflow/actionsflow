@@ -5,7 +5,9 @@ metaTitle: "Actionsflow Self-Hosted Introduction"
 
 Since Actionsflow v1.6.0, Actionsflow can be deployed as a self-hosted application. You can run Actionsflow by Docker or manually.
 
-# Docker
+# Getting started
+
+## Docker
 
 ```bash
 # You can also clone your own repo
@@ -14,7 +16,7 @@ cd actionsflow-workflow-default
 docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v ${PWD}:/data -p 3000:3000 actionsflow/actionsflow
 ```
 
-# Mannual
+## Manual
 
 ## Prerequisites
 
@@ -31,4 +33,26 @@ npm i
 npm start
 ```
 
-The defualt webhook endpoint will be ran at <http://localhost:3000/webhook/>
+The default webhook endpoint will be ran at <http://localhost:3000/webhook/>
+
+# Env
+
+You can use `.env` file to define the environment variables at your root directory. For example:
+
+```ini
+TEST=test
+CI=true
+```
+
+> Note: you shouldn't commit this to your repo
+
+# Secrets
+
+You can use `.secrets` file to define the secrets variables at your root directory For example:
+
+```ini
+TOKEN=test
+PASSWORD=test1
+```
+
+> Note: you shouldn't commit this to your repo

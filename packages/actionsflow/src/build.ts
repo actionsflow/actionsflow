@@ -78,6 +78,7 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
   const context = getContext({
     JSON_SECRETS: options.jsonSecrets || "",
     JSON_GITHUB: options.jsonGithub || "",
+    cwd,
   });
   // create workflow dest dir
   const workflowsDestPath = path.resolve(destPath, "workflows");

@@ -1,5 +1,5 @@
 import { getContext } from "../context";
-
+import path from "path";
 test("get context", () => {
   process.env.JSON_SECRETS = `{"token":"test2333"}`;
   process.env.JSON_GITHUB = `{"event":{}}`;
@@ -13,6 +13,8 @@ test("get context", () => {
       token: "test2333",
     },
   });
+  delete process.env.JSON_SECRETS;
+  delete process.env.JSON_GITHUB;
 });
 
 test("get context with empty", () => {
@@ -25,6 +27,23 @@ test("get context with empty", () => {
     },
     secrets: {
       token: "test2333",
+    },
+  });
+  delete process.env.JSON_SECRETS;
+});
+
+test("get context with .secrets", () => {
+  expect(
+    getContext({
+      cwd: path.resolve(__dirname, "fixtures"),
+    })
+  ).toEqual({
+    github: {
+      event_name: "workflow_dispatch",
+      event: {},
+    },
+    secrets: {
+      TEST: "ttt",
     },
   });
 });
