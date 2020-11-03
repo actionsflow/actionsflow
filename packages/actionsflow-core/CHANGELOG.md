@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0-alpha.0](https://github.com/actionsflow/actionsflow/compare/actionsflow-core@1.4.3...actionsflow-core@1.5.0-alpha.0) (2020-11-02)
+
+
+### Features
+
+* init docker ([2b95d2b](https://github.com/actionsflow/actionsflow/commit/2b95d2beac8be5c6741dcee2a3f92d1c3646a39b))
+* support global module ([944628b](https://github.com/actionsflow/actionsflow/commit/944628b70706ce1c46967bdd7eedfb2fd4407a17))
+* support webhook ([fb83b83](https://github.com/actionsflow/actionsflow/commit/fb83b83b95049f65cab929495ebcd67187e6685d))
+
+
+
+
+
 ## [1.4.3](https://github.com/actionsflow/actionsflow/compare/actionsflow-core@1.4.2...actionsflow-core@1.4.3) (2020-11-02)
 
 **Note:** Version bump only for package actionsflow-core

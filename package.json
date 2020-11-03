@@ -1,6 +1,6 @@
 {
   "name": "root",
-  "version": "1.5.4",
+  "version": "1.6.0-0",
   "private": true,
   "scripts": {
     "start": "npm run build && lerna run --ignore actionsflow-workflow* --parallel start",
@@ -33,6 +33,7 @@
     "lerna": "npx lerna",
     "plop": "plop",
     "build:example": "rimraf ./.cache ./.actionsflow && lerna exec --scope actionsflow-workflow-example -- npm run clean && lerna exec --scope actionsflow-workflow-example -- npm run build --",
+    "start:example": "lerna exec --scope actionsflow-workflow-example -- npm run start --",
     "act:example": "lerna exec --scope actionsflow-workflow-example  -- npm run act --",
     "clean:example": "lerna run clean --scope actionsflow-workflow-example",
     "actionsflow": "./packages/actionsflow/cli.js",

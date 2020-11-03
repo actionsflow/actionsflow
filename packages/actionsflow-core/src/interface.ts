@@ -203,3 +203,23 @@ export interface ITriggerInternalOptions {
   event: ITriggerEvent;
   logLevel?: LogLevelDesc;
 }
+export interface IBuildOptions {
+  dest?: string;
+  cwd?: string;
+  include?: string[];
+  exclude?: string[];
+  force?: boolean;
+  logLevel?: string;
+  verbose?: boolean;
+  jsonSecrets?: string;
+  jsonGithub?: string;
+}
+export interface IStartOptions extends IBuildOptions {
+  port?: number;
+  interval?: number;
+  watch?: boolean;
+  _?: string[];
+}
+export interface ICronJob {
+  stop: () => void;
+}

@@ -1,8 +1,12 @@
 on:
   script:
     run: |
-      const result = await helpers.axios.get("https://jsonplaceholder.typicode.com/posts")
-      return result.data
+      return [
+        {
+          id: 6,
+          title: "${{ secrets.EMAIL_USER }}test222${{ secrets.XX_TOKEN }}"
+        }
+      ]
     deduplicationKey: id
 jobs:
   print:
@@ -13,4 +17,4 @@ jobs:
         env:
           title: ${{on.script.outputs.title}}
         run: |
-          echo title: $title
+          echo title: $title tessdfsdafas ${{ secrets.XX_TOKEN }}

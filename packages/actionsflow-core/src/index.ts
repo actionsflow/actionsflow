@@ -16,6 +16,7 @@ export {
   getExpressionResult,
   getStringFunctionResult,
   getThirdPartyTrigger,
+  getGlobalThirdPartyTrigger,
   getLocalTrigger,
   isPromise,
   getRawTriggers,
