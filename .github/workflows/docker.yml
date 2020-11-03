@@ -11,9 +11,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: Get the actionsflow version
         id: actionsflowVersion
-        uses: pchynoweth/action-get-npm-version@v1.0.1
+        uses: martinbeentjes/npm-get-version-action@master
         with:
-          file: packages/actionsflow/package.json
+          path: packages/actionsflow/package.json
       - name: Get the act version result
         id: actVersionResult
         uses: actionsflow/axios@v1
