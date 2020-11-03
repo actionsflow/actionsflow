@@ -1,0 +1,34 @@
+name: Docker Image CI
+
+on:
+  repository_dispatch:
+    types: [new_version_with_actionsflow]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get the actionsflow version
+        id: actionsflowVersion
+        uses: pchynoweth/action-get-npm-version@v1.0.1
+        with:
+          file: packages/actionsflow/package.json
+      - name: Get the act version result
+        id: actVersionResult
+        uses: actionsflow/axios@v1
+        with:
+          url: https://raw.githubusercontent.com/actionsflow/setup-act-for-actionsflow/v1/version.json
+      - name: Get the act version
+        id: actVersion
+        run: echo ::set-output name=version::${{fromJSON(steps.actVersionResult.outptus.data).DEFAULT_VERSION}}
+      - name: Log in to Docker registry
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build the Docker image of version
+        run: docker build --build-arg ACTIONSFLOW_VERSION=${{steps.actionsflowVersion.outputs.version}} --build-arg ACT_VERSION=${{steps.actVersion.outputs.version}} -t actionsflow/actionsflow:${{steps.actionsflowVersion.outputs.version}} -t actionsflow/actionsflow:v1 -t actionsflow/actionsflow:latest .
+      - name: Push Docker image of version
+        run: docker push actionsflow/actionsflow:${{steps.actionsflowVersion.outputs.version}}
+      - name: Push docker images of latest
+        run: docker push actionsflow/actionsflow:latest
+      - name: Push docker images of v1
+        run: docker push actionsflow/actionsflow:v1
