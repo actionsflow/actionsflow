@@ -12,7 +12,6 @@
 [![npm](https://img.shields.io/npm/dw/actionsflow)](https://npmjs.org/package/actionsflow)
 [![Docker Pulls](https://img.shields.io/docker/pulls/actionsflow/actionsflow)](https://hub.docker.com/r/actionsflow/actionsflow)
 [![Build](https://github.com/actionsflow/actionsflow/workflows/Test/badge.svg)](https://github.com/actionsflow/actionsflow/actions?query=workflow%3ATest)
-[![Status](https://img.shields.io/badge/status-active-success.svg)]()
 [![codecov](https://codecov.io/gh/actionsflow/actionsflow/branch/main/graph/badge.svg?token=XsDPqlOTew)](https://codecov.io/gh/actionsflow/actionsflow)
 [![GitHub Issues](https://img.shields.io/github/issues/actionsflow/actionsflow.svg)](https://github.com/actionsflow/actionsflow/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/actionsflow/actionsflow.svg)](https://github.com/actionsflow/actionsflow/pulls)
