@@ -13,7 +13,7 @@ jobs:
         id: actionsflowVersion
         uses: martinbeentjes/npm-get-version-action@master
         with:
-          path: packages/actionsflow/package.json
+          path: packages/actionsflow
       - name: Get the act version result
         id: actVersionResult
         uses: actionsflow/axios@v1
@@ -25,9 +25,9 @@ jobs:
       - name: Log in to Docker registry
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Build the Docker image of version
-        run: docker build --build-arg ACTIONSFLOW_VERSION=${{steps.actionsflowVersion.outputs.version}} --build-arg ACT_VERSION=${{steps.actVersion.outputs.version}} -t actionsflow/actionsflow:${{steps.actionsflowVersion.outputs.version}} -t actionsflow/actionsflow:v1 -t actionsflow/actionsflow:latest .
+        run: docker build --build-arg ACTIONSFLOW_VERSION=${{steps.actionsflowVersion.outputs.current-version}} --build-arg ACT_VERSION=v${{steps.actVersion.outputs.version}} -t actionsflow/actionsflow:${{steps.actionsflowVersion.outputs.current-version}} -t actionsflow/actionsflow:v1 -t actionsflow/actionsflow:latest .
       - name: Push Docker image of version
-        run: docker push actionsflow/actionsflow:${{steps.actionsflowVersion.outputs.version}}
+        run: docker push actionsflow/actionsflow:${{steps.actionsflowVersion.outputs.current-version}}
       - name: Push docker images of latest
         run: docker push actionsflow/actionsflow:latest
       - name: Push docker images of v1
