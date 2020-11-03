@@ -78,3 +78,7 @@ With this configuration, only `title` and `link` will be sent to the output work
 ## 8. Cancel or disable workflow
 
 If you want to disable the whole workflows, you can simply delete the repository, or comment the `schedule` event at `.github/workflows/actionsflow.yml`, or you can also delete file ``.github/workflows/actionsflow.yml`
+
+## 9. Self-hosted Actionsflow?
+
+Yes, Since Actionsflow v1.6.0, Actionsflow can be deployed as a self-hosted application. You can run Actionsflow by Docker or manually. Learn more about [self-hosted Actionsflow](./self-hosted.md).

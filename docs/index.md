@@ -9,7 +9,7 @@ You can learn more about the core concepts of Actionsflow [here](/docs/concepts.
 
 # Features
 
-- **Totally Free!** Actionsflow is based on [Github actions](https://docs.github.com/en/actions). To run an Actionsflow workflow, all you need to do is [create a repository from the Actionsflow template repository](https://github.com/actionsflow/actionsflow-workflow-default/generate).
+- **Totally Free!** Actionsflow is based on [Github actions](https://docs.github.com/en/actions). To run an Actionsflow workflow, all you need to do is [create a repository from the Actionsflow template repository](https://github.com/actionsflow/actionsflow-workflow-default/generate), or, you can also [deploy a self-hosted version](/docs/self-hosted.md).
 - **Leverage Community Triggers**. You can use [community-provided triggers](/docs/triggers.md#triggers-list) like Slack, RSS, Webhook, Typeform, Email, Reddit, NPM, Telegram, Twitter, etc. You can also easily [create your own triggers](/docs/creating-triggers.md).
 - **Support Almost ALL Actions of [Github Actions](https://github.com/marketplace?type=actions)**. Actionsflow uses [act](https://github.com/nektos/act) (a tool for running GitHub Actions locally) to run the jobs on your workflow file. With [these awesome Github actions](/docs/actions.md), you can connect with IFTTT, Zapier, or other services like Slack, Telegram, Facebook, Twitter, Line, etc.
 - **Simple Workflow Configuration**. The Actionsflow configuration format is the same as [Github actions](https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow). If you've written a [Github actions file](https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow) before, you'll find defining an Actionsflow workflow file really easy.
@@ -20,6 +20,8 @@ You can learn more about the core concepts of Actionsflow [here](/docs/concepts.
 # Quick Start
 
 Building an Actionsflow workflow is a three-step process:
+
+> For self-hosted version please see [here](/docs/self-hosted.md)
 
 1. **Create a public Github repository by using [this link](https://github.com/actionsflow/actionsflow-workflow-default/generate).**
 
