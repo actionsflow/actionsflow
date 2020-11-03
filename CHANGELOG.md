@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.5.1...v1.6.1) (2020-11-03)
+
+
+### Features
+
+* 🎸 support .secrets file ([aa7f680](https://github.com/actionsflow/actionsflow/commit/aa7f6802759576f5ba71a8695fd269ce60697267))
+
 # [1.6.0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.5.0...v1.6.0) (2020-11-03)
 
 
