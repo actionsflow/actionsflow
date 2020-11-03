@@ -74,3 +74,7 @@ on:
 ```
 
 With this configuration, only `title` and `link` will be sent to the output workflow.
+
+## 8. Cancel or disable workflow
+
+If you want to disable the whole workflows, you can simply delete the repository, or comment the `schedule` event at `.github/workflows/actionsflow.yml`, or you can also delete file ``.github/workflows/actionsflow.yml`
