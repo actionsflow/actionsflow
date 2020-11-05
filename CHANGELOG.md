@@ -1,3 +1,10 @@
+## [1.6.3-0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-twitter@1.5.2-alpha.0...v1.6.3-0) (2020-11-05)
+
+
+### Features
+
+* 🎸 cache mode support cleaning cache automatically ([cb403ee](https://github.com/actionsflow/actionsflow/commit/cb403eec361994bc7630ca80c9c8795dcb707e59))
+
 ## [1.6.2](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.6.2...v1.6.2) (2020-11-03)
 
 
