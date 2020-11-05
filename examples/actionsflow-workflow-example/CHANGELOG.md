@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.3-alpha.0](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.6.2...actionsflow-workflow-example@1.6.3-alpha.0) (2020-11-05)
+
+
+### Features
+
+* 🎸 cache mode support cleaning cache automatically ([cb403ee](https://github.com/actionsflow/actionsflow/commit/cb403eec361994bc7630ca80c9c8795dcb707e59))
+
+
+
+
+
 ## [1.6.2](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.6.1...actionsflow-workflow-example@1.6.2) (2020-11-03)
 
 **Note:** Version bump only for package actionsflow-workflow-example
