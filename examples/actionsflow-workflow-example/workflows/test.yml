@@ -4,7 +4,7 @@ on:
       return [
         {
           id: 6,
-          title: "${{ secrets.EMAIL_USER }}test222${{ secrets.XX_TOKEN }}"
+          title: "i${{ secrets.EMAIL_USER }}test222${{ secrets.XX_TOKEN }}"
         }
       ]
     deduplicationKey: id

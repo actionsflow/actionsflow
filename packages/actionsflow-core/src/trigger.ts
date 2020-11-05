@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { createContentDigest, getCache, formatBinary } from "./helpers";
+import { createContentDigest, getCache, formatBinary, Cache } from "./helpers";
 import { LogLevelDesc } from "loglevel";
 import {
   AnyObject,
@@ -36,15 +36,39 @@ export const getTriggerId = ({
   return triggerId;
 };
 
+export const getTriggerCache = ({
+  name,
+  workflowRelativePath,
+}: {
+  name: string;
+  workflowRelativePath: string;
+}): Cache => {
+  const triggerId = getTriggerId({
+    name: name,
+    workflowRelativePath: workflowRelativePath,
+  });
+  return getCache(`trigger-${name}-${triggerId}`);
+};
+
+export const getTriggerManageCache = ({
+  name,
+  workflowRelativePath,
+}: {
+  name: string;
+  workflowRelativePath: string;
+}): Cache => {
+  const triggerId = getTriggerId({
+    name: name,
+    workflowRelativePath: workflowRelativePath,
+  });
+  return getCache(`trigger-cache-manager-${name}-${triggerId}`);
+};
+
 export const getTriggerHelpers = ({
   name,
   workflowRelativePath,
   logLevel,
 }: ITriggerHelpersOptions): IHelpers => {
-  const triggerId = getTriggerId({
-    name: name,
-    workflowRelativePath: workflowRelativePath,
-  });
   const triggerLog = Log.getLogger(`Actionsflow-trigger [${name}]`);
   prefix.apply(triggerLog, {
     format(level, name, timestamp) {
@@ -61,7 +85,7 @@ export const getTriggerHelpers = ({
   const triggerHelpers = {
     createContentDigest,
     formatBinary,
-    cache: getCache(`trigger-${name}-${triggerId}`),
+    cache: getTriggerCache({ name, workflowRelativePath }),
     log: triggerLog,
     axios: axios,
     rssParser: rssParser,
@@ -247,9 +271,10 @@ export const getTriggerConstructorParams = async ({
     name: name,
     workflowRelativePath: theWorkflow.relativePath,
   });
-  const triggerCacheManager = getCache(
-    `trigger-cache-manager-${name}-${triggerId}`
-  );
+  const triggerCacheManager = getTriggerManageCache({
+    name,
+    workflowRelativePath: theWorkflow.relativePath,
+  });
   const firstRunAt = await triggerCacheManager.get("firstRunAt");
   const triggerRunContext: ITriggerRunContext = {
     isFirstRun: firstRunAt ? false : true,

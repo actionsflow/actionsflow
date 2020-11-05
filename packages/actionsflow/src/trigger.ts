@@ -1,6 +1,4 @@
 import {
-  getCache,
-  getTriggerId,
   getGeneralTriggerFinalOptions,
   getThirdPartyTrigger,
   getGlobalThirdPartyTrigger,
@@ -21,6 +19,7 @@ import {
   ITrigger,
   getTriggerConstructorParams,
   ITriggerInternalOptions,
+  getTriggerManageCache,
 } from "actionsflow-core";
 import Triggers from "./triggers";
 const MAX_CACHE_KEYS_COUNT = 5000;
@@ -43,13 +42,10 @@ export const run = async ({
   const Trigger = trigger.class;
 
   if (Trigger) {
-    const triggerId = getTriggerId({
+    const triggerCacheManager = getTriggerManageCache({
       name: trigger.name,
       workflowRelativePath: workflow.relativePath,
     });
-    const triggerCacheManager = getCache(
-      `trigger-cache-manager-${trigger.name}-${triggerId}`
-    );
     const triggerConstructorParams = await getTriggerConstructorParams({
       name: trigger.name,
       workflow: workflow,

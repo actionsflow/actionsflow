@@ -1,3 +1,3 @@
 export { createContentDigest } from "./create-content-digest";
-export { getCache } from "./cache";
+export { getCache, Cache } from "./cache";
 export { formatBinary } from "./binary";

@@ -6,6 +6,7 @@ import path from "path";
 export default async function runWorkflows(
   options: IStartOptions
 ): Promise<void> {
+  options = { ...options };
   const date = new Date();
   const timestamp = date.getTime();
   const defaultDest = path.resolve(`./dist/.cron/${timestamp}`);

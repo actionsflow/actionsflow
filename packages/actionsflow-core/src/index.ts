@@ -4,11 +4,13 @@ export {
   getTriggerId,
   getGeneralTriggerFinalOptions,
   getTriggerConstructorParams,
+  getTriggerCache,
+  getTriggerManageCache,
 } from "./trigger";
 export { getContext } from "./context";
 export { getWorkflow, getBuiltWorkflows, getWorkflows } from "./workflow";
 export { formatRequest, getEventByContext } from "./event";
-export { createContentDigest, getCache, formatBinary } from "./helpers";
+export { createContentDigest, getCache, formatBinary, Cache } from "./helpers";
 export {
   template,
   getAstsByParentName,
@@ -36,3 +38,4 @@ export { Cursor } from "mingo/cursor";
 export { getScheduler } from "./schedule";
 export * from "./interface";
 export { CACHE_PATH } from "./constans";
+export { cleanCache } from "./clean-cache";

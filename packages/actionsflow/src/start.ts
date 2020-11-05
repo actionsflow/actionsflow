@@ -1,4 +1,10 @@
-import { log, Log, IStartOptions, ICronJob } from "actionsflow-core";
+import {
+  log,
+  Log,
+  IStartOptions,
+  ICronJob,
+  cleanCache,
+} from "actionsflow-core";
 import { start as startServer } from "./server";
 import { start as startCron } from "./cron";
 import chokidar from "chokidar";
@@ -59,6 +65,8 @@ export async function start(options: IStartOptions): Promise<void> {
       const onChange = async (filePath: string): Promise<void> => {
         const absolutePath = path.resolve(cwd, filePath);
         const relativePath = path.relative(workflowPath, absolutePath);
+        // delete cache
+        await cleanCache({ workflowRelativePath: relativePath });
         await runWorkflows({
           ...options,
           include: [relativePath],

@@ -5,9 +5,8 @@ import {
   formatRequest,
   getWorkflow,
   getContext,
-  getCache,
-  getTriggerId,
   getTriggerConstructorParams,
+  getTriggerManageCache,
 } from "actionsflow-core";
 test("run trigger sortScript", async () => {
   const result = await run({
@@ -34,13 +33,11 @@ test("run trigger sortScript", async () => {
       type: "schedule",
     },
   });
-  const triggerId = getTriggerId({
+
+  const triggerCacheManager = getTriggerManageCache({
     name: "rss",
     workflowRelativePath: "rss.yml",
   });
-  const triggerCacheManager = getCache(
-    `trigger-cache-manager-rss-${triggerId}`
-  );
   expect(result.items.length).toBe(2);
   expect(result.items[0].title).toBe("test2");
 
@@ -84,13 +81,11 @@ test("run trigger", async () => {
       type: "schedule",
     },
   });
-  const triggerId = getTriggerId({
+  const triggerCacheManager = getTriggerManageCache({
     name: "rss",
     workflowRelativePath: "test1.yml",
   });
-  const triggerCacheManager = getCache(
-    `trigger-cache-manager-rss-${triggerId}`
-  );
+
   const firstRunAt = await triggerCacheManager.get("firstRunAt");
   expect(Number(firstRunAt) > 0).toBe(true);
   expect(result.items.length).toBe(1);
@@ -141,13 +136,11 @@ test("run trigger with skipFirst", async () => {
     },
   });
 
-  const triggerId = getTriggerId({
+  const triggerCacheManager = getTriggerManageCache({
     name: "rss",
     workflowRelativePath: "test2.yml",
   });
-  const triggerCacheManager = getCache(
-    `trigger-cache-manager-rss-${triggerId}`
-  );
+
   const firstRunAt = await triggerCacheManager.get("firstRunAt");
   expect(Number(firstRunAt) > 0).toBe(true);
   expect(result.items.length).toBe(0);

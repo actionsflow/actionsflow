@@ -27,6 +27,20 @@ interface IGetWorkflowsOptions {
   include?: string[];
   exclude?: string[];
 }
+export const getWorkflowDoc = async ({
+  path: filePath,
+}: {
+  path: string;
+}): Promise<IWorkflowData> => {
+  let doc: IWorkflowData | string | undefined;
+  try {
+    doc = yaml.safeLoad(await fs.readFile(filePath, "utf8")) as IWorkflowData;
+  } catch (e) {
+    log.error("Load yaml file error:", filePath, e);
+    throw e;
+  }
+  return doc;
+};
 export const getWorkflow = async ({
   cwd,
   path: filePath,
@@ -37,13 +51,7 @@ export const getWorkflow = async ({
   context: ITriggerContext;
 }): Promise<IWorkflow | undefined> => {
   const relativePath = path.relative(path.resolve(cwd, "workflows"), filePath);
-  let doc: IWorkflowData | string | undefined;
-  try {
-    doc = yaml.safeLoad(await fs.readFile(filePath, "utf8")) as IWorkflowData;
-  } catch (e) {
-    log.error("Load yaml file error:", filePath, e);
-    throw e;
-  }
+  const doc = await getWorkflowDoc({ path: filePath });
   if (doc && typeof doc === "object" && doc.on) {
     // handle doc on, replace variables
     if (doc.on && typeof doc.on === "object") {
