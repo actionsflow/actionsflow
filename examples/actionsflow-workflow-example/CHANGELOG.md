@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.4](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.6.3...actionsflow-workflow-example@1.6.4) (2020-11-06)
+
+
+### Features
+
+* 🎸 reddit support json ([6437157](https://github.com/actionsflow/actionsflow/commit/6437157c9a1f9f31f8e643817c111e3f3e342ab5))
+
+
+
+
+
 ## [1.6.3](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.6.3-alpha.0...actionsflow-workflow-example@1.6.3) (2020-11-05)
 
 **Note:** Version bump only for package actionsflow-workflow-example

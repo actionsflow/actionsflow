@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.3](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-weather@1.5.2...@actionsflow/trigger-weather@1.5.3) (2020-11-06)
+
+
+### Features
+
+* 🎸 reddit support json ([6437157](https://github.com/actionsflow/actionsflow/commit/6437157c9a1f9f31f8e643817c111e3f3e342ab5))
+
+
+
+
+
 ## [1.5.2](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-weather@1.5.2-alpha.0...@actionsflow/trigger-weather@1.5.2) (2020-11-05)
 
 **Note:** Version bump only for package @actionsflow/trigger-weather
