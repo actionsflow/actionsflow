@@ -59,7 +59,11 @@ export default class Weather implements ITriggerClassType {
     };
     this.helpers.log.debug("weather request options:", url, config);
     const result = await this.helpers.axios.get(url, config);
-    this.helpers.log.debug("weather request response:", result);
+    this.helpers.log.debug(
+      "weather request response:",
+      result.status,
+      result.data
+    );
     return result.data;
   }
 

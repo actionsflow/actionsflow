@@ -1,0 +1,16 @@
+on:
+  reddit:
+    url: https://reddit.com/r/news/
+    source: json
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          title: ${{on.reddit.outputs.title}}
+          link: ${{on.reddit.outputs.permalink}}
+        run: |
+          echo title: $title
+          echo link: $link
