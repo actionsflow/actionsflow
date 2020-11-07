@@ -91,6 +91,12 @@ Options:
   -v, --version   Show the version of the Actionsflow CLI and the Actionsflow package in the current project                                                                                         [boolean]
 ```
 
+> Note: If you want to pass args to `act`, you should pass them after `--`, for example:
+
+```bash
+actionsflow start -w -- -b
+```
+
 ## clean
 
 Clean the dist folder and cache
