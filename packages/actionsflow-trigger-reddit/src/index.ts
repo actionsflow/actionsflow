@@ -117,7 +117,10 @@ export default class Reddit implements ITriggerClassType {
     }
     let items: AnyObject[] = [];
     if (this.source === "json") {
-      items = await this.requestJSON(urls, this.options.config as AnyObject);
+      items = await this.requestJSON(
+        urls,
+        this.options.requestConfig as AnyObject
+      );
     } else {
       items = await this.requestRSS(urls);
     }
