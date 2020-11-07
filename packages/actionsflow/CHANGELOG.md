@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.6](https://github.com/actionsflow/actionsflow/compare/actionsflow@1.6.5...actionsflow@1.6.6) (2020-11-07)
+
+**Note:** Version bump only for package actionsflow
+
+
+
+
+
 ## [1.6.5](https://github.com/actionsflow/actionsflow/compare/actionsflow@1.6.4...actionsflow@1.6.5) (2020-11-07)
 
 **Note:** Version bump only for package actionsflow
