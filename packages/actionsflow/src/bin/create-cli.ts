@@ -109,7 +109,8 @@ function buildLocalCommands(cli: yargs.Argv) {
   });
   cli.command({
     command: `start`,
-    describe: `Start an Actionsflow instance.`,
+    describe: `Start an Actionsflow instance.
+If you want to pass args to \`act\`, you should pass them after \`--\`, for example: \`actionsflow start -w -- -b\``,
     builder: startCommandBuilder,
     handler: start as () => Promise<void>,
   });
