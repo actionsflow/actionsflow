@@ -8,7 +8,7 @@
     "publish": {
       "bump": "patch",
       "conventionalCommits": true,
-      "message": "chore(release): 🤖 publish %s"
+      "message": "chore(release): 🤖 publish package"
     }
   },
   "npmClient": "npm",
