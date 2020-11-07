@@ -14,6 +14,7 @@ export default class Reddit implements ITriggerClassType {
     // TODO adapt every cases
     if (item.guid) return item.guid as string;
     if (item.link) return item.link as string;
+    if (item.permalink) return item.permalink as string;
     if (item.id) return item.id as string;
     return this.helpers.createContentDigest(item);
   }
