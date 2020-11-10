@@ -1,3 +1,10 @@
+## [1.6.7](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.5.3...v1.6.7) (2020-11-10)
+
+
+### Bug Fixes
+
+* 🐛 format should be run first ([b220922](https://github.com/actionsflow/actionsflow/commit/b2209227b4171a16112894e6d834aaffc4cd956b)), closes [#16](https://github.com/actionsflow/actionsflow/issues/16)
+
 ## [1.6.6](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-reddit@1.5.5...v1.6.6) (2020-11-07)
 
 
