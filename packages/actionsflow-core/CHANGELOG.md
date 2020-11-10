@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.4](https://github.com/actionsflow/actionsflow/compare/actionsflow-core@1.5.3...actionsflow-core@1.5.4) (2020-11-10)
+
+
+### Bug Fixes
+
+* 🐛 core not require dotenv ([28f5020](https://github.com/actionsflow/actionsflow/commit/28f5020ed8c08706ad7452a3447a9bda0bd0139e))
+
+
+
+
+
 ## [1.5.3](https://github.com/actionsflow/actionsflow/compare/actionsflow-core@1.5.2...actionsflow-core@1.5.3) (2020-11-10)
 
 

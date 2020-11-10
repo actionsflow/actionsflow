@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.5](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-weather@1.5.4...@actionsflow/trigger-weather@1.5.5) (2020-11-10)
+
+**Note:** Version bump only for package @actionsflow/trigger-weather
+
+
+
+
+
 ## [1.5.4](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-weather@1.5.3...@actionsflow/trigger-weather@1.5.4) (2020-11-10)
 
 **Note:** Version bump only for package @actionsflow/trigger-weather
