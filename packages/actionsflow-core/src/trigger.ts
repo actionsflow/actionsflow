@@ -181,11 +181,9 @@ export const getGeneralTriggerFinalOptions = (
       let key = "";
       if (item.id) {
         key = item.id as string;
-      }
-      if (item.key) {
+      } else if (item.key) {
         key = item.key as string;
-      }
-      if (item.guid) {
+      } else if (item.guid) {
         key = item.guid as string;
       }
       if (key) {

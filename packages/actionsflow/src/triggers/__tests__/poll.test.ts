@@ -25,6 +25,33 @@ const resp = {
     },
   ],
 };
+const complexResp = {
+  data: {
+    data: {
+      children: [
+        {
+          data: {
+            userId: 1,
+            id: 1,
+            title:
+              "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+            body:
+              "quia et suscipit suscipit recusandae consequuntur expedita et cum reprehenderit molestiae ut ut quas totam nostrum rerum est autem sunt rem eveniet architecto",
+          },
+        },
+        {
+          data: {
+            userId: 1,
+            id: 2,
+            title: "qui est esse",
+            body:
+              "est rerum tempore vitae sequi sint nihil reprehenderit dolor beatae ea dolores neque fugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis qui aperiam non debitis possimus qui neque nisi nulla",
+          },
+        },
+      ],
+    },
+  },
+};
 test("poll trigger", async () => {
   const axios = jest.fn();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -103,7 +130,25 @@ test("poll trigger with deduplicationKey as key", async () => {
   const itemKey = poll.getItemKey(triggerResults[0]);
   expect(itemKey).toBe("https://jsonplaceholder.typicode.com/posts__1");
 });
-
+test("poll trigger with complex response and deduplicationKey as key", async () => {
+  const axios = jest.fn();
+  axios.mockImplementation(() => Promise.resolve(complexResp));
+  helpers.axios = (axios as unknown) as AxiosStatic;
+  const constructionParams = await getTriggerConstructorParams({
+    options: {
+      url: "https://jsonplaceholder.typicode.com/posts",
+      deduplicationKey: "data.userId",
+      itemsPath: "data.children",
+    },
+    name: "poll",
+  });
+  constructionParams.helpers = helpers;
+  const poll = new Poll(constructionParams);
+  const triggerResults = await poll.run();
+  expect(triggerResults.length).toBe(2);
+  const itemKey = poll.getItemKey(triggerResults[0]);
+  expect(itemKey).toBe("https://jsonplaceholder.typicode.com/posts__1");
+});
 test("poll trigger with deduplicationKey no found", async () => {
   const resp2 = {
     data: [

@@ -47,6 +47,42 @@ test("run trigger sortScript", async () => {
     await result.helpers.cache.reset();
   }
 });
+test("run trigger with format", async () => {
+  const triggerName = "script";
+  const workflowRelativePath = "script.yml";
+  const triggerConstructorParams1 = await getTriggerConstructorParams({
+    name: triggerName,
+    cwd: path.resolve(__dirname, "fixtures"),
+    workflowPath: path.resolve(
+      __dirname,
+      `fixtures/workflows/${workflowRelativePath}`
+    ),
+  });
+
+  const result = await run({
+    workflow: triggerConstructorParams1.workflow,
+    trigger: {
+      name: triggerName,
+      options: triggerConstructorParams1.options,
+      class: resolveTrigger(triggerName),
+    },
+    event: {
+      type: "schedule",
+    },
+  });
+  const triggerCacheManager = getTriggerManageCache({
+    name: triggerName,
+    workflowRelativePath: workflowRelativePath,
+  });
+  expect(result.items.length).toBe(1);
+  expect(result.items[0].id).toBe(3);
+
+  // clear cache
+  await triggerCacheManager.reset();
+  if (result.helpers && result.helpers.cache) {
+    await result.helpers.cache.reset();
+  }
+});
 test("run trigger", async () => {
   const triggerConstructorParams1 = await getTriggerConstructorParams({
     name: "rss",

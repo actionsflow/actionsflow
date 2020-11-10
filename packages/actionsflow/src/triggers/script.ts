@@ -1,16 +1,16 @@
 import { GitHub } from "@actions/github/lib/utils";
 import { OctokitOptions } from "@octokit/core/dist-types/types";
-
+import get from "lodash.get";
 import resolveCwd from "resolve-cwd";
 import { getOctokit } from "@actions/github";
 import {
   isPromise,
   ITriggerClassType,
   ITriggerContructorParams,
-  AnyObject,
   ITriggerOptions,
   ITriggerResult,
   IHelpers,
+  AnyObject,
 } from "actionsflow-core";
 const AsyncFunction = Object.getPrototypeOf(async () => null).constructor;
 
@@ -33,12 +33,22 @@ export default class Script implements ITriggerClassType {
   options: AnyObject = {};
   helpers: IHelpers;
   getItemKey(item: AnyObject): string {
+    let key = "";
     const deduplicationKey = this.options.deduplicationKey;
     if (deduplicationKey) {
-      return item[deduplicationKey as string] as string;
+      key = get(item, deduplicationKey as string) as string;
+      if (!key) {
+        throw new Error("Can not get deduplicationKey from item");
+      }
+    } else if (item.id) {
+      key = item.id as string;
+    } else if (item.key) {
+      key = item.key as string;
     }
-    if (item.id) return item.id as string;
-    if (item.key) return item.key as string;
+
+    if (key) {
+      return key;
+    }
     return this.helpers.createContentDigest(item);
   }
   constructor({ helpers, options }: ITriggerContructorParams) {
@@ -69,10 +79,16 @@ export default class Script implements ITriggerClassType {
       path: string;
     };
     if (run) {
-      const results = (await callAsyncFunction(
-        functionContext,
-        run
-      )) as ITriggerResult;
+      let results: AnyObject[] = [];
+      try {
+        results = (await callAsyncFunction(
+          functionContext,
+          run
+        )) as AnyObject[];
+      } catch (error) {
+        throw new Error(`Error occured at your script code: ${error}`);
+      }
+
       return results;
     } else if (path) {
       const scriptPath = resolveCwd.silent(path);

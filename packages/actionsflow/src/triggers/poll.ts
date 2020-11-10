@@ -13,18 +13,19 @@ export default class Poll implements ITriggerClassType {
   options: ITriggerOptions = {};
   helpers: IHelpers;
   getItemKey(item: AnyObject): string {
-    // TODO adapt every cases
     let key = "";
     const deduplicationKey = this.options.deduplicationKey;
     if (deduplicationKey) {
-      key = item[deduplicationKey as string] as string;
-    }
-    if (item.id) {
+      key = get(item, deduplicationKey as string) as string;
+      if (!key) {
+        throw new Error("Can not get deduplicationKey from item");
+      }
+    } else if (item.id) {
       key = item.id as string;
-    }
-    if (item.key) {
+    } else if (item.key) {
       key = item.key as string;
     }
+
     if (key) {
       return this.options.url + "__" + key;
     }
@@ -70,6 +71,9 @@ export default class Poll implements ITriggerClassType {
       const itemsArray: AnyObject[] = itemsPath
         ? get(requestResult.data, itemsPath)
         : requestResult.data;
+      if (!Array.isArray(itemsArray)) {
+        throw new Error("Can not found a valid items result");
+      }
       const deepClonedData = clonedeep(itemsArray);
       itemsArray.forEach((item) => {
         if (this.options.shouldIncludeRawBody) {

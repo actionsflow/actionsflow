@@ -92,7 +92,7 @@ on:
 
 By default, we use [rss-parser](https://github.com/rbren/rss-parser) for parse RSS file, the outputs are same as [rss-parser](https://github.com/rbren/rss-parser)
 
-A default rss outputs example:
+A default RSS outputs example:
 
 ```json
 {

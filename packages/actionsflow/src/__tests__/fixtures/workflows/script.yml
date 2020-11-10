@@ -1,0 +1,32 @@
+on:
+  script:
+    deduplicationKey: userId
+    run: |
+      return [{
+            payload:{
+              data:{
+                id: 5,
+                userId: 6
+              }
+            }
+          },{
+            payload:{
+              data:{
+                id: 3,
+                userId: 6
+              }
+            }
+          }];
+    config:
+      format: |
+        return item.payload.data
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          title: ${{on.script.outputs.id}}
+        run: |
+          echo title: $title

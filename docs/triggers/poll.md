@@ -25,7 +25,7 @@ on:
 
 - `itemsPath`, optional, if the API's returned JSON is not a list and is instead an object (maybe paginated), you should configure `itemsPath` as the key that contains the results. Example: `results`, `items`, `data.items`, etc... The default value is `undefined`, which means the API's response should be a list.
 
-- `deduplicationKey`, optional. The poll trigger deduplicates the array we see each poll against the id key. If the id key does not exist, you should specify an alternative unique key to deduplicate. If neither are supplied, we fallback to looking for `guid`, `key`, if neither are supplied, we will hash the item, and generate a unique key
+- `deduplicationKey`, optional. The poll trigger deduplicates the array we see each poll against the id key. If the id key does not exist, you should specify an alternative unique key to deduplicate, you can use path format, like: `id`, `data.id`, `item.data.key`, If neither are supplied, we fallback to looking for `key`, if neither are supplied, we will hash the item, and generate a unique key
 
 - `shouldIncludeRawBody`, optional, `boolean`, the default value is `false`, if `true`, then your use the whole body as you need. For example:
 

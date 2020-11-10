@@ -98,7 +98,29 @@ test("script trigger with deduplicationKey", async () => {
   const itemKey = script.getItemKey(triggerResultFormat.items[0]);
   expect(itemKey).toBe("test");
 });
-
+test("script trigger with deduplicationKey path", async () => {
+  const script = new Script(
+    await getTriggerConstructorParams({
+      options: {
+        run: `return  [{data:{id:'test2',title:'test'}}]`,
+        deduplicationKey: "data.title",
+      },
+      name: "script",
+    })
+  );
+  const triggerResults = await script.run();
+  let triggerResultFormat: ITriggerResultObject = {
+    items: [],
+  };
+  if (Array.isArray(triggerResults)) {
+    triggerResultFormat.items = triggerResults;
+  } else {
+    triggerResultFormat = triggerResults;
+  }
+  expect(triggerResultFormat.items.length).toBe(1);
+  const itemKey = script.getItemKey(triggerResultFormat.items[0]);
+  expect(itemKey).toBe("test");
+});
 test("script trigger with deduplicationKey no found", async () => {
   const script = new Script(
     await getTriggerConstructorParams({

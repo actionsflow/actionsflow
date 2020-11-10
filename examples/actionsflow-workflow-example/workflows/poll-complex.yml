@@ -1,0 +1,20 @@
+on:
+  poll:
+    url: https://www.reddit.com/r/all/top/.json?raw_json=1
+    itemsPath: data.children
+    deduplicationKey: id
+    config:
+      limit: 5
+      format: |
+        delete item.data.all_awardings
+        return item.data
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          title: ${{ on.poll.outputs.title }}
+        run: |
+          echo "title: $title"

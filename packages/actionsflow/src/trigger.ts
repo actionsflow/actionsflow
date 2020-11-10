@@ -154,26 +154,25 @@ export const run = async ({
             );
           }
           if (items.length > 0) {
-            // duplicate
-            if (shouldDeduplicate === true && getItemKey && !force) {
-              // deduplicate
-              // get cache
-              deduplicationKeys =
-                (await triggerCacheManager.get("deduplicationKeys")) || [];
-              log.debug(
-                `Get ${deduplicationKeys.length} cached deduplicationKeys`
-              );
-              const itemsKeyMaps = new Map();
-              items.forEach((item) => {
-                itemsKeyMaps.set(getItemKey(item), item);
-              });
-              items = [...itemsKeyMaps.values()];
-              items = items.filter((result) => {
-                const key = getItemKey(result);
-                if ((deduplicationKeys as string[]).includes(key)) {
-                  return false;
-                } else {
-                  return true;
+            // filter outputs
+            if (filterOutputs) {
+              const filterOutpusCursor = filterFn(items, {}, filterOutputs);
+              items = filterOutpusCursor.all();
+            }
+            // format outputs
+            if (format) {
+              items = items.map((item) => {
+                try {
+                  const newItem = getStringFunctionResult(format, {
+                    item,
+                  }) as Record<string, unknown>;
+                  return newItem;
+                } catch (error) {
+                  throw new Error(
+                    `An error occurred in the ${workflow.relativePath} [${
+                      trigger.name
+                    }] format function: ${error.toString()}`
+                  );
                 }
               });
             }
@@ -239,7 +238,28 @@ export const run = async ({
               items = items.slice(0, limit);
             }
 
+            // duplicate
             if (shouldDeduplicate === true && getItemKey && !force) {
+              // deduplicate
+              // get cache
+              deduplicationKeys =
+                (await triggerCacheManager.get("deduplicationKeys")) || [];
+              log.debug(
+                `Get ${deduplicationKeys.length} cached deduplicationKeys`
+              );
+              const itemsKeyMaps = new Map();
+              items.forEach((item) => {
+                itemsKeyMaps.set(getItemKey(item), item);
+              });
+              items = [...itemsKeyMaps.values()];
+              items = items.filter((result) => {
+                const key = getItemKey(result);
+                if ((deduplicationKeys as string[]).includes(key)) {
+                  return false;
+                } else {
+                  return true;
+                }
+              });
               // set deduplicate key
               // if save to cache
               // items should use raw items
@@ -275,29 +295,6 @@ export const run = async ({
               } else {
                 log.debug("no items update, do not need to update cache");
               }
-            }
-
-            // last filter outputs
-            if (filterOutputs) {
-              const filterOutpusCursor = filterFn(items, {}, filterOutputs);
-              items = filterOutpusCursor.all();
-            }
-            // last format outputs
-            if (format) {
-              items = items.map((item) => {
-                try {
-                  const newItem = getStringFunctionResult(format, {
-                    item,
-                  }) as Record<string, unknown>;
-                  return newItem;
-                } catch (error) {
-                  throw new Error(
-                    `An error occurred in the ${workflow.relativePath} [${
-                      trigger.name
-                    }] format function: ${error.toString()}`
-                  );
-                }
-              });
             }
           }
           // save first run status
