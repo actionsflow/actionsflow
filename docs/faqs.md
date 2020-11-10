@@ -11,7 +11,7 @@ individuals, we have a number of open channels for communication.
 
 - To report bugs, file feature requests, or submit trigger requests: use the [issue tracker on Github](https://github.com/actionsflow/actionsflow/issues).
 - To contribute code or documentation changes: submit a [pull request on Github](https://github.com/actionsflow/actionsflow/pulls).
-- To communicate/get help from other Actionsflow users: join [Actionsflow Slack](https://join.slack.com/t/actionsflow/shared_invite/zt-h5tmw9cn-GbZ4fzU_vc_qB~nnS_2Lvg).
+- To communicate/get help from other Actionsflow users: join [Actionsflow Slack](https://forms.gle/9VvTVne6oU7zBCeVA). If you have already joined, please [signin](https://actionsflow.slack.com/) directly
 
 # FAQs
 
