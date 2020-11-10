@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.6](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-reddit@1.5.5...@actionsflow/trigger-reddit@1.5.6) (2020-11-10)
+
+
+### Bug Fixes
+
+* 🐛 format should be run first ([b220922](https://github.com/actionsflow/actionsflow/commit/b2209227b4171a16112894e6d834aaffc4cd956b)), closes [#16](https://github.com/actionsflow/actionsflow/issues/16)
+
+
+
+
+
 ## [1.5.5](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-reddit@1.5.4...@actionsflow/trigger-reddit@1.5.5) (2020-11-07)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.7](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.6.6...actionsflow-workflow-example@1.6.7) (2020-11-10)
+
+
+### Bug Fixes
+
+* 🐛 format should be run first ([b220922](https://github.com/actionsflow/actionsflow/commit/b2209227b4171a16112894e6d834aaffc4cd956b)), closes [#16](https://github.com/actionsflow/actionsflow/issues/16)
+
+
+
+
+
 ## [1.6.6](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.6.5...actionsflow-workflow-example@1.6.6) (2020-11-07)
 
 **Note:** Version bump only for package actionsflow-workflow-example

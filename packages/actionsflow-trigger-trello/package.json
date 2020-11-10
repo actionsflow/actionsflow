@@ -1,6 +1,6 @@
 {
   "name": "@actionsflow/trigger-trello",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "Actionsflow trigger trello",
   "keywords": [
     "trello",
@@ -24,6 +24,6 @@
     "url": "https://github.com/actionsflow/actionsflow/issues"
   },
   "devDependencies": {
-    "actionsflow-core": "^1.5.2"
+    "actionsflow-core": "^1.5.3"
   }
 }
