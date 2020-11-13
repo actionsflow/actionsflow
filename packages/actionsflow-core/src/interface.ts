@@ -77,6 +77,8 @@ export interface ITriggerGeneralConfigOptions {
   sort?: AnyObject;
   sortScript?: string;
   outputsMode?: OutputsMode;
+  exportOutputs?: boolean;
+  outputsDir?: string;
   resultsPerWorkflow?: number;
 }
 export interface ITriggerOptions extends AnyObject {
@@ -174,6 +176,8 @@ export interface ITriggerEvent {
 export interface ITaskTrigger extends ITrigger {
   class: ITriggerClassTypeConstructable | undefined;
   outputsMode: OutputsMode;
+  exportOutputs: boolean;
+  outputsDir: string;
   resultsPerWorkflow?: number;
 }
 export interface IInternalRunTrigger extends ITrigger {
@@ -203,6 +207,8 @@ export interface ITriggerInternalOptions {
   workflow: IWorkflow;
   event: ITriggerEvent;
   logLevel?: LogLevelDesc;
+  cwd?: string;
+  dest?: string;
 }
 export interface IBuildOptions {
   dest?: string;

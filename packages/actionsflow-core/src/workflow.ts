@@ -8,6 +8,7 @@ import {
   template,
   getTemplateStringByParentName,
   getRawTriggers,
+  getTriggerWebhookBasePath,
 } from "./utils";
 import multimatch from "multimatch";
 import {
@@ -274,12 +275,15 @@ export const renameJobsBySuffix = (
 };
 interface IBuildSingleWorkflowOptions {
   workflow: IWorkflow;
+  cwd?: string;
   trigger: {
     name: string;
     results: AnyObject[];
     outcome: OutcomeStatus;
     conclusion: ConclusionStatus;
     outputsMode?: OutputsMode;
+    exportOutputs?: boolean;
+    outputsDir?: string;
     resultsPerWorkflow?: number;
   };
 }
@@ -288,8 +292,11 @@ export const getBuiltWorkflows = async (
 ): Promise<IWorkflowData[]> => {
   log.trace("buildWorkflow options:", options);
   const { workflow, trigger } = options;
+  const cwd = options.cwd || process.cwd();
   const { outcome, conclusion, results, resultsPerWorkflow } = trigger;
   const outputsMode = trigger.outputsMode || "separate";
+  const exportOutputs = trigger.exportOutputs || false;
+  const outputsDir = trigger.outputsDir || "dist/outputs";
   const workflowData = { ...workflow.data };
   // handle context expresstion
   const workflowDataJobs: Record<
@@ -309,23 +316,27 @@ export const getBuiltWorkflows = async (
     if (outputsMode === "combine") {
       if (resultsPerWorkflow && results.length > resultsPerWorkflow) {
         const jobsGroupsCount = Math.ceil(results.length / resultsPerWorkflow);
-        const jobsGroupsResults = Array.from({ length: jobsGroupsCount }).map(
-          (_, index) => {
-            return getJobGroups({
-              outputs: results.slice(
-                index * resultsPerWorkflow,
-                (index + 1) * resultsPerWorkflow
-              ),
-              outcome: outcome,
-              conclusion: conclusion,
-              workflowData: workflowData,
-              workflowDataJobs: workflowDataJobs,
-              workflowRelativePath: workflow.relativePath,
-              triggerName: trigger.name,
-              suffix: `${index}`,
-            });
-          }
-        );
+        const getJobsGroupsResults = Array.from({
+          length: jobsGroupsCount,
+        }).map((_, index) => {
+          return getJobGroups({
+            cwd,
+            outputs: results.slice(
+              index * resultsPerWorkflow,
+              (index + 1) * resultsPerWorkflow
+            ),
+            exportOutputs,
+            outputsDir,
+            outcome: outcome,
+            conclusion: conclusion,
+            workflowData: workflowData,
+            workflowDataJobs: workflowDataJobs,
+            workflowRelativePath: workflow.relativePath,
+            triggerName: trigger.name,
+            suffix: `${index}`,
+          });
+        });
+        const jobsGroupsResults = await Promise.all(getJobsGroupsResults);
         jobsGroups = jobsGroupsResults.map((item) => item.jobsGroup);
         jobInternalEnvs = jobsGroupsResults.map((item) => item.jobInternalEnv);
         return jobsGroups.map((jobsGroup, index) => {
@@ -336,9 +347,12 @@ export const getBuiltWorkflows = async (
           });
         });
       } else {
-        const jobsGroupsResult = getJobGroups({
+        const jobsGroupsResult = await getJobGroups({
+          cwd,
           outputs: results,
           outcome: outcome,
+          exportOutputs,
+          outputsDir,
           conclusion: conclusion,
           workflowData: workflowData,
           workflowDataJobs: workflowDataJobs,
@@ -349,10 +363,13 @@ export const getBuiltWorkflows = async (
         jobInternalEnvs.push(jobsGroupsResult.jobInternalEnv);
       }
     } else {
-      const jobsGroupsResults = results.map((result, index) =>
+      const getJobsGroupsResults = results.map((result, index) =>
         getJobGroups({
+          cwd,
           outputs: result,
           outcome: outcome,
+          exportOutputs,
+          outputsDir,
           conclusion: conclusion,
           workflowData: workflowData,
           workflowDataJobs: workflowDataJobs,
@@ -361,6 +378,7 @@ export const getBuiltWorkflows = async (
           suffix: `${index}`,
         })
       );
+      const jobsGroupsResults = await Promise.all(getJobsGroupsResults);
       jobsGroups = jobsGroupsResults.map((item) => item.jobsGroup);
       jobInternalEnvs = jobsGroupsResults.map((item) => item.jobInternalEnv);
     }
@@ -405,12 +423,15 @@ export const getBuiltWorkflows = async (
 };
 interface IInternalGetJobGruopsOptions {
   outputs: AnyObject[] | AnyObject;
+  exportOutputs: boolean;
+  outputsDir: string;
   outcome: OutcomeStatus;
   conclusion: ConclusionStatus;
   workflowData: IWorkflowData;
   workflowDataJobs: Record<string, AnyObject>;
   workflowRelativePath: string;
   triggerName: string;
+  cwd: string;
   suffix?: string;
 }
 interface IInternalGetWorkflowDataOptions {
@@ -482,24 +503,27 @@ function getWorkflowData(
   newWorkflowData.jobs = finalJobs;
   return newWorkflowData;
 }
-function getJobGroups(
+async function getJobGroups(
   options: IInternalGetJobGruopsOptions
-): {
+): Promise<{
   jobsGroup: {
     lastJobs: string[];
     firstJobs: string[];
     jobs: Record<string, AnyObject>;
   };
   jobInternalEnv: Record<string, string>;
-} {
+}> {
   const {
     outputs,
+    exportOutputs,
+    outputsDir,
     workflowData,
     workflowDataJobs,
     triggerName,
     outcome,
     conclusion,
     suffix,
+    cwd,
     workflowRelativePath,
   } = options;
 
@@ -510,19 +534,50 @@ function getJobGroups(
 
   const rawTriggers = getRawTriggers(workflowData);
   // add all triggers results to env
-  rawTriggers.forEach((rawTrigger) => {
+  for (let i = 0; i < rawTriggers.length; i++) {
+    const rawTrigger = rawTriggers[i];
     if (triggerName === rawTrigger.name) {
-      jobInternalEnv[
-        `${TRIGGER_RESULT_ENV_PREFIX}${rawTrigger.name}`
-      ] = JSON.stringify(
-        {
-          outcome: outcome,
-          conclusion: conclusion,
-          outputs: outputs,
-        },
-        null,
-        2
-      );
+      // check is need export
+      if (exportOutputs) {
+        const filePath = getTriggerWebhookBasePath(
+          workflowRelativePath,
+          triggerName
+        ).slice(1);
+        const finalOutputsPath = path.resolve(
+          cwd,
+          outputsDir,
+          `${filePath}${suffix ? "_" + suffix : ""}.json`
+        );
+        const finalOutputsRelativePath = path.relative(cwd, finalOutputsPath);
+        await fs.outputJSON(finalOutputsPath, outputs, {
+          spaces: 2,
+        });
+        jobInternalEnv[
+          `${TRIGGER_RESULT_ENV_PREFIX}${rawTrigger.name}`
+        ] = JSON.stringify(
+          {
+            outcome: outcome,
+            conclusion: conclusion,
+            outputs: {
+              path: finalOutputsRelativePath,
+            },
+          },
+          null,
+          2
+        );
+      } else {
+        jobInternalEnv[
+          `${TRIGGER_RESULT_ENV_PREFIX}${rawTrigger.name}`
+        ] = JSON.stringify(
+          {
+            outcome: outcome,
+            conclusion: conclusion,
+            outputs: outputs,
+          },
+          null,
+          2
+        );
+      }
     } else {
       jobInternalEnv[
         `${TRIGGER_RESULT_ENV_PREFIX}${rawTrigger.name}`
@@ -539,7 +594,8 @@ function getJobGroups(
     context.on[
       rawTrigger.name
     ] = `(fromJSON(env.${TRIGGER_RESULT_ENV_PREFIX}${rawTrigger.name}))`;
-  });
+  }
+
   // handle context expresstion
   let newJobs = {};
   try {

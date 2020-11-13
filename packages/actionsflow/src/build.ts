@@ -122,6 +122,8 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
       force: force,
       logLevel: logLevel,
     },
+    cwd,
+    dest: destPath,
   });
 
   const errors: ITriggerError[] = [];
@@ -185,6 +187,8 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
           },
           event: event,
           logLevel,
+          cwd,
+          dest: destPath,
         })
       );
     } else {
@@ -281,12 +285,15 @@ const build = async (options: IBuildOptions = {}): Promise<void> => {
     if (triggerRunResult.items.length > 0) {
       const newWorkflowFileDatas = await getBuiltWorkflows({
         workflow: workflow,
+        cwd,
         trigger: {
           name: trigger.name,
           results: triggerRunResult.items,
           outcome: triggerRunResult.outcome,
           conclusion: triggerRunResult.conclusion,
           outputsMode: trigger.outputsMode,
+          exportOutputs: trigger.exportOutputs,
+          outputsDir: trigger.outputsDir,
           resultsPerWorkflow: trigger.resultsPerWorkflow,
         },
       });

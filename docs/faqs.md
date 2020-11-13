@@ -59,7 +59,9 @@ When you have multiple workflow files, you may want to disable some of them. To 
 
 ## 7. `argument list too long` Error
 
-You may see this error [`OCI runtime exec failed: exec failed: container_linux.go:370: starting container process caused: argument list too long: unknown`](https://github.com/actionsflow/actionsflow/issues/4) when running `act`. This is because your built workflow file is too large for [`act`](https://github.com/nektos/act) to handle. You can work around this by reducing your outputs using [`on.<trigger>.config.filterOutputs`](./workflow.md#ontriggerconfigfilteroutputs). For example:
+You may see this error [`OCI runtime exec failed: exec failed: container_linux.go:370: starting container process caused: argument list too long: unknown`](https://github.com/actionsflow/actionsflow/issues/4) when running `act`. This is because your built workflow file is too large for [`act`](https://github.com/nektos/act) to handle. There are sevaral ways you can do:
+
+1. Reducing your outputs using [`on.<trigger>.config.filterOutputs`](./workflow.md#ontriggerconfigfilteroutputs). For example:
 
 ```yaml
 on:
@@ -74,6 +76,52 @@ on:
 ```
 
 With this configuration, only `title` and `link` will be sent to the output workflow.
+
+1. Reducing your outputs using [`on.<trigger>.config.format`](./workflow.md#ontriggerconfigformat). For example:
+
+```yaml
+on:
+  rss:
+    url:
+      - https://hnrss.org/newest?points=500
+      - https://hnrss.org/show?points=100
+    config:
+      format: |
+        return {
+          title: item.title,
+          link: item.link
+        }
+```
+
+With this configuration, only `title` and `link` will be sent to the output workflow.
+
+1. Export outputs to file by using [`on.<trigger>.config.exportOutputs`](./workflow.md#ontriggerconfigexportOutputs). For example:
+
+> Note, you should use [`--bind`](https://github.com/nektos/act#flags) for run [`act`](https://github.com/nektos/act), then you can access the outputs files at `act` workspace. Change `.github/workflows/actionsflow.yml`, `act` step, add `--bind` param. For local, change your start script to `actionsflow start -- --bind`
+
+```yaml
+on:
+  rss:
+    url: https://hnrss.org/newest?points=300
+    config:
+      outputsMode: combine
+      exportOutputs: true
+jobs:
+  outputs:
+    name: outputs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get outputs
+        uses: actions/github-script@v2
+        env:
+          OUTPUTS_PATH: ${{ on.rss.outputs.path }}
+        with:
+          script: |
+            const fs = require('fs');
+            const outputs = require(`${process.env.GITHUB_WORKSPACE}/${process.env.OUTPUTS_PATH}`)
+            console.log('outputs',outputs)
+            return true
+```
 
 ## 8. Cancel or disable workflow
 

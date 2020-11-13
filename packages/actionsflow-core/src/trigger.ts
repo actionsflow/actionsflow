@@ -1,6 +1,7 @@
 import chalk from "chalk";
 import { createContentDigest, getCache, formatBinary, Cache } from "./helpers";
 import { LogLevelDesc } from "loglevel";
+import path from "path";
 import {
   AnyObject,
   ITriggerClassType,
@@ -106,6 +107,8 @@ interface IGeneralTriggerOptions extends ITriggerGeneralConfigOptions {
   skipOnError: boolean;
   timeZone: string;
   outputsMode: OutputsMode;
+  exportOutputs: boolean;
+  outputsDir: string;
 }
 interface IGeneralTriggerDefaultOptions extends ITriggerGeneralConfigOptions {
   every: string | number;
@@ -120,16 +123,30 @@ interface IGeneralTriggerDefaultOptions extends ITriggerGeneralConfigOptions {
   skipOnError: boolean;
   timeZone: string;
   outputsMode: OutputsMode;
+  exportOutputs: boolean;
+  outputsDir: string;
 }
 export const getGeneralTriggerFinalOptions = (
   triggerInstance: ITriggerClassType,
   triggerOptions: ITriggerOptions,
-  event: ITriggerEvent
+  event: ITriggerEvent,
+  optionalOptions?: {
+    cwd?: string;
+    dest?: string;
+  }
 ): IGeneralTriggerOptions => {
   const instanceConfig = triggerInstance.config || {};
   let userOptions: ITriggerGeneralConfigOptions = {};
   if (triggerOptions && triggerOptions.config) {
     userOptions = triggerOptions.config;
+  }
+  let outputsDir = "dist/outputs";
+  if (optionalOptions && optionalOptions.cwd) {
+    let dest = `dist/outputs`;
+    if (optionalOptions.dest) {
+      dest = path.resolve(optionalOptions.dest, "outputs");
+    }
+    outputsDir = path.resolve(optionalOptions.cwd, dest);
   }
   const options: IGeneralTriggerDefaultOptions = {
     every: 0, // by the default, trigger will run every time when the github Actions workflow run.
@@ -144,6 +161,8 @@ export const getGeneralTriggerFinalOptions = (
     skipOnError: false,
     timeZone: "UTC",
     outputsMode: "separate",
+    exportOutputs: false,
+    outputsDir: outputsDir,
     ...instanceConfig,
     ...userOptions,
   };

@@ -252,6 +252,40 @@ jobs:
 
 Optional, `number` or `undefined`, the default is `undefined`, you can define the built workflow jobs length, if `undefined`, all outputs will be build to one single workflow. Generally, if your source data is large, you can use `resultsPerWorkflow` to separate the built workflow files to save space.
 
+## `on<trigger>.config.exportOutputs`
+
+Optional, `boolean`, the default is `false`, sometimes the outputs are too large for act to handle, especially when using `outputsMode: "combine"`, for the situation, you can choose to export outputs to file, then, the outputs will only include a `path`, you can use the `path` to read the outputs file, for example:
+
+> Note, you should use [`--bind`](https://github.com/nektos/act#flags) for run [`act`](https://github.com/nektos/act), then you can access the outputs files at `act` workspace. Change `.github/workflows/actionsflow.yml`, `act` step, add `--bind` param. For local, change your start script to `actionsflow start -- --bind`
+
+```yaml
+on:
+  rss:
+    url: https://hnrss.org/newest?points=300
+    config:
+      outputsMode: combine
+      exportOutputs: true
+jobs:
+  outputs:
+    name: outputs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get outputs
+        uses: actions/github-script@v2
+        env:
+          OUTPUTS_PATH: ${{ on.rss.outputs.path }}
+        with:
+          script: |
+            const fs = require('fs');
+            const outputs = require(`${process.env.GITHUB_WORKSPACE}/${process.env.OUTPUTS_PATH}`)
+            console.log('outputs',outputs)
+            return true
+```
+
+## `on<trigger>.config.outputsDir`
+
+Optional, if `on<trigger>.config.exportOutputs` is `true`, then you can specify the outputs directory, the default value is `<dest>/outputs`
+
 ## `on.<trigger>.config.sort`
 
 Optional, [`MongoDB query language sort syntax`](https://docs.mongodb.com/manual/reference/method/cursor.sort/index.html). You can use `sort` to change the order of the trigger's results as you need.

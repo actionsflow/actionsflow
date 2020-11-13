@@ -1,0 +1,28 @@
+on:
+  reddit:
+    url: https://www.reddit.com/r/stocks/top/
+    source: json
+    config:
+      exportOutputs: true
+      outputsMode: combine
+      filterScript: |
+        delete item.all_awardings
+        return item
+    requestConfig:
+      params:
+        raw_json: 1
+jobs:
+  outputs:
+    name: outputs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get outputs
+        uses: actions/github-script@v2
+        env:
+          OUTPUTS_PATH: ${{ on.reddit.outputs.path }}
+        with:
+          script: |
+            const fs = require('fs');
+            const outputs = require(`${process.env.GITHUB_WORKSPACE}/${process.env.OUTPUTS_PATH}`)
+            console.log('outputs',outputs)
+            return true

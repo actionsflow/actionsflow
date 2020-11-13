@@ -1,0 +1,23 @@
+on:
+  reddit:
+    url: https://www.reddit.com/r/stocks/top/
+    source: json
+    config:
+      exportOutputs: true
+      outputsMode: combine
+      filterScript: |
+        delete item.all_awardings
+        return item
+    requestConfig:
+      params:
+        raw_json: 1
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          json: ${{toJSON(on.reddit.outputs)}}
+        run: |
+          echo json: $json

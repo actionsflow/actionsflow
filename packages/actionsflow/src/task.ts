@@ -25,10 +25,14 @@ export const getTasksByTriggerEvent = async ({
   event,
   workflows,
   globalOptions,
+  cwd,
+  dest,
 }: {
   event: ITriggerEvent;
   workflows: IWorkflow[];
   globalOptions?: ITriggerGeneralConfigOptions;
+  cwd?: string;
+  dest?: string;
 }): Promise<ITask[]> => {
   const tasks: ITask[] = [];
   if (event.type === "webhook") {
@@ -65,7 +69,11 @@ export const getTasksByTriggerEvent = async ({
               const triggerGeneralOptions = getGeneralTriggerFinalOptions(
                 triggerInstance,
                 trigger.options,
-                event
+                event,
+                {
+                  cwd,
+                  dest,
+                }
               );
               tasks.push({
                 workflow: workflow,
@@ -74,6 +82,8 @@ export const getTasksByTriggerEvent = async ({
                   options: trigger.options,
                   class: TriggerClass,
                   outputsMode: triggerGeneralOptions.outputsMode,
+                  exportOutputs: triggerGeneralOptions.exportOutputs,
+                  outputsDir: triggerGeneralOptions.outputsDir,
                   resultsPerWorkflow: triggerGeneralOptions.resultsPerWorkflow,
                 },
                 event: event,
@@ -112,6 +122,8 @@ export const getTasksByTriggerEvent = async ({
         const trigger: ITaskTrigger = {
           ...supportedTriggers[j],
           outputsMode: "separate",
+          exportOutputs: false,
+          outputsDir: "dist/outputs",
         };
         const triggerHelperOptions: ITriggerHelpersOptions = {
           name: trigger.name,
@@ -134,7 +146,11 @@ export const getTasksByTriggerEvent = async ({
         const triggerGeneralOptions = getGeneralTriggerFinalOptions(
           triggerInstance,
           trigger.options,
-          event
+          event,
+          {
+            cwd,
+            dest,
+          }
         );
         const {
           every,
@@ -143,10 +159,15 @@ export const getTasksByTriggerEvent = async ({
           force,
           skipSchedule,
           outputsMode,
+          outputsDir,
+          exportOutputs,
           resultsPerWorkflow,
         } = triggerGeneralOptions;
 
         trigger.outputsMode = outputsMode;
+        trigger.outputsDir = outputsDir;
+        trigger.exportOutputs = exportOutputs;
+
         if (resultsPerWorkflow) {
           trigger.resultsPerWorkflow = resultsPerWorkflow;
         }

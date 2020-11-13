@@ -30,6 +30,8 @@ export const run = async ({
   trigger,
   event,
   workflow,
+  cwd,
+  dest,
 }: ITriggerInternalOptions): Promise<ITriggerInternalResult> => {
   log.debug("Trigger event: ", event);
   const originLogLevel = log.getLevel();
@@ -60,7 +62,11 @@ export const run = async ({
       const triggerGeneralOptions = getGeneralTriggerFinalOptions(
         triggerInstance,
         trigger.options,
-        event
+        event,
+        {
+          cwd,
+          dest,
+        }
       );
       const {
         shouldDeduplicate,
