@@ -59,7 +59,7 @@ When you have multiple workflow files, you may want to disable some of them. To 
 
 ## 7. `argument list too long` Error
 
-You may see this error [`OCI runtime exec failed: exec failed: container_linux.go:370: starting container process caused: argument list too long: unknown`](https://github.com/actionsflow/actionsflow/issues/4) when running `act`. This is because your built workflow file is too large for [`act`](https://github.com/nektos/act) to handle. There are sevaral ways you can do:
+You may see this error [`OCI runtime exec failed: exec failed: container_linux.go:370: starting container process caused: argument list too long: unknown`](https://github.com/actionsflow/actionsflow/issues/4) when running `act`. This is because your built workflow file is too large for [`act`](https://github.com/nektos/act) to handle. There are several ways you can do:
 
 1. Reducing your outputs using [`on.<trigger>.config.filterOutputs`](./workflow.md#ontriggerconfigfilteroutputs). For example:
 

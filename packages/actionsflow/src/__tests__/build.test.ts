@@ -2,7 +2,11 @@ import build from "../build";
 import { readFile } from "fs-extra";
 import path from "path";
 import yaml from "js-yaml";
-
+function toPosixPath(pathstring: string): string {
+  // And heck, you don't even need to put it in a function unless
+  // you need this conversion all over the place in your code.
+  return pathstring.split(path.sep).join(path.posix.sep);
+}
 test("build workflows", async () => {
   // set process env
   process.env.JSON_SECRETS =
@@ -41,7 +45,7 @@ test("build workflows", async () => {
     (rssExportWorkflow as any).jobs.ifttt_0.env
       .ACTIONSFLOW_TRIGGER_RESULT_FOR_rss
   );
-  expect(rssExportsResult0.outputs.path).toBe(
+  expect(toPosixPath(rssExportsResult0.outputs.path)).toBe(
     "dist/results/rss-export/rss_0.json"
   );
   // eslint-disable-next-line @typescript-eslint/no-var-requires
