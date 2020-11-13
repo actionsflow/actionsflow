@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/actionsflow/actionsflow/compare/actionsflow-core@1.5.4...actionsflow-core@1.6.0) (2020-11-13)
+
+
+### Features
+
+* 🎸 support export outputs to file for large outputs ([9acc5a0](https://github.com/actionsflow/actionsflow/commit/9acc5a0094f33786fb9d60ac2f0da8a5aed6f39c))
+
+
+
+
+
 ## [1.5.4](https://github.com/actionsflow/actionsflow/compare/actionsflow-core@1.5.3...actionsflow-core@1.5.4) (2020-11-10)
 
 

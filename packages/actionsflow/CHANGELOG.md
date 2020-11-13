@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/actionsflow/actionsflow/compare/actionsflow@1.6.8...actionsflow@1.7.0) (2020-11-13)
+
+
+### Bug Fixes
+
+* test path on window ([38ee17d](https://github.com/actionsflow/actionsflow/commit/38ee17dc1beaa4df1ede15ba487c905e166752bc))
+
+
+### Features
+
+* 🎸 support export outputs to file for large outputs ([9acc5a0](https://github.com/actionsflow/actionsflow/commit/9acc5a0094f33786fb9d60ac2f0da8a5aed6f39c))
+
+
+
+
+
 ## [1.6.8](https://github.com/actionsflow/actionsflow/compare/actionsflow@1.6.7...actionsflow@1.6.8) (2020-11-10)
 
 **Note:** Version bump only for package actionsflow
