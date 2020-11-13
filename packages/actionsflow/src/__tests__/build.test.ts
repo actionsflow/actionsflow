@@ -62,22 +62,13 @@ test("build workflows", async () => {
   );
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   expect((newWorkflow as any).jobs.ifttt_1.needs[0]).toBe("ifttt_0");
-  expect(
+  const newRedditWorkflowResult0 = JSON.parse(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (newRedditWorkflow as any).jobs.print.env
       .ACTIONSFLOW_TRIGGER_RESULT_FOR_reddit
-  ).toBe(
-    JSON.stringify(
-      {
-        outcome: "success",
-        conclusion: "success",
-        outputs: {
-          path: "dist/outputs/reddit/reddit.json",
-        },
-      },
-      null,
-      2
-    )
+  );
+  expect(toPosixPath(newRedditWorkflowResult0.outputs.path)).toBe(
+    "dist/outputs/reddit/reddit.json"
   );
 });
 
