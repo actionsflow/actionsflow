@@ -276,7 +276,6 @@ jobs:
           OUTPUTS_PATH: ${{ on.rss.outputs.path }}
         with:
           script: |
-            const fs = require('fs');
             const outputs = require(`${process.env.GITHUB_WORKSPACE}/${process.env.OUTPUTS_PATH}`)
             console.log('outputs',outputs)
             return true
