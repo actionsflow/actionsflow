@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.1](https://github.com/actionsflow/actionsflow/compare/actionsflow@1.7.0...actionsflow@1.7.1) (2020-11-25)
+
+
+### Bug Fixes
+
+* force dont't save the deduplicationKeys ([ea411dd](https://github.com/actionsflow/actionsflow/commit/ea411dd830106782b36699a88cb3d859b34b961d))
+
+
+
+
+
 # [1.7.0](https://github.com/actionsflow/actionsflow/compare/actionsflow@1.6.8...actionsflow@1.7.0) (2020-11-13)
 
 
