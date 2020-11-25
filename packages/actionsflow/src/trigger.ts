@@ -245,7 +245,7 @@ export const run = async ({
             }
 
             // duplicate
-            if (shouldDeduplicate === true && getItemKey && !force) {
+            if (shouldDeduplicate === true && getItemKey) {
               // deduplicate
               // get cache
               deduplicationKeys =
@@ -253,19 +253,23 @@ export const run = async ({
               log.debug(
                 `Get ${deduplicationKeys.length} cached deduplicationKeys`
               );
+
               const itemsKeyMaps = new Map();
               items.forEach((item) => {
                 itemsKeyMaps.set(getItemKey(item), item);
               });
               items = [...itemsKeyMaps.values()];
-              items = items.filter((result) => {
-                const key = getItemKey(result);
-                if ((deduplicationKeys as string[]).includes(key)) {
-                  return false;
-                } else {
-                  return true;
-                }
-              });
+              if (!force) {
+                items = items.filter((result) => {
+                  const key = getItemKey(result);
+                  if ((deduplicationKeys as string[]).includes(key)) {
+                    return false;
+                  } else {
+                    return true;
+                  }
+                });
+              }
+
               // set deduplicate key
               // if save to cache
               // items should use raw items
