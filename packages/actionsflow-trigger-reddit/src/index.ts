@@ -27,10 +27,12 @@ export default class Reddit implements ITriggerClassType {
   }
   async requestJSON(urls: string[], config?: AnyObject): Promise<AnyObject[]> {
     urls = urls.map((item) => {
-      if (item.endsWith(".json")) {
+      const urlObj = new URL(item);
+      if (urlObj.pathname.endsWith(".json")) {
         return item;
       } else {
-        return `${item}.json`;
+        urlObj.pathname = `${urlObj.pathname}.json`;
+        return urlObj.toString();
       }
     });
     const items: AnyObject[] = [];
@@ -62,10 +64,12 @@ export default class Reddit implements ITriggerClassType {
   }
   async requestRSS(urls: string[]): Promise<AnyObject[]> {
     urls = urls.map((item) => {
-      if (item.endsWith(".rss")) {
+      const urlObj = new URL(item);
+      if (urlObj.pathname.endsWith(".rss")) {
         return item;
       } else {
-        return `${item}.rss`;
+        urlObj.pathname = `${urlObj.pathname}.rss`;
+        return urlObj.toString();
       }
     });
     const items: AnyObject[] = [];

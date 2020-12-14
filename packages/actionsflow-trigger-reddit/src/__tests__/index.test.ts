@@ -43,3 +43,19 @@ test("request json", async () => {
   expect(Array.isArray(result)).toBe(true);
   expect(result[0]).toHaveProperty("title");
 });
+test("request json2", async () => {
+  const triggerConstructorParams = await getTriggerConstructorParams({
+    name: "reddit",
+    cwd: path.resolve(__dirname, "fixtures"),
+    workflowPath: path.resolve(__dirname, "fixtures/workflows/workflow.yml"),
+    options: {
+      url: "https://reddit.com/r/news/?t=week",
+    },
+  });
+  const trigger = new Trigger(triggerConstructorParams);
+  const result = await trigger.requestJSON([
+    "https://reddit.com/r/news/?t=week",
+  ]);
+  expect(Array.isArray(result)).toBe(true);
+  expect(result[0]).toHaveProperty("title");
+});
