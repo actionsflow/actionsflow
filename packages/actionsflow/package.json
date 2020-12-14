@@ -1,5 +1,5 @@
 {
-  "version": "1.7.1",
+  "version": "1.7.2",
   "license": "MIT",
   "main": "dist/src/index.js",
   "typings": "dist/src/index.d.ts",
@@ -40,7 +40,7 @@
     "@actionsflow/trigger-aws_sns": "^1.6.0",
     "@actionsflow/trigger-google_form": "^1.6.0",
     "@actionsflow/trigger-npm": "^1.6.0",
-    "@actionsflow/trigger-reddit": "^1.6.0",
+    "@actionsflow/trigger-reddit": "^1.6.1",
     "@actionsflow/trigger-slack": "^1.6.0",
     "@actionsflow/trigger-telegram_bot": "^1.6.0",
     "@actionsflow/trigger-trello": "^1.6.0",
