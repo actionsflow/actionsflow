@@ -1,3 +1,10 @@
+## [1.7.2](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-reddit@1.6.1...v1.7.2) (2020-12-14)
+
+
+### Bug Fixes
+
+* reddit url with search params ([2b1b887](https://github.com/actionsflow/actionsflow/commit/2b1b8874862f7ac78552efe4cf0ac7c81427228f))
+
 ## [1.7.1](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.7.1...v1.7.1) (2020-11-25)
 
 
