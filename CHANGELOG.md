@@ -1,3 +1,5 @@
+## [1.7.3](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-reddit@1.6.2...v1.7.3) (2020-12-15)
+
 ## [1.7.2](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-reddit@1.6.1...v1.7.2) (2020-12-14)
 
 
