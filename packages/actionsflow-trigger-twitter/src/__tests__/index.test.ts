@@ -13,13 +13,44 @@ test("run trigger with error", async () => {
   );
 });
 
-test("run trigger", async () => {
+test("run trigger multiple", async () => {
   const auth = {
     consumer_key: process.env.TWITTER_CONSUMER_KEY,
     consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
     access_token: process.env.TWITTER_ACCESS_TOKEN,
     access_token_secret: process.env.TWITTER_ACCESS_SECRET,
   };
+
+  if (!auth.consumer_key || !auth.consumer_secret) {
+    return;
+  }
+  const triggerConstructorParams = await getTriggerConstructorParams({
+    name: "twitter",
+    cwd: path.resolve(__dirname, "fixtures"),
+    workflowPath: path.resolve(__dirname, "fixtures/workflows/workflow.yml"),
+    options: {
+      auth,
+      params: [
+        { count: 2, screen_name: "TheOwenYoung" },
+        { count: 3, screen_name: "newsycombinator" },
+      ],
+    },
+  });
+  const trigger = new Trigger(triggerConstructorParams);
+  const results = await trigger.run();
+
+  await triggerConstructorParams.helpers.cache.reset();
+  await expect(results.length).toBe(5);
+});
+
+test("run trigger single", async () => {
+  const auth = {
+    consumer_key: process.env.TWITTER_CONSUMER_KEY,
+    consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+    access_token: process.env.TWITTER_ACCESS_TOKEN,
+    access_token_secret: process.env.TWITTER_ACCESS_SECRET,
+  };
+
   if (!auth.consumer_key || !auth.consumer_secret) {
     return;
   }

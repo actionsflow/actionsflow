@@ -35,7 +35,7 @@ export default class Reddit implements ITriggerClassType {
         return urlObj.toString();
       }
     });
-    const items: AnyObject[] = [];
+    let items: AnyObject[] = [];
     config = {
       ...config,
     };
@@ -54,9 +54,12 @@ export default class Reddit implements ITriggerClassType {
         result.data.data &&
         result.data.data.children
       ) {
-        return result.data.data.children.map((item: AnyObject) => item.data);
+        items = items.concat(
+          result.data.data.children.map((item: AnyObject) => item.data)
+        );
       }
     }
+
     return items;
   }
   formatItem(item: AnyObject): AnyObject {

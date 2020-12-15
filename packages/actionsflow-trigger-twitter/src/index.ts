@@ -13,6 +13,7 @@ export default class Twitter implements ITriggerClassType {
   fetchAllResultsAtFirst = false;
   maxCount = Infinity;
   isFirstRun = false;
+  twitter: Twit | undefined;
   getItemKey(item: AnyObject): string {
     if (this.api && item.id_str) {
       return (this.api + "__" + item.id_str) as string;
@@ -34,42 +35,56 @@ export default class Twitter implements ITriggerClassType {
     }
     this.helpers = helpers;
   }
-
-  async run(): Promise<AnyObject[]> {
-    const {
-      consumer_key,
-      consumer_secret,
-      access_token,
-      access_token_secret,
-    } = this.options.auth as {
-      consumer_key: string;
-      consumer_secret: string;
-      access_token: string;
-      access_token_secret: string;
-    };
-    const { api } = this.options as {
-      api: string;
-    };
-    if (api) {
-      this.api = api;
-    }
-    // validate
-    const supportedApis: string[] = [
-      "search/tweets",
-      "statuses/user_timeline",
-      "favorites/list",
-      "statuses/mentions_timeline",
-    ];
-    if (!supportedApis.includes(this.api)) {
-      throw new Error("Twitter trigger not support ${this.api} api now");
-    }
+  async getMultipleResults(): Promise<AnyObject[]> {
     let finalResult: AnyObject[] = [];
-    const twitter = new Twit({
-      consumer_key,
-      consumer_secret,
-      access_token,
-      access_token_secret,
-    });
+    const optionParams = this.options.params as AnyObject[];
+    let paramsArr = optionParams;
+    if (this.api === "statuses/user_timeline") {
+      paramsArr = paramsArr.map((params) => {
+        return {
+          screen_name: "",
+          exclude_replies: true,
+          include_rts: true,
+          tweet_mode: "extended",
+          count: 20,
+          ...params,
+        };
+      });
+    }
+    let tweets: AnyObject[] = [];
+    for (let i = 0; i < paramsArr.length; i++) {
+      const params = paramsArr[i];
+      this.helpers.log.debug(`twitter api ${this.api} params: `, params);
+      const result = await (this.twitter as Twit).get(this.api, params);
+      this.helpers.log.debug(`twitter api ${this.api} result: `, result.data);
+      let latestTweets: AnyObject[] = [];
+      if (["search/tweets"].includes(this.api)) {
+        if (result.data && (result.data as AnyObject).statuses) {
+          latestTweets = (result.data as AnyObject).statuses as AnyObject[];
+        }
+      } else {
+        latestTweets = result.data as AnyObject[];
+      }
+      // concat tweets
+      if (latestTweets.length > 0) {
+        tweets = tweets.concat(latestTweets);
+      }
+    }
+
+    tweets = tweets.slice(0, this.maxCount);
+    if (tweets.length > 0) {
+      tweets.sort((a, b) => {
+        return Number(BigInt(b.id as bigint) - BigInt(a.id as bigint));
+      });
+    }
+
+    finalResult = tweets;
+
+    return finalResult;
+  }
+  async getSingleResults(): Promise<AnyObject[]> {
+    let finalResult: AnyObject[] = [];
+
     // get cache with since_id
     let since_id = (await this.helpers.cache.get(`${this.api}_since_id`)) as
       | string
@@ -101,7 +116,7 @@ export default class Twitter implements ITriggerClassType {
 
     while (fetchNextResults) {
       this.helpers.log.debug(`twitter api ${this.api} params: `, params);
-      const result = await twitter.get(this.api, params);
+      const result = await (this.twitter as Twit).get(this.api, params);
       this.helpers.log.debug(`twitter api ${this.api} result: `, result.data);
       let latestTweets: AnyObject[] = [];
       if (["search/tweets"].includes(this.api)) {
@@ -147,6 +162,51 @@ export default class Twitter implements ITriggerClassType {
     finalResult = tweets;
     if (max_id) {
       await this.helpers.cache.set(`${this.api}_since_id`, max_id);
+    }
+    return finalResult;
+  }
+
+  async run(): Promise<AnyObject[]> {
+    const {
+      consumer_key,
+      consumer_secret,
+      access_token,
+      access_token_secret,
+    } = this.options.auth as {
+      consumer_key: string;
+      consumer_secret: string;
+      access_token: string;
+      access_token_secret: string;
+    };
+    const { api } = this.options as {
+      api: string;
+    };
+    if (api) {
+      this.api = api;
+    }
+    // validate
+    const supportedApis: string[] = [
+      "search/tweets",
+      "statuses/user_timeline",
+      "favorites/list",
+      "statuses/mentions_timeline",
+    ];
+    if (!supportedApis.includes(this.api)) {
+      throw new Error("Twitter trigger not support ${this.api} api now");
+    }
+    this.twitter = new Twit({
+      consumer_key,
+      consumer_secret,
+      access_token,
+      access_token_secret,
+    });
+    let finalResult: AnyObject[] = [];
+
+    if (Array.isArray(this.options.params)) {
+      // multiple
+      finalResult = await this.getMultipleResults();
+    } else {
+      finalResult = await this.getSingleResults();
     }
     return finalResult;
   }
