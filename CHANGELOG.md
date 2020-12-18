@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.7.0...v1.8.0) (2020-12-18)
+
+
+### Features
+
+* 🎸 add graphql trigger ([88537d6](https://github.com/actionsflow/actionsflow/commit/88537d62f5aac2ecdbfe9c9bfa76a88f5903a751))
+
 ## [1.7.3](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-reddit@1.6.2...v1.7.3) (2020-12-15)
 
 ## [1.7.2](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-reddit@1.6.1...v1.7.2) (2020-12-14)
