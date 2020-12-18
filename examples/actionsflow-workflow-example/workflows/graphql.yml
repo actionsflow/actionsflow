@@ -1,0 +1,22 @@
+on:
+  graphql:
+    url: https://countries.trevorblades.com/
+    itemsPath: data.countries
+    deduplicationKey: code
+    query: |
+      query {
+        countries {
+          code
+          name
+        }
+      }
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          name: ${{ on.graphql.outputs.name }}
+        run: |
+          echo "name: $name"

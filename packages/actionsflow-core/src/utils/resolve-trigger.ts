@@ -57,12 +57,6 @@ export const getGlobalThirdPartyTrigger = (
     triggerPath = resolveGlobal.silent(thirdPartyTrigger);
   }
 
-  if (!triggerPath) {
-    // try to resolve the direct package
-    log.trace("Try to find trigger at package: ", triggerName);
-    triggerPath = resolveGlobal.silent(triggerName);
-  }
-
   if (triggerPath) {
     log.trace("Found third party trigger at: ", triggerPath);
     // eslint-disable-next-line @typescript-eslint/no-var-requires

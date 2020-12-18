@@ -3,6 +3,7 @@ import Rss from "./rss";
 import email from "./email";
 import Webhook from "./webhook";
 import Script from "./script";
+import Graphql from "./graphql";
 import GoogleForm from "@actionsflow/trigger-google_form";
 import TelegramBot from "@actionsflow/trigger-telegram_bot";
 import Twitter from "@actionsflow/trigger-twitter";
@@ -17,6 +18,7 @@ import Weather from "@actionsflow/trigger-weather";
 export default {
   poll: Poll,
   rss: Rss,
+  graphql: Graphql,
   webhook: Webhook,
   script: Script,
   telegram_bot: TelegramBot,

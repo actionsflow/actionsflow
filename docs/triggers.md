@@ -17,6 +17,7 @@ For now, the following triggers are available:
 
 - [Email](./triggers/email.md) - Watch for new emails.
 - [API polling](./triggers/poll.md) - Polling JSON API updates.
+- [Graphql polling](./triggers/graphql.md) - Polling Graphql API updates.
 - [RSS](./triggers/rss.md) - Watch RSS feed updates.
 - [Script](./triggers/script.md) - Run Javascript code to get updates.
 - [Webhook](./triggers/webhook.md) - Receive webhook notifications.

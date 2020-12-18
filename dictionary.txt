@@ -78,3 +78,5 @@ codecov
 Env
 localhost:3000
 http
+Graphql
+graphql
