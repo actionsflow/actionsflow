@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-npm@1.6.0...@actionsflow/trigger-npm@1.7.0) (2020-12-18)
+
+**Note:** Version bump only for package @actionsflow/trigger-npm
+
+
+
+
+
 # [1.6.0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-npm@1.5.4...@actionsflow/trigger-npm@1.6.0) (2020-11-13)
 
 **Note:** Version bump only for package @actionsflow/trigger-npm

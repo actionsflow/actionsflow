@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/actionsflow/actionsflow/compare/actionsflow-core@1.6.0...actionsflow-core@1.7.0) (2020-12-18)
+
+
+### Features
+
+* 🎸 add graphql trigger ([88537d6](https://github.com/actionsflow/actionsflow/commit/88537d62f5aac2ecdbfe9c9bfa76a88f5903a751))
+
+
+
+
+
 # [1.6.0](https://github.com/actionsflow/actionsflow/compare/actionsflow-core@1.5.4...actionsflow-core@1.6.0) (2020-11-13)
 
 

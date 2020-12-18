@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-reddit@1.6.2...@actionsflow/trigger-reddit@1.7.0) (2020-12-18)
+
+**Note:** Version bump only for package @actionsflow/trigger-reddit
+
+
+
+
+
 ## [1.6.2](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-reddit@1.6.1...@actionsflow/trigger-reddit@1.6.2) (2020-12-15)
 
 **Note:** Version bump only for package @actionsflow/trigger-reddit

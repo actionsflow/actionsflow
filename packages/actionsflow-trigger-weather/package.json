@@ -1,6 +1,6 @@
 {
   "name": "@actionsflow/trigger-weather",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "Actionsflow trigger weather",
   "keywords": [
     "weather",
@@ -29,7 +29,7 @@
     "url": "https://github.com/actionsflow/actionsflow/issues"
   },
   "dependencies": {
-    "actionsflow-core": "^1.6.0",
+    "actionsflow-core": "^1.7.0",
     "tslib": "^2.0.1"
   },
   "devDependencies": {
