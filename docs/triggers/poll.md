@@ -60,6 +60,27 @@ on:
           Authorization: Basic YWxhZGRpbjpvcGVuc2VzYW1l
   ```
 
+- `requestConfig.axios-retry`, optional, [`axios-retry`](https://github.com/softonic/axios-retry) params, you can configure the number of times to retry, for example:
+
+```yaml
+on:
+  poll:
+    url: https://fb067a39e21871a3c38f8569d28d5aba.m.pipedream.net/
+    requestConfig:
+      axios-retry:
+        retries: 3
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          title: ${{ on.poll.outputs.id }}
+        run: |
+          echo "title: $title"
+```
+
 > You can use [General Config for Actionsflow Trigger](../workflow.md#ontriggerconfig) for more customization.
 
 ## Outputs

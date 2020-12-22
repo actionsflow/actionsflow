@@ -22,7 +22,11 @@ import rssParser from "rss-parser";
 import { getWorkflow } from "./workflow";
 import { getContext } from "./context";
 import { Log, prefix, colors, log } from "./log";
-
+import axiosRetry from "axios-retry";
+axiosRetry(axios, {
+  retries: 0,
+  retryDelay: axiosRetry.exponentialDelay,
+});
 export const getTriggerId = ({
   name,
   workflowRelativePath,
