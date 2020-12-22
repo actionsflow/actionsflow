@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.1](https://github.com/actionsflow/actionsflow/compare/actionsflow-core@1.7.0...actionsflow-core@1.7.1) (2020-12-22)
+
+
+### Features
+
+* axios support reties ([d99d1d3](https://github.com/actionsflow/actionsflow/commit/d99d1d3882da4ddf3622472d2be2902b623a170e))
+
+
+
+
+
 # [1.7.0](https://github.com/actionsflow/actionsflow/compare/actionsflow-core@1.6.0...actionsflow-core@1.7.0) (2020-12-18)
 
 
