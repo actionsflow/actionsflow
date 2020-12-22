@@ -1,11 +1,8 @@
 on:
   poll:
-    url: https://fb067a39e21871a3c38f8569d28d5aba.m.pipedream.net/
+    url: https://jsonplaceholder.typicode.com/posts
     config:
       limit: 5
-    requestConfig:
-      axios-retry:
-        retries: 3
 jobs:
   print:
     name: Print
@@ -13,6 +10,8 @@ jobs:
     steps:
       - name: Print Outputs
         env:
-          title: ${{ on.poll.outputs.id }}
+          title: ${{ on.poll.outputs.title }}
+          body: ${{ on.poll.outputs.body }}
         run: |
           echo "title: $title"
+          echo "body: $body"
