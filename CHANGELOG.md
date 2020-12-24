@@ -1,3 +1,15 @@
+## [1.8.2](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.8.2...v1.8.2) (2020-12-24)
+
+
+### Bug Fixes
+
+* example poll ([941ce85](https://github.com/actionsflow/actionsflow/commit/941ce85da46bad27aa1d10807cbe02f11f505b6c))
+
+
+### Features
+
+* rss trigger support rss parser config params ([7b8ec2f](https://github.com/actionsflow/actionsflow/commit/7b8ec2f3ea99ee32301f1c1dfc2ee550b4eb5521))
+
 ## [1.8.1](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-weather@1.7.1...v1.8.1) (2020-12-22)
 
 
