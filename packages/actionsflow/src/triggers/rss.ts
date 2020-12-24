@@ -22,7 +22,10 @@ export default class Rss implements ITriggerClassType {
   }
 
   async run(): Promise<AnyObject[]> {
-    const { url } = this.options as { url: string | string[] };
+    const { url, parserConfig = {} } = this.options as {
+      url: string | string[];
+      parserConfig: AnyObject;
+    };
     let urls: string[] = [];
 
     if (Array.isArray(url)) {
@@ -41,7 +44,7 @@ export default class Rss implements ITriggerClassType {
     for (let index = 0; index < urls.length; index++) {
       const feedUrl = urls[index];
       // get updates
-      const parser = new this.helpers.rssParser();
+      const parser = new this.helpers.rssParser(parserConfig);
 
       let feed;
       try {

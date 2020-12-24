@@ -1,12 +1,10 @@
 import Rss from "../rss";
 import { getTriggerConstructorParams } from "./trigger.util";
-
 test("rss trigger", async () => {
   const rss = new Rss(
     await getTriggerConstructorParams({
       options: {
         url: "https://hnrss.org/newest?points=300",
-        every: 10,
       },
       name: "rss",
     })
@@ -21,7 +19,6 @@ test("rss trigger with multiple urls", async () => {
     await getTriggerConstructorParams({
       options: {
         url: ["https://hnrss.org/newest?points=300"],
-        every: 10,
       },
       name: "rss",
     })

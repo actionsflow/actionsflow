@@ -33,6 +33,7 @@ on:
 ## Options
 
 - `url`, required, `string` or `string[]`, when `url` is `string[]`, then multiple RSS feeds can trigger the action.
+- `parserConfig`, optional, `object`, you can pass the [rss-parse](https://github.com/rbren/rss-parser#xml-options) params to here.
 
 > You can use [General Config for Actionsflow Trigger](../workflow.md#ontriggerconfig) for more customization.
 
