@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.8.2](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.8.1...actionsflow-workflow-example@1.8.2) (2020-12-24)
+
+
+### Bug Fixes
+
+* example poll ([941ce85](https://github.com/actionsflow/actionsflow/commit/941ce85da46bad27aa1d10807cbe02f11f505b6c))
+
+
+
+
+
 ## [1.8.1](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.8.0...actionsflow-workflow-example@1.8.1) (2020-12-22)
 
 

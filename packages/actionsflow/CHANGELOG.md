@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.8.2](https://github.com/actionsflow/actionsflow/compare/actionsflow@1.8.1...actionsflow@1.8.2) (2020-12-24)
+
+
+### Features
+
+* rss trigger support rss parser config params ([7b8ec2f](https://github.com/actionsflow/actionsflow/commit/7b8ec2f3ea99ee32301f1c1dfc2ee550b4eb5521))
+
+
+
+
+
 ## [1.8.1](https://github.com/actionsflow/actionsflow/compare/actionsflow@1.8.0...actionsflow@1.8.1) (2020-12-22)
 
 **Note:** Version bump only for package actionsflow
