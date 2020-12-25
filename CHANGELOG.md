@@ -1,3 +1,10 @@
+## [1.8.3](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.8.3...v1.8.3) (2020-12-25)
+
+
+### Features
+
+* format, filterScript function support helpers context ([98205f9](https://github.com/actionsflow/actionsflow/commit/98205f9b96212fc03940c3501657292ffe80cbfa))
+
 ## [1.8.2](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.8.2...v1.8.2) (2020-12-24)
 
 
