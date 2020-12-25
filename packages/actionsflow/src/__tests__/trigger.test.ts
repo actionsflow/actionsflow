@@ -76,6 +76,7 @@ test("run trigger with format", async () => {
   });
   expect(result.items.length).toBe(1);
   expect(result.items[0].id).toBe(3);
+  expect(result.items[0].hash).toBe("eccbc87e4b5ce2fe28308fd9f2a7baf3");
 
   // clear cache
   await triggerCacheManager.reset();

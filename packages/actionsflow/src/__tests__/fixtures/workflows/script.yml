@@ -19,7 +19,9 @@ on:
           }];
     config:
       format: |
-        return item.payload.data
+        const finalItem = item.payload.data
+        finalItem.hash = helpers.createContentDigest(finalItem.id)
+        return finalItem
 jobs:
   print:
     name: Print

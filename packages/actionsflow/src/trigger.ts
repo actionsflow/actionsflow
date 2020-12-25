@@ -171,6 +171,7 @@ export const run = async ({
                 try {
                   const newItem = getStringFunctionResult(format, {
                     item,
+                    helpers: triggerConstructorParams.helpers,
                   }) as Record<string, unknown>;
                   return newItem;
                 } catch (error) {
@@ -196,6 +197,7 @@ export const run = async ({
                     item,
                     index,
                     items,
+                    helpers: triggerConstructorParams.helpers,
                   }) as Record<string, unknown>;
                   return filterResult;
                 } catch (error) {
@@ -221,6 +223,7 @@ export const run = async ({
                     a,
                     b,
                     items,
+                    helpers: triggerConstructorParams.helpers,
                   }) as number;
 
                   return sortResult;
