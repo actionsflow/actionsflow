@@ -1,0 +1,18 @@
+on:
+  poll:
+    url: https://hnrss.org/newest?points=${{metadata.points}}
+    test: ${{ secrets.TEST }}-1
+    test2: ${{env.TEST_ENV_1 }}-3
+    config:
+      metadata: |
+        return {
+          points: 200
+        }
+env:
+  TEST_ENV_1: ${{secrets.TEST}}-env1
+jobs:
+  ifttt:
+    name: Make a Request to IFTTT
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo test

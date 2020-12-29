@@ -22,12 +22,12 @@ test("get workflows", async () => {
     },
   });
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  expect((workflows[0] as any).data.on.rss.url).toBe(
+  expect((workflows[1] as any).data.on.rss.url).toBe(
     "https://hnrss.org/newest?points=300"
   );
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  expect((workflows[0] as any).data.on.rss.test).toBe("test-1");
+  expect((workflows[1] as any).data.on.rss.test).toBe("test-1");
 });
 
 test("rename jobs by suffix", () => {
@@ -471,5 +471,29 @@ test("get workflow with env", async () => {
     expect(
       (workflow.data.on as Record<string, Record<string, string>>).rss.test2
     ).toBe("test333-env1-3");
+  }
+});
+
+test("get workflow with metadata", async () => {
+  const workflow = await getWorkflow({
+    cwd: path.resolve(__dirname, "fixtures"),
+    path: path.resolve(__dirname, "fixtures", "workflows", "poll-metadata.yml"),
+    context: {
+      github: {
+        event: {},
+      },
+      secrets: {
+        TEST: "test333",
+      },
+    },
+  });
+  if (workflow) {
+    expect(
+      (workflow.data.on as Record<string, Record<string, string>>).poll.test2
+    ).toBe("test333-env1-3");
+
+    expect(
+      (workflow.data.on as Record<string, Record<string, string>>).poll.url
+    ).toBe("https://hnrss.org/newest?points=200");
   }
 });

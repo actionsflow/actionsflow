@@ -4,6 +4,7 @@ export {
   getTemplateStringByParentName,
   getExpressionResult,
   getStringFunctionResult,
+  getAsyncStringFunctionResult,
 } from "./template";
 export {
   getThirdPartyTrigger,

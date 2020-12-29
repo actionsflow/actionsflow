@@ -53,7 +53,7 @@ You can access context information in workflow triggers. You need to use specifi
 ${{ <context> }}
 ```
 
-For now, you can use [`secrets`](https://docs.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets) and [`github`](https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#github-context) as trigger's context. The two objects are set by Github actions and you can use them in the trigger config. For example:
+For now, you can use [`secrets`](https://docs.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets) and [`github`](https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#github-context), and [`metadata`](#ontriggerconfigmetadata) as trigger's context. The two objects are set by Github actions and you can use them in the trigger config. For example:
 
 ```yaml
 on:
@@ -104,6 +104,21 @@ on:
 ## `on.<trigger>.config.timeZone`
 
 Optional. `string`, time zone, the default value is `UTC`, used for parsing `on.<trigger>.config.every` cron expression, see more time zone string at [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+
+## `on.<trigger>.config.metadata`
+
+Optional, `string`, js function code, the default value is `return {}`, the returned value will be used for the trigger's value context, for example:
+
+```yaml
+on:
+  poll:
+    url: https://jsonplaceholder.typicode.com/posts?page=${{metadata.page}}
+    config:
+      metadata: |
+        return {
+          page: 2
+        }
+```
 
 ## `on.<trigger>.config.filter`
 

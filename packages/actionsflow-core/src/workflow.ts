@@ -9,6 +9,7 @@ import {
   getTemplateStringByParentName,
   getRawTriggers,
   getTriggerWebhookBasePath,
+  getAsyncStringFunctionResult,
 } from "./utils";
 import multimatch from "multimatch";
 import {
@@ -89,13 +90,44 @@ export const getWorkflow = async ({
         }
       ) as Record<string, string>;
       // add env to context
+      // add metadata context
+      const metadata: Record<string, string> = {};
       const newContext = {
         ...context,
         env: {
           ...process.env,
           ...newEnv,
         },
+        metadata,
       };
+
+      if (doc.on) {
+        const docOnKeys = Object.keys(doc.on);
+        for (let i = 0; i < docOnKeys.length; i++) {
+          const triggerName = docOnKeys[i];
+          if (
+            (doc.on as Record<string, Record<string, Record<string, string>>>)[
+              triggerName
+            ] &&
+            (doc.on as Record<string, Record<string, Record<string, string>>>)[
+              triggerName
+            ].config &&
+            (doc.on as Record<string, Record<string, Record<string, string>>>)[
+              triggerName
+            ].config.metadata
+          ) {
+            // run metadata function
+            newContext.metadata = (await getAsyncStringFunctionResult(
+              (doc.on as Record<
+                string,
+                Record<string, Record<string, string>>
+              >)[triggerName].config.metadata,
+              newContext
+            )) as Record<string, string>;
+          }
+        }
+      }
+
       const newOn = mapObj(
         doc.on,
         (mapKey, mapValue) => {

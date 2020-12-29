@@ -231,6 +231,12 @@ export const getStringFunctionResult = (
 ): unknown => {
   return Function("with(this){\n" + expressionText + "\n}").call(context);
 };
+export const getAsyncStringFunctionResult = async (
+  expressionText: string,
+  context: AnyObject
+): Promise<unknown> => {
+  return await Function("with(this){\n" + expressionText + "\n}").call(context);
+};
 const variableHandle = ({
   text,
   regex,
