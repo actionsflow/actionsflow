@@ -1,6 +1,6 @@
 {
   "name": "@actionsflow/trigger-reddit",
-  "version": "1.7.1",
+  "version": "1.8.0",
   "description": "Actionsflow trigger reddit",
   "keywords": [
     "reddit",
@@ -28,7 +28,7 @@
     "url": "https://github.com/actionsflow/actionsflow/issues"
   },
   "dependencies": {
-    "actionsflow-core": "^1.7.1",
+    "actionsflow-core": "^1.8.0",
     "tslib": "^2.0.3"
   },
   "devDependencies": {
