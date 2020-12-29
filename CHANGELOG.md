@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.8.0...v1.9.0) (2020-12-29)
+
+
+### Features
+
+* 🎸 support new context metadata ([fa961c5](https://github.com/actionsflow/actionsflow/commit/fa961c58a220fc8d6f283fc1362ccf152f4d1c6d))
+
 ## [1.8.3](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.8.3...v1.8.3) (2020-12-25)
 
 
