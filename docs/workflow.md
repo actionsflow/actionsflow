@@ -357,7 +357,7 @@ For example, if you set a trigger's `every` configuration as `1 2 * * *` and you
 
 ## `on.<trigger>.config.force`
 
-Optional, `boolean`. Whether to force data to be updated. If `true`, the trigger will ignore cache, `every`, and last update time. The default value is `false`.
+Optional, `boolean`. Whether to force data to be updated. If `true`, the trigger will ignore cache, `every`, and last update time. The default value is `false`. You can set this `true` to debug, replay your workflow.
 
 ## `on.<trigger>.config.skipOnError`
 
