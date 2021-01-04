@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.1](https://github.com/actionsflow/actionsflow/compare/actionsflow@1.9.0...actionsflow@1.9.1) (2021-01-04)
+
+
+### Features
+
+* poll trigger support multiple urls ([95ffdaf](https://github.com/actionsflow/actionsflow/commit/95ffdaf1a5933f9aed8fd75925007e6ef985478a))
+
+
+
+
+
 # [1.9.0](https://github.com/actionsflow/actionsflow/compare/actionsflow@1.8.3...actionsflow@1.9.0) (2020-12-29)
 
 **Note:** Version bump only for package actionsflow
