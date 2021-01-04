@@ -19,15 +19,28 @@ on:
     deduplicationKey: id
 ```
 
+Or, multiple urls:
+
+```yaml
+on:
+  poll:
+    url:
+      - https://jsonplaceholder.typicode.com/comments?postId=1
+      - https://jsonplaceholder.typicode.com/comments?postId=2
+    deduplicationKey: id
+```
+
+> Note, the response structure should be same if using multiple urls
+
 ## Options
 
-- `url`, required, the polling API URL, for example, `https://jsonplaceholder.typicode.com/posts`
+- `url`, required, `string` or `string[]`, the polling API URL, for example, `https://jsonplaceholder.typicode.com/posts`, if using multiple urls the response structure should be same.
 
 - `itemsPath`, optional, if the API's returned JSON is not a list and is instead an object (maybe paginated), you should configure `itemsPath` as the key that contains the results. Example: `results`, `items`, `data.items`, etc... The default value is `undefined`, which means the API's response should be a list.
 
 - `deduplicationKey`, optional. The poll trigger deduplicates the array we see each poll against the id key. If the id key does not exist, you should specify an alternative unique key to deduplicate, you can use path format, like: `id`, `data.id`, `item.data.key`, If neither are supplied, we fallback to looking for `key`, if neither are supplied, we will hash the item, and generate a unique key
 
-- `shouldIncludeRawBody`, optional, `boolean`, the default value is `false`, if `true`, then your use the whole body as you need. For example:
+- `shouldIncludeRawBody`, optional, `boolean`, the default value is `false`, if `true`, then you can use the whole body as you need. For example:
 
   ```yaml
   on:
@@ -47,6 +60,29 @@ on:
           run: |
             echo "rawBody: $rawBody"
   ```
+
+- `shouldIncludeRequest`, optional, `boolean`, the default value is `false`, if `true`, then the request config will be added to the item's property `__request`, for example:
+
+```yaml
+on:
+  poll:
+    url: https://jsonplaceholder.typicode.com/posts
+    shouldIncludeRequest: true
+    config:
+      limit: 5
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          __request: ${{ toJSON(on.poll.outputs.__request) }}
+        run: |
+          echo "__request: $__request"
+```
+
+The `__request` will be like ` { "url": "https://jsonplaceholder.typicode.com/posts" }`
 
 - `requestConfig`, optional, we use [Axios](https://github.com/axios/axios) for polling data, so your can pass all params that [axios supported](https://github.com/axios/axios#request-config). For example:
 

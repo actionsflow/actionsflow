@@ -72,6 +72,52 @@ test("poll trigger", async () => {
   expect(itemKey).toBe("https://jsonplaceholder.typicode.com/posts__1");
 });
 
+test("poll trigger with shouldIncludeRequest", async () => {
+  const axios = jest.fn();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  axios.mockImplementation(() => Promise.resolve(resp));
+  helpers.axios = (axios as unknown) as AxiosStatic;
+  const constructionParams = await getTriggerConstructorParams({
+    options: {
+      url: "https://jsonplaceholder.typicode.com/posts",
+      shouldIncludeRequest: true,
+    },
+    name: "poll",
+  });
+  constructionParams.helpers = helpers;
+  const poll = new Poll(constructionParams);
+  const triggerResults = await poll.run();
+
+  expect(triggerResults.length).toBe(2);
+  expect(triggerResults[0]).toHaveProperty("__request");
+  const itemKey = poll.getItemKey(triggerResults[0]);
+  expect(itemKey).toBe("https://jsonplaceholder.typicode.com/posts__1");
+});
+
+test("poll trigger with multiple urls", async () => {
+  const constructionParams = await getTriggerConstructorParams({
+    options: {
+      url: [
+        "https://jsonplaceholder.typicode.com/users",
+        "https://jsonplaceholder.typicode.com/users?limit=1",
+      ],
+      deduplicationKey: "id",
+      shouldIncludeRequest: true,
+    },
+    name: "poll",
+  });
+  const poll = new Poll(constructionParams);
+
+  const triggerResults = await poll.run();
+
+  expect(triggerResults.length).toBe(20);
+
+  expect(triggerResults[0]).toHaveProperty("__request");
+
+  const itemKey = poll.getItemKey(triggerResults[0]);
+  expect(itemKey).toBe("https://jsonplaceholder.typicode.com/users__1");
+});
+
 test("poll trigger with deduplicationKey", async () => {
   const axios = jest.fn();
   axios.mockImplementation(() => Promise.resolve(resp));
@@ -194,5 +240,7 @@ test("poll trigger without required param", async () => {
     })
   );
 
-  await expect(poll.run()).rejects.toEqual(new Error("Miss param url!"));
+  await expect(poll.run()).rejects.toEqual(
+    new Error("Miss required param url")
+  );
 });

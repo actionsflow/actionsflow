@@ -27,7 +27,11 @@ export default class Poll implements ITriggerClassType {
     }
 
     if (key) {
-      return this.options.url + "__" + key;
+      let requestUrl = this.options.url;
+      if (item.___url) {
+        requestUrl = item.___url;
+      }
+      return requestUrl + "__" + key;
     }
     return this.helpers.createContentDigest(item);
   }
@@ -36,51 +40,75 @@ export default class Poll implements ITriggerClassType {
     this.helpers = helpers;
   }
   async run(): Promise<AnyObject[]> {
-    const { url, itemsPath, requestConfig } = this.options as {
-      url?: string;
+    const { url: urlParams, itemsPath, requestConfig } = this.options as {
+      url?: string | string[];
       itemsPath?: string;
       deduplicationKey?: string;
       requestConfig?: AnyObject;
     };
 
-    if (!url) {
-      throw new Error("Miss param url!");
+    let urls: string[] = [];
+
+    if (Array.isArray(urlParams)) {
+      if (urlParams.length === 0) {
+        throw new Error("url must be provided one at lease");
+      }
+      urls = urlParams;
+    } else {
+      if (!urlParams) {
+        throw new Error("Miss required param url");
+      }
+      urls = [urlParams];
     }
     const items: AnyObject[] = [];
-    const config: AxiosRequestConfig = {
-      ...requestConfig,
-      url: url as string,
-    };
 
-    // get updates
-    let requestResult;
-    try {
-      requestResult = await this.helpers.axios(config);
-    } catch (e) {
-      if (e.code === "ECONNREFUSED") {
-        throw new Error(
-          `It was not possible to connect to the URL. Please make sure the URL "${url}" it is valid!`
-        );
-      }
+    for (let index = 0; index < urls.length; index++) {
+      const url = urls[index];
+      const config: AxiosRequestConfig = {
+        ...requestConfig,
+        url: url as string,
+      };
 
-      this.helpers.log.error(`Poll fetch ${url} error: `, e);
-      throw e;
-    }
-    // For now we just take the items and ignore everything else
-    if (requestResult && requestResult.data) {
-      const itemsArray: AnyObject[] = itemsPath
-        ? get(requestResult.data, itemsPath)
-        : requestResult.data;
-      if (!Array.isArray(itemsArray)) {
-        throw new Error("Can not found a valid items result");
-      }
-      const deepClonedData = clonedeep(itemsArray);
-      itemsArray.forEach((item) => {
-        if (this.options.shouldIncludeRawBody) {
-          item.raw__body = deepClonedData;
+      // get updates
+      let requestResult;
+      try {
+        requestResult = await this.helpers.axios(config);
+      } catch (e) {
+        if (e.code === "ECONNREFUSED") {
+          throw new Error(
+            `It was not possible to connect to the URL. Please make sure the URL "${url}" it is valid!`
+          );
         }
-        items.push(item);
-      });
+
+        this.helpers.log.error(`Poll fetch ${url} error: `, e);
+        throw e;
+      }
+      // For now we just take the items and ignore everything else
+      if (requestResult && requestResult.data) {
+        const itemsArray: AnyObject[] = itemsPath
+          ? get(requestResult.data, itemsPath)
+          : requestResult.data;
+        if (!Array.isArray(itemsArray)) {
+          throw new Error("Can not found a valid items result");
+        }
+        const deepClonedData = clonedeep(itemsArray);
+        itemsArray.forEach((item) => {
+          if (this.options.shouldIncludeRawBody) {
+            item.raw__body = deepClonedData;
+          }
+          if (this.options.shouldIncludeRequest) {
+            item.__request = config;
+          }
+          if (!item.___url) {
+            // for deduplication key
+            Object.defineProperty(item, "___url", {
+              value: url,
+            });
+          }
+
+          items.push(item);
+        });
+      }
     }
 
     // if need
