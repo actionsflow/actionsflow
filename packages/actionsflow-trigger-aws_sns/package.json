@@ -1,6 +1,6 @@
 {
   "name": "@actionsflow/trigger-aws_sns",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "description": "Actionsflow trigger aws sns",
   "keywords": [
     "aws",
@@ -29,7 +29,7 @@
     "url": "https://github.com/actionsflow/actionsflow/issues"
   },
   "dependencies": {
-    "actionsflow-core": "^1.8.0",
+    "actionsflow-core": "^1.8.1",
     "tslib": "^2.1.0"
   },
   "devDependencies": {
