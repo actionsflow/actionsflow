@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "actionsflow-core": "^1.8.0",
-    "tslib": "^2.0.3"
+    "tslib": "^2.1.0"
   },
   "devDependencies": {
     "axios": "^0.20.0"
