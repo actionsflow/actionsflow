@@ -1,3 +1,5 @@
+## [1.10.1](https://github.com/actionsflow/actionsflow/compare/v1.10.0...v1.10.1) (2021-01-07)
+
 # [1.10.0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.9.0...v1.10.0) (2021-01-07)
 
 ## [1.9.1](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.9.1...v1.9.1) (2021-01-04)
