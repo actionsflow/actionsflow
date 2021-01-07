@@ -54,7 +54,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node
       - name: install
-        run: npm run bootstrap
+        run: npm run bootstrap -- --ci
       - name: build and test
         run: |
           npm run build
