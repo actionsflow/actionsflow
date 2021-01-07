@@ -88,8 +88,8 @@ export default class Youtube implements ITriggerClassType {
       }
       // For now we just take the items and ignore everything else
       if (feed && feed.items) {
-        feed.items.forEach((item) => {
-          const newItem = formatItem(item);
+        ((feed.items as unknown) as AnyObject[]).forEach((feedItem) => {
+          const newItem = formatItem(feedItem);
           items.push(newItem);
         });
       }
@@ -99,9 +99,9 @@ export default class Youtube implements ITriggerClassType {
     return items;
   }
 }
-function formatItem(item: AnyObject): AnyObject {
-  const mediaGroups = item.mediaGroup;
-  delete item.mediaGroup;
+function formatItem(theItem: AnyObject): AnyObject {
+  const mediaGroups = theItem.mediaGroup;
+  delete theItem.mediaGroup;
   if (mediaGroups && (mediaGroups as AnyObject[])[0]) {
     const mediaGroup = (mediaGroups as AnyObject[])[0];
     if (
@@ -109,7 +109,7 @@ function formatItem(item: AnyObject): AnyObject {
       mediaGroup["media:description"] &&
       (mediaGroup["media:description"] as string[]).length > 0
     ) {
-      item.description = (mediaGroup["media:description"] as string[])[0];
+      theItem.description = (mediaGroup["media:description"] as string[])[0];
     }
 
     if (
@@ -118,7 +118,7 @@ function formatItem(item: AnyObject): AnyObject {
       (mediaGroup["media:thumbnail"] as AnyObject[]).length > 0
     ) {
       if ((mediaGroup["media:thumbnail"] as AnyObject[])[0].$) {
-        item.thumbnail = (mediaGroup["media:thumbnail"] as AnyObject[])[0].$;
+        theItem.thumbnail = (mediaGroup["media:thumbnail"] as AnyObject[])[0].$;
       }
     }
 
@@ -133,7 +133,7 @@ function formatItem(item: AnyObject): AnyObject {
           "media:starRating"
         ] as AnyObject[]).length > 0
       ) {
-        item.starRating = ((mediaGroup["media:community"] as AnyObject[])[0][
+        theItem.starRating = ((mediaGroup["media:community"] as AnyObject[])[0][
           "media:starRating"
         ] as AnyObject[])[0].$;
       }
@@ -144,11 +144,11 @@ function formatItem(item: AnyObject): AnyObject {
           "media:statistics"
         ] as AnyObject[]).length > 0
       ) {
-        item.statistics = ((mediaGroup["media:community"] as AnyObject[])[0][
+        theItem.statistics = ((mediaGroup["media:community"] as AnyObject[])[0][
           "media:statistics"
         ] as AnyObject[])[0].$;
       }
     }
   }
-  return item;
+  return theItem;
 }

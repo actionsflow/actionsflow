@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "removeComments": true
+    "removeComments": true,
+    "skipLibCheck": true
   }
 }

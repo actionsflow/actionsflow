@@ -1,5 +1,5 @@
 {
-  "version": "1.8.0",
+  "version": "1.8.2",
   "license": "MIT",
   "main": "dist/src/index.js",
   "typings": "dist/src/index.d.ts",
@@ -41,7 +41,7 @@
     "@types/resolve-global": "^1.0.0",
     "@types/type-is": "^1.6.3",
     "@types/xml2js": "^0.4.5",
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "axios-retry": "^3.1.9",
     "cache-manager": "^3.3.0",
     "cache-manager-fs-hash": "^0.0.9",
