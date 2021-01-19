@@ -9,7 +9,7 @@ The following list is a collection of awesome actions that can be used with Acti
 
 # Awesome Actions List
 
-For now, the following triggers are available:
+Here is the actions that we found you can use, you can find more at <https://github.com/marketplace?type=actions>
 
 > Want to list actions here? You're welcome to [submit a pull request](https://github.com/actionsflow/actionsflow/edit/main/docs/actions.md)!
 
