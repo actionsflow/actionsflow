@@ -15,6 +15,7 @@ import Typeform from "@actionsflow/trigger-typeform";
 import Reddit from "@actionsflow/trigger-reddit";
 import Youtube from "@actionsflow/trigger-youtube";
 import Weather from "@actionsflow/trigger-weather";
+import Instagram from "@actionsflow/trigger-instagram";
 export default {
   poll: Poll,
   rss: Rss,
@@ -33,4 +34,5 @@ export default {
   trello: Trello,
   youtube: Youtube,
   weather: Weather,
+  instagram: Instagram,
 };

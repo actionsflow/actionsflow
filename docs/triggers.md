@@ -23,6 +23,7 @@ For now, the following triggers are available:
 - [Webhook](./triggers/webhook.md) - Receive webhook notifications.
 - [AWS SNS](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-aws_sns) - Any messages published to the SNS topic you create is triggered by this trigger.
 - [Google Form](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-google_form) - Get Google Form response updates when someone submits their response.
+- [Instagram](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-instagram) - Watch Instagram's media updates.
 - [NPM](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-npm) - Any new version of some package in NPM will trigger this trigger.
 - [Reddit](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-reddit) - Any updates in Reddit will trigger this trigger.
 - [Slack](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-slack) - Triggered when new messages are detected on a specific Slack channel.

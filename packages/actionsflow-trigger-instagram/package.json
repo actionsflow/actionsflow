@@ -1,0 +1,35 @@
+{
+  "name": "@actionsflow/trigger-instagram",
+  "version": "1.0.0",
+  "description": "Actionsflow trigger instagram",
+  "keywords": [
+    "instagram",
+    "actionsflow",
+    "trigger"
+  ],
+  "author": "Owen Young <theowenyoung@gmail.com>",
+  "homepage": "https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-instagram#readme",
+  "license": "MIT",
+  "main": "dist/src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/actionsflow/actionsflow.git",
+    "directory": "packages/actionsflow-trigger-instagram"
+  },
+  "scripts": {
+    "start": "tsc -w -p tsconfig.production.json",
+    "build": "tsc -p tsconfig.production.json",
+    "clean": "rimraf ./dist",
+    "prepublishOnly": "npm run build"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/actionsflow/actionsflow/issues"
+  },
+  "dependencies": {
+    "actionsflow-core": "^1.0.1",
+    "tslib": "^2.0.1"
+  }
+}

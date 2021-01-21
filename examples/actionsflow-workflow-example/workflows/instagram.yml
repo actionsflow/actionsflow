@@ -1,0 +1,14 @@
+on:
+  instagram:
+    user_id: "17841432487737681"
+    access_token: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+jobs:
+  print:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Outputs
+        env:
+          media_url: ${{ on.instagram.outputs.media_url }}
+        run: |
+          echo media_url: $media_url

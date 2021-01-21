@@ -48,6 +48,7 @@
     "@actionsflow/trigger-typeform": "^1.9.0",
     "@actionsflow/trigger-weather": "^1.9.0",
     "@actionsflow/trigger-youtube": "^1.10.0",
+    "@actionsflow/trigger-instagram": "^1.0.0",
     "@babel/polyfill": "^7.11.5",
     "@koa/cors": "^3.1.0",
     "@koa/router": "^9.4.0",
