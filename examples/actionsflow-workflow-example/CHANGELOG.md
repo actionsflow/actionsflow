@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.11.0](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.10.0...actionsflow-workflow-example@1.11.0) (2021-01-21)
+
+
+### Features
+
+* support instagram trigger ([e93d01a](https://github.com/actionsflow/actionsflow/commit/e93d01a834c6a02b12607455c4fe557302754637))
+
+
+
+
+
 # [1.10.0](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.9.1...actionsflow-workflow-example@1.10.0) (2021-01-07)
 
 **Note:** Version bump only for package actionsflow-workflow-example

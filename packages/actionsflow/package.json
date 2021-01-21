@@ -1,5 +1,5 @@
 {
-  "version": "1.10.0",
+  "version": "1.11.0",
   "license": "MIT",
   "main": "dist/src/index.js",
   "typings": "dist/src/index.d.ts",
@@ -39,6 +39,7 @@
     "@actions/github": "^4.0.0",
     "@actionsflow/trigger-aws_sns": "^1.9.0",
     "@actionsflow/trigger-google_form": "^1.9.0",
+    "@actionsflow/trigger-instagram": "^1.1.0",
     "@actionsflow/trigger-npm": "^1.9.0",
     "@actionsflow/trigger-reddit": "^1.9.0",
     "@actionsflow/trigger-slack": "^1.9.0",
@@ -48,7 +49,6 @@
     "@actionsflow/trigger-typeform": "^1.9.0",
     "@actionsflow/trigger-weather": "^1.9.0",
     "@actionsflow/trigger-youtube": "^1.10.0",
-    "@actionsflow/trigger-instagram": "^1.0.0",
     "@babel/polyfill": "^7.11.5",
     "@koa/cors": "^3.1.0",
     "@koa/router": "^9.4.0",
