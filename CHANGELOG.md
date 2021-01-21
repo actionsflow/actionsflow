@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-instagram@1.1.0...v1.11.0) (2021-01-21)
+
+
+### Features
+
+* support instagram trigger ([e93d01a](https://github.com/actionsflow/actionsflow/commit/e93d01a834c6a02b12607455c4fe557302754637))
+
 ## [1.10.2](https://github.com/actionsflow/actionsflow/compare/v1.10.1...v1.10.2) (2021-01-07)
 
 ## [1.10.1](https://github.com/actionsflow/actionsflow/compare/v1.10.0...v1.10.1) (2021-01-07)
