@@ -43,6 +43,10 @@ export const getContext = (contextEnv?: IContextEnv): ITriggerContext => {
   if (!githubObj.event_name) {
     githubObj.event_name = "workflow_dispatch";
   }
+  // fix github secrets github_token lower case
+  if (!secretObj.GITHUB_TOKEN && secretObj.github_token) {
+    secretObj.GITHUB_TOKEN = secretObj.github_token;
+  }
   const context: ITriggerContext = {
     secrets: secretObj,
     github: githubObj,

@@ -44,6 +44,8 @@ test("get context with .secrets", () => {
     },
     secrets: {
       TEST: "ttt",
+      GITHUB_TOKEN: "xxx",
+      github_token: "xxx",
     },
   });
 });
