@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-instagram@1.1.0...@actionsflow/trigger-instagram@1.1.1) (2021-01-22)
+
+**Note:** Version bump only for package @actionsflow/trigger-instagram
+
+
+
+
+
 # 1.1.0 (2021-01-21)
 
 

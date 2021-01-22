@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.1](https://github.com/actionsflow/actionsflow/compare/actionsflow-core@1.9.0...actionsflow-core@1.9.1) (2021-01-22)
+
+
+### Bug Fixes
+
+* github_token ([317c227](https://github.com/actionsflow/actionsflow/commit/317c2278f57731e18b19cc8789b2a8690adf7a13))
+
+
+
+
+
 # [1.9.0](https://github.com/actionsflow/actionsflow/compare/actionsflow-core@1.8.0...actionsflow-core@1.9.0) (2021-01-07)
 
 **Note:** Version bump only for package actionsflow-core
