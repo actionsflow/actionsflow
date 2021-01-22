@@ -1,3 +1,10 @@
+## [1.11.1](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.9.1...v1.11.1) (2021-01-22)
+
+
+### Bug Fixes
+
+* github_token ([317c227](https://github.com/actionsflow/actionsflow/commit/317c2278f57731e18b19cc8789b2a8690adf7a13))
+
 # [1.11.0](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-instagram@1.1.0...v1.11.0) (2021-01-21)
 
 
