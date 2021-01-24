@@ -1,3 +1,10 @@
+## [1.11.2](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-instagram@1.1.2...v1.11.2) (2021-01-24)
+
+
+### Features
+
+* instagram support no user_id param ([73b6df8](https://github.com/actionsflow/actionsflow/commit/73b6df8931c3ff028355523da4bfae6066fc9058))
+
 ## [1.11.1](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-aws_sns@1.9.1...v1.11.1) (2021-01-22)
 
 
