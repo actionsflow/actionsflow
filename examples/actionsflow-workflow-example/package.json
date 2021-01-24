@@ -2,10 +2,10 @@
   "name": "actionsflow-workflow-example",
   "private": true,
   "description": "A simple workflow to get up and build quickly with Actionsflow",
-  "version": "1.11.1",
+  "version": "1.11.2",
   "author": "Owen Young <theowenyoung@gmail.com>",
   "dependencies": {
-    "actionsflow": "^1.11.1"
+    "actionsflow": "^1.11.2"
   },
   "keywords": [
     "actionsflow",

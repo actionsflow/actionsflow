@@ -1,5 +1,5 @@
 {
-  "version": "1.11.1",
+  "version": "1.11.2",
   "license": "MIT",
   "main": "dist/src/index.js",
   "typings": "dist/src/index.d.ts",
@@ -39,7 +39,7 @@
     "@actions/github": "^4.0.0",
     "@actionsflow/trigger-aws_sns": "^1.9.1",
     "@actionsflow/trigger-google_form": "^1.9.1",
-    "@actionsflow/trigger-instagram": "^1.1.1",
+    "@actionsflow/trigger-instagram": "^1.1.2",
     "@actionsflow/trigger-npm": "^1.9.1",
     "@actionsflow/trigger-reddit": "^1.9.1",
     "@actionsflow/trigger-slack": "^1.9.1",
