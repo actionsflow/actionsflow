@@ -32,9 +32,9 @@ export default class Instagram implements ITriggerClassType {
   }
   async getMultipleResults(): Promise<AnyObject[]> {
     let finalResult: AnyObject[] = [];
-    const user_id = (this.options.user_id as AnyObject[]) || [];
+    const the_user_id = (this.options.user_id as AnyObject[]) || [];
     const access_token = (this.options.access_token as string) || "";
-    let paramsArr = user_id;
+    let paramsArr = the_user_id;
     paramsArr = paramsArr.map((user_id) => {
       return {
         limit: 20,
@@ -47,8 +47,10 @@ export default class Instagram implements ITriggerClassType {
     let items: AnyObject[] = [];
     for (let i = 0; i < paramsArr.length; i++) {
       const params = paramsArr[i];
-      const url = `https://graph.instagram.com/${params.user_id}/media?access_token=${access_token}`;
+      const user_id = params.user_id;
+      delete params.user_id;
 
+      const url = `https://graph.instagram.com/${user_id}/media?access_token=${access_token}`;
       this.helpers.log.debug(`instagarm api ${url} params: `, params);
       const requestConfig = {
         url: url,
@@ -96,7 +98,7 @@ export default class Instagram implements ITriggerClassType {
   }
   async getSingleResults(): Promise<AnyObject[]> {
     let finalResult: AnyObject[] = [];
-    const user_id = (this.options.user_id as string) || "";
+    const user_id = (this.options.user_id as string) || "me";
     const access_token = (this.options.access_token as string) || "";
     // get cache with since_id
     let nextUrl = (await this.helpers.cache.get(`${user_id}_next`)) as
@@ -108,7 +110,6 @@ export default class Instagram implements ITriggerClassType {
     let next = nextUrl;
     const params = {
       limit: 20,
-      user_id,
       fields:
         "caption,id,media_type,media_url,permalink,thumbnail_url,timestamp,username",
     };
@@ -121,7 +122,7 @@ export default class Instagram implements ITriggerClassType {
     let items: AnyObject[] = [];
 
     while (fetchNextResults) {
-      const url = `https://graph.instagram.com/${params.user_id}/media?access_token=${access_token}`;
+      const url = `https://graph.instagram.com/${user_id}/media?access_token=${access_token}`;
       const requestConfig = {
         url: next ? next : url,
         params: params,
@@ -175,7 +176,7 @@ export default class Instagram implements ITriggerClassType {
     items = items.slice(0, this.maxCount);
     finalResult = items;
     if (next) {
-      await this.helpers.cache.set(`${params.user_id}_next`, next);
+      await this.helpers.cache.set(`${user_id}_next`, next);
     }
     return finalResult;
   }
@@ -185,12 +186,12 @@ export default class Instagram implements ITriggerClassType {
       user_id: string;
       access_token: string;
     };
-    if (!user_id || !access_token) {
-      throw new Error("Miss required params user_id or access_token");
+    if (!access_token) {
+      throw new Error("Miss required params access_token");
     }
     let finalResult: AnyObject[] = [];
 
-    if (Array.isArray(this.options.user_id)) {
+    if (Array.isArray(user_id)) {
       // multiple
       finalResult = await this.getMultipleResults();
     } else {

@@ -8,6 +8,16 @@ This is a [instagram](https://www.instagram.com/) trigger of [Actionsflow](https
 
 ## Usage
 
+Get your instagram posts:
+
+```yaml
+on:
+  instagram:
+    access_token: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+```
+
+Get somebody's instagram posts:
+
 ```yaml
 on:
   instagram:
@@ -30,7 +40,7 @@ on:
 
 - `access_token`, required, instagram API authentication, you should get it from [Facebook Developers App](https://developers.facebook.com/apps/), See also [Official docs](https://developers.facebook.com/docs/instagram-basic-display-api/getting-started), [How to create access_token using User Token Generator](https://github.com/nbcommunication/InstagramBasicDisplayApi#creating-a-facebook-app)
 
-- `user_id`, optional, required, `string` or `string[]`, you can get it by requesting a `get` request: `https://graph.instagram.com/me?fields=id&access_token={access-token}`
+- `user_id`, optional, `string` or `string[]`, you can get it by requesting a `get` request: `https://graph.instagram.com/me?fields=id&access_token={access-token}`, or [see this answer](https://stackoverflow.com/questions/11796349/instagram-how-to-get-my-user-id-from-username)
 
 - `fetchAllResultsAtFirst`, optional, `boolean`, if fetch all results at first run, the default is `false`, if `true`, it will fetch all results of your instagram.
 
