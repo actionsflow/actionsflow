@@ -20,7 +20,7 @@ You can learn more about the core concepts of Actionsflow [here](/docs/concepts.
 
 # Quick Start
 
-Building an Actionsflow workflow is a three-step process:
+Building an Actionsflow workflow is a four-step process:
 
 > For self-hosted version please see [here](/docs/self-hosted.md)
 
@@ -39,6 +39,16 @@ Building an Actionsflow workflow is a three-step process:
    │   └── webhook.yml
    └── package.json
    ```
+
+1. **Uncomment `.github/workflows/actionsflow.yml` schedule event**
+
+   ```yml
+   on:
+     schedule:
+       - cron: "*/15 * * * *"
+   ```
+
+   > Note: To prevent abuse, by default, the schedule is commented, please modify the schedule time according to your own needs, the default is once every 15 minutes. Learn more about schedule event, please see [here](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#schedule)
 
 1. **Create your [workflow files](/docs/workflow.md) inside the `workflows` directory**
 
