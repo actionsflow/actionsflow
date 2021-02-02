@@ -27,7 +27,7 @@ A typical Actionsflow repository structure looks like this:
 └── package.json
 ```
 
-1. **Uncomment `.github/workflows/actionsflow.yml` schedule event**
+# 2. **Uncomment `.github/workflows/actionsflow.yml` schedule event**
 
    ```yml
    on:
@@ -37,7 +37,7 @@ A typical Actionsflow repository structure looks like this:
 
    > Note: To prevent abuse, by default, the schedule is commented, please modify the schedule time according to your own needs, the default is once every 15 minutes. Learn more about schedule event, please see [here](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#schedule)
 
-# 2. Create workflow files
+# 3. Create workflow files
 
 Define your [workflow files](https://actionsflow.github.io/docs/workflow/) inside the `workflows` directory.
 
@@ -70,7 +70,7 @@ For more information about the Actionsflow workflow file, see the
 
 You can find examples and inspiration on the [Trigger List](/docs/triggers.md) and on [Awesome Actionsflow Workflows](https://github.com/actionsflow/awesome-actionsflow).
 
-# 3. Commit and push your updates to Github
+# 4. Commit and push your updates to Github
 
 You can edit your workflow files online at [Github](https://github.com), so you can submit your commit directly.
 
