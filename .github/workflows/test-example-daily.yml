@@ -6,6 +6,7 @@ on:
   schedule:
     # * is a special character in YAML so you have to quote this string
     - cron: "20 9 * * *"
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ${{ matrix.os }}
