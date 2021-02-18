@@ -29,13 +29,13 @@ A typical Actionsflow repository structure looks like this:
 
 # 2. **Uncomment `.github/workflows/actionsflow.yml` schedule event**
 
-   ```yml
-   on:
-     schedule:
-       - cron: "*/15 * * * *"
-   ```
+```yml
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+```
 
-   > Note: To prevent abuse, by default, the schedule is commented, please modify the schedule time according to your own needs, the default is once every 15 minutes. Learn more about schedule event, please see [here](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#schedule)
+> Note: To prevent abuse, by default, the schedule is commented, please modify the schedule time according to your own needs, the default is once every 15 minutes. Learn more about schedule event, please see [here](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#schedule)
 
 # 3. Create workflow files
 

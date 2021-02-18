@@ -1,6 +1,6 @@
 # `@actionsflow/trigger-instagram`
 
-This is a [instagram](https://www.instagram.com/) trigger of [Actionsflow](https://github.com/actionsflow/actionsflow). Any new action in Instagram will trigger the trigger.
+This is an [instagram](https://www.instagram.com/) trigger of [Actionsflow](https://github.com/actionsflow/actionsflow). Any new action in Instagram will trigger the trigger.
 
 > This is an official trigger, you don't need to install it manually.
 
@@ -39,11 +39,8 @@ on:
 ## Options
 
 - `access_token`, required, instagram API authentication, you should get it from [Facebook Developers App](https://developers.facebook.com/apps/), See also [Official docs](https://developers.facebook.com/docs/instagram-basic-display-api/getting-started), [How to create access_token using User Token Generator](https://github.com/nbcommunication/InstagramBasicDisplayApi#creating-a-facebook-app)
-
 - `user_id`, optional, `string` or `string[]`, you can get it by requesting a `get` request: `https://graph.instagram.com/me?fields=id&access_token={access-token}`, or [see this answer](https://stackoverflow.com/questions/11796349/instagram-how-to-get-my-user-id-from-username)
-
 - `fetchAllResultsAtFirst`, optional, `boolean`, if fetch all results at first run, the default is `false`, if `true`, it will fetch all results of your instagram.
-
 - `maxCount`, optional, `number`, if `fetchAllResultsAtFirst` is `true`, you can use `maxCount` to limit the number of fetched results, such like `1000`.
 
 > You can use [General Config for Actionsflow Trigger](https://actionsflow.github.io/docs/workflow/#ontriggerconfig) for more customization.
