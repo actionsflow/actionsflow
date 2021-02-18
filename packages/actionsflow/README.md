@@ -91,6 +91,16 @@ To learn more about how Actionsflow works, please see [Core Concepts of Actionsf
    └── package.json
    ```
 
+1. **Uncomment `.github/workflows/actionsflow.yml` schedule event**
+
+   ```yml
+   on:
+     schedule:
+       - cron: "*/15 * * * *"
+   ```
+
+   > Note: To prevent abuse, by default, the schedule is commented, please modify the schedule time according to your own needs, the default is once every 15 minutes. Learn more about schedule event, please see [here](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#schedule)
+
 1. **Create your [workflow files](https://actionsflow.github.io/docs/workflow/) inside the `workflows` directory**
 
    A typical workflow file `rss.yml` looks like this:
