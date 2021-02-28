@@ -16,6 +16,8 @@ cd actionsflow-workflow-default
 docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v ${PWD}:/data -p 3000:3000 actionsflow/actionsflow
 ```
 
+> Notice: Actionsflow's dependency [act](https://github.com/nektos/act) need `/var/run/docker.sock` to run and manage the Github Actions.
+ 
 ## Manual
 
 ## Prerequisites
