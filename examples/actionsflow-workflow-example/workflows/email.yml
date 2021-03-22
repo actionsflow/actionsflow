@@ -1,5 +1,7 @@
 on:
   email:
+    config:
+      active: false
     shouldDownloadAttachments: false
     imap:
       host: outlook.office365.com
