@@ -1,5 +1,7 @@
 on:
   instagram:
+    config:
+      active: false
     user_id: "17841432487737681"
     access_token: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
 jobs:
