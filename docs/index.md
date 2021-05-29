@@ -96,3 +96,4 @@ For more information about getting up and running, see [Getting Started](/docs/g
 - [Creating Triggers for Actionsflow](/docs/creating-triggers.md) - Learn more about how to create your own trigger for Actionsflow
 - [FAQs](/docs/faqs.md) - Actionsflow FAQs
 - [Join Actionsflow on Slack](https://forms.gle/9VvTVne6oU7zBCeVA) - Chat with other users and contributors on Slack, if you have already joined, please [signin](https://actionsflow.slack.com) directly
+- [Join Actionsflow on Telegram](https://t.me/joinchat/fMXYRGHMnK01MjUx) - Chat with other users and contributors on Telegram

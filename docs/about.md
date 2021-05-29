@@ -16,6 +16,7 @@ Here are some useful links:
 - [Creating Triggers for Actionsflow](./creating-triggers.md) - Learn more about how to create your own trigger for Actionsflow
 - [FAQs](./faqs.md) - Actionsflow FAQs
 - [Join Actionsflow on Slack](https://forms.gle/9VvTVne6oU7zBCeVA) - Chat with other users and contributors on Slack, if you have already joined, please [signin](https://actionsflow.slack.com) directly
+- [Join Actionsflow on Telegram](https://t.me/joinchat/fMXYRGHMnK01MjUx) - Chat with other users and contributors on Telegram
 
 I ❤️ building Actionsflow and hope it simplifies your next project or business.
 
