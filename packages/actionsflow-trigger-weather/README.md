@@ -218,7 +218,7 @@ jobs:
     steps:
       - name: Print Outputs
         env:
-          current_temp: ${{ on.weather.outputs.current.temp )}}
+          current_temp: ${{ on.weather.outputs.current.temp }}
         run: |
           echo current_temp: $current_temp
 ```
