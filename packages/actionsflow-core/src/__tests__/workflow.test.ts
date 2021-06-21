@@ -23,7 +23,7 @@ test("get workflows", async () => {
   });
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   expect((workflows[1] as any).data.on.rss.url).toBe(
-    "https://hnrss.org/newest?points=200"
+    "https://hnrss.org/newest?points=300"
   );
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
