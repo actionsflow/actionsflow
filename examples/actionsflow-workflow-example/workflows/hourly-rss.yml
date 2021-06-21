@@ -2,7 +2,7 @@ on:
   rss:
     config:
       every: 44 * * * *
-    url: https://hnrss.org/newest?points=300
+    url: https://actionsflow.github.io/test-page/hn-rss.xml
 jobs:
   print:
     name: Print

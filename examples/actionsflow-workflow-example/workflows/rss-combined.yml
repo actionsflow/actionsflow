@@ -1,6 +1,6 @@
 on:
   rss:
-    url: https://hnrss.org/newest?points=300
+    url: https://actionsflow.github.io/test-page/hn-rss.xml
     config:
       outputsMode: combine
 jobs:

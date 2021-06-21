@@ -4,7 +4,7 @@ test("rss trigger", async () => {
   const rss = new Rss(
     await getTriggerConstructorParams({
       options: {
-        url: "https://hnrss.org/newest?points=300",
+        url: "https://actionsflow.github.io/test-page/hn-rss.xml",
       },
       name: "rss",
     })
@@ -18,7 +18,7 @@ test("rss trigger with multiple urls", async () => {
   const rss = new Rss(
     await getTriggerConstructorParams({
       options: {
-        url: ["https://hnrss.org/newest?points=300"],
+        url: ["https://actionsflow.github.io/test-page/hn-rss.xml"],
       },
       name: "rss",
     })

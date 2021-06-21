@@ -2,13 +2,7 @@ on:
   rss:
     url:
       # HN posts with over 500 points
-      - https://hnrss.org/newest?points=500
-      # Show HN posts with over 100 points
-      - https://hnrss.org/show?points=100
-      #
-      #
-      #
-      # test
+      - https://actionsflow.github.io/test-page/hn-rss.xml
       - https://dev.to/feed
     config:
       format: |

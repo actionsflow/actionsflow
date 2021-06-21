@@ -13,7 +13,7 @@ test("run trigger sortScript", async () => {
     trigger: {
       name: "rss",
       options: {
-        url: "https://hnrss.org/newest?points=300",
+        url: "https://actionsflow.github.io/test-page/hn-rss.xml",
         config: {
           force: true,
           sortScript: `
@@ -96,7 +96,7 @@ test("run trigger", async () => {
     trigger: {
       name: "rss",
       options: {
-        url: "https://hnrss.org/newest?points=300",
+        url: "https://actionsflow.github.io/test-page/hn-rss.xml",
         config: {
           force: true,
           filterScript: `
@@ -155,7 +155,7 @@ test("run trigger with skipFirst", async () => {
     trigger: {
       name: "rss",
       options: {
-        url: "https://hnrss.org/newest?points=300",
+        url: "https://actionsflow.github.io/test-page/hn-rss.xml",
         config: {
           skipFirst: true,
         },

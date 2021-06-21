@@ -1,7 +1,7 @@
 on:
   rss:
     url:
-      - https://hnrss.org/newest?points=300
+      - https://actionsflow.github.io/test-page/hn-rss.xml
       - https://www.buzzfeed.com/world.xml
     config:
       limit: 15
