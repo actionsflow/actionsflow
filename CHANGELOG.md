@@ -1,3 +1,15 @@
+## [1.11.3](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.11.3...v1.11.3) (2021-06-21)
+
+
+### Bug Fixes
+
+* windows script ([570569e](https://github.com/actionsflow/actionsflow/commit/570569e4445240c4dbf0e89dd248877fdba30893))
+
+
+### Features
+
+* add require for format, filter, sort config ([6480f53](https://github.com/actionsflow/actionsflow/commit/6480f53ff48241d4738634273a3c3923cc12aea1))
+
 ## [1.11.2](https://github.com/actionsflow/actionsflow/compare/@actionsflow/trigger-instagram@1.1.2...v1.11.2) (2021-01-24)
 
 
