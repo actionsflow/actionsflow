@@ -23,7 +23,7 @@ test("get workflows", async () => {
   });
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   expect((workflows[1] as any).data.on.rss.url).toBe(
-    "https://actionsflow.github.io/test-page/hn-rss.xml"
+    "https://hnrss.org/newest?points=200"
   );
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
