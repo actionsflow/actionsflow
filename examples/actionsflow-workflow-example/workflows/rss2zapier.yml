@@ -1,6 +1,8 @@
 on:
   rss:
     url: https://hnrss.org/newest?points=300
+    config:
+      active: false
 jobs:
   ifttt:
     name: Make a Request to Zapier

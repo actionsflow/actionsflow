@@ -8,8 +8,6 @@ on:
       #
       #
       #
-      # Dev blog to an interesting upcoming german Minecraft server
-      - https://blog.playlegend.net/rss
       # test
       - https://dev.to/feed
     config:

@@ -170,6 +170,7 @@ export const run = async ({
               items = items.map((item) => {
                 try {
                   const newItem = getStringFunctionResult(format, {
+                    require: require,
                     item,
                     helpers: triggerConstructorParams.helpers,
                   }) as Record<string, unknown>;
@@ -194,6 +195,7 @@ export const run = async ({
               items = items.filter((item, index) => {
                 try {
                   const filterResult = getStringFunctionResult(filterScript, {
+                    require: require,
                     item,
                     index,
                     items,
@@ -220,6 +222,7 @@ export const run = async ({
               items.sort((a, b) => {
                 try {
                   const sortResult = getStringFunctionResult(sortScript, {
+                    require: require,
                     a,
                     b,
                     items,
