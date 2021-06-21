@@ -85,11 +85,11 @@ export default class Poll implements ITriggerClassType {
       }
       // For now we just take the items and ignore everything else
       if (requestResult && requestResult.data) {
-        const itemsArray: AnyObject[] = itemsPath
+        let itemsArray: AnyObject[] = itemsPath
           ? get(requestResult.data, itemsPath)
           : requestResult.data;
         if (!Array.isArray(itemsArray)) {
-          throw new Error("Can not found a valid items result");
+          itemsArray = [itemsArray];
         }
         const deepClonedData = clonedeep(itemsArray);
         itemsArray.forEach((item) => {
