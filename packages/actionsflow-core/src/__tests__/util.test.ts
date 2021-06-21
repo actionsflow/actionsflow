@@ -116,15 +116,18 @@ test("getStringFunction object", () => {
 });
 test("getStringFunction object require", () => {
   expect(
-    getStringFunctionResult("const path = require('path'); return path.sep", {
-      require: require,
-      item: {
-        message: {
-          id: "messageid",
+    getStringFunctionResult(
+      "const path = require('path'); return path.extname('index.html');",
+      {
+        require: require,
+        item: {
+          message: {
+            id: "messageid",
+          },
         },
-      },
-    })
-  ).toEqual("/");
+      }
+    )
+  ).toEqual(".html");
 });
 test("get raw trigger", () => {
   expect(
