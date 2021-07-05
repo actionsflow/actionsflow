@@ -36,7 +36,7 @@ on:
 
 - `url`, required, `string` or `string[]`, the polling API URL, for example, `https://jsonplaceholder.typicode.com/posts`, if using multiple urls the response structure should be same.
 
-- `itemsPath`, optional, if the API's returned JSON is not a list and is instead an object (maybe paginated), you should configure `itemsPath` as the key that contains the results. Example: `results`, `items`, `data.items`, etc... The default value is `undefined`, which means the API's response should be a list.
+- `itemsPath`, optional, if the API's returned JSON is not a list and is instead an object (maybe paginated), you can configure `itemsPath` as the key that contains the results. Example: `results`, `items`, `data.items`, etc... The default value is `undefined`, which means the API's response should be a list. If `itemsPath` is not specified and the API's response is an object, the object will be converted to an `items` array.
 
 - `deduplicationKey`, optional. The poll trigger deduplicates the array we see each poll against the id key. If the id key does not exist, you should specify an alternative unique key to deduplicate, you can use path format, like: `id`, `data.id`, `item.data.key`, If neither are supplied, we fallback to looking for `key`, if neither are supplied, we will hash the item, and generate a unique key
 

@@ -195,6 +195,23 @@ test("poll trigger with complex response and deduplicationKey as key", async () 
   const itemKey = poll.getItemKey(triggerResults[0]);
   expect(itemKey).toBe("https://jsonplaceholder.typicode.com/posts__1");
 });
+test("poll trigger with complex response and not as array", async () => {
+  const justObjResp = {
+    data: { userId: 10 },
+  };
+  const axios = jest.fn();
+  axios.mockImplementation(() => Promise.resolve(justObjResp));
+  helpers.axios = (axios as unknown) as AxiosStatic;
+  const constructionParams = await getTriggerConstructorParams({
+    options: { url: "https://jsonplaceholder.typicode.com/posts" },
+    name: "poll",
+  });
+  constructionParams.helpers = helpers;
+  const poll = new Poll(constructionParams);
+  const triggerResults = await poll.run();
+  expect(triggerResults.length).toBe(1); // will only have one since we just convert a single object to an array
+  expect(triggerResults[0].userId).toBe(10);
+});
 test("poll trigger with deduplicationKey no found", async () => {
   const resp2 = {
     data: [
