@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.4](https://github.com/actionsflow/actionsflow/compare/actionsflow@1.11.3...actionsflow@1.11.4) (2021-07-06)
+
+
+### Bug Fixes
+
+* poll only works for array not plain object ([6f73e9f](https://github.com/actionsflow/actionsflow/commit/6f73e9f15d36d86b1c887a2a6cff9f05fd082bc5))
+
+
+
+
+
 ## [1.11.3](https://github.com/actionsflow/actionsflow/compare/actionsflow@1.11.2...actionsflow@1.11.3) (2021-06-21)
 
 
