@@ -1,3 +1,10 @@
+## [1.11.4](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.11.4...v1.11.4) (2021-07-06)
+
+
+### Bug Fixes
+
+* poll only works for array not plain object ([6f73e9f](https://github.com/actionsflow/actionsflow/commit/6f73e9f15d36d86b1c887a2a6cff9f05fd082bc5))
+
 ## [1.11.3](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.11.3...v1.11.3) (2021-06-21)
 
 

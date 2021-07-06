@@ -1,6 +1,6 @@
 {
   "name": "root",
-  "version": "1.11.3",
+  "version": "1.11.4",
   "private": true,
   "scripts": {
     "start": "npm run build && lerna run --ignore actionsflow-workflow* --parallel start",
