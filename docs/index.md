@@ -14,10 +14,9 @@ You can learn more about the core concepts of Actionsflow [here](/docs/concepts.
     <div>
       <img src="https://raw.githubusercontent.com/actionsflow/actionsflow/main/docs/assets/meercode-logo.png" width="192" alt="Meercode">
       </div>
-      <b>Meercode is the ultimate monitoring dashboard for your CI/CD builds.</b>
+      <b>Meercode is the ultimate monitoring dashboard for your GitHub Actions.</b>
       <div>
-        <sup>Works with GitHub Actions, GitLab CI, Azure DevOps, Vercel, Travis CI,
-        Bitrise and Buddy.</sup>
+        <sup>It's impossible to improve what you can't measure! Get Real Insights and Metrics From Your CI usage</sup>
       </div>
   </a>
 </div>
