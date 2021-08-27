@@ -17,10 +17,7 @@
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/actionsflow/actionsflow.svg)](https://github.com/actionsflow/actionsflow/pulls)
 [![GitHub stars](https://img.shields.io/github/stars/actionsflow/actionsflow)](https://github.com/actionsflow/actionsflow/stargazers)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
-<br><br>
-<a href="https://www.producthunt.com/posts/actionsflow-automate-workflows?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-actionsflow-automate-workflows" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=269085&theme=light" alt="Actionsflow - Automate Workflows -  IFTTT/Zapier free alternative, based on Github Actions | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
-
-If you like Actionsflow, please vote for us on <a href="https://www.producthunt.com/posts/actionsflow-automate-workflows?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-actionsflow-automate-workflows">Product Hunt</a>
+<br>
 
 </div>
 
@@ -29,7 +26,25 @@ If you like Actionsflow, please vote for us on <a href="https://www.producthunt.
 <p align="center">
 <strong>The free <a href="https://ifttt.com/">IFTTT</a>/<a href="https://zapier.com/">Zapier</a> alternative for developers to automate their workflows based on Github actions</strong>
 <br>
+<br>
 </p>
+
+<div align="center">
+  <h2>Sponsorships</h2>
+  <br>
+  <a href="https://meercode.io/?utm_campaign=github_repo&utm_medium=referral&utm_content=actionsflow&utm_source=github">
+    <div>
+      <img src="https://raw.githubusercontent.com/actionsflow/actionsflow/main/docs/assets/meercode-logo.png" width="192" alt="Meercode">
+      </div>
+      <b>Meercode is the ultimate monitoring dashboard for your CI/CD builds.</b>
+      <div>
+        <sup>Works with GitHub Actions, GitLab CI, Azure DevOps, Vercel, Travis CI,
+        Bitrise and Buddy.</sup>
+      </div>
+  </a>
+</div>
+
+---
 
 ## 📝 Table of Contents
 
