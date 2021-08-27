@@ -23,7 +23,7 @@ You can learn more about the core concepts of Actionsflow [here](/docs/concepts.
             Actions.
           </b>
           <div>
-          <br/><br/>
+          <br/>
             <sup>
               It's impossible to improve what you can't measure! Get Real
               Insights and Metrics From Your CI usage
