@@ -8,17 +8,27 @@ metaTitle: "Actionsflow Introduction"
 You can learn more about the core concepts of Actionsflow [here](/docs/concepts.md).
 
 <div align="center">
-  <h2>Sponsorships</h2>
-  <br>
-  <a href="https://meercode.io/?utm_campaign=github_repo&utm_medium=referral&utm_content=actionsflow&utm_source=github">
-    <div>
-      <img src="https://raw.githubusercontent.com/actionsflow/actionsflow/main/docs/assets/meercode-logo.png" width="192" alt="Meercode">
-      </div>
-      <b>Meercode is the ultimate monitoring dashboard for your GitHub Actions.</b>
-      <div>
-        <sup>It's impossible to improve what you can't measure! Get Real Insights and Metrics From Your CI usage</sup>
-      </div>
-  </a>
+        <h1>Sponsorships</h1>
+        <br />
+        <a href="https://meercode.io/?utm_campaign=github_repo&utm_medium=referral&utm_content=actionsflow&utm_source=github">
+          <div>
+            <img
+              src="https://raw.githubusercontent.com/actionsflow/actionsflow/main/docs/assets/meercode-logo.png"
+              width="192"
+              alt="Meercode"
+            />
+          </div>
+          <b>
+            Meercode is the ultimate monitoring dashboard for your GitHub
+            Actions.
+          </b>
+          <div>
+            <sup>
+              It's impossible to improve what you can't measure! Get Real
+              Insights and Metrics From Your CI usage
+            </sup>
+          </div>
+        </a>
 </div>
 
 # Features
