@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/actionsflow/actionsflow/compare/v1.11.4...v1.12.0) (2021-11-30)
+
+
+### Features
+
+* support helper puppeteer-fetch, fix reddit, update dependence ([59a0ecb](https://github.com/actionsflow/actionsflow/commit/59a0ecb0e11f30bc8cc147ec12f25ff107c96cf6))
+
 ## [1.11.4](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.11.4...v1.11.4) (2021-07-06)
 
 
