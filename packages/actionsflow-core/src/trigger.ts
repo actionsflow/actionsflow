@@ -16,13 +16,14 @@ import {
   ITriggerRunContext,
   OutputsMode,
 } from "./interface";
-import { getRawTriggers } from "./utils";
+import { getRawTriggers, sleep } from "./utils";
 import axios from "axios";
 import rssParser from "rss-parser";
 import { getWorkflow } from "./workflow";
 import { getContext } from "./context";
 import { Log, prefix, colors, log } from "./log";
 import axiosRetry from "axios-retry";
+import puppeteerFetch from "puppeteer-fetch";
 axiosRetry(axios, {
   retries: 0,
   retryDelay: axiosRetry.exponentialDelay,
@@ -93,7 +94,9 @@ export const getTriggerHelpers = ({
     cache: getTriggerCache({ name, workflowRelativePath }),
     log: triggerLog,
     axios: axios,
+    puppeteerFetch: puppeteerFetch,
     rssParser: rssParser,
+    sleep,
   };
   return triggerHelpers;
 };

@@ -109,10 +109,10 @@ export class Cache {
         // delete directory
         fs.remove(this.directory)
           .then(() => {
-            resolve();
+            resolve(undefined);
           })
           .catch(() => {
-            resolve();
+            resolve(undefined);
           });
       });
     });

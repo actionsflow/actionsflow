@@ -1,7 +1,9 @@
 on:
   reddit:
-    url: https://reddit.com/r/news/
+    url: https://www.reddit.com/r/news/
     source: json
+    client: puppeteer-fetch
+
 jobs:
   print:
     name: Print

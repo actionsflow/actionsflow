@@ -15,7 +15,7 @@ All hot feed:
 ```yaml
 on:
   reddit:
-    url: https://reddit.com/hot/
+    url: https://www.reddit.com/hot/
 ```
 
 New Hot Post in Subreddit:
@@ -23,7 +23,7 @@ New Hot Post in Subreddit:
 ```yaml
 on:
   reddit:
-    url: https://reddit.com/r/news/
+    url: https://www.reddit.com/r/news/
 ```
 
 new Post in Subreddit:
@@ -31,7 +31,7 @@ new Post in Subreddit:
 ```yaml
 on:
   reddit:
-    url: https://reddit.com/r/news/new/
+    url: https://www.reddit.com/r/news/new/
 ```
 
 new Post by User:
@@ -39,7 +39,7 @@ new Post by User:
 ```yaml
 on:
   reddit:
-    url: https://reddit.com/user/alienth/
+    url: https://www.reddit.com/user/alienth/
 ```
 
 The comments on a specific reddit post:
@@ -47,7 +47,7 @@ The comments on a specific reddit post:
 ```yaml
 on:
   reddit:
-    url: https://reddit.com/r/technology/comments/1uc9ro/wearing_a_mind_controlled_exoskeleton_a_paralyzed/
+    url: https://www.reddit.com/r/technology/comments/1uc9ro/wearing_a_mind_controlled_exoskeleton_a_paralyzed/
 ```
 
 A multireddit:
@@ -55,7 +55,7 @@ A multireddit:
 ```yaml
 on:
   reddit:
-    url: https://reddit.com/r/WTF+news
+    url: https://www.reddit.com/r/WTF+news
 ```
 
 Multiple reddit:
@@ -64,8 +64,8 @@ Multiple reddit:
 on:
   reddit:
     url:
-      - https://reddit.com/user/alienth/
-      - https://reddit.com/r/news/
+      - https://www.reddit.com/user/alienth/
+      - https://www.reddit.com/r/news/
     config:
       limit: 15
 ```
@@ -75,14 +75,16 @@ Or, you can use the full RSS URL:
 ```yaml
 on:
   reddit:
-    url: https://reddit.com/r/news/.rss
+    url: https://www.reddit.com/r/news/.rss
 ```
 
 ## Options
 
 - `url`, required, `string` or `string[]`, when `url` is `string[]`, then multiple Reddit feeds can trigger the action. All [reddit URL supported `.rss` suffix](https://www.reddit.com/wiki/rss) is valid value.
 - `source`, optional, `rss` or `json`, the default value is `rss`, if `source` is `rss`, we'll use <https://www.reddit.com/hot/.rss> as the source, if `source` is `json`, we'll use <https://www.reddit.com/hot/.json> as the source
-- `requestConfig`, optional, if `source` is `json`, you can provide a request config for [Axios](https://github.com/axios/axios)
+- `client`, optional, `axios` or `puppeteer-fetch`, only works when `source` is `json`, the default value is `axios`
+- `sleep`, optional, default sleep time ms, only works when `source` is `json`, the default value is `2000`
+- `requestConfig`, optional, if `source` is `json`, you can provide a request config for [Axios](https://github.com/axios/axios) or [puppeteer-fetch](https://github.com/theowenyoung/puppeteer-fetch) config
 
 > You can use [General Config for Actionsflow Trigger](https://actionsflow.github.io/docs/workflow/#ontriggerconfig) for more customization.
 
@@ -112,7 +114,7 @@ You can use the outputs like this:
 ```yaml
 on:
   reddit:
-    url: https://reddit.com/r/news/
+    url: https://www.reddit.com/r/news/
 jobs:
   print:
     name: Print
@@ -380,7 +382,7 @@ You can use the outputs like this:
 ```yaml
 on:
   reddit:
-    url: https://reddit.com/r/news/
+    url: https://www.reddit.com/r/news/
 jobs:
   print:
     name: Print

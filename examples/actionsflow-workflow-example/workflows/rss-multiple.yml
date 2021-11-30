@@ -2,7 +2,7 @@ on:
   rss:
     url:
       - https://actionsflow.github.io/test-page/hn-rss.xml
-      - https://www.buzzfeed.com/world.xml
+      - https://www.trackawesomelist.com/rss.xml
     config:
       limit: 15
 jobs:

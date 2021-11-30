@@ -655,7 +655,7 @@ async function getJobGroups(
     );
   } catch (error) {
     throw new Error(
-      `An error occurred when parsing workflow file ${workflowRelativePath}:  ${error.toString()}`
+      `An error occurred when parsing workflow file ${workflowRelativePath}:  ${(error as Error).toString()}`
     );
   }
   let jobs = newJobs;

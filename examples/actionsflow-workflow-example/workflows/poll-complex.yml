@@ -1,6 +1,6 @@
 on:
   poll:
-    url: https://www.reddit.com/r/all/top/.json?raw_json=1
+    url: https://actionsflow.github.io/test-page/reddit-sample.json
     itemsPath: data.children
     deduplicationKey: id
     config:

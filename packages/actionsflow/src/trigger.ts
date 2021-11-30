@@ -179,7 +179,7 @@ export const run = async ({
                   throw new Error(
                     `An error occurred in the ${workflow.relativePath} [${
                       trigger.name
-                    }] format function: ${error.toString()}`
+                    }] format function: ${(error as Error).toString()}`
                   );
                 }
               });
@@ -206,7 +206,7 @@ export const run = async ({
                   throw new Error(
                     `An error occurred in the ${workflow.relativePath} [${
                       trigger.name
-                    }] filterScript function: ${error.toString()}`
+                    }] filterScript function: ${(error as Error).toString()}`
                   );
                 }
               });
@@ -234,7 +234,7 @@ export const run = async ({
                   throw new Error(
                     `An error occurred in the ${workflow.relativePath} [${
                       trigger.name
-                    }] sortScript function: ${error.toString()}`
+                    }] sortScript function: ${(error as Error).toString()}`
                   );
                 }
               });

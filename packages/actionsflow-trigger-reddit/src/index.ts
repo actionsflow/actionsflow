@@ -10,6 +10,8 @@ export default class Reddit implements ITriggerClassType {
   options: ITriggerOptions = {};
   helpers: IHelpers;
   source = "rss";
+  client = "axios";
+  sleep = 2000;
   getItemKey(item: AnyObject): string {
     // TODO adapt every cases
     if (item.guid) return item.guid as string;
@@ -24,6 +26,12 @@ export default class Reddit implements ITriggerClassType {
     if (options.source) {
       this.source = options.source as string;
     }
+    if (options.client == "puppeteer-fetch") {
+      this.client = "puppeteer-fetch";
+    }
+    if (options.sleep) {
+      this.sleep = options.sleep as number;
+    }
   }
   async requestJSON(urls: string[], config?: AnyObject): Promise<AnyObject[]> {
     urls = urls.map((item) => {
@@ -37,12 +45,22 @@ export default class Reddit implements ITriggerClassType {
     });
     let items: AnyObject[] = [];
     config = {
+      method: "GET",
       ...config,
     };
     for (let index = 0; index < urls.length; index++) {
       const feedUrl = urls[index];
       this.helpers.log.debug("reddit request options:", feedUrl, config);
-      const result = await this.helpers.axios.get(feedUrl, config);
+      let result;
+      if (this.client === "axios") {
+        result = await this.helpers.axios.get(feedUrl, config);
+      } else {
+        const fetchResult = await this.helpers.puppeteerFetch(feedUrl, config);
+        result = {
+          status: fetchResult.status,
+          data: await fetchResult.json(),
+        };
+      }
       this.helpers.log.debug(
         "reddit request response:",
         result.status,
@@ -58,6 +76,8 @@ export default class Reddit implements ITriggerClassType {
           result.data.data.children.map((item: AnyObject) => item.data)
         );
       }
+      // sleep
+      await this.helpers.sleep(2000);
     }
 
     return items;

@@ -1,6 +1,9 @@
 on:
   reddit:
     url: https://reddit.com/r/news/
+    config:
+      # reddit 403
+      active: false
 jobs:
   print:
     name: Print

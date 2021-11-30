@@ -153,7 +153,7 @@ export default class Twitter implements ITriggerClassType {
         return Number(BigInt(b.id as bigint) - BigInt(a.id as bigint));
       });
       tweets.forEach((tweet) => {
-        if (!max_id || BigInt(tweet.id_str) > BigInt(max_id)) {
+        if (!max_id || BigInt(tweet.id_str as string) > BigInt(max_id)) {
           max_id = tweet.id_str as string;
         }
       });

@@ -8,7 +8,10 @@ test("run trigger", async () => {
     cwd: path.resolve(__dirname, "fixtures"),
     workflowPath: path.resolve(__dirname, "fixtures/workflows/workflow.yml"),
     options: {
-      url: "https://reddit.com/r/news/",
+      url: "https://www.reddit.com/r/news/",
+      config: {
+        active: false,
+      },
     },
   });
   const trigger = new Trigger(triggerConstructorParams);
@@ -22,7 +25,10 @@ test("format item", async () => {
     cwd: path.resolve(__dirname, "fixtures"),
     workflowPath: path.resolve(__dirname, "fixtures/workflows/workflow.yml"),
     options: {
-      url: "https://reddit.com/r/news/",
+      url: "https://www.reddit.com/r/news/",
+      config: {
+        active: false,
+      },
     },
   });
   const trigger = new Trigger(triggerConstructorParams);
@@ -35,7 +41,8 @@ test("request json", async () => {
     cwd: path.resolve(__dirname, "fixtures"),
     workflowPath: path.resolve(__dirname, "fixtures/workflows/workflow.yml"),
     options: {
-      url: "https://reddit.com/r/news/",
+      client: "puppeteer-fetch",
+      url: "https://www.reddit.com/r/news/",
     },
   });
   const trigger = new Trigger(triggerConstructorParams);
@@ -49,12 +56,13 @@ test("request json2", async () => {
     cwd: path.resolve(__dirname, "fixtures"),
     workflowPath: path.resolve(__dirname, "fixtures/workflows/workflow.yml"),
     options: {
-      url: "https://reddit.com/r/news/?t=week",
+      client: "puppeteer-fetch",
+      url: "https://www.reddit.com/r/news/?t=week",
     },
   });
   const trigger = new Trigger(triggerConstructorParams);
   const result = await trigger.requestJSON([
-    "https://reddit.com/r/news/?t=week",
+    "https://www.reddit.com/r/news/?t=week",
   ]);
   expect(Array.isArray(result)).toBe(true);
   expect(result[0]).toHaveProperty("title");

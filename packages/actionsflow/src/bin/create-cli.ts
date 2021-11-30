@@ -179,7 +179,7 @@ export const createCli = (argv: string): Promise<string> => {
     const cliArgv = cli.parse(argv);
     if (!cliArgv._[0]) {
       cli.showHelp();
-      return resolve();
+      return resolve("");
     }
   });
 };

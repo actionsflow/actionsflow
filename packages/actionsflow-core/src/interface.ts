@@ -3,6 +3,7 @@ import { ParsedUrlQuery } from "querystring";
 import { Logger, LogLevelDesc } from "loglevel";
 import { AxiosStatic } from "axios";
 import Parser from "rss-parser";
+import { IOptions, IResponse } from "puppeteer-fetch";
 export type HTTP_METHODS_LOWERCASE =
   | "head"
   | "get"
@@ -39,7 +40,13 @@ export interface IHelpers {
   };
   log: Logger;
   axios: AxiosStatic;
+  puppeteerFetch: (
+    url: string,
+    config?: RequestInit,
+    options?: IOptions
+  ) => Promise<IResponse>;
   rssParser: typeof Parser;
+  sleep: (ms: number) => Promise<void>;
 }
 export interface ITriggerContext {
   secrets: Record<string, string>;

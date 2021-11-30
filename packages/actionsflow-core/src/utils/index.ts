@@ -18,3 +18,4 @@ export {
 } from "./path";
 export { isPromise } from "./promise";
 export { getRawTriggers, filter } from "./filter";
+export { sleep } from "./time";

@@ -99,6 +99,12 @@ Clean build files and cache:
 npm run clean:example
 ```
 
+## Install New Dependences
+
+```bash
+npm run lerna -- add a --scope=b
+```
+
 ## Development Cycle
 
 While iterating on Actionsflow module code, you can run `npm run start`. It will then
