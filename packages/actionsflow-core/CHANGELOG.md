@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/actionsflow/actionsflow/compare/actionsflow-core@1.9.1...actionsflow-core@1.10.0) (2021-11-30)
+
+
+### Features
+
+* add require for format, filter, sort config ([6480f53](https://github.com/actionsflow/actionsflow/commit/6480f53ff48241d4738634273a3c3923cc12aea1))
+* support helper puppeteer-fetch, fix reddit, update dependence ([59a0ecb](https://github.com/actionsflow/actionsflow/commit/59a0ecb0e11f30bc8cc147ec12f25ff107c96cf6))
+
+
+
+
+
 ## [1.9.1](https://github.com/actionsflow/actionsflow/compare/actionsflow-core@1.9.0...actionsflow-core@1.9.1) (2021-01-22)
 
 

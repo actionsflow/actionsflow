@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.11.4...actionsflow-workflow-example@1.12.0) (2021-11-30)
+
+
+### Features
+
+* support helper puppeteer-fetch, fix reddit, update dependence ([59a0ecb](https://github.com/actionsflow/actionsflow/commit/59a0ecb0e11f30bc8cc147ec12f25ff107c96cf6))
+
+
+
+
+
 ## [1.11.4](https://github.com/actionsflow/actionsflow/compare/actionsflow-workflow-example@1.11.3...actionsflow-workflow-example@1.11.4) (2021-07-06)
 
 **Note:** Version bump only for package actionsflow-workflow-example
