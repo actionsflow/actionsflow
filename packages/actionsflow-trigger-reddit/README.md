@@ -87,6 +87,22 @@ on:
 - `requestConfig`, optional, if `source` is `json`, you can provide a request config for [Axios](https://github.com/axios/axios) or [puppeteer-fetch](https://github.com/theowenyoung/puppeteer-fetch) config
 
 > You can use [General Config for Actionsflow Trigger](https://actionsflow.github.io/docs/workflow/#ontriggerconfig) for more customization.
+> Note: if you use  `puppeteer-fetch` as the client, then you must use `using: local` arguments to run workflows, because actionsflow/actionsflow-action can not load puppeteer in action. We must use normal local node_modules to run it. 
+
+```bash
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    name: Run
+    concurrency: actionsflow
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run Actionsflow
+        uses: actionsflow/actionsflow-action@v1
+        with:
+          using: local
+```
+
 
 ## Outputs
 
