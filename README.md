@@ -24,7 +24,7 @@
 ---
 
 <p align="center">
-<strong>The free <a href="https://ifttt.com/">IFTTT</a>/<a href="https://zapier.com/">Zapier</a> alternative for developers to automate their workflows based on Github actions</strong>
+<strong>The free <a href="https://ifttt.com/">IFTTT</a>/<a href="https://zapier.com/">Zapier</a> alternative for developers to automate their workflows based on GitHub actions, option to run self-hosted without GitHub as well</strong>
 <br>
 <br>
 </p>
