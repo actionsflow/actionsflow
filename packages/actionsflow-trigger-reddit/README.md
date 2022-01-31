@@ -88,7 +88,7 @@ on:
 
 > You can use [General Config for Actionsflow Trigger](https://actionsflow.github.io/docs/workflow/#ontriggerconfig) for more customization.
 
-> Note: if you use  `puppeteer-fetch` as the client, then you must use `using: local` arguments to run workflows, because actionsflow/actionsflow-action can not load puppeteer in action. We must use normal local node_modules to run it. 
+> Note: if you use `puppeteer-fetch` as the client, then you must use `using: local` arguments to run workflows, because actionsflow/actionsflow-action can not load puppeteer in action. We must use normal local node_modules to run it.
 
 ```bash
 jobs:
@@ -103,7 +103,6 @@ jobs:
         with:
           using: local
 ```
-
 
 ## Outputs
 

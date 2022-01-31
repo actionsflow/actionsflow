@@ -63,8 +63,6 @@ You can learn more about the core concepts of Actionsflow [here](#-how-actionsfl
 
 > If you want a lighter, simpler workflow that doesn't rely on Github Actions, consider [Denoflow](https://github.com/denoflow/denoflow), another workflow tool made by me, based on Deno with YAML , you can try it at an [online playground](https://playground.owenyoung.com/)
 
-
-
 ## 🔥 Features
 
 - **Totally Free!** Actionsflow is based on [Github actions](https://docs.github.com/en/actions). To run an Actionsflow workflow, all you need to do is [create a repository from the Actionsflow template repository](https://github.com/actionsflow/actionsflow-workflow-default/generate), or, you can also [deploy a self-hosted version](https://actionsflow.github.io/docs/self-hosted).
