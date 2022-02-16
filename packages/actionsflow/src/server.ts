@@ -28,8 +28,12 @@ export const start = async (options: IStartOptions): Promise<void> => {
       body: ctx.request.body,
     };
     log.debug("raw request", request);
+    // https://github.com/actionsflow/actionsflow/issues/34
     // JSON_GITHUB webhook payload
-    process.env.JSON_GITHUB = JSON.stringify({
+    const newOptions = {
+      ...options,
+    };
+    newOptions.jsonGithub = JSON.stringify({
       event_name: "repository_dispatch",
       event: {
         action: "webhook",
@@ -37,7 +41,7 @@ export const start = async (options: IStartOptions): Promise<void> => {
       },
     });
     // run workflows
-    runJob(options).catch((e) => {
+    runJob(newOptions).catch((e) => {
       log.warn("run workflows error: ", e);
     });
     const searchParams = new URLSearchParams(ctx.search);
