@@ -1,3 +1,11 @@
+## [1.12.2](https://github.com/actionsflow/actionsflow/compare/v1.12.1...v1.12.2) (2022-02-16)
+
+
+### Bug Fixes
+
+* dockerfile install puppteer ([d8bdfa2](https://github.com/actionsflow/actionsflow/commit/d8bdfa24a0f612aef43e6ae3c0781e0d2c43e869))
+* self-hosted webhook repeat ([a80cfc1](https://github.com/actionsflow/actionsflow/commit/a80cfc11a53f473f5054f9415d39abf77291b3c8))
+
 ## [1.12.1](https://github.com/actionsflow/actionsflow/compare/v1.12.0...v1.12.1) (2021-11-30)
 
 # [1.12.0](https://github.com/actionsflow/actionsflow/compare/v1.11.4...v1.12.0) (2021-11-30)
