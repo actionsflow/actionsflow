@@ -12,6 +12,8 @@ The following list is a collection of awesome actions that can be used with Acti
 Here is the actions that we found you can use, you can find more at <https://github.com/marketplace?type=actions>
 
 > Want to list actions here? You're welcome to [submit a pull request](https://github.com/actionsflow/actionsflow/edit/main/docs/actions.md)!
+> 
+> You can also see more awesome github actions at <https://github.com/sdras/awesome-actions>
 
 - [Amazon Chime "Chime Webhook"](https://github.com/marketplace/actions/amazon-chime-chime-webhook-action-for-github-actions) - Send message to Amazon Chime chat rooms.
 - [Asana](https://github.com/marketplace/actions/asana-git) - Integrate Asana with Github.
