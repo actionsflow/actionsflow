@@ -8,7 +8,7 @@ metaTitle: "Actionsflow Introduction"
 You can learn more about the core concepts of Actionsflow [here](/docs/concepts.md).
 
 > If you want a lighter, simpler workflow that doesn't rely on Github Actions, consider [Denoflow](https://github.com/denoflow/denoflow), another workflow tool made by me, based on Deno with YAML , you can try it at an [online playground](https://playground.owenyoung.com/)
-
+<!-- 
 <div align="center">
         <h1>Sponsorships</h1>
         <br />
@@ -32,7 +32,7 @@ You can learn more about the core concepts of Actionsflow [here](/docs/concepts.
             </sup>
           </div>
         </a>
-</div>
+</div> -->
 
 # Features
 
