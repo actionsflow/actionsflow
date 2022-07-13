@@ -29,7 +29,7 @@
 <br>
 </p>
 
-<div align="center">
+<!-- <div align="center">
   <h2>Sponsorships</h2>
   <br>
   <a href="https://meercode.io/?utm_campaign=github_repo&utm_medium=referral&utm_content=actionsflow&utm_source=github">
@@ -41,7 +41,7 @@
         <sup>It's impossible to improve what you can't measure! Get Real Insights and Metrics From Your CI usage</sup>
       </div>
   </a>
-</div>
+</div> -->
 
 ---
 
