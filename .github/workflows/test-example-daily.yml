@@ -7,6 +7,8 @@ on:
     # * is a special character in YAML so you have to quote this string
     - cron: "20 9 * * *"
   workflow_dispatch:
+env:
+  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
 jobs:
   build:
     runs-on: ${{ matrix.os }}
