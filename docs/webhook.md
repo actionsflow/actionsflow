@@ -3,8 +3,6 @@ title: "Webhook Syntax"
 metaTitle: "Webhook Syntax for Actionsflow"
 ---
 
-Some triggers (like [telegram_bot](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-telegram_bot)) may provide a webhook option, so you can get updates more timely.
-
 Actionsflow provides a general webhook capability for triggers. If the trigger supports webhooks, you can set a webhook URL on the third-party platform and then the trigger will handle your webhook event.
 
 Generally, a webhook URL will look like this:
