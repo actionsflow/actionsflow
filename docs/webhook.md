@@ -91,9 +91,10 @@ This way, Github actions will be triggered via the `repository_dispatch` event.
 Testing and debugging webhooks are crucial steps in ensuring that your workflows function as intended. Several tools can assist in this process by allowing you to inspect and simulate webhook requests.
 
 ### Beeceptor
-Beeceptor is an easy to set up tool that enables you to create a mock API endpoint to capture and inspect HTTP requests or simulate responses without the need for coding.
+[Beeceptor](https://beeceptor.com/webhook-integration/) is an easy to set up tool that enables you to create a mock API endpoint to capture and inspect HTTP requests or simulate responses without the need for coding.
+
 Local Tunnel is a tool to route external HTTP traffic to your local development environment, ideal for testing self-hosted consumers or APIs. It also supports customizing responses, enabling you to simulate various scenarios and test how your application handles different responses. It lets you test self-hosted consumers (e.g., webhook handlers, API clients) by forwarding live production traffic to your local machine. This avoids repetitive deployments, letting you iterate faster while debugging payloads, headers, or business logic locally.
 
 ### ngrok
-ngrok is also can also be to expose a local server to the internet securely, making it easy to test webhooks, APIs, or local applications without deploying them.
+[ngrok](https://ngrok.com/) is also can also be to expose a local server to the internet securely, making it easy to test webhooks, APIs, or local applications without deploying them.
 
