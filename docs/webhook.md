@@ -3,24 +3,24 @@ title: "Webhook Syntax"
 metaTitle: "Webhook Syntax for Actionsflow"
 ---
 
-Actionsflow offers a general webhook capability for triggers, allowing you to receive timely updates from third-party platforms. If a trigger supports webhooks, you can set a webhook URL on the third-party platform, and the trigger will handle your webhook events.
+Actionsflow offers a general webhook capability for triggers like [telegram_bot](https://github.com/actionsflow/actionsflow/tree/main/packages/actionsflow-trigger-telegram_bot), allowing you to receive timely updates from third-party platforms. If a trigger supports webhooks, you can set a webhook URL on the third-party platform, and the trigger will handle your webhook events.
 
 Generally, a webhook URL will look like this:
 
 ```bash
 https://webhook.actionsflow.workers.dev/<owner>/<repo>/<workflow-file-name>/<trigger-name>?__token=<your-github-personal-token>
 ```
-<owner>: Your GitHub username or organization name.
-<repo>: The name of your GitHub repository.
-<workflow-file-name>: The name of your workflow file (without the .yml extension).
-<trigger-name>: The name of the trigger in your workflow.
-__token: Your GitHub personal access token with repo scope.
+- <owner>: Your GitHub username or organization name.
+- <repo>: The name of your GitHub repository.
+- <workflow-file-name>: The name of your workflow file (without the .yml extension).
+- <trigger-name>: The name of the trigger in your workflow.
+- __token: Your GitHub personal access token with repo scope.
 
 > Note: For self-hosted version, the webhook URL will look like this: `http://localhost:3000/webhook/<workflow-file-name>/<trigger-name>`
 
 > Note: You need to generate personal access tokens with `repo` scope on your [Github settings](https://github.com/settings/tokens) and then replace `<your-github-personal-token>`.
 
-If successful, the response will include status: 200 and body: {"success": true}.
+If successful, the response will include status: `200` and body: `{"success": true}`.
 
 # Customizing Responses
 
@@ -32,9 +32,7 @@ You can specify custom responses for your webhooks using the following query par
 
 The webhook also supports the cross-origin resource sharing (CORS) request.
 
-## Example:
-
-### Customize HTTP responses and understand webhook URL patterns for Actionsflow triggers.
+## Customized HTTP responses
 
 **cURL example:**
 
@@ -45,8 +43,6 @@ curl --request POST 'https://webhook.actionsflow.workers.dev/actionsflow/webhook
     "key": "value"
 }'
 ```
-
-### Explanation:
 
 `https://webhook.actionsflow.workers.dev/<owner>/<repo>/<workflow-file-name>/<trigger-name>` is the fixed prefix for webhook URL. Most triggers will use this as their webhook URL. But if some trigger has more than one webhook path, the webhook URL may have a suffix, like `https://webhook.actionsflow.workers.dev/<owner>/<repo>/<workflow-file-name>/<trigger-name>/webhook1`. You should check that trigger's documentation for the webhook URL to get more information.
 
@@ -64,7 +60,7 @@ Here are examples of triggers that support webhooks:
 
 # How It Works
 
-The webhook feature in Actionsflow is implemented using GitHub's repository_dispatch event. When a webhook request is received at:
+The webhook feature in Actionsflow is implemented using GitHub's [repository_dispatch](https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#repository_dispatch) event. When a webhook request is received at:
 
 ```bash
 https://webhook.actionsflow.workers.dev/<owner>/<repo>/<your-path>?__token=<your-github-personal-token>
@@ -100,3 +96,4 @@ Local Tunnel can be used to route external HTTP traffic to your local developmen
 ## ngrok
 [ngrok](https://ngrok.com/) is also can also be to expose a local server to the internet securely, making it easy to test webhooks, APIs, or local applications without deploying them.
 
+> Note: Be vigilant when utilizing third-party tools, as they could potentially expose confidential information. Restrict usage to sandbox and test environments.
