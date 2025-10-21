@@ -14,7 +14,7 @@ export default class Weather implements ITriggerClassType {
   helpers: IHelpers;
   api = "onecall";
   apiKey = "";
-  endpoint = "https://api.openweathermap.org/data/2.5/";
+  endpoint = "https://api.openweathermap.org/data/3.0/";
   getItemKey(item: AnyObject): string {
     if (this.endpoint && this.api) {
       return (this.endpoint + this.api + "__" + Date.now()) as string;
